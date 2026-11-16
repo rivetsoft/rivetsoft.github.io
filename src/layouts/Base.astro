@@ -1,0 +1,85 @@
+---
+import "../styles/global.css";
+import { navApps } from "../data/apps";
+
+interface Props {
+  title: string;
+  description: string;
+  current?: string;
+}
+
+const { title, description, current = "" } = Astro.props;
+const documentTitle = current === "home" ? "Rivet" : `${title}`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{documentTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" href="/rivet-files.svg" type="image/svg+xml" />
+    <script is:inline>
+      (function () {
+        try {
+          var stored = localStorage.getItem("rivet-theme");
+          if (stored === "light" || stored === "dark") {
+            document.documentElement.dataset.theme = stored;
+          }
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip" href="#content">Skip to content</a>
+    <header class="mast">
+      <div class="mast-inner">
+        <a class="brand" href="/">Rivet</a>
+        <nav aria-label="Pages">
+          {
+            navApps.map((app) => (
+              <a href={`/${app.slug}/`} aria-current={current === app.slug ? "page" : undefined}>
+                {app.navLabel ?? app.name}
+              </a>
+            ))
+          }
+          <a href="https://github.com/ulinaaron/rivet-files">Code</a>
+        </nav>
+        <button type="button" class="theme" id="theme" aria-label="Switch color scheme">
+          <span class="when-light">Dark</span>
+          <span class="when-dark">Light</span>
+        </button>
+      </div>
+    </header>
+    <main id="content" class="column">
+      <slot />
+    </main>
+    <footer class="site-footer column">
+      <p>
+        <a href="https://github.com/ulinaaron/rivet-files/blob/main/LICENSE-MIT">MIT</a> or
+        <a href="https://github.com/ulinaaron/rivet-files/blob/main/LICENSE-APACHE">Apache-2.0</a>.
+        Code on <a href="https://github.com/ulinaaron/rivet-files">GitHub</a>.
+      </p>
+    </footer>
+    <script is:inline>
+      (function () {
+        var key = "rivet-theme";
+        var btn = document.getElementById("theme");
+        if (!btn) return;
+        function current() {
+          if (document.documentElement.dataset.theme === "dark") return "dark";
+          if (document.documentElement.dataset.theme === "light") return "light";
+          return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        }
+        btn.addEventListener("click", function () {
+          var next = current() === "dark" ? "light" : "dark";
+          document.documentElement.dataset.theme = next;
+          try {
+            localStorage.setItem(key, next);
+          } catch (e) {}
+        });
+      })();
+    </script>
+  </body>
+</html>

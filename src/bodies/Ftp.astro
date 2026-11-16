@@ -1,0 +1,119 @@
+---
+const repo = "https://github.com/ulinaaron/rivet-files";
+---
+
+<h1>Rivet FTP</h1>
+<p>Working name. It is not final. The repository currently calls it Rivet FTP.</p>
+<p>
+  A dual-pane file-transfer app for SFTP, FTP, and FTPS, built on Rivet's core and written in Rust
+  and egui, with no GTK or Qt. This computer on one side, the server on the other, and a transfer
+  queue. The same window is the connection manager for the <code>rivet-ftp</code> command. It is in
+  progress. There is no release build yet.
+</p>
+
+<figure class="coming">
+  <p>Screenshot coming</p>
+</figure>
+<p>
+  The repository has no screenshot of Rivet FTP. The file manager pictures elsewhere on this site are
+  not this app.
+</p>
+
+<h2>What works</h2>
+<p>From the notes in the repository, the first window works over SFTP.</p>
+<ul>
+  <li>A connection list: add, edit, remove, and a quick-connect field.</li>
+  <li>Two panes, a path bar, keyboard control, and drag and drop between the panes.</li>
+  <li>Transfers both ways, for files and whole folders, with a queue.</li>
+  <li>New folder, rename, and delete on the server. Delete asks first.</li>
+  <li>
+    SFTP goes through the system's own <code>sftp</code> program, so keys, the ssh agent,
+    <code>~/.ssh/config</code>, and known_hosts apply. A new server is trusted on first use. A changed
+    server key is refused.
+  </li>
+  <li>The command line reads the same saved connections as the window, including <code>ssh</code> and <code>sftp</code>.</li>
+</ul>
+<p>
+  FTP and FTPS addresses can be saved. They cannot be opened yet. Pause, retry, upload progress,
+  Rivet's own file views inside the panes, a launcher entry, and packaging are still on the plan.
+</p>
+
+<h2>Run it from a checkout</h2>
+<pre><code>cargo build -p rivet-ftp
+./target/debug/rivet-ftp
+./target/debug/rivet-ftp open work-site</code></pre>
+
+<h2>Saved connections</h2>
+<p>
+  Passwords are never written into the connections file. The notes say the window will keep them in
+  the desktop keyring. SSH logins use keys or the ssh agent.
+</p>
+<pre><code>rivet-ftp add "Work site" sftp://me@example.com:2222/var/www --key ~/.ssh/id_ed25519 --local ~/Sites/work
+rivet-ftp add Pi pi@192.168.1.4
+rivet-ftp list
+rivet-ftp ssh work-site
+rivet-ftp sftp work-site</code></pre>
+<p>
+  <code>user@server</code> alone means SFTP. Addresses look like <code>sftp://</code>,
+  <code>ftp://</code>, or <code>ftps://</code>.
+</p>
+<p>
+  Every save also writes <code>~/.config/rivet-ftp/ssh_config</code>. One line near the top of
+  <code>~/.ssh/config</code> lets <code>ssh</code>, <code>scp</code>, <code>rsync</code>, and
+  <code>git</code> use those names:
+</p>
+<pre><code>Include ~/.config/rivet-ftp/ssh_config</code></pre>
+<p>
+  Connections live in <code>~/.config/rivet-ftp/connections.conf</code>, plain text, readable only by
+  you. You can edit it by hand. <code>rivet-ftp ssh-config</code> prints the Include line again.
+</p>
+
+<h2>Keys</h2>
+<p>The project notes list these:</p>
+<dl class="keys">
+  <div>
+    <dt><kbd>Tab</kbd></dt>
+    <dd>Switch between the panes.</dd>
+  </div>
+  <div>
+    <dt><kbd>Enter</kbd></dt>
+    <dd>Open a folder, or send a file to the other side. Double-click does this too.</dd>
+  </div>
+  <div>
+    <dt><kbd>Backspace</kbd></dt>
+    <dd>Up a folder.</dd>
+  </div>
+  <div>
+    <dt><kbd>Up</kbd> <kbd>Down</kbd></dt>
+    <dd>Move through the list. Shift extends the selection.</dd>
+  </div>
+  <div>
+    <dt><kbd>Ctrl</kbd>+<kbd>A</kbd></dt>
+    <dd>Select everything.</dd>
+  </div>
+  <div>
+    <dt><kbd>F2</kbd></dt>
+    <dd>Rename.</dd>
+  </div>
+  <div>
+    <dt><kbd>Delete</kbd></dt>
+    <dd>Delete on the server, after a confirmation.</dd>
+  </div>
+  <div>
+    <dt><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>N</kbd></dt>
+    <dd>New folder.</dd>
+  </div>
+  <div>
+    <dt><kbd>Ctrl</kbd>+<kbd>H</kbd></dt>
+    <dd>Show hidden files.</dd>
+  </div>
+  <div>
+    <dt><kbd>F5</kbd></dt>
+    <dd>Refresh.</dd>
+  </div>
+</dl>
+
+<p>
+  Longer notes: <a href={`${repo}/blob/main/docs/rivet-ftp.md`}>docs/rivet-ftp.md</a> and
+  <a href={`${repo}/blob/main/apps/rivet-ftp/README.md`}>apps/rivet-ftp</a>.
+</p>

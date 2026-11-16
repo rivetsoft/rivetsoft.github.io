@@ -1,0 +1,71 @@
+---
+import Base from "../layouts/Base.astro";
+import Shot from "../components/Shot.astro";
+import { apps, release } from "../data/apps";
+
+const ready = apps.filter((app) => app.status !== "someday");
+const later = apps.filter((app) => app.status === "someday");
+const laterClose =
+  later.length <= 1
+    ? "might come later. It is not in the repository."
+    : later.length === 2
+      ? "might come later. Neither is in the repository."
+      : "might come later. None of them are in the repository.";
+
+function laterLabel(phrase: string, index: number) {
+  if (index === 0) return phrase.charAt(0).toUpperCase() + phrase.slice(1);
+  return phrase;
+}
+---
+
+<Base
+  title="Rivet"
+  description="Small Linux desktop apps by Aaron Mazade. Rivet Files is the file manager you can download."
+  current="home"
+>
+  <h1>Rivet</h1>
+  <p class="lede">
+    Small Linux desktop apps by <a href="https://github.com/ulinaaron">Aaron Mazade</a>.
+  </p>
+
+  <ul class="edition">
+    {
+      ready.map((app) => (
+        <li>
+          <a class="entry-name" href={`/${app.slug}/`}>
+            {app.name}
+          </a>
+          <p>{app.summary}</p>
+        </li>
+      ))
+    }
+  </ul>
+
+  {
+    later.length > 0 && (
+      <p class="later">
+        {later.map((app, i) => (
+          <>
+            {i > 0 ? (i === later.length - 1 ? " and " : ", ") : null}
+            <a href={`/${app.slug}/`}>{laterLabel(app.laterPhrase ?? app.name, i)}</a>
+          </>
+        ))}{" "}
+        {laterClose}
+      </p>
+    )
+  }
+
+  <p>
+    One repository holds the family. Shared crates cover folders and file types, the theme and
+    icons, and saved connections. Rivet FTP lives in
+    <a href={`${release.repo}/tree/main/apps/rivet-ftp`}>apps/rivet-ftp</a>.
+  </p>
+
+  <Shot
+    name="icons-wide.png"
+    alt="Rivet Files showing a home folder"
+    caption="Rivet Files, icon view, in a home folder. Screenshot from the repository."
+    eager
+  />
+
+</Base>

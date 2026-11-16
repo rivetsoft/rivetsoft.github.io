@@ -1,0 +1,42 @@
+{
+  "bloated-wide.png": {
+    "w": 1100,
+    "h": 700,
+    "bytes": 82250
+  },
+  "file-picker-wide.png": {
+    "w": 1100,
+    "h": 700,
+    "bytes": 58717
+  },
+  "icons-wide.png": {
+    "w": 1100,
+    "h": 700,
+    "bytes": 45507
+  },
+  "minimal-wide.png": {
+    "w": 1100,
+    "h": 700,
+    "bytes": 43281
+  },
+  "peek-code-wide.png": {
+    "w": 1100,
+    "h": 700,
+    "bytes": 93346
+  },
+  "quick-open-wide.png": {
+    "w": 1100,
+    "h": 700,
+    "bytes": 32594
+  },
+  "terminal-wide.png": {
+    "w": 1100,
+    "h": 700,
+    "bytes": 118060
+  },
+  "zen-wide.png": {
+    "w": 1100,
+    "h": 700,
+    "bytes": 34474
+  }
+}

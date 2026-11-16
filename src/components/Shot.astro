@@ -1,0 +1,34 @@
+---
+import shots from "../data/shots.json";
+
+interface Props {
+  name: string;
+  alt: string;
+  caption: string;
+  eager?: boolean;
+}
+
+const { name, alt, caption, eager = false } = Astro.props;
+const table = shots as Record<string, { w: number; h: number }>;
+const meta = table[name];
+if (!meta) {
+  throw new Error(`Missing screenshot ${name}`);
+}
+const src = `/screenshots/${name}`;
+---
+
+<figure class="shot">
+  <a href={src}>
+    <img
+      src={src}
+      alt={alt}
+      width={meta.w}
+      height={meta.h}
+      loading={eager ? "eager" : "lazy"}
+      decoding="async"
+      fetchpriority={eager ? "high" : undefined}
+    />
+    <span class="vh">Open full size.</span>
+  </a>
+  <figcaption>{caption}</figcaption>
+</figure>
