@@ -3,12 +3,17 @@ const repo = "https://github.com/ulinaaron/rivet-files";
 ---
 
 <h1>Rivet FTP</h1>
-<p>Working name. It is not final. The repository currently calls it Rivet FTP.</p>
+<p class="status-row"><span class="badge badge-alpha">Alpha</span></p>
 <p>
-  A dual-pane file-transfer app for SFTP, FTP, and FTPS, built on Rivet's core and written in Rust
-  and egui, with no GTK or Qt. This computer on one side, the server on the other, and a transfer
-  queue. The same window is the connection manager for the <code>rivet-ftp</code> command. It is in
-  progress. There is no release build yet.
+  Early alpha. A dual-pane file-transfer app for SFTP, FTP, and FTPS, built on Rivet's core and
+  written in Rust and egui, with no GTK or Qt. This computer on one side, the server on the other,
+  and a transfer queue. The same window is the connection manager for the
+  <code>rivet-ftp</code> command.
+</p>
+<p>
+  It is not ready for daily use. Things are missing, change without notice, or break. There is no
+  release and no package yet. Build it from source, and try it on servers and files you have
+  backups of.
 </p>
 
 <figure class="coming">
@@ -36,6 +41,13 @@ const repo = "https://github.com/ulinaaron/rivet-files";
 <p>
   FTP and FTPS addresses can be saved. They cannot be opened yet. Pause, retry, upload progress,
   Rivet's own file views inside the panes, a launcher entry, and packaging are still on the plan.
+</p>
+<p>
+  Right-click a file on the server and choose Open in Editor (or press F4), or Open With to pick an
+  app. Rivet FTP downloads it to a private folder, opens it, and sends each save back. If the server
+  copy changed, it asks before replacing it. Preferences, SSH Keys lists keys in
+  <code>~/.ssh</code>, can make a new Ed25519 or RSA 4096 key, and can copy a public key onto a
+  server. Private keys stay in <code>~/.ssh</code>.
 </p>
 
 <h2>Run it from a checkout</h2>

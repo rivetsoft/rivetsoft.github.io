@@ -1,4 +1,4 @@
-export type AppStatus = "available" | "in-progress" | "someday";
+export type AppStatus = "released" | "alpha" | "someday";
 
 export interface AppEntry {
   /** Route slug. The page is /{slug}/ */
@@ -14,14 +14,14 @@ export interface AppEntry {
   /** Quiet home-page phrase for status "someday". */
   laterPhrase?: string;
   /** Which long page to render. Omit for the short generic page. */
-  template?: "files" | "ftp";
+  template?: "files" | "ftp" | "notes";
 }
 
 export const apps: AppEntry[] = [
   {
     slug: "files",
     name: "Rivet Files",
-    status: "available",
+    status: "released",
     nav: true,
     navLabel: "Files",
     template: "files",
@@ -31,21 +31,22 @@ export const apps: AppEntry[] = [
   {
     slug: "ftp",
     name: "Rivet FTP",
-    status: "in-progress",
+    status: "alpha",
     nav: true,
     navLabel: "FTP",
     template: "ftp",
     summary:
-      "Working name. A dual-pane SFTP, FTP, and FTPS client. The window is also the connection manager for the command line. SFTP works today.",
+      "Early alpha. A dual-pane SFTP, FTP, and FTPS client. The window is also the connection manager for the command line. No release yet.",
   },
   {
     slug: "notes",
-    name: "Notes",
-    status: "someday",
-    nav: false,
-    laterPhrase: "a notes app",
+    name: "Rivet Notes",
+    status: "alpha",
+    nav: true,
+    navLabel: "Notes",
+    template: "notes",
     summary:
-      "Maybe later. A notes app is not in the repository, so there is nothing to install and no feature list.",
+      "Early alpha. Markdown notes in plain folders: vaults, properties, and browsing by folder or tag. No release yet.",
   },
   {
     slug: "calculator",

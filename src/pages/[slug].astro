@@ -2,6 +2,7 @@
 import Base from "../layouts/Base.astro";
 import FilesBody from "../bodies/Files.astro";
 import FtpBody from "../bodies/Ftp.astro";
+import NotesBody from "../bodies/Notes.astro";
 import { apps, type AppEntry } from "../data/apps";
 
 export function getStaticPaths() {
@@ -19,6 +20,7 @@ const { app } = Astro.props;
 const bodies = {
   files: FilesBody,
   ftp: FtpBody,
+  notes: NotesBody,
 } as const;
 const Body = app.template ? bodies[app.template] : null;
 ---

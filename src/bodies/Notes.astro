@@ -1,0 +1,115 @@
+---
+const repo = "https://github.com/ulinaaron/rivet-files";
+---
+
+<h1>Rivet Notes</h1>
+<p class="status-row"><span class="badge badge-alpha">Alpha</span></p>
+<p>
+  Early alpha. Markdown notes kept in plain folders, built on the same shared parts as Rivet Files
+  and Rivet FTP: theme and desktop colors, icons, fonts, and in-app windows. It is written in Rust
+  and egui, with no GTK or Qt.
+</p>
+<p>
+  It is not ready for daily use. Things are missing, change without notice, or break. There is no
+  release and no package yet. Build it from source, and try it on a copy of notes you have backups of.
+</p>
+
+<figure class="coming">
+  <p>Screenshot coming</p>
+</figure>
+<p>The repository has no screenshot of Rivet Notes.</p>
+
+<h2>Vaults</h2>
+<p>
+  A vault is any folder. Its <code>.md</code> files are the notes, and its subfolders are their
+  folders. Nothing is added to the folder: no database, and no hidden settings. Names that start
+  with a dot, such as <code>.git</code> or <code>.obsidian</code>, are left out. Switch vaults from
+  the button at the left of the toolbar, or with File, Switch Vault. Preferences lists your vaults.
+  Forget takes one off the list and leaves the folder alone.
+</p>
+<pre><code>cargo build -p rivet-notes
+./target/debug/rivet-notes [VAULT]
+./target/debug/rivet-notes tags [VAULT]</code></pre>
+<p>
+  From a release build of the workspace, the same commands are
+  <code>cargo build --release -p rivet-notes</code> and
+  <code>./target/release/rivet-notes [VAULT]</code>.
+</p>
+
+<h2>What the first version does</h2>
+<dl class="features">
+  <dt>Properties</dt>
+  <dd>
+    The <code>---</code> block at the top of a note is shown as properties: text, number, checkbox,
+    date, list, tags, or link. The file stays plain YAML. Saving writes back only what changed in
+    that block.
+  </dd>
+  <dt>Browse</dt>
+  <dd>
+    By folder, in a tree that folds, or by tag. Search looks at titles, paths, the first line, and
+    tags. <code>#name</code> searches tags only.
+  </dd>
+  <dt>Links</dt>
+  <dd>
+    <code>[[Note name]]</code>, with optional shown text or a heading. Typing <code>[[</code> lists
+    matches. Peek lists backlinks. Renaming a note updates the links that point at it.
+  </dd>
+  <dt>Quick Open and Quick Actions</dt>
+  <dd>
+    Ctrl+P finds a note from part of its title or folder. Shift+Ctrl+P runs a command or option by
+    name. They use the same panel as Rivet Files.
+  </dd>
+  <dt>Editing</dt>
+  <dd>
+    Source mode shows the Markdown as written. Live mode still writes Markdown, and renders every
+    line except the one you are on. Ctrl+Space opens a reading view. Notes save a second after you
+    stop typing, and with Ctrl+S.
+  </dd>
+  <dt>Daily notes</dt>
+  <dd>
+    Optional, in Preferences, Modules. Ctrl+D opens today's note, named by its date, in a folder you
+    pick.
+  </dd>
+  <dt>Peek</dt>
+  <dd>
+    F11 opens a panel about the open note: width, file details, dates, and properties.
+  </dd>
+</dl>
+
+<h2>Keys</h2>
+<p>The project notes list these, among others. F1 is not how this app lists them. The full table is in the docs.</p>
+<div class="keys">
+  <div>
+    <dt><kbd>Ctrl</kbd>+<kbd>N</kbd></dt>
+    <dd>New note. Shift+Ctrl+N makes a folder.</dd>
+  </div>
+  <div>
+    <dt><kbd>Ctrl</kbd>+<kbd>S</kbd></dt>
+    <dd>Save now.</dd>
+  </div>
+  <div>
+    <dt><kbd>Ctrl</kbd>+<kbd>Space</kbd></dt>
+    <dd>Reading view. Esc closes it.</dd>
+  </div>
+  <div>
+    <dt><kbd>Ctrl</kbd>+<kbd>P</kbd></dt>
+    <dd>Quick Open.</dd>
+  </div>
+  <div>
+    <dt><kbd>Shift</kbd>+<kbd>Ctrl</kbd>+<kbd>P</kbd></dt>
+    <dd>Quick Actions.</dd>
+  </div>
+  <div>
+    <dt><kbd>F11</kbd></dt>
+    <dd>Peek.</dd>
+  </div>
+  <div>
+    <dt><kbd>Ctrl</kbd>+<kbd>D</kbd></dt>
+    <dd>Daily note, when that module is on.</dd>
+  </div>
+</div>
+
+<p>
+  Longer notes: <a href={`${repo}/blob/main/docs/rivet-notes.md`}>docs/rivet-notes.md</a> and
+  <a href={`${repo}/blob/main/apps/rivet-notes/README.md`}>apps/rivet-notes</a>.
+</p>
