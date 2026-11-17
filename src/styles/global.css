@@ -177,17 +177,29 @@ nav[aria-label="Pages"] a[aria-current="page"] {
   background: var(--code);
 }
 
+nav[aria-label="Pages"] a.repo {
+  justify-content: center;
+  min-width: 44px;
+  padding-inline: 0.45rem;
+}
+
+nav[aria-label="Pages"] a.repo svg {
+  display: block;
+}
+
 .theme {
   grid-area: theme;
   font: inherit;
-  font-weight: 560;
   color: var(--fg);
   background: var(--bg-raised);
   border: 1px solid var(--line);
   border-radius: 10px;
-  min-height: 44px;
-  min-width: 44px;
-  padding: 0.35rem 0.9rem;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   backdrop-filter: blur(10px);
 }
@@ -196,25 +208,29 @@ nav[aria-label="Pages"] a[aria-current="page"] {
   border-color: color-mix(in srgb, var(--press) 50%, var(--line));
 }
 
-.when-dark {
+.theme svg {
+  display: block;
+}
+
+.theme .when-dark {
   display: none;
 }
 
-:root[data-theme="dark"] .when-light {
+:root[data-theme="dark"] .theme .when-light {
   display: none;
 }
 
-:root[data-theme="dark"] .when-dark {
-  display: inline;
+:root[data-theme="dark"] .theme .when-dark {
+  display: block;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .when-light {
+  :root:not([data-theme="light"]) .theme .when-light {
     display: none;
   }
 
-  :root:not([data-theme="light"]) .when-dark {
-    display: inline;
+  :root:not([data-theme="light"]) .theme .when-dark {
+    display: block;
   }
 }
 

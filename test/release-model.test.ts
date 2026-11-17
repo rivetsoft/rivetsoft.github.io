@@ -34,7 +34,6 @@ describe("tag mapping", () => {
     assert.equal(matchSlug("rivet-ftp-v0.1.0", tagApps), "ftp");
     assert.equal(matchSlug("rivet-edit-v0.1.0", tagApps), "edit");
     assert.equal(matchSlug("rivet-terminal-v0.1.0", tagApps), "terminal");
-    assert.equal(matchSlug("rivet-calc-v0.1.0", tagApps), "calculator");
     assert.equal(matchSlug("not-a-release", tagApps), undefined);
   });
 });

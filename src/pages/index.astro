@@ -2,7 +2,7 @@
 import Base from "../layouts/Base.astro";
 import Shot from "../components/Shot.astro";
 import shots from "../data/shots.json";
-import { apps, homeDescription, statusFor, statusLabel } from "../data/apps";
+import { apps, statusFor, statusLabel } from "../data/apps";
 import { catalog, releaseFor } from "../data/releases";
 import { url } from "../paths";
 
@@ -17,22 +17,14 @@ for (const { app } of rows) {
   }
 }
 
-const description = homeDescription(
-  rows.map((row) => ({
-    name: row.app.name,
-    status: row.status,
-    version: row.release?.version,
-  })),
-);
+const description =
+  "A small set of Linux desktop apps for files, notes, FTP, editing and the terminal. Built for fun, held together with rivets.";
 ---
 
 <Base title="Rivet" description={description} current="home">
   <header class="hero">
     <h1>Rivet</h1>
-    <p class="lede">
-      Small Linux desktop apps by <a href="https://github.com/ulinaaron">Aaron Mazade</a>.
-      They share one look, and one repository.
-    </p>
+    <p class="lede">{description}</p>
     {
       catalog.source === "fallback" && (
         <p class="notice">GitHub was unreachable when this page was built. Versions below are the last saved release info.</p>

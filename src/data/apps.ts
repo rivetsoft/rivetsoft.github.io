@@ -108,14 +108,6 @@ export const apps: AppEntry[] = [
 ./target/release/rivet-terminal -d ~/projects
 ./target/release/rivet-terminal --install-desktop-entry`,
   },
-  {
-    slug: "calculator",
-    name: "Calculator",
-    tagPrefixes: ["rivet-calc-v"],
-    nav: false,
-    laterPhrase: "a calculator",
-    summary: "Maybe later. A calculator is not in the repository, so there is nothing to install and no feature list.",
-  },
 ];
 
 export const navApps = apps.filter((app) => app.nav);
@@ -138,20 +130,4 @@ export function statusFor(app: AppEntry, release: { prerelease: boolean } | unde
   if (release) return release.prerelease ? "alpha" : "released";
   if (app.laterPhrase) return "someday";
   return "unreleased";
-}
-
-export function homeDescription(rows: { name: string; status: AppStatus; version?: string }[]): string {
-  const sentences = ["Small Linux desktop apps by Aaron Mazade."];
-  for (const row of rows) {
-    if (row.status === "released") {
-      sentences.push(`${row.name} is released${row.version ? ` (${row.version})` : ""}.`);
-    } else if (row.status === "alpha") {
-      sentences.push(`${row.name} is an early alpha${row.version ? ` (${row.version} pre-release)` : ""}.`);
-    } else if (row.status === "unreleased") {
-      sentences.push(`${row.name} has no release yet.`);
-    } else {
-      sentences.push(`${row.name} is only a maybe.`);
-    }
-  }
-  return sentences.join(" ");
 }
