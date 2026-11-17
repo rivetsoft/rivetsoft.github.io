@@ -1,8 +1,16 @@
 ---
 import Base from "../layouts/Base.astro";
 import Shot from "../components/Shot.astro";
+import shots from "../data/shots.json";
 import { apps, type AppStatus } from "../data/apps";
 import { url } from "../paths";
+
+const table = shots as Record<string, { w: number; h: number }>;
+for (const app of apps) {
+  if (app.cardShot && !table[app.cardShot]) {
+    throw new Error(`Missing screenshot ${app.cardShot}`);
+  }
+}
 
 const label: Record<AppStatus, string> = {
   released: "Released",
@@ -13,7 +21,7 @@ const label: Record<AppStatus, string> = {
 
 <Base
   title="Rivet"
-  description="Small Linux desktop apps by Aaron Mazade. Rivet Files is released. Rivet FTP and Rivet Notes are in alpha."
+  description="Small Linux desktop apps by Aaron Mazade. Rivet Files is released. Rivet FTP and Rivet Notes are early alphas, each with a 0.1.0 pre-release."
   current="home"
 >
   <header class="hero">
@@ -29,9 +37,21 @@ const label: Record<AppStatus, string> = {
       apps.map((app) => (
         <li>
           <a class="card" href={url(`${app.slug}/`)}>
-            <span class={`badge badge-${app.status}`}>{label[app.status]}</span>
-            <span class="card-name">{app.name}</span>
-            <span class="card-summary">{app.summary}</span>
+            {app.cardShot && table[app.cardShot] && (
+              <img
+                class="card-shot"
+                src={url(`screenshots/${app.cardShot}`)}
+                alt=""
+                width={table[app.cardShot].w}
+                height={table[app.cardShot].h}
+                decoding="async"
+              />
+            )}
+            <span class="card-copy">
+              <span class={`badge badge-${app.status}`}>{label[app.status]}</span>
+              <span class="card-name">{app.name}</span>
+              <span class="card-summary">{app.summary}</span>
+            </span>
           </a>
         </li>
       ))

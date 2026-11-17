@@ -4,7 +4,7 @@ A small static site for [Rivet](https://github.com/ulinaaron/rivet-apps), Aaron 
 
 The built site is served at [https://ulinaaron.github.io/rivet-web/](https://ulinaaron.github.io/rivet-web/). Astro's `base` is `/rivet-web`.
 
-Rivet Files is released (0.6.0). Rivet FTP and Rivet Notes are early alpha, with no release or package yet. A calculator is only a maybe. Facts come from the public repository. Screenshots of Rivet Files are copied from `docs/screenshots`. FTP and Notes have none, so those pages say "Screenshot coming".
+Rivet Files is released (0.6.0). Rivet FTP and Rivet Notes are early alpha. Each has a 0.1.0 pre-release archive. A calculator is only a maybe. Facts come from the public repository. Screenshots are copied from `docs/screenshots`. The Notes and FTP pictures are recompressed RGB copies of those files.
 
 ## Run
 

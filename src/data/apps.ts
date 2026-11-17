@@ -15,6 +15,8 @@ export interface AppEntry {
   laterPhrase?: string;
   /** Which long page to render. Omit for the short generic page. */
   template?: "files" | "ftp" | "notes";
+  /** Home-card screenshot in public/screenshots. */
+  cardShot?: string;
 }
 
 export const apps: AppEntry[] = [
@@ -25,6 +27,7 @@ export const apps: AppEntry[] = [
     nav: true,
     navLabel: "Files",
     template: "files",
+    cardShot: "icons-wide.png",
     summary:
       "A Linux file manager in Rust and egui, with no GTK or Qt. The latest download is 0.6.0.",
   },
@@ -35,8 +38,9 @@ export const apps: AppEntry[] = [
     nav: true,
     navLabel: "FTP",
     template: "ftp",
+    cardShot: "ftp-connected-wide.png",
     summary:
-      "Early alpha. A dual-pane SFTP, FTP, and FTPS client. The window is also the connection manager for the command line. No release yet.",
+      "Early alpha. Dual-pane SFTP, with a transfer queue and saved connections the command line can use. FTP and FTPS are not built yet. 0.1.0 is a pre-release.",
   },
   {
     slug: "notes",
@@ -45,8 +49,9 @@ export const apps: AppEntry[] = [
     nav: true,
     navLabel: "Notes",
     template: "notes",
+    cardShot: "notes-live-wide.png",
     summary:
-      "Early alpha. Markdown notes in plain folders: vaults, properties, and browsing by folder or tag. No release yet.",
+      "Early alpha. Markdown notes in plain folders: live editing, links, properties, and a todos list or board. 0.1.0 is a pre-release.",
   },
   {
     slug: "calculator",
@@ -71,4 +76,24 @@ export const release = {
   appImage: "Rivet_Files-0.6.0-x86_64.AppImage",
   archive: "rivet-files-0.6.0-x86_64-linux.tar.gz",
   flatpak: "rivet-files.flatpak",
+} as const;
+
+const repo = "https://github.com/ulinaaron/rivet-apps";
+
+export const notesRelease = {
+  version: "0.1.0",
+  date: "17 November 2026",
+  page: `${repo}/releases/tag/rivet-notes-v0.1.0`,
+  base: `${repo}/releases/download/rivet-notes-v0.1.0`,
+  archive: "rivet-notes-0.1.0-x86_64-linux.tar.gz",
+  repo,
+} as const;
+
+export const ftpRelease = {
+  version: "0.1.0",
+  date: "17 November 2026",
+  page: `${repo}/releases/tag/rivet-ftp-v0.1.0`,
+  base: `${repo}/releases/download/rivet-ftp-v0.1.0`,
+  archive: "rivet-ftp-0.1.0-x86_64-linux.tar.gz",
+  repo,
 } as const;

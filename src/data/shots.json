@@ -38,5 +38,80 @@
     "w": 1100,
     "h": 700,
     "bytes": 34474
+  },
+  "ftp-connected-wide.png": {
+    "w": 1280,
+    "h": 800,
+    "bytes": 126926
+  },
+  "ftp-info-wide.png": {
+    "w": 1280,
+    "h": 800,
+    "bytes": 81710
+  },
+  "ftp-keys-wide.png": {
+    "w": 1280,
+    "h": 800,
+    "bytes": 217466
+  },
+  "ftp-light-wide.png": {
+    "w": 1280,
+    "h": 800,
+    "bytes": 151907
+  },
+  "ftp-new-connection-wide.png": {
+    "w": 1280,
+    "h": 800,
+    "bytes": 89205
+  },
+  "ftp-preferences-wide.png": {
+    "w": 1280,
+    "h": 800,
+    "bytes": 155996
+  },
+  "ftp-replace-wide.png": {
+    "w": 1280,
+    "h": 800,
+    "bytes": 82040
+  },
+  "notes-live-wide.png": {
+    "w": 1280,
+    "h": 800,
+    "bytes": 159032
+  },
+  "notes-preferences-wide.png": {
+    "w": 1280,
+    "h": 800,
+    "bytes": 145499
+  },
+  "notes-quick-open-wide.png": {
+    "w": 1280,
+    "h": 800,
+    "bytes": 61620
+  },
+  "notes-reading-wide.png": {
+    "w": 1280,
+    "h": 800,
+    "bytes": 177561
+  },
+  "notes-slash-wide.png": {
+    "w": 1280,
+    "h": 800,
+    "bytes": 149103
+  },
+  "notes-source-wide.png": {
+    "w": 1280,
+    "h": 800,
+    "bytes": 174279
+  },
+  "notes-todos-board-wide.png": {
+    "w": 1280,
+    "h": 800,
+    "bytes": 144575
+  },
+  "notes-todos-list-wide.png": {
+    "w": 1280,
+    "h": 800,
+    "bytes": 137853
   }
 }

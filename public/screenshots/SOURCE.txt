@@ -1,2 +1,5 @@
-Copied from https://github.com/ulinaaron/rivet-apps at commit 3165535f6726a622f79140e704b52b8f6beb7211, directory docs/screenshots. These are the project's own screenshots, not redrawn.
-The icon public/rivet-files.svg is the Rivet Files icon from that repository.
+Copied from https://github.com/ulinaaron/rivet-apps at commit db610abbc788a7f948128ba237d018fea590af63, directory docs/screenshots. These are the project's own screenshots, not redrawn.
+
+The Notes and FTP PNGs in that commit are 1280x800 RGBA. Every pixel's alpha was 254 or 255, so they were converted to RGB and recompressed with optipng. The picture is unchanged. The Rivet Files PNGs were already RGB and are copied as they were.
+
+The icons public/rivet-files.svg, public/rivet-notes.svg, and public/rivet-ftp.svg are the app icons from that repository.

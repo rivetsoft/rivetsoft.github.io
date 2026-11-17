@@ -1,74 +1,160 @@
 ---
-const repo = "https://github.com/ulinaaron/rivet-apps";
+import Shot from "../components/Shot.astro";
+import { ftpRelease } from "../data/apps";
+import { url } from "../paths";
+
+const repo = ftpRelease.repo;
+const file = (name: string) => `${ftpRelease.base}/${name}`;
 ---
 
-<h1>Rivet FTP</h1>
+<h1 class="app-title">
+  <img src={url("rivet-ftp.svg")} width="48" height="48" alt="" />
+  Rivet FTP
+</h1>
 <p class="status-row"><span class="badge badge-alpha">Alpha</span></p>
 <p>
-  Early alpha. A dual-pane file-transfer app for SFTP, FTP, and FTPS, built on Rivet's core and
-  written in Rust and egui, with no GTK or Qt. This computer on one side, the server on the other,
-  and a transfer queue. The same window is the connection manager for the
-  <code>rivet-ftp</code> command.
+  A dual-pane file-transfer app. This computer on one side, the server on the other, and a
+  transfer queue. It is written in Rust, draws with egui, and does not use GTK or Qt. The window
+  is also the connection manager for the <code>rivet-ftp</code> command, and for plain
+  <code>ssh</code> once you add one Include line.
 </p>
 <p>
-  It is not ready for daily use. Things are missing, change without notice, or break. There is no
-  release and no package yet. Build it from source, and try it on servers and files you have
-  backups of.
-</p>
-
-<figure class="coming">
-  <p>Screenshot coming</p>
-</figure>
-<p>
-  The repository has no screenshot of Rivet FTP. The file manager pictures elsewhere on this site are
-  not this app.
+  Early alpha. The first download is <a href={ftpRelease.page}>0.1.0</a>, published
+  {ftpRelease.date}, and GitHub marks it as a pre-release. This version speaks SFTP. FTP and FTPS
+  addresses can be saved. Opening them is not built yet. Things may still change or break. Try it
+  on servers and files you have backups of.
 </p>
 
-<h2>What works</h2>
-<p>From the notes in the repository, the first window works over SFTP.</p>
-<ul>
-  <li>A connection list: add, edit, remove, and a quick-connect field.</li>
-  <li>Two panes, a path bar, keyboard control, and drag and drop between the panes.</li>
-  <li>Transfers both ways, for files and whole folders, with a queue.</li>
-  <li>New folder, rename, and delete on the server. Delete asks first.</li>
-  <li>
-    SFTP goes through the system's own <code>sftp</code> program, so keys, the ssh agent,
-    <code>~/.ssh/config</code>, and known_hosts apply. A new server is trusted on first use. A changed
-    server key is refused.
-  </li>
-  <li>The command line reads the same saved connections as the window, including <code>ssh</code> and <code>sftp</code>.</li>
-</ul>
+<Shot
+  name="ftp-connected-wide.png"
+  alt="Rivet FTP connected to a server, with this computer and the server side by side and a few finished transfers"
+  caption="Connected, with finished transfers. The pictures use a demo server made of a local folder. No network, and no ssh daemon."
+  eager
+/>
+
+<nav class="onpage" aria-label="On this page">
+  <a href="#window">The window</a>
+  <a href="#transfers">Transfers</a>
+  <a href="#editing">Editing</a>
+  <a href="#ssh">SSH keys</a>
+  <a href="#connections">Saved connections</a>
+  <a href="#install">Install</a>
+  <a href="#keys">Keys</a>
+</nav>
+
+<h2 id="window">The window</h2>
 <p>
-  FTP and FTPS addresses can be saved. They cannot be opened yet. Pause, retry, upload progress,
-  Rivet's own file views inside the panes, a launcher entry, and packaging are still on the plan.
+  Saved connections sit in groups in the sidebar. A group can fold. Tabs hold several servers at
+  once. Each tab has its own panes and queue, and a tab in the background keeps transferring.
+  The quick-connect bar takes <code>user@server</code> or
+  <code>sftp://user@server:port/folder</code>. <code>user@server</code> alone means SFTP.
 </p>
 <p>
-  Right-click a file on the server and choose Open in Editor (or press F4), or Open With to pick an
-  app. Rivet FTP downloads it to a private folder, opens it, and sends each save back. If the server
-  copy changed, it asks before replacing it. Preferences, SSH Keys lists keys in
-  <code>~/.ssh</code>, can make a new Ed25519 or RSA 4096 key, and can copy a public key onto a
-  server. Private keys stay in <code>~/.ssh</code>.
+  Both panes browse on their own. Each has Rivet's stepped path bar, columns you can sort by name,
+  size, or date, and hidden files (Ctrl+H). Drag between the panes, double-click a file to send it
+  across, or use Upload and Download. The toolbar can be arranged, and the menu bar can be hidden.
+  The window follows the desktop's colors, fonts, and icon theme, in light or dark.
 </p>
+<Shot
+  name="ftp-light-wide.png"
+  alt="Rivet FTP in the light theme, with both panes showing the same site"
+  caption="The same window in the light theme."
+/>
+<Shot
+  name="ftp-new-connection-wide.png"
+  alt="The New Connection window, with SFTP selected and a name of Work site"
+  caption="A new connection. It is saved for the window and for rivet-ftp in a terminal."
+/>
 
-<h2>Run it from a checkout</h2>
-<pre><code>cargo build -p rivet-ftp
-./target/debug/rivet-ftp
-./target/debug/rivet-ftp open work-site</code></pre>
-
-<h2>Saved connections</h2>
+<h2 id="transfers">Transfers</h2>
 <p>
-  Passwords are never written into the connections file. The notes say the window will keep them in
-  the desktop keyring. SSH logins use keys or the ssh agent.
+  Files and whole folders go into a queue. A download shows how much has moved, the speed, and the
+  time left. An upload shows the time so far: sftp, in the batch mode Rivet uses, does not report
+  upload progress. A finished row shows the size, the time, and the speed. A failed transfer can
+  be retried.
+</p>
+<p>
+  When a file is already on the other side, the dates and sizes are compared first. The window can
+  keep the copy already there, replace the older files, or replace all of them. Preferences,
+  Transfers can set that choice to ask, replace, or skip. Double-click can send the file across,
+  or only select it. Pause and resume, a bandwidth limit, several transfers at once, and folder
+  sync are still on the list.
+</p>
+<div class="pair">
+  <Shot
+    name="ftp-replace-wide.png"
+    alt="A dialog comparing two items that are already on the server, with Keep Theirs, Replace Older, and Replace All"
+    caption="Already on the server. Dates and sizes are compared before anything is replaced."
+  />
+  <Shot
+    name="ftp-preferences-wide.png"
+    alt="Preferences, Transfers: ask, replace, or skip when a file is already there, and the editor for server files"
+    caption="Preferences, Transfers. Ask, replace, or skip, and which editor opens a server file."
+  />
+</div>
+
+<h2 id="editing">Editing and file info</h2>
+<p>
+  Right-click a file on the server and choose Open in Editor (or press F4), or Open With to pick
+  an app. Rivet FTP downloads it to a private folder, opens it, and sends each save back. If the
+  server copy changed, it asks before replacing it. The files open for editing are listed above
+  the transfers. Stop ends it and deletes the local copy. Preferences, Transfers chooses the
+  editor: one app, or the default for each type.
+</p>
+<p>
+  Info shows size, date, owner, and permissions, including chmod, and the same for everything in a
+  folder. New folder, rename, and delete work on the server. Delete asks first. Preferences says a
+  file deleted on a server cannot be brought back. Pictures and text can be previewed. A server
+  file is downloaded to a private temporary folder first.
+</p>
+<Shot
+  name="ftp-info-wide.png"
+  alt="Info for index.html on the server, with owner, size, and permission checkboxes"
+  caption="Info and permissions for a file on the server."
+/>
+
+<h2 id="ssh">SSH keys</h2>
+<p>
+  SFTP goes through the system's own <code>sftp</code> program, so keys, the ssh agent,
+  <code>~/.ssh/config</code>, and known_hosts apply. A new server is trusted on first use. A
+  changed server key is refused.
+</p>
+<p>
+  Preferences, SSH Keys lists the keys in <code>~/.ssh</code>, can make a new Ed25519 or RSA 4096
+  key, with an optional passphrase, can copy a public key, and can add one to a server with
+  <code>ssh-copy-id</code> in a terminal. Each connection's settings pick its key. Private keys
+  stay in <code>~/.ssh</code>. A key with a passphrase needs <code>ssh-add</code> before
+  connecting. With no key chosen, ssh tries the agent and its usual keys.
+</p>
+<pre><code>rivet-ftp keys
+rivet-ftp add Pi pi@192.168.1.4 --key id_ed25519</code></pre>
+<Shot
+  name="ftp-keys-wide.png"
+  alt="Preferences, SSH Keys, listing id_ed25519 with Add to Server and Copy Public Key"
+  caption="Preferences, SSH Keys. Add to Server sends the public half."
+/>
+
+<h2 id="connections">Saved connections</h2>
+<p>
+  Passwords are never written into the connections file. If you ask the window to remember a
+  password or a key passphrase, it goes in the desktop keyring. SSH logins use keys or the ssh
+  agent.
 </p>
 <pre><code>rivet-ftp add "Work site" sftp://me@example.com:2222/var/www --key ~/.ssh/id_ed25519 --local ~/Sites/work
 rivet-ftp add Pi pi@192.168.1.4
+rivet-ftp add Mirror ftps://files.example.org/pub --category Clients
 rivet-ftp list
-rivet-ftp ssh work-site
-rivet-ftp sftp work-site</code></pre>
+rivet-ftp show work-site
+rivet-ftp remove Pi</code></pre>
 <p>
-  <code>user@server</code> alone means SFTP. Addresses look like <code>sftp://</code>,
-  <code>ftp://</code>, or <code>ftps://</code>.
+  Addresses look like <code>sftp://user@server:port/folder</code>, <code>ftp://</code>, or
+  <code>ftps://</code>. <code>--category</code> puts the connection in a group.
 </p>
+<pre><code>rivet-ftp ssh work-site
+rivet-ftp ssh work-site git status
+rivet-ftp sftp work-site
+rivet-ftp url work-site
+rivet-ftp ssh work-site --print</code></pre>
 <p>
   Every save also writes <code>~/.config/rivet-ftp/ssh_config</code>. One line near the top of
   <code>~/.ssh/config</code> lets <code>ssh</code>, <code>scp</code>, <code>rsync</code>, and
@@ -76,12 +162,57 @@ rivet-ftp sftp work-site</code></pre>
 </p>
 <pre><code>Include ~/.config/rivet-ftp/ssh_config</code></pre>
 <p>
-  Connections live in <code>~/.config/rivet-ftp/connections.conf</code>, plain text, readable only by
-  you. You can edit it by hand. <code>rivet-ftp ssh-config</code> prints the Include line again.
+  Connections live in <code>~/.config/rivet-ftp/connections.conf</code>, plain text, readable only
+  by you. You can edit it by hand. <code>rivet-ftp ssh-config</code> prints the Include line again.
+</p>
+<pre><code>[Work site]
+protocol=sftp
+host=example.com
+port=2222
+user=me
+key=~/.ssh/id_ed25519
+remote=/var/www
+local=~/Sites/work</code></pre>
+
+<h2 id="install">Install</h2>
+<p>
+  The 0.1.0 pre-release is an archive on the <a href={ftpRelease.page}>release</a>. It has a
+  <code>.sha256</code> next to it. There is no AppImage or Flatpak for Rivet FTP yet. Unpack the
+  archive and run <code>install.sh</code>. That puts <code>rivet-ftp</code> in
+  <code>~/.local/bin</code> and adds Rivet FTP to the app launcher.
+</p>
+<ul class="downloads">
+  <li>
+    <a href={file(ftpRelease.archive)}>{ftpRelease.archive}</a>
+    (<a href={file(`${ftpRelease.archive}.sha256`)}>checksum</a>)
+  </li>
+</ul>
+<pre><code>tar xzf rivet-ftp-0.1.0-x86_64-linux.tar.gz
+cd rivet-ftp-0.1.0-x86_64-linux
+./install.sh</code></pre>
+<p>
+  The program is a portable x86_64 build, linked against glibc 2.31. The window needs
+  <a href={url("files/#libraries")}>the same libraries as Rivet Files</a>.
+</p>
+<h3>From source</h3>
+<p>
+  Rust 1.88 or newer. From the top of the repository,
+  <code>utilities/rivet-dev install ftp</code> builds a release and adds the launcher entry. Or:
+</p>
+<pre><code>cargo build --release -p rivet-ftp
+./target/release/rivet-ftp
+./target/release/rivet-ftp open work-site
+./target/release/rivet-ftp --help
+./target/release/rivet-ftp --install-desktop-entry</code></pre>
+<p>
+  Still ahead, from the feature checklist: opening FTP and FTPS, pause and resume, more than one
+  transfer at a time, folder sync, reconnecting after a drop, and Rivet's icon and compact views
+  inside the panes. The checklist is
+  <a href={`${repo}/blob/main/docs/rivet-ftp-parity.md`}>docs/rivet-ftp-parity.md</a>.
 </p>
 
-<h2>Keys</h2>
-<p>The project notes list these:</p>
+<h2 id="keys">Keys</h2>
+<p>The project notes list these. They are also in the menus, and in Help, Keyboard Shortcuts.</p>
 <dl class="keys">
   <div>
     <dt><kbd>Tab</kbd></dt>
@@ -92,8 +223,8 @@ rivet-ftp sftp work-site</code></pre>
     <dd>Open a folder, or send a file to the other side. Double-click does this too.</dd>
   </div>
   <div>
-    <dt><kbd>Backspace</kbd></dt>
-    <dd>Up a folder.</dd>
+    <dt><kbd>Backspace</kbd> <kbd>Alt</kbd>+<kbd>Up</kbd></dt>
+    <dd>Up a folder. Alt+Home is the home folder.</dd>
   </div>
   <div>
     <dt><kbd>Up</kbd> <kbd>Down</kbd></dt>
@@ -102,6 +233,14 @@ rivet-ftp sftp work-site</code></pre>
   <div>
     <dt><kbd>Ctrl</kbd>+<kbd>A</kbd></dt>
     <dd>Select everything.</dd>
+  </div>
+  <div>
+    <dt><kbd>F4</kbd></dt>
+    <dd>Open a server file in an editor. Saves go back to the server.</dd>
+  </div>
+  <div>
+    <dt><kbd>Ctrl</kbd>+<kbd>U</kbd> <kbd>Ctrl</kbd>+<kbd>D</kbd></dt>
+    <dd>Upload or download the selection.</dd>
   </div>
   <div>
     <dt><kbd>F2</kbd></dt>
@@ -116,16 +255,45 @@ rivet-ftp sftp work-site</code></pre>
     <dd>New folder.</dd>
   </div>
   <div>
+    <dt><kbd>Ctrl</kbd>+<kbd>L</kbd></dt>
+    <dd>Type a path.</dd>
+  </div>
+  <div>
+    <dt><kbd>Ctrl</kbd>+<kbd>N</kbd> <kbd>Ctrl</kbd>+<kbd>K</kbd></dt>
+    <dd>New connection. Quick connect.</dd>
+  </div>
+  <div>
+    <dt><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>D</kbd></dt>
+    <dd>Disconnect.</dd>
+  </div>
+  <div>
     <dt><kbd>Ctrl</kbd>+<kbd>H</kbd></dt>
     <dd>Show hidden files.</dd>
+  </div>
+  <div>
+    <dt><kbd>Ctrl</kbd>+<kbd>M</kbd> <kbd>F9</kbd> <kbd>F8</kbd></dt>
+    <dd>Show or hide the menu bar, connections, transfers.</dd>
   </div>
   <div>
     <dt><kbd>F5</kbd></dt>
     <dd>Refresh.</dd>
   </div>
+  <div>
+    <dt><kbd>Ctrl</kbd>+<kbd>T</kbd> <kbd>Ctrl</kbd>+<kbd>W</kbd></dt>
+    <dd>New tab, close the tab.</dd>
+  </div>
+  <div>
+    <dt><kbd>Ctrl</kbd>+<kbd>Tab</kbd></dt>
+    <dd>Next or previous tab. Ctrl+Page Down and Ctrl+Page Up do this too.</dd>
+  </div>
+  <div>
+    <dt><kbd>Ctrl</kbd>+<kbd>,</kbd></dt>
+    <dd>Preferences.</dd>
+  </div>
 </dl>
 
 <p>
-  Longer notes: <a href={`${repo}/blob/main/docs/rivet-ftp.md`}>docs/rivet-ftp.md</a> and
-  <a href={`${repo}/blob/main/apps/rivet-ftp/README.md`}>apps/rivet-ftp</a>.
+  Longer notes: <a href={`${repo}/blob/main/docs/rivet-ftp.md`}>docs/rivet-ftp.md</a>,
+  <a href={`${repo}/blob/main/apps/rivet-ftp/README.md`}>apps/rivet-ftp</a>, and the
+  <a href={`${repo}/blob/main/apps/rivet-ftp/CHANGELOG.md`}>changelog</a>.
 </p>
