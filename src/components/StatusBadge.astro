@@ -1,0 +1,12 @@
+---
+import { statusFor, statusLabel, type AppEntry } from "../data/apps";
+
+interface Props {
+  app: AppEntry;
+  release?: { prerelease: boolean };
+}
+
+const status = statusFor(Astro.props.app, Astro.props.release);
+---
+
+<p class="status-row"><span class={`badge badge-${status}`}>{statusLabel[status]}</span></p>

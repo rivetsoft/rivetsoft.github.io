@@ -1,17 +1,23 @@
 ---
 import Shot from "../components/Shot.astro";
-import { ftpRelease } from "../data/apps";
+import ReleaseBlock from "../components/ReleaseBlock.astro";
+import StatusBadge from "../components/StatusBadge.astro";
+import { appBySlug, repoUrl } from "../data/apps";
+import { archiveFolder, assetByKind } from "../data/release-model";
+import { releaseFor } from "../data/releases";
 import { url } from "../paths";
 
-const repo = ftpRelease.repo;
-const file = (name: string) => `${ftpRelease.base}/${name}`;
+const app = appBySlug("ftp");
+const release = releaseFor("ftp");
+const archive = release ? assetByKind(release, "archive") : undefined;
+const repo = repoUrl;
 ---
 
 <h1 class="app-title">
   <img src={url("rivet-ftp.svg")} width="48" height="48" alt="" />
   Rivet FTP
 </h1>
-<p class="status-row"><span class="badge badge-alpha">Alpha</span></p>
+<StatusBadge app={app} release={release} />
 <p>
   A dual-pane file-transfer app. This computer on one side, the server on the other, and a
   transfer queue. It is written in Rust, draws with egui, and does not use GTK or Qt. The window
@@ -19,10 +25,17 @@ const file = (name: string) => `${ftpRelease.base}/${name}`;
   <code>ssh</code> once you add one Include line.
 </p>
 <p>
-  Early alpha. The first download is <a href={ftpRelease.page}>0.1.0</a>, published
-  {ftpRelease.date}, and GitHub marks it as a pre-release. This version speaks SFTP. FTP and FTPS
-  addresses can be saved. Opening them is not built yet. Things may still change or break. Try it
-  on servers and files you have backups of.
+  {release?.prerelease && "Early alpha. "}
+  {release ? (
+    <>
+      The latest download is <a href={release.htmlUrl}>{release.version}</a>, published {release.dateLabel}.
+      {release.prerelease && " GitHub marks it as a pre-release."}
+    </>
+  ) : (
+    <>No release is published yet.</>
+  )}
+  {" "}This version speaks SFTP. FTP and FTPS addresses can be saved. Opening them is not built yet.
+  {release?.prerelease && " Things may still change or break. Try it on servers and files you have backups of."}
 </p>
 
 <Shot
@@ -175,21 +188,22 @@ remote=/var/www
 local=~/Sites/work</code></pre>
 
 <h2 id="install">Install</h2>
-<p>
-  The 0.1.0 pre-release is an archive on the <a href={ftpRelease.page}>release</a>. It has a
-  <code>.sha256</code> next to it. There is no AppImage or Flatpak for Rivet FTP yet. Unpack the
-  archive and run <code>install.sh</code>. That puts <code>rivet-ftp</code> in
-  <code>~/.local/bin</code> and adds Rivet FTP to the app launcher.
-</p>
-<ul class="downloads">
-  <li>
-    <a href={file(ftpRelease.archive)}>{ftpRelease.archive}</a>
-    (<a href={file(`${ftpRelease.archive}.sha256`)}>checksum</a>)
-  </li>
-</ul>
-<pre><code>tar xzf rivet-ftp-0.1.0-x86_64-linux.tar.gz
-cd rivet-ftp-0.1.0-x86_64-linux
-./install.sh</code></pre>
+<ReleaseBlock slug="ftp" />
+{
+  archive && (
+    <>
+      <p>
+        Unpack the archive and run <code>install.sh</code>. That puts <code>rivet-ftp</code> in
+        <code>~/.local/bin</code> and adds Rivet FTP to the app launcher.
+        {!release?.assets.some((item) => item.kind === "appimage" || item.kind === "flatpak") &&
+          " There is no AppImage or Flatpak for this release."}
+      </p>
+      <pre>
+        <code>{`tar xzf ${archive.name}\ncd ${archiveFolder(archive.name)}\n./install.sh`}</code>
+      </pre>
+    </>
+  )
+}
 <p>
   The program is a portable x86_64 build, linked against glibc 2.31. The window needs
   <a href={url("files/#libraries")}>the same libraries as Rivet Files</a>.

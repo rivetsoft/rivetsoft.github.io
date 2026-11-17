@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="front" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffab4a"/>
+      <stop offset="1" stop-color="#ec6a12"/>
+    </linearGradient>
+    <linearGradient id="back" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#c4520b"/>
+      <stop offset="1" stop-color="#a94506"/>
+    </linearGradient>
+  </defs>
+  <!-- folder back and tab (the same shape as Rivet's) -->
+  <path d="M12 30a10 10 0 0 1 10-10h28.5a8 8 0 0 1 5.7 2.4L63 29.5h43a10 10 0 0 1 10 10V56H12z" fill="url(#back)"/>
+  <!-- a page of code sticking out of the folder -->
+  <rect x="34" y="24" width="60" height="58" rx="6" fill="#ffffff"/>
+  <rect x="44" y="36" width="22" height="4" rx="2" fill="#f7b77a"/>
+  <rect x="70" y="36" width="14" height="4" rx="2" fill="#fbd7b4"/>
+  <rect x="50" y="46" width="28" height="4" rx="2" fill="#fbd7b4"/>
+  <!-- folder front -->
+  <rect x="12" y="52" width="104" height="60" rx="12" fill="url(#front)"/>
+  <rect x="12" y="52" width="104" height="6" rx="3" fill="#ffffff" fill-opacity="0.22"/>
+  <!-- code brackets -->
+  <g fill="none" stroke="#ffffff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M50 72l-12 12 12 12M78 72l12 12-12 12M68 70l-8 28"/>
+  </g>
+</svg>

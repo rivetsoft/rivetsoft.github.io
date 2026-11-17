@@ -290,6 +290,10 @@ p {
   color: var(--fg);
 }
 
+.hero .notice {
+  margin-top: 1rem;
+}
+
 .cards {
   list-style: none;
   display: grid;
@@ -343,9 +347,20 @@ p {
   color: var(--fg);
 }
 
-.card-summary {
+.card-summary,
+.card-version,
+.notice {
   color: var(--muted);
   margin: 0;
+}
+
+.card-version {
+  font-variant-numeric: tabular-nums;
+}
+
+.release-meta .badge {
+  margin-left: 0.45rem;
+  vertical-align: middle;
 }
 
 .badge {
@@ -369,7 +384,8 @@ p {
   background: #fff3e4;
 }
 
-.badge-someday {
+.badge-someday,
+.badge-unreleased {
   color: var(--muted);
   background: var(--code);
 }
@@ -564,6 +580,100 @@ main ul {
 .libs li,
 main li {
   margin: 0.4rem 0;
+}
+
+.download-list,
+.release-links {
+  list-style: none;
+  padding: 0;
+  margin: 0.7rem 0 1rem;
+  max-width: 44rem;
+}
+
+.download-list {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.download-list li,
+.release-links li {
+  margin: 0;
+}
+
+.download-list li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.75rem;
+}
+
+a.download {
+  flex: 1 1 18rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.3rem 0.75rem;
+  min-height: 44px;
+  padding: 0.55rem 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--bg-raised);
+  color: var(--fg);
+  text-decoration: none;
+}
+
+a.download:hover {
+  border-color: color-mix(in srgb, var(--press) 45%, var(--line));
+}
+
+.download-kind {
+  font-weight: 640;
+}
+
+.download-name {
+  font-family: "Azeret Mono", ui-monospace, monospace;
+  font-size: 0.8rem;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+
+.download-size {
+  margin-left: auto;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.checksum,
+.release-links a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.release-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem 1.1rem;
+}
+
+.notes {
+  margin: 0.2rem 0 1rem;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--bg-raised);
+  padding: 0.15rem 0.95rem 0.4rem;
+}
+
+.notes summary {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  font-weight: 620;
+  cursor: pointer;
+}
+
+.notes-body > :first-child {
+  margin-top: 0.35rem;
 }
 
 pre {

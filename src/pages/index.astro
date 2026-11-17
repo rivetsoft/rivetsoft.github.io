@@ -2,39 +2,47 @@
 import Base from "../layouts/Base.astro";
 import Shot from "../components/Shot.astro";
 import shots from "../data/shots.json";
-import { apps, type AppStatus } from "../data/apps";
+import { apps, homeDescription, statusFor, statusLabel } from "../data/apps";
+import { catalog, releaseFor } from "../data/releases";
 import { url } from "../paths";
 
 const table = shots as Record<string, { w: number; h: number }>;
-for (const app of apps) {
+const rows = apps.map((app) => {
+  const release = releaseFor(app.slug);
+  return { app, release, status: statusFor(app, release) };
+});
+for (const { app } of rows) {
   if (app.cardShot && !table[app.cardShot]) {
     throw new Error(`Missing screenshot ${app.cardShot}`);
   }
 }
 
-const label: Record<AppStatus, string> = {
-  released: "Released",
-  alpha: "Alpha",
-  someday: "Maybe later",
-};
+const description = homeDescription(
+  rows.map((row) => ({
+    name: row.app.name,
+    status: row.status,
+    version: row.release?.version,
+  })),
+);
 ---
 
-<Base
-  title="Rivet"
-  description="Small Linux desktop apps by Aaron Mazade. Rivet Files is released. Rivet FTP and Rivet Notes are early alphas, each with a 0.1.0 pre-release."
-  current="home"
->
+<Base title="Rivet" description={description} current="home">
   <header class="hero">
     <h1>Rivet</h1>
     <p class="lede">
       Small Linux desktop apps by <a href="https://github.com/ulinaaron">Aaron Mazade</a>.
       They share one look, and one repository.
     </p>
+    {
+      catalog.source === "fallback" && (
+        <p class="notice">GitHub was unreachable when this page was built. Versions below are the last saved release info.</p>
+      )
+    }
   </header>
 
   <ul class="cards">
     {
-      apps.map((app) => (
+      rows.map(({ app, release, status }) => (
         <li>
           <a class="card" href={url(`${app.slug}/`)}>
             {app.cardShot && table[app.cardShot] && (
@@ -48,8 +56,15 @@ const label: Record<AppStatus, string> = {
               />
             )}
             <span class="card-copy">
-              <span class={`badge badge-${app.status}`}>{label[app.status]}</span>
+              <span class={`badge badge-${status}`}>{statusLabel[status]}</span>
               <span class="card-name">{app.name}</span>
+              {release && (
+                <span class="card-version">
+                  {release.prerelease
+                    ? `${release.version} pre-release, ${release.dateLabel}`
+                    : `${release.version}, ${release.dateLabel}`}
+                </span>
+              )}
               <span class="card-summary">{app.summary}</span>
             </span>
           </a>

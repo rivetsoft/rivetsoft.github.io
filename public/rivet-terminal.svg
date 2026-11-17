@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="front" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffab4a"/>
+      <stop offset="1" stop-color="#ec6a12"/>
+    </linearGradient>
+    <linearGradient id="back" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#c4520b"/>
+      <stop offset="1" stop-color="#a94506"/>
+    </linearGradient>
+    <linearGradient id="screen" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3a2416"/>
+      <stop offset="1" stop-color="#24160d"/>
+    </linearGradient>
+  </defs>
+  <!-- a second window behind (tabs and panes), the colour of Rivet's folder backs -->
+  <rect x="20" y="12" width="96" height="80" rx="13" fill="url(#back)"/>
+  <!-- the window -->
+  <rect x="12" y="24" width="104" height="90" rx="14" fill="url(#front)"/>
+  <rect x="12" y="24" width="104" height="6" rx="3" fill="#ffffff" fill-opacity="0.22"/>
+  <circle cx="26" cy="36" r="3.2" fill="#ffffff" fill-opacity="0.8"/>
+  <circle cx="36" cy="36" r="3.2" fill="#ffffff" fill-opacity="0.55"/>
+  <!-- the screen, with a prompt and a cursor -->
+  <rect x="21" y="45" width="86" height="60" rx="8" fill="url(#screen)"/>
+  <path d="M35 62l13 11-13 11" fill="none" stroke="#ffffff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="56" y="80" width="28" height="7" rx="3.5" fill="#ffbf80"/>
+</svg>

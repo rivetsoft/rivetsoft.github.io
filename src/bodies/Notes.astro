@@ -1,17 +1,23 @@
 ---
 import Shot from "../components/Shot.astro";
-import { notesRelease } from "../data/apps";
+import ReleaseBlock from "../components/ReleaseBlock.astro";
+import StatusBadge from "../components/StatusBadge.astro";
+import { appBySlug, repoUrl } from "../data/apps";
+import { archiveFolder, assetByKind } from "../data/release-model";
+import { releaseFor } from "../data/releases";
 import { url } from "../paths";
 
-const repo = notesRelease.repo;
-const file = (name: string) => `${notesRelease.base}/${name}`;
+const app = appBySlug("notes");
+const release = releaseFor("notes");
+const archive = release ? assetByKind(release, "archive") : undefined;
+const repo = repoUrl;
 ---
 
 <h1 class="app-title">
   <img src={url("rivet-notes.svg")} width="48" height="48" alt="" />
   Rivet Notes
 </h1>
-<p class="status-row"><span class="badge badge-alpha">Alpha</span></p>
+<StatusBadge app={app} release={release} />
 <p>
   Markdown notes in plain folders. A vault is any folder of <code>.md</code> files, so there is
   nothing to import and nothing locked in. Any other Markdown app can open the same notes. It is
@@ -19,9 +25,16 @@ const file = (name: string) => `${notesRelease.base}/${name}`;
   fonts, and in-app windows are the same parts Rivet Files and Rivet FTP use.
 </p>
 <p>
-  Early alpha. The first download is <a href={notesRelease.page}>0.1.0</a>, published
-  {notesRelease.date}, and GitHub marks it as a pre-release. It is usable, and still young: things
-  may change or break. Try it on a copy of notes you have backups of.
+  {release?.prerelease && "Early alpha. "}
+  {release ? (
+    <>
+      The latest download is <a href={release.htmlUrl}>{release.version}</a>, published {release.dateLabel}.
+      {release.prerelease && " GitHub marks it as a pre-release."}
+    </>
+  ) : (
+    <>No release is published yet.</>
+  )}
+  {release?.prerelease && " It is usable, and still young: things may change or break. Try it on a copy of notes you have backups of."}
 </p>
 
 <Shot
@@ -231,20 +244,20 @@ const file = (name: string) => `${notesRelease.base}/${name}`;
 </p>
 
 <h2 id="install">Install</h2>
-<p>
-  The 0.1.0 pre-release is an archive on the <a href={notesRelease.page}>release</a>. It has a
-  <code>.sha256</code> next to it. Unpack it and run <code>install.sh</code>. That puts
-  <code>rivet-notes</code> in <code>~/.local/bin</code> and adds Rivet Notes to the app launcher.
-</p>
-<ul class="downloads">
-  <li>
-    <a href={file(notesRelease.archive)}>{notesRelease.archive}</a>
-    (<a href={file(`${notesRelease.archive}.sha256`)}>checksum</a>)
-  </li>
-</ul>
-<pre><code>tar xzf rivet-notes-0.1.0-x86_64-linux.tar.gz
-cd rivet-notes-0.1.0-x86_64-linux
-./install.sh</code></pre>
+<ReleaseBlock slug="notes" />
+{
+  archive && (
+    <>
+      <p>
+        Unpack the archive and run <code>install.sh</code>. That puts <code>rivet-notes</code> in
+        <code>~/.local/bin</code> and adds Rivet Notes to the app launcher.
+      </p>
+      <pre>
+        <code>{`tar xzf ${archive.name}\ncd ${archiveFolder(archive.name)}\n./install.sh`}</code>
+      </pre>
+    </>
+  )
+}
 <p>
   The program is a portable x86_64 build, linked against glibc 2.31. The window needs
   <a href={url("files/#libraries")}>the same libraries as Rivet Files</a>.

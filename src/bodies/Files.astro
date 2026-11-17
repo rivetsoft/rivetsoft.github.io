@@ -1,26 +1,42 @@
 ---
 import Shot from "../components/Shot.astro";
-import { release } from "../data/apps";
+import ReleaseBlock from "../components/ReleaseBlock.astro";
+import StatusBadge from "../components/StatusBadge.astro";
+import { appBySlug, repoUrl } from "../data/apps";
+import { archiveFolder, assetByKind } from "../data/release-model";
+import { releaseFor } from "../data/releases";
 import { url } from "../paths";
 
-const file = (name: string) => `${release.base}/${name}`;
+const app = appBySlug("files");
+const release = releaseFor("files");
+const appImage = release ? assetByKind(release, "appimage") : undefined;
+const archive = release ? assetByKind(release, "archive") : undefined;
+const flatpak = release ? assetByKind(release, "flatpak") : undefined;
 ---
 
 <h1 class="app-title">
   <img src={url("rivet-files.svg")} width="48" height="48" alt="" />
   Rivet Files
 </h1>
-<p class="status-row"><span class="badge badge-released">Released</span></p>
+<StatusBadge app={app} release={release} />
 <p>
   A Linux file manager in the same vein as Dolphin, Nemo, Thunar, and Caja. It is written in Rust,
   draws with egui, and does not use GTK or Qt. You can fill the window with every bar and panel, or
   keep a short toolbar and the files.
 </p>
 <p>
-  The latest download is <a href={release.page}>0.6.0</a>, published {release.date}. The builds are
-  x86_64. On main, the changelog still lists split view, custom actions, thumbnails beyond pictures,
-  and copying files to other programs under Unreleased. Those are in the current source and in the
-  README. They may not be in the 0.6.0 files yet.
+  {
+    release ? (
+      <>
+        The latest download is <a href={release.htmlUrl}>{release.version}</a>, published {release.dateLabel}.
+      </>
+    ) : (
+      <>No release is published yet.</>
+    )
+  }
+  The builds are x86_64. On main, the changelog still lists split view, custom actions, thumbnails beyond
+  pictures, and copying files to other programs under Unreleased. Those are in the current source and in
+  the README.{release && <> They may not be in the {release.version} files yet.</>}
 </p>
 
 <div class="pair">
@@ -194,27 +210,19 @@ Types=image/*
 Requires=mogrify</code></pre>
 
 <h2 id="install">Install</h2>
-<p>
-  Grab 0.6.0 from the <a href={release.page}>release</a>. Each file has a <code>.sha256</code> next to it.
-</p>
-<ul class="downloads">
-  <li>
-    <a href={file(release.appImage)}>{release.appImage}</a>
-    (<a href={file(`${release.appImage}.sha256`)}>checksum</a>)
-  </li>
-  <li>
-    <a href={file(release.archive)}>{release.archive}</a>
-    (<a href={file(`${release.archive}.sha256`)}>checksum</a>)
-  </li>
-  <li>
-    <a href={file(release.flatpak)}>{release.flatpak}</a>
-  </li>
-</ul>
+<ReleaseBlock slug="files" />
 
 <h3>AppImage</h3>
 <p>One file. It includes the keyboard libraries below, and runs on Ubuntu 22.04, Debian 12, and newer.</p>
-<pre><code>chmod +x Rivet_Files-0.6.0-x86_64.AppImage
-./Rivet_Files-0.6.0-x86_64.AppImage</code></pre>
+{
+  appImage ? (
+    <pre>
+      <code>{`chmod +x ${appImage.name}\n./${appImage.name}`}</code>
+    </pre>
+  ) : (
+    release && <p>This release has no AppImage.</p>
+  )
+}
 <p>Preferences, System, Add Rivet to the app launcher puts it in your menus.</p>
 
 <h3>Archive</h3>
@@ -223,9 +231,15 @@ Requires=mogrify</code></pre>
   <code>--default</code> to make Rivet the default file manager. Same glibc baseline as the AppImage.
   Install the libraries below if the desktop does not already have them.
 </p>
-<pre><code>tar xzf rivet-files-0.6.0-x86_64-linux.tar.gz
-cd rivet-files-0.6.0-x86_64-linux
-./install.sh</code></pre>
+{
+  archive ? (
+    <pre>
+      <code>{`tar xzf ${archive.name}\ncd ${archiveFolder(archive.name)}\n./install.sh`}</code>
+    </pre>
+  ) : (
+    release && <p>This release has no archive.</p>
+  )
+}
 <p>
   <code>install.sh</code> copies the program to <code>~/.local/bin/rivet</code>, writes
   <code>~/.local/share/applications/rivet-files.desktop</code>, and installs icons under
@@ -236,7 +250,7 @@ cd rivet-files-0.6.0-x86_64-linux
 
 <h3>glibc</h3>
 <p>
-  The 0.6.0 release notes describe a portable x86_64 build, linked against glibc 2.31 rather than
+  The release notes describe a portable x86_64 build, linked against glibc 2.31 rather than
   the build machine's libc. The program's highest GLIBC symbol is 2.30. Counting the keyboard
   libraries in the AppImage, the files need glibc 2.33 or newer, which Ubuntu 22.04 and Debian 12
   have. Older systems can build from source.
@@ -259,9 +273,10 @@ cd rivet-files-0.6.0-x86_64-linux
 
 <h3>Flatpak</h3>
 <p>
-  A <code>.flatpak</code> bundle is attached to the GitHub release once CI has built it. 0.6.0 has one.
+  A <code>.flatpak</code> bundle is attached to the GitHub release once CI has built it.
+  {release ? (flatpak ? " This release has one." : " This release does not have one yet.") : ""}
   It is not on Flathub until that submission is done. The manifest and the steps are in
-  <a href={`${release.repo}/blob/main/apps/rivet-files/packaging/README.md`}>packaging/README.md</a>. The app id there
+  <a href={`${repoUrl}/blob/main/apps/rivet-files/packaging/README.md`}>packaging/README.md</a>. The app id there
   is <code>io.github.ulinaaron.rivet-files</code>.
 </p>
 <p>
@@ -386,11 +401,11 @@ cd rivet-files-0.6.0-x86_64-linux
   </table>
 </div>
 <p>
-  The README also says a stripped binary is about 16 MB, and the AppImage about 7 MB. The 0.6.0
-  AppImage file is 7,444,984 bytes. The release notes say the file picker added about 1 MB to the
-  AppImage. The README prints figures for other file managers from someone else's machine. Those are
-  not repeated here.
-  <a href={`${release.repo}/blob/main/apps/rivet-files/README.md`}>The numbers and how to reproduce them</a> are in the README.
+  The README also says a stripped binary is about 16 MB, and the AppImage about 7 MB.
+  {appImage && <> The {release?.version} AppImage file is {appImage.size.toLocaleString("en-US")} bytes.</>}
+  The 0.6.0 release notes say the file picker added about 1 MB to the AppImage. The README prints
+  figures for other file managers from someone else's machine. Those are not repeated here.
+  <a href={`${repoUrl}/blob/main/apps/rivet-files/README.md`}>The numbers and how to reproduce them</a> are in the README.
 </p>
 <p>The README's roadmap, past what is already built: tagging and pinning files.</p>
 <p>

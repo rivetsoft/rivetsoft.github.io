@@ -1,0 +1,92 @@
+---
+import { allReleasesUrl, appBySlug, repoUrl } from "../data/apps";
+import { formatBytes, renderMarkdown, splitRenderedNotes } from "../data/release-model";
+import { catalog, releaseFor } from "../data/releases";
+
+interface Props {
+  slug: string;
+  /** Omit on a page that already has an Install heading. */
+  heading?: "h2" | "h3";
+}
+
+const { slug, heading } = Astro.props;
+const app = appBySlug(slug);
+const release = releaseFor(slug);
+const Heading = heading;
+const notes = release ? splitRenderedNotes(renderMarkdown(release.notes)) : { lead: "", rest: "" };
+const readmeUrl = app.readme ? `${repoUrl}/blob/main/${app.readme}` : repoUrl;
+---
+
+<section class="release" aria-label={release ? `${app.name} ${release.version}` : `${app.name} download`}>
+  {
+    release ? (
+      <>
+        {Heading && <Heading>Download {release.version}</Heading>}
+        <p class="release-meta">
+          Version <a href={release.htmlUrl}>{release.version}</a>, published {release.dateLabel}.
+          {release.prerelease && <span class="badge badge-alpha">Alpha</span>}
+        </p>
+        {release.prerelease && <p>GitHub marks this as a pre-release.</p>}
+        {catalog.source === "fallback" && (
+          <p class="notice">GitHub was unreachable when this page was built, so this is the last saved release info.</p>
+        )}
+        {release.assets.length > 0 ? (
+          <ul class="download-list">
+            {release.assets.map((asset) => (
+              <li>
+                <a class="download" href={asset.url}>
+                  <span class="download-kind">{asset.label}</span>
+                  <span class="download-name">{asset.name}</span>
+                  {asset.size > 0 && <span class="download-size">{formatBytes(asset.size)}</span>}
+                </a>
+                {asset.checksumUrl && (
+                  <a class="checksum" href={asset.checksumUrl}>
+                    sha256<span class="vh"> checksum for {asset.name}</span>
+                  </a>
+                )}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>No downloads are attached to this release yet.</p>
+        )}
+        {notes.lead && <div class="notes-body" set:html={notes.lead} />}
+        {notes.rest && (
+          <details class="notes">
+            <summary>Release notes for {release.version}</summary>
+            <div class="notes-body" set:html={notes.rest} />
+          </details>
+        )}
+        <ul class="release-links">
+          <li>
+            <a href={release.htmlUrl}>Release page</a>
+          </li>
+          <li>
+            <a href={allReleasesUrl}>All releases</a>
+          </li>
+        </ul>
+      </>
+    ) : (
+      <>
+        {Heading && <Heading>Download</Heading>}
+        <p>
+          {app.laterPhrase ? (
+            <>Nothing to install yet.</>
+          ) : (
+            <>
+              No release yet. The code is in the <a href={readmeUrl}>repository</a>.
+            </>
+          )}
+        </p>
+        <ul class="release-links">
+          <li>
+            <a href={allReleasesUrl}>All releases</a>
+          </li>
+          <li>
+            <a href={repoUrl}>Repository</a>
+          </li>
+        </ul>
+      </>
+    )
+  }
+</section>

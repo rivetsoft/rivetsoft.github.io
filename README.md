@@ -4,7 +4,9 @@ A small static site for [Rivet](https://github.com/ulinaaron/rivet-apps), Aaron 
 
 The built site is served at [https://ulinaaron.github.io/rivet-web/](https://ulinaaron.github.io/rivet-web/). Astro's `base` is `/rivet-web`.
 
-Rivet Files is released (0.6.0). Rivet FTP and Rivet Notes are early alpha. Each has a 0.1.0 pre-release archive. A calculator is only a maybe. Facts come from the public repository. Screenshots are copied from `docs/screenshots`. The Notes and FTP pictures are recompressed RGB copies of those files.
+Versions and downloads are read from the [GitHub Releases](https://github.com/ulinaaron/rivet-apps/releases) of `ulinaaron/rivet-apps` when the site is built. Drafts are skipped. The newest release for each app is kept, including pre-releases. If the API is unreachable, the build uses `src/data/releases.fallback.json` and still succeeds.
+
+Rivet Files, Rivet FTP, Rivet Notes, Rivet Edit, and Rivet Terminal are on the site. Edit and Terminal stay up with no download buttons until a release tag exists. A calculator is only a maybe. Facts come from the public repository. Screenshots are copied from `docs/screenshots`. The Notes, FTP, Edit, and Terminal pictures are recompressed RGB copies of those files.
 
 ## Run
 
@@ -25,11 +27,12 @@ The build writes `dist/`. `npm run preview` serves that folder, also on port 431
 
 ## Add an app
 
-App entries live in `src/data/apps.ts`.
+App entries live in `src/data/apps.ts`. A new app needs a `tagPrefixes` entry, for example `rivet-calc-v` for tags `rivet-calc-v0.1.0`. Rivet Files also accepts bare tags such as `v0.6.0`. The badge follows the newest matching release: a final release is Released, a pre-release is Alpha, and no release is "No release yet". Set `laterPhrase` for an idea that should stay "Maybe later" until a tag exists.
 
-- Set `status` to `"released"`, `"alpha"`, or `"someday"`. The home page card and its badge follow that field.
 - Set `nav` and an optional `navLabel` to show it in the header.
-- A short page needs no template: `/your-slug/` shows the name and summary.
+- A short page needs no template: `/your-slug/` shows the name, summary, and release.
 - A long page is a component under `src/bodies/`, registered in `src/pages/[slug].astro`, with `template` set to that key.
+
+The site rebuilds on every push to `main`, from Actions' Run workflow button, from a `repository_dispatch` of type `rivet-release`, and hourly. The build sends `GITHUB_TOKEN` to the GitHub API when Actions provides it.
 
 Put screenshots in `public/screenshots/`, add their width and height to `src/data/shots.json`, and use the `Shot` component. If you do not have a picture, do not draw a fake window. Say "Screenshot coming".

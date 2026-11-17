@@ -1,9 +1,14 @@
 ---
 import Base from "../layouts/Base.astro";
+import Shot from "../components/Shot.astro";
+import ReleaseBlock from "../components/ReleaseBlock.astro";
+import StatusBadge from "../components/StatusBadge.astro";
 import FilesBody from "../bodies/Files.astro";
 import FtpBody from "../bodies/Ftp.astro";
 import NotesBody from "../bodies/Notes.astro";
-import { apps, type AppEntry } from "../data/apps";
+import { apps, repoUrl, type AppEntry } from "../data/apps";
+import { releaseFor } from "../data/releases";
+import { url } from "../paths";
 
 export function getStaticPaths() {
   return apps.map((app) => ({
@@ -23,6 +28,8 @@ const bodies = {
   notes: NotesBody,
 } as const;
 const Body = app.template ? bodies[app.template] : null;
+const release = releaseFor(app.slug);
+const readmeUrl = app.readme ? `${repoUrl}/blob/main/${app.readme}` : repoUrl;
 ---
 
 <Base title={app.name} description={app.summary} current={app.slug}>
@@ -31,8 +38,26 @@ const Body = app.template ? bodies[app.template] : null;
       <Body />
     ) : (
       <>
-        <h1>{app.name}</h1>
+        <h1 class="app-title">
+          {app.icon && <img src={url(app.icon)} width="48" height="48" alt="" />}
+          {app.name}
+        </h1>
+        <StatusBadge app={app} release={release} />
         <p>{app.summary}</p>
+        {app.cardShot && app.cardAlt && app.cardCaption && (
+          <Shot name={app.cardShot} alt={app.cardAlt} caption={app.cardCaption} eager />
+        )}
+        <ReleaseBlock slug={app.slug} heading="h2" />
+        {app.source && (
+          <>
+            <h2>From source</h2>
+            <p>
+              Rust 1.88 or newer. From the top of the <a href={repoUrl}>repository</a>.
+              More is in the <a href={readmeUrl}>README</a>.
+            </p>
+            <pre><code>{app.source}</code></pre>
+          </>
+        )}
       </>
     )
   }

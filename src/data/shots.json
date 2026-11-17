@@ -113,5 +113,15 @@
     "w": 1280,
     "h": 800,
     "bytes": 137853
+  },
+  "edit-editor-wide.png": {
+    "w": 1280,
+    "h": 800,
+    "bytes": 173691
+  },
+  "rivet-terminal-wide.png": {
+    "w": 1280,
+    "h": 760,
+    "bytes": 205265
   }
 }
