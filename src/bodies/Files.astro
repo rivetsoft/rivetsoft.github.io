@@ -15,8 +15,8 @@ const flatpak = release ? assetByKind(release, "flatpak") : undefined;
 ---
 
 <h1 class="app-title">
-  <img src={url("rivet-files.svg")} width="48" height="48" alt="" />
-  Rivet Files
+  {app.icon && <img src={url(app.icon)} width="48" height="48" alt="" />}
+  {app.name}
 </h1>
 <StatusBadge app={app} release={release} />
 <p>

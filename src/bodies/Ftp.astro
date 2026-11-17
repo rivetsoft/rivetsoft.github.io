@@ -14,8 +14,8 @@ const repo = repoUrl;
 ---
 
 <h1 class="app-title">
-  <img src={url("rivet-ftp.svg")} width="48" height="48" alt="" />
-  Rivet FTP
+  {app.icon && <img src={url(app.icon)} width="48" height="48" alt="" />}
+  {app.name}
 </h1>
 <StatusBadge app={app} release={release} />
 <p>

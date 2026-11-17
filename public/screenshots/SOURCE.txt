@@ -2,6 +2,6 @@ Copied from https://github.com/ulinaaron/rivet-apps at commit db610abbc788a7f948
 
 The Notes and FTP PNGs in that commit are 1280x800 RGBA. Every pixel's alpha was 254 or 255, so they were converted to RGB and recompressed with optipng. The picture is unchanged. The Rivet Files PNGs were already RGB and are copied as they were.
 
-The icons public/rivet-files.svg, public/rivet-notes.svg, and public/rivet-ftp.svg are the app icons from that repository.
+The icons public/rivet-files.svg, public/rivet-ftp.svg, public/rivet-notes.svg, public/rivet-edit.svg, and public/rivet-terminal.svg are the desktop icons from each app's data folder (Icon= in the .desktop file). The Files hicolor scalable icon is the same SVG.
 
-edit-editor-wide.png, rivet-terminal-wide.png, public/rivet-edit.svg, and public/rivet-terminal.svg are from the same repository, later than that commit. The two PNGs were RGBA with alpha 254 or 255, converted to RGB. rivet-terminal-wide.png is Rivet Terminal. terminal-wide.png is still Rivet Files' terminal mode.
+edit-editor-wide.png and rivet-terminal-wide.png are from the same repository, later than that commit. Those PNGs were RGBA with alpha 254 or 255, converted to RGB. rivet-terminal-wide.png is Rivet Terminal. terminal-wide.png is still Rivet Files' terminal mode.

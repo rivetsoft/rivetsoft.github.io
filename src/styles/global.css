@@ -359,8 +359,17 @@ p {
 }
 
 .card-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
   font-size: 1.45rem;
   color: var(--fg);
+}
+
+.card-icon {
+  width: 1.85rem;
+  height: 1.85rem;
+  flex: none;
 }
 
 .card-summary,

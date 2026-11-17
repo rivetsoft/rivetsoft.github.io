@@ -49,7 +49,12 @@ const description =
             )}
             <span class="card-copy">
               <span class={`badge badge-${status}`}>{statusLabel[status]}</span>
-              <span class="card-name">{app.name}</span>
+              <span class="card-name">
+                {app.icon && (
+                  <img class="card-icon" src={url(app.icon)} width="32" height="32" alt="" />
+                )}
+                {app.name}
+              </span>
               {release && (
                 <span class="card-version">
                   {release.prerelease
