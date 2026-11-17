@@ -1,10 +1,11 @@
 ---
 import Base from "../layouts/Base.astro";
+import { url } from "../paths";
 ---
 
 <Base title="Not found" description="That address is not on this site.">
   <h1>No page there</h1>
   <p>
-    That address is not on this site. The apps that are listed live on the <a href="/">home page</a>.
+    That address is not on this site. The apps that are listed live on the <a href={url()}>home page</a>.
   </p>
 </Base>

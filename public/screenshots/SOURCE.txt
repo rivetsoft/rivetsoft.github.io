@@ -1,2 +1,2 @@
-Copied from https://github.com/ulinaaron/rivet-files at commit 3165535f6726a622f79140e704b52b8f6beb7211, directory docs/screenshots. These are the project's own screenshots, not redrawn.
-The icon public/rivet-files.svg is data/rivet-files.svg from the same commit.
+Copied from https://github.com/ulinaaron/rivet-apps at commit 3165535f6726a622f79140e704b52b8f6beb7211, directory docs/screenshots. These are the project's own screenshots, not redrawn.
+The icon public/rivet-files.svg is the Rivet Files icon from that repository.

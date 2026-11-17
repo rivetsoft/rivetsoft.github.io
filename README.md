@@ -1,6 +1,8 @@
 # Rivet
 
-A small static site for [Rivet](https://github.com/ulinaaron/rivet-files), Aaron Mazade's family of Linux desktop apps.
+A small static site for [Rivet](https://github.com/ulinaaron/rivet-apps), Aaron Mazade's family of Linux desktop apps.
+
+The built site is served at [https://ulinaaron.github.io/rivet-web/](https://ulinaaron.github.io/rivet-web/). Astro's `base` is `/rivet-web`.
 
 Rivet Files is released (0.6.0). Rivet FTP and Rivet Notes are early alpha, with no release or package yet. A calculator is only a maybe. Facts come from the public repository. Screenshots of Rivet Files are copied from `docs/screenshots`. FTP and Notes have none, so those pages say "Screenshot coming".
 

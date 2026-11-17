@@ -2,6 +2,7 @@
 import Base from "../layouts/Base.astro";
 import Shot from "../components/Shot.astro";
 import { apps, type AppStatus } from "../data/apps";
+import { url } from "../paths";
 
 const label: Record<AppStatus, string> = {
   released: "Released",
@@ -27,7 +28,7 @@ const label: Record<AppStatus, string> = {
     {
       apps.map((app) => (
         <li>
-          <a class="card" href={`/${app.slug}/`}>
+          <a class="card" href={url(`${app.slug}/`)}>
             <span class={`badge badge-${app.status}`}>{label[app.status]}</span>
             <span class="card-name">{app.name}</span>
             <span class="card-summary">{app.summary}</span>

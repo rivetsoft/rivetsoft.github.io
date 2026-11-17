@@ -1,12 +1,13 @@
 ---
 import Shot from "../components/Shot.astro";
 import { release } from "../data/apps";
+import { url } from "../paths";
 
 const file = (name: string) => `${release.base}/${name}`;
 ---
 
 <h1 class="app-title">
-  <img src="/rivet-files.svg" width="48" height="48" alt="" />
+  <img src={url("rivet-files.svg")} width="48" height="48" alt="" />
   Rivet Files
 </h1>
 <p class="status-row"><span class="badge badge-released">Released</span></p>
@@ -260,7 +261,7 @@ cd rivet-files-0.6.0-x86_64-linux
 <p>
   A <code>.flatpak</code> bundle is attached to the GitHub release once CI has built it. 0.6.0 has one.
   It is not on Flathub until that submission is done. The manifest and the steps are in
-  <a href={`${release.repo}/blob/main/packaging/README.md`}>packaging/README.md</a>. The app id there
+  <a href={`${release.repo}/blob/main/apps/rivet-files/packaging/README.md`}>packaging/README.md</a>. The app id there
   is <code>io.github.ulinaaron.rivet-files</code>.
 </p>
 <p>
@@ -273,7 +274,7 @@ cd rivet-files-0.6.0-x86_64-linux
 <h3>Arch Linux</h3>
 <p>
   PKGBUILDs for <code>rivet-files-bin</code> (the release tarball) and <code>rivet-files</code>
-  (built from the git tag) are in <code>packaging/aur</code>. They are not in the AUR until published.
+  (built from the git tag) are in <code>apps/rivet-files/packaging/aur</code>. They are not in the AUR until published.
 </p>
 
 <h3>From source</h3>
@@ -389,7 +390,7 @@ cd rivet-files-0.6.0-x86_64-linux
   AppImage file is 7,444,984 bytes. The release notes say the file picker added about 1 MB to the
   AppImage. The README prints figures for other file managers from someone else's machine. Those are
   not repeated here.
-  <a href={`${release.repo}/blob/main/README.md`}>The numbers and how to reproduce them</a> are in the README.
+  <a href={`${release.repo}/blob/main/apps/rivet-files/README.md`}>The numbers and how to reproduce them</a> are in the README.
 </p>
 <p>The README's roadmap, past what is already built: tagging and pinning files.</p>
 <p>

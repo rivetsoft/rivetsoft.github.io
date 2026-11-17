@@ -64,10 +64,10 @@ export const navApps = apps.filter((app) => app.nav);
 export const release = {
   version: "0.6.0",
   date: "15 November 2026",
-  page: "https://github.com/ulinaaron/rivet-files/releases/tag/v0.6.0",
-  repo: "https://github.com/ulinaaron/rivet-files",
+  page: "https://github.com/ulinaaron/rivet-apps/releases/tag/v0.6.0",
+  repo: "https://github.com/ulinaaron/rivet-apps",
   commit: "3165535f6726a622f79140e704b52b8f6beb7211",
-  base: "https://github.com/ulinaaron/rivet-files/releases/download/v0.6.0",
+  base: "https://github.com/ulinaaron/rivet-apps/releases/download/v0.6.0",
   appImage: "Rivet_Files-0.6.0-x86_64.AppImage",
   archive: "rivet-files-0.6.0-x86_64-linux.tar.gz",
   flatpak: "rivet-files.flatpak",

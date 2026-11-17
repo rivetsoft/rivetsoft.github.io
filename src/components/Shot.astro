@@ -1,5 +1,6 @@
 ---
 import shots from "../data/shots.json";
+import { url } from "../paths";
 
 interface Props {
   name: string;
@@ -14,7 +15,7 @@ const meta = table[name];
 if (!meta) {
   throw new Error(`Missing screenshot ${name}`);
 }
-const src = `/screenshots/${name}`;
+const src = url(`screenshots/${name}`);
 ---
 
 <figure class="shot">

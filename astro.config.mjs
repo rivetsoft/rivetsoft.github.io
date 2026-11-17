@@ -1,6 +1,8 @@
 import { defineConfig } from "astro/config";
 
 export default defineConfig({
+  site: "https://ulinaaron.github.io",
+  base: "/rivet-web",
   trailingSlash: "always",
   compressHTML: true,
   server: {

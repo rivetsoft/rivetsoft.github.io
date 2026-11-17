@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import { navApps } from "../data/apps";
+import { url } from "../paths";
 
 interface Props {
   title: string;
@@ -19,7 +20,7 @@ const documentTitle = current === "home" ? "Rivet" : `${title}`;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{documentTitle}</title>
     <meta name="description" content={description} />
-    <link rel="icon" href="/rivet-files.svg" type="image/svg+xml" />
+    <link rel="icon" href={url("rivet-files.svg")} type="image/svg+xml" />
     <script is:inline>
       (function () {
         try {
@@ -35,16 +36,16 @@ const documentTitle = current === "home" ? "Rivet" : `${title}`;
     <a class="skip" href="#content">Skip to content</a>
     <header class="mast">
       <div class="mast-inner">
-        <a class="brand" href="/">Rivet</a>
+        <a class="brand" href={url()}>Rivet</a>
         <nav aria-label="Pages">
           {
             navApps.map((app) => (
-              <a href={`/${app.slug}/`} aria-current={current === app.slug ? "page" : undefined}>
+              <a href={url(`${app.slug}/`)} aria-current={current === app.slug ? "page" : undefined}>
                 {app.navLabel ?? app.name}
               </a>
             ))
           }
-          <a href="https://github.com/ulinaaron/rivet-files">Code</a>
+          <a href="https://github.com/ulinaaron/rivet-apps">Code</a>
         </nav>
         <button type="button" class="theme" id="theme" aria-label="Switch color scheme">
           <span class="when-light">Dark</span>
@@ -57,9 +58,9 @@ const documentTitle = current === "home" ? "Rivet" : `${title}`;
     </main>
     <footer class="site-footer column">
       <p>
-        <a href="https://github.com/ulinaaron/rivet-files/blob/main/LICENSE-MIT">MIT</a> or
-        <a href="https://github.com/ulinaaron/rivet-files/blob/main/LICENSE-APACHE">Apache-2.0</a>.
-        Code on <a href="https://github.com/ulinaaron/rivet-files">GitHub</a>.
+        <a href="https://github.com/ulinaaron/rivet-apps/blob/main/LICENSE-MIT">MIT</a> or
+        <a href="https://github.com/ulinaaron/rivet-apps/blob/main/LICENSE-APACHE">Apache-2.0</a>.
+        Code on <a href="https://github.com/ulinaaron/rivet-apps">GitHub</a>.
       </p>
     </footer>
     <script is:inline>
