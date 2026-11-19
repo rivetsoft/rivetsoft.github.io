@@ -1816,6 +1816,27 @@ body:has(.band) .site-footer-inner {
   overflow: hidden;
   background: #0084b8;
   color: #e9dee5;
+  padding-top: 5.75rem;
+  padding-bottom: 6rem;
+}
+
+.cta-wave {
+  position: absolute;
+  left: 0;
+  z-index: 2;
+  display: block;
+  width: 100%;
+  height: clamp(3.6rem, 8vw, 6rem);
+  pointer-events: none;
+}
+
+.cta-wave-top {
+  top: 0;
+}
+
+.cta-wave-bottom {
+  bottom: 0;
+  transform: scaleY(-1);
 }
 
 .cta-floor {
@@ -1837,7 +1858,7 @@ body:has(.band) .site-footer-inner {
 }
 
 .cta-copy h2 {
-  margin: 0 0 1rem;
+  margin: 0;
   max-width: 12em;
   font-size: clamp(1.9rem, 4.2vw, 3.25rem);
   font-weight: 640;
@@ -1850,16 +1871,8 @@ body:has(.band) .site-footer-inner {
   filter: drop-shadow(4px 4px 0 #24121b);
 }
 
-.band-cta p {
-  margin: 0;
-  max-width: 34rem;
-  color: #e9dee5;
-  font-size: 1.15rem;
-  line-height: 1.55;
-}
-
 .band-cta .cta-actions {
-  margin-top: 1.75rem;
+  margin-top: 1.85rem;
   gap: 1.1rem;
 }
 
@@ -1904,8 +1917,8 @@ body:has(.band) .site-footer-inner {
 
 @media (min-width: 800px) {
   .band-cta {
-    padding-top: 5.25rem;
-    padding-bottom: 5.5rem;
+    padding-top: 7.5rem;
+    padding-bottom: 7.75rem;
   }
 
   .cta-layout {
