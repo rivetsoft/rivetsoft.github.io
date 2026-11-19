@@ -14,49 +14,62 @@
   src: url("../fonts/azeret-mono-400.woff2") format("woff2");
 }
 
+/* Rivet "Style and Accent": Pink #d53f8c, Near Black #0c0c0c tinted 12% when dark,
+   the usual light grey #eaeaec tinted 7% when light. Secondary and tertiary follow
+   the shell's Roles formula (quieter pink, hue turned a sixth). Link colors are
+   the same pink, shifted just enough for WCAG AA text. */
 :root {
-  --bg: #f5f4f8;
+  --bg: #e9dee5;
   --bg-raised: rgba(255, 255, 255, 0.72);
-  --fg: #17151f;
-  --muted: #4e4960;
-  --line: rgba(28, 22, 48, 0.12);
-  --press: #5b3fd6;
-  --code: rgba(91, 63, 214, 0.08);
-  --select: #ddd4fb;
-  --shadow: 0 18px 40px -28px rgba(40, 24, 80, 0.55);
-  --hero: radial-gradient(880px 420px at 8% -8%, rgba(124, 92, 255, 0.2), transparent 62%),
-    radial-gradient(640px 360px at 100% 0%, rgba(255, 176, 120, 0.14), transparent 58%);
+  --fg: #2a2a2a;
+  --muted: #656264;
+  --line: rgba(42, 18, 27, 0.14);
+  --accent: #d53f8c;
+  --accent-2: #d599b8;
+  --accent-3: #b58e69;
+  --press: #992f64;
+  --code: rgba(213, 63, 140, 0.12);
+  --select: #f3d5e4;
+  --shadow: 0 18px 40px -28px rgba(120, 30, 70, 0.4);
+  --hero: radial-gradient(880px 420px at 8% -8%, rgba(213, 63, 140, 0.22), transparent 62%),
+    radial-gradient(640px 360px at 100% 0%, rgba(181, 142, 105, 0.2), transparent 58%);
   color-scheme: light;
 }
 
 :root[data-theme="dark"] {
-  --bg: #110f16;
-  --bg-raised: rgba(255, 255, 255, 0.05);
-  --fg: #f4f1fa;
-  --muted: #c8bdd8;
-  --line: rgba(244, 241, 250, 0.12);
-  --press: #cbbdff;
-  --code: rgba(203, 189, 255, 0.1);
-  --select: #3d3260;
+  --bg: #24121b;
+  --bg-raised: rgba(47, 30, 38, 0.78);
+  --fg: #d6d6d6;
+  --muted: #b09aa2;
+  --line: rgba(214, 214, 214, 0.14);
+  --accent: #d53f8c;
+  --accent-2: #d599b8;
+  --accent-3: #b58e69;
+  --press: #e07aab;
+  --code: rgba(213, 63, 140, 0.2);
+  --select: #4b1c34;
   --shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.7);
-  --hero: radial-gradient(880px 440px at 8% -10%, rgba(140, 110, 255, 0.28), transparent 62%),
-    radial-gradient(620px 340px at 100% 0%, rgba(255, 160, 96, 0.12), transparent 55%);
+  --hero: radial-gradient(880px 440px at 8% -10%, rgba(213, 63, 140, 0.32), transparent 62%),
+    radial-gradient(620px 340px at 100% 0%, rgba(181, 142, 105, 0.16), transparent 55%);
   color-scheme: dark;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #110f16;
-    --bg-raised: rgba(255, 255, 255, 0.05);
-    --fg: #f4f1fa;
-    --muted: #c8bdd8;
-    --line: rgba(244, 241, 250, 0.12);
-    --press: #cbbdff;
-    --code: rgba(203, 189, 255, 0.1);
-    --select: #3d3260;
+    --bg: #24121b;
+    --bg-raised: rgba(47, 30, 38, 0.78);
+    --fg: #d6d6d6;
+    --muted: #b09aa2;
+    --line: rgba(214, 214, 214, 0.14);
+    --accent: #d53f8c;
+    --accent-2: #d599b8;
+    --accent-3: #b58e69;
+    --press: #e07aab;
+    --code: rgba(213, 63, 140, 0.2);
+    --select: #4b1c34;
     --shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.7);
-    --hero: radial-gradient(880px 440px at 8% -10%, rgba(140, 110, 255, 0.28), transparent 62%),
-      radial-gradient(620px 340px at 100% 0%, rgba(255, 160, 96, 0.12), transparent 55%);
+    --hero: radial-gradient(880px 440px at 8% -10%, rgba(213, 63, 140, 0.32), transparent 62%),
+      radial-gradient(620px 340px at 100% 0%, rgba(181, 142, 105, 0.16), transparent 55%);
     color-scheme: dark;
   }
 }
@@ -173,7 +186,7 @@ nav[aria-label="Pages"] a {
 
 nav[aria-label="Pages"] a:hover,
 nav[aria-label="Pages"] a[aria-current="page"] {
-  color: var(--fg);
+  color: var(--press);
   background: var(--code);
 }
 
@@ -375,7 +388,7 @@ p {
 .card:hover {
   transform: translateY(-3px);
   border-color: color-mix(in srgb, var(--press) 42%, var(--line));
-  box-shadow: 0 22px 44px -26px rgba(60, 30, 120, 0.55);
+  box-shadow: 0 22px 44px -26px rgba(160, 40, 90, 0.45);
 }
 
 .card-name {
@@ -425,8 +438,8 @@ p {
 }
 
 .badge-alpha {
-  color: #7a4a12;
-  background: #fff3e4;
+  color: #992f64;
+  background: #e6c8d9;
 }
 
 .badge-someday,
@@ -441,8 +454,8 @@ p {
 }
 
 :root[data-theme="dark"] .badge-alpha {
-  color: #ffd9a8;
-  background: #3a2614;
+  color: #d599b8;
+  background: #4b1c34;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -452,8 +465,8 @@ p {
   }
 
   :root:not([data-theme="light"]) .badge-alpha {
-    color: #ffd9a8;
-    background: #3a2614;
+    color: #d599b8;
+    background: #4b1c34;
   }
 }
 
@@ -673,6 +686,7 @@ a.download:hover {
 
 .download-kind {
   font-weight: 640;
+  color: var(--press);
 }
 
 .download-name {
