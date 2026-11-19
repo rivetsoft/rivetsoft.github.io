@@ -3,6 +3,8 @@ title: Rivet now has a shell
 description: The Wayland shell is in the repo. It is early, and the apps still run on their own.
 date: 2026-11-19
 author: Aaron Mazade
+cover: ../../assets/shell/desktop.jpg
+coverAlt: Rivet Shell with a floating top panel, a clock and system readings, and a dock, over a sunset wallpaper
 ---
 
 Rivet has a shell now. It is early. There is no release yet, so you build it from source, and you should expect rough edges and changes.

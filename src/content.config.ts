@@ -7,11 +7,14 @@ export const collections = {
   docs: defineCollection({ loader: docsLoader(), schema: docsSchema() }),
   blog: defineCollection({
     loader: glob({ pattern: "**/*.md", base: "./src/content/blog" }),
-    schema: z.object({
-      title: z.string(),
-      description: z.string(),
-      date: z.coerce.date(),
-      author: z.string(),
-    }),
+    schema: ({ image }) =>
+      z.object({
+        title: z.string(),
+        description: z.string(),
+        date: z.coerce.date(),
+        author: z.string(),
+        cover: image().optional(),
+        coverAlt: z.string().optional(),
+      }),
   }),
 };

@@ -728,6 +728,117 @@ h1 {
   margin: 0 0 1rem;
 }
 
+.blog-head {
+  margin: 0.5rem 0 1.75rem;
+}
+
+.blog-head h1 {
+  margin-bottom: 0.45rem;
+}
+
+.blog-head p {
+  margin: 0;
+  max-width: 36rem;
+  color: var(--muted);
+  font-size: 1.15rem;
+}
+
+.post-cards {
+  list-style: none;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.75rem;
+  margin: 0;
+  padding: 0;
+}
+
+.post-cards > li {
+  min-width: 0;
+  max-width: none;
+}
+
+.post-card {
+  display: grid;
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  border-radius: 22px;
+  background: color-mix(in srgb, var(--accent) 8%, var(--bg-raised));
+  box-shadow: var(--shadow);
+  color: inherit;
+  text-decoration: none;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.post-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 22px 40px -18px rgba(120, 30, 70, 0.45);
+}
+
+.post-card-cover,
+.post-cover {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 18px;
+}
+
+.post-card-cover {
+  border-radius: 0;
+}
+
+.post-card-copy {
+  display: grid;
+  gap: 0.55rem;
+  padding: 1.35rem 1.45rem 1.55rem;
+}
+
+.post-card-title {
+  font-size: clamp(1.55rem, 2.4vw, 2.05rem);
+  font-weight: 640;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  color: var(--fg);
+}
+
+.post-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  color: var(--muted);
+}
+
+.post-card-excerpt {
+  max-width: 46rem;
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.post-cover {
+  margin: 0.4rem 0 1.5rem;
+  box-shadow: var(--shadow);
+}
+
+@media (min-width: 800px) {
+  .blog-head {
+    margin-bottom: 2.15rem;
+  }
+
+  .post-card-copy {
+    padding: 1.6rem 1.75rem 1.8rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .post-card {
+    transition: none;
+  }
+
+  .post-card:hover {
+    transform: none;
+  }
+}
+
 h2 {
   font-size: clamp(1.55rem, 2vw, 1.9rem);
   margin: 3.75rem 0 0.9rem;
@@ -1643,7 +1754,7 @@ body:has(.band) .site-footer-inner {
   }
 
   .colors-copy {
-    padding: 1.25rem 1.25rem 1.45rem;
+    padding: 2.65rem 1.5rem 1.55rem;
   }
 
   .colors-side {

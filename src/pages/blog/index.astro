@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 import Base from "../../layouts/Base.astro";
 import { url } from "../../paths";
@@ -7,6 +8,13 @@ import { breadcrumb, siteRoot } from "../../seo";
 const posts = (await getCollection("blog")).sort(
   (a, b) => b.data.date.getTime() - a.data.date.getTime(),
 );
+const dateOf = (date: Date) =>
+  date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    timeZone: "UTC",
+  });
 ---
 
 <Base
@@ -20,48 +28,36 @@ const posts = (await getCollection("blog")).sort(
     ]),
   ]}
 >
-  <h1>Blog</h1>
-  <ul class="posts">
+  <header class="blog-head">
+    <h1>Blog</h1>
+    <p>Short notes from the repo, newest first.</p>
+  </header>
+  <ul class="post-cards">
     {
       posts.map((post) => (
         <li>
-          <a href={url(`blog/${post.id}/`)}>{post.data.title}</a>
-          <p>
-            <time datetime={post.data.date.toISOString().slice(0, 10)}>
-              {post.data.date.toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-                timeZone: "UTC",
-              })}
-            </time>
-            {" · "}
-            {post.data.author}
-          </p>
-          <p>{post.data.description}</p>
+          <a class="post-card" href={url(`blog/${post.id}/`)}>
+            {post.data.cover && (
+              <Image
+                src={post.data.cover}
+                alt={post.data.coverAlt ?? ""}
+                widths={[720, 1100, 1440]}
+                sizes="(min-width: 800px) 64rem, 100vw"
+                class="post-card-cover"
+              />
+            )}
+            <span class="post-card-copy">
+              <span class="post-card-title">{post.data.title}</span>
+              <span class="post-card-meta">
+                <time datetime={post.data.date.toISOString().slice(0, 10)}>{dateOf(post.data.date)}</time>
+                <span aria-hidden="true">·</span>
+                {post.data.author}
+              </span>
+              <span class="post-card-excerpt">{post.data.description}</span>
+            </span>
+          </a>
         </li>
       ))
     }
   </ul>
 </Base>
-
-<style>
-  .posts {
-    list-style: none;
-    padding: 0;
-  }
-
-  .posts li {
-    margin: 0 0 1.4rem;
-  }
-
-  .posts a {
-    font-size: 1.35rem;
-    font-weight: 640;
-    text-decoration: none;
-  }
-
-  .posts p {
-    margin: 0.25rem 0 0;
-  }
-</style>
