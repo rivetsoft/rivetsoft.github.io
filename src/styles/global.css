@@ -340,20 +340,18 @@ main.column:has(.band) {
   margin-bottom: 0.6rem;
 }
 
-.eyebrow {
-  margin: 0 0 0.55rem;
-  color: var(--secondary);
-  font-weight: 640;
-  letter-spacing: 0.01em;
-  display: flex;
-  align-items: center;
-  gap: 0.55rem;
+.hero-shell {
+  width: 4.75rem;
+  height: auto;
+  display: block;
+  margin: 0 0 0.85rem;
+  filter: drop-shadow(0 10px 16px rgba(213, 63, 140, 0.45)) drop-shadow(0 0 14px rgba(213, 63, 140, 0.28));
 }
 
-.eyebrow img {
-  width: 2.25rem;
-  height: 2.25rem;
-  display: block;
+@media (min-width: 800px) {
+  .hero-shell {
+    width: 7.5rem;
+  }
 }
 
 .hero-actions {
