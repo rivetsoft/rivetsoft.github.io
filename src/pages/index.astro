@@ -253,17 +253,23 @@ const description =
   <section class="band band-colors scheme reveal" aria-labelledby="scheme-title">
     <div class="colors-layout">
     <div class="colors-copy">
+    <div class="accent-stage">
     <ul class="accent-ring" aria-label="Nine accents">
-          <li style="--i:0"><span class="rivet-float"><span class="rivet-dot" style="--dot:#3584e4" role="img" aria-label="Blue" title="Blue"></span></span></li>
-          <li style="--i:1"><span class="rivet-float"><span class="rivet-dot" style="--dot:#5e9c3c" role="img" aria-label="Green" title="Green"></span></span></li>
-          <li style="--i:2"><span class="rivet-float"><span class="rivet-dot" style="--dot:#1f9e9a" role="img" aria-label="Teal" title="Teal"></span></span></li>
-          <li style="--i:3"><span class="rivet-float"><span class="rivet-dot" style="--dot:#9141ac" role="img" aria-label="Purple" title="Purple"></span></span></li>
-          <li style="--i:4"><span class="rivet-float"><span class="rivet-dot" style="--dot:#d53f8c" role="img" aria-label="Pink" title="Pink"></span></span></li>
-          <li style="--i:5"><span class="rivet-float"><span class="rivet-dot" style="--dot:#e5a50a" role="img" aria-label="Yellow" title="Yellow"></span></span></li>
-          <li style="--i:6"><span class="rivet-float"><span class="rivet-dot" style="--dot:#e66100" role="img" aria-label="Orange" title="Orange"></span></span></li>
-          <li style="--i:7"><span class="rivet-float"><span class="rivet-dot" style="--dot:#c01c28" role="img" aria-label="Red" title="Red"></span></span></li>
-          <li style="--i:8"><span class="rivet-float"><span class="rivet-dot" style="--dot:#77767b" role="img" aria-label="Grey" title="Grey"></span></span></li>
+          <li style="--i:0"><span class="rivet-upright"><span class="rivet-float"><span class="rivet-dot" style="--dot:#3584e4" role="img" aria-label="Blue" title="Blue"></span></span></span></li>
+          <li style="--i:1"><span class="rivet-upright"><span class="rivet-float"><span class="rivet-dot" style="--dot:#5e9c3c" role="img" aria-label="Green" title="Green"></span></span></span></li>
+          <li style="--i:2"><span class="rivet-upright"><span class="rivet-float"><span class="rivet-dot" style="--dot:#1f9e9a" role="img" aria-label="Teal" title="Teal"></span></span></span></li>
+          <li style="--i:3"><span class="rivet-upright"><span class="rivet-float"><span class="rivet-dot" style="--dot:#9141ac" role="img" aria-label="Purple" title="Purple"></span></span></span></li>
+          <li style="--i:4"><span class="rivet-upright"><span class="rivet-float"><span class="rivet-dot" style="--dot:#d53f8c" role="img" aria-label="Pink" title="Pink"></span></span></span></li>
+          <li style="--i:5"><span class="rivet-upright"><span class="rivet-float"><span class="rivet-dot" style="--dot:#e5a50a" role="img" aria-label="Yellow" title="Yellow"></span></span></span></li>
+          <li style="--i:6"><span class="rivet-upright"><span class="rivet-float"><span class="rivet-dot" style="--dot:#e66100" role="img" aria-label="Orange" title="Orange"></span></span></span></li>
+          <li style="--i:7"><span class="rivet-upright"><span class="rivet-float"><span class="rivet-dot" style="--dot:#c01c28" role="img" aria-label="Red" title="Red"></span></span></span></li>
+          <li style="--i:8"><span class="rivet-upright"><span class="rivet-float"><span class="rivet-dot" style="--dot:#77767b" role="img" aria-label="Grey" title="Grey"></span></span></span></li>
     </ul>
+    <div class="ring-hub" aria-hidden="true">
+      <span class="ring-glow"></span>
+      <span class="ring-mark"><img src={url("rivet-files.svg")} alt="" width="96" height="96" /></span>
+    </div>
+    </div>
       <div class="colors-lead">
           <h2 id="scheme-title">Colors Galore!</h2>
           <p>
@@ -275,6 +281,24 @@ const description =
       </div>
     </div>
     <div class="colors-side">
+    <ul class="scheme-grid">
+      <li>
+        <img src={url("screenshots/theme-rose-wide.png")} alt="Rivet Files in the rose theme, on a light pink page" width={table["theme-rose-wide.png"].w} height={table["theme-rose-wide.png"].h} />
+        <span>Rose</span>
+      </li>
+      <li>
+        <img src={url("screenshots/theme-ember-wide.png")} alt="The same Files window in the ember accent" width={table["theme-ember-wide.png"].w} height={table["theme-ember-wide.png"].h} />
+        <span>Ember</span>
+      </li>
+      <li>
+        <img src={url("screenshots/theme-moss-wide.png")} alt="The same Files window in the moss accent" width={table["theme-moss-wide.png"].w} height={table["theme-moss-wide.png"].h} />
+        <span>Moss</span>
+      </li>
+      <li>
+        <img src={url("screenshots/theme-violet-wide.png")} alt="The same Files window in the violet accent" width={table["theme-violet-wide.png"].w} height={table["theme-violet-wide.png"].h} />
+        <span>Violet</span>
+      </li>
+    </ul>
       <ul class="preset-row" aria-label="A few code themes">
       <li class="preset" style="--bg:#1a1b26;--fg:#a9b1d6">
         <span>Tokyo Night</span>
@@ -300,26 +324,12 @@ const description =
         <span>Rosé Pine</span>
         <span class="swatch"><i style="background:#31748f"></i><i style="background:#f6c177"></i><i style="background:#ebbcba"></i><i style="background:#9ccfd8"></i></span>
       </li>
+      <li class="preset" style="--bg:#282c34;--fg:#abb2bf">
+        <span>One Dark</span>
+        <span class="swatch"><i style="background:#c678dd"></i><i style="background:#98c379"></i><i style="background:#61afef"></i><i style="background:#e5c07b"></i></span>
+      </li>
       <li class="preset preset-more">and more!</li>
       </ul>
-    <ul class="scheme-grid">
-      <li>
-        <img src={url("screenshots/theme-rose-wide.png")} alt="Rivet Files in the rose theme, on a light pink page" width={table["theme-rose-wide.png"].w} height={table["theme-rose-wide.png"].h} />
-        <span>Rose</span>
-      </li>
-      <li>
-        <img src={url("screenshots/theme-ember-wide.png")} alt="The same Files window in the ember accent" width={table["theme-ember-wide.png"].w} height={table["theme-ember-wide.png"].h} />
-        <span>Ember</span>
-      </li>
-      <li>
-        <img src={url("screenshots/theme-moss-wide.png")} alt="The same Files window in the moss accent" width={table["theme-moss-wide.png"].w} height={table["theme-moss-wide.png"].h} />
-        <span>Moss</span>
-      </li>
-      <li>
-        <img src={url("screenshots/theme-violet-wide.png")} alt="The same Files window in the violet accent" width={table["theme-violet-wide.png"].w} height={table["theme-violet-wide.png"].h} />
-        <span>Violet</span>
-      </li>
-    </ul>
     </div>
     </div>
   </section>
