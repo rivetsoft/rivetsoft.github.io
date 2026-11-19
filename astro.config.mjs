@@ -28,7 +28,6 @@ export default defineConfig({
         Head: "./src/components/DocsHead.astro",
       },
       lastUpdated: false,
-      pagination: false,
       pagefind: false,
       disable404Route: true,
       head: [
