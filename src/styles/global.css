@@ -380,7 +380,8 @@ main.column:has(.band) {
   gap: 2rem;
   box-sizing: border-box;
   padding: 2.2rem var(--frame) 2.6rem;
-  background: transparent;
+  overflow: hidden;
+  background: var(--bg);
   color: inherit;
 }
 
@@ -1593,7 +1594,7 @@ body:has(.band) .site-footer-inner {
 .band-facts {
   position: relative;
   z-index: 1;
-  background: transparent;
+  background: var(--bg);
   padding-top: 0;
   padding-bottom: calc(5.25rem + clamp(3.6rem, 8vw, 6rem));
 }
