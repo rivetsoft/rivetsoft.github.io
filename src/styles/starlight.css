@@ -1,3 +1,4 @@
+@import "./tokens.css";
 @import "@fontsource/space-grotesk/latin-400.css";
 @import "@fontsource/space-grotesk/latin-500.css";
 @import "@fontsource/space-grotesk/latin-700.css";
@@ -84,18 +85,34 @@ header.header {
   overflow: visible;
   background: color-mix(in srgb, var(--bg) 88%, transparent);
   border-bottom: 0;
-  box-shadow: 0 4px 0 #24121b;
+  box-shadow: 0 10px 24px -14px rgba(36, 18, 27, 0.55);
   backdrop-filter: blur(16px) saturate(1.2);
 }
 
 :root[data-theme="dark"] header.header {
-  box-shadow: 0 4px 0 #e9dee5;
+  box-shadow: 0 12px 28px -12px rgba(0, 0, 0, 0.72);
 }
 
 header.header button[data-open-modal],
+starlight-menu-button button {
+  background: transparent;
+  color: var(--fg);
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  font-weight: 500;
+}
+
+header.header button[data-open-modal]:hover,
+starlight-menu-button button:hover {
+  color: var(--accent);
+  background: transparent;
+  transform: none;
+  box-shadow: none;
+}
+
 .expressive-code .copy button,
 .pagination-links a,
-starlight-menu-button button,
 [role="tab"] {
   font-family: "Space Mono", ui-monospace, monospace;
   border-radius: 0;
@@ -111,7 +128,6 @@ starlight-menu-button button,
   background: #3ecf9a;
 }
 
-header.header button[data-open-modal]:hover,
 .expressive-code .copy button:hover,
 .pagination-links a:hover,
 [role="tab"]:hover {
@@ -199,6 +215,7 @@ h4 {
 
 .expressive-code .frame {
   border: 2px solid #24121b;
+  border-radius: var(--radius-card);
   box-shadow: 4px 4px 0 #24121b;
 }
 
@@ -214,22 +231,26 @@ h4 {
 
 .starlight-aside {
   border-inline-start: 0;
-  border-radius: 12px;
+  border-radius: var(--radius-card);
 }
 
 .sl-markdown-content blockquote {
   border-inline-start: 0;
   margin-inline: 0;
   padding: 0.85rem 1rem;
-  border-radius: 12px;
+  border-radius: var(--radius-card);
   background: color-mix(in srgb, var(--sl-color-accent) 12%, transparent);
 }
 
 .sl-markdown-content details {
   border-inline-start: 0;
   padding: 0.85rem 1rem;
-  border-radius: 12px;
+  border-radius: var(--radius-card);
   background: color-mix(in srgb, var(--sl-color-accent) 10%, transparent);
+}
+
+.sl-markdown-content img {
+  border-radius: var(--radius-shot);
 }
 
 .sl-markdown-content {
