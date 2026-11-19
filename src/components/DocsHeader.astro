@@ -30,18 +30,23 @@ import SiteMenu from "./SiteMenu.astro";
   }
 
   .docs-search :global(button[data-open-modal]) {
-    background: transparent;
-    color: var(--fg);
-    border: 0;
-    border-radius: 0;
-    box-shadow: none;
+    background: #3a2430;
+    color: #e9dee5;
+    border: 1px solid rgba(233, 222, 229, 0.45);
+    border-radius: var(--radius-card);
+    box-shadow: 3px 3px 0 #e9dee5;
     font-weight: 500;
   }
 
+  :global(:root[data-theme="light"]) .docs-search :global(button[data-open-modal]) {
+    background: #f7f2f4;
+    color: #24121b;
+    border-color: rgba(36, 18, 27, 0.4);
+    box-shadow: 3px 3px 0 #24121b;
+  }
+
   .docs-search :global(button[data-open-modal]:hover) {
-    background: transparent;
-    color: var(--accent);
+    color: inherit;
     transform: none;
-    box-shadow: none;
   }
 </style>

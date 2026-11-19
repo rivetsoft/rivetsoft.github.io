@@ -116,10 +116,10 @@ header.header .apps-panel a.apps-install,
 header.header .apps-panel a.apps-install:hover,
 header.header .apps-panel a.apps-install:focus,
 header.header .apps-panel a.apps-install:focus-visible {
-  width: 100%;
+  width: calc(100% + 0.7rem);
   box-sizing: border-box;
   justify-content: space-between;
-  margin-top: 0.35rem;
+  margin: 0.45rem -0.35rem -0.35rem;
   padding: 0.55rem 0.85rem;
   border-radius: 0;
   border: 2px solid #24121b;
@@ -127,14 +127,8 @@ header.header .apps-panel a.apps-install:focus-visible {
   color: #24121b;
   font-family: "Space Mono", ui-monospace, monospace;
   font-weight: 700;
-  box-shadow: 4px 4px 0 #8b8231;
-}
-
-header.header .apps-panel a.apps-install:hover,
-header.header .apps-panel a.apps-install:focus,
-header.header .apps-panel a.apps-install:focus-visible {
-  transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0 #8b8231;
+  box-shadow: none;
+  transform: none;
 }
 
 header.header .apps-panel a:hover .apps-name,
@@ -148,7 +142,27 @@ header.header .apps-panel a[aria-current="page"] .apps-line {
   color: #e9dee5;
 }
 
-header.header button[data-open-modal],
+header.header button[data-open-modal] {
+  background: #3a2430;
+  color: #e9dee5;
+  border: 1px solid rgba(233, 222, 229, 0.45);
+  border-radius: var(--radius-card);
+  box-shadow: 3px 3px 0 #e9dee5;
+  font-weight: 500;
+}
+
+:root[data-theme="light"] header.header button[data-open-modal] {
+  background: #f7f2f4;
+  color: #24121b;
+  border-color: rgba(36, 18, 27, 0.4);
+  box-shadow: 3px 3px 0 #24121b;
+}
+
+header.header button[data-open-modal]:hover {
+  color: inherit;
+  filter: none;
+}
+
 starlight-menu-button button {
   background: transparent;
   color: var(--fg);
@@ -158,7 +172,6 @@ starlight-menu-button button {
   font-weight: 500;
 }
 
-header.header button[data-open-modal]:hover,
 starlight-menu-button button:hover {
   color: var(--accent);
   background: transparent;
@@ -167,8 +180,7 @@ starlight-menu-button button:hover {
 }
 
 .expressive-code .copy button,
-.pagination-links a,
-[role="tab"] {
+.pagination-links a {
   font-family: "Space Mono", ui-monospace, monospace;
   border-radius: 0;
   border: 2px solid #24121b;
@@ -178,16 +190,41 @@ starlight-menu-button button:hover {
   font-weight: 700;
 }
 
-.pagination-links a:last-child,
-.tab:nth-child(even) [role="tab"] {
+.pagination-links a,
+.pagination-links a span,
+.pagination-links a .link-title,
+.pagination-links a svg {
+  color: #24121b;
+}
+
+.pagination-links a:last-child {
   background: #3ecf9a;
+  color: #24121b;
 }
 
 .expressive-code .copy button:hover,
-.pagination-links a:hover,
-[role="tab"]:hover {
+.pagination-links a:hover {
   transform: translate(2px, 2px);
   box-shadow: 2px 2px 0 var(--shadow-hard);
+  color: #24121b;
+}
+
+[role="tab"] {
+  font-family: "Space Grotesk", "Segoe UI", sans-serif;
+  font-weight: 500;
+  color: var(--fg);
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: inset 0 -2px 0 transparent;
+}
+
+[role="tab"]:hover,
+[role="tab"]:focus-visible {
+  color: #d53f8c;
+  background: transparent;
+  transform: none;
+  box-shadow: inset 0 -2px 0 transparent;
 }
 
 h1,
@@ -216,6 +253,23 @@ h4 {
 
 :root[data-theme="dark"] .sl-markdown-content a {
   color: #3ecf9a;
+}
+
+.sl-markdown-content a[role="tab"] {
+  color: var(--fg);
+}
+
+:root[data-theme="dark"] .sl-markdown-content a[role="tab"] {
+  color: #e9dee5;
+}
+
+.sl-markdown-content a[role="tab"]:hover,
+.sl-markdown-content a[role="tab"]:focus-visible,
+.sl-markdown-content a[role="tab"][aria-selected="true"],
+:root[data-theme="dark"] .sl-markdown-content a[role="tab"]:hover,
+:root[data-theme="dark"] .sl-markdown-content a[role="tab"]:focus-visible,
+:root[data-theme="dark"] .sl-markdown-content a[role="tab"][aria-selected="true"] {
+  color: #d53f8c;
 }
 
 .starlight-aside {
@@ -262,10 +316,12 @@ h4 {
   padding-bottom: 0.4rem;
 }
 
-[role="tab"][aria-selected="true"] {
-  background: #d53f8c;
-  color: #24121b;
-  box-shadow: 4px 4px 0 var(--shadow-hard);
+[role="tab"][aria-selected="true"],
+[role="tab"][aria-selected="true"]:hover {
+  background: transparent;
+  color: #d53f8c;
+  box-shadow: inset 0 -3px 0 #d53f8c;
+  transform: none;
 }
 
 .expressive-code .frame {

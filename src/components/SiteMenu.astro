@@ -55,7 +55,6 @@ const listed = menuSlugs.map((slug) => {
             </li>
           ))
         }
-        <li class="apps-rule" role="separator"></li>
         <li>
           <a class="apps-install" href={url("docs/getting-started/install/")}>
             Install With Welcome App
@@ -364,17 +363,11 @@ const listed = menuSlugs.map((slug) => {
     color: #e9dee5;
   }
 
-  .apps-rule {
-    height: 1px;
-    margin: 0.3rem 0.55rem;
-    background: var(--line);
-  }
-
   .apps-install {
-    width: 100%;
+    width: calc(100% + 0.7rem);
     box-sizing: border-box;
     justify-content: space-between;
-    margin-top: 0.35rem;
+    margin: 0.45rem -0.35rem -0.35rem;
     padding: 0.55rem 0.85rem;
     border-radius: 0;
     border: 2px solid #24121b;
@@ -382,7 +375,7 @@ const listed = menuSlugs.map((slug) => {
     color: #24121b;
     font-family: "Space Mono", ui-monospace, monospace;
     font-weight: 700;
-    box-shadow: 4px 4px 0 #8b8231;
+    box-shadow: none;
   }
 
   .apps-install:hover,
@@ -390,17 +383,8 @@ const listed = menuSlugs.map((slug) => {
   .apps-install:focus-visible {
     background: #fff270;
     color: #24121b;
-    transform: translate(2px, 2px);
-    box-shadow: 2px 2px 0 #8b8231;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .apps-install:hover,
-    .apps-install:focus,
-    .apps-install:focus-visible {
-      transform: none;
-      box-shadow: 4px 4px 0 #8b8231;
-    }
+    transform: none;
+    box-shadow: none;
   }
 
   .apps-panel img {
