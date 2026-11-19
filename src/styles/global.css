@@ -874,8 +874,8 @@ p {
 
 .badge-someday,
 .badge-unreleased {
-  color: var(--muted);
-  background: var(--code);
+  color: var(--secondary);
+  background: var(--chip);
 }
 
 :root[data-theme="dark"] .badge-released {
@@ -1303,7 +1303,7 @@ a {
 }
 
 .band-welcome {
-  background: color-mix(in srgb, var(--rivet-quaternary) 11%, var(--bg));
+  background: color-mix(in srgb, var(--accent-2) 8%, var(--bg));
 }
 
 .band-cta {
@@ -1311,7 +1311,7 @@ a {
 }
 
 .band .facts {
-  margin-top: 2rem;
+  margin-top: 0;
 }
 
 .band.scheme,
