@@ -1342,6 +1342,7 @@ body:has(.band) .site-footer-inner {
 }
 
 .band-colors {
+  padding: 2.5rem 1.25rem 2.75rem;
   background-color: #d53f8c;
   background-image:
     radial-gradient(900px 520px at 8% 0%, #fff270 0%, transparent 58%),
@@ -1353,22 +1354,37 @@ body:has(.band) .site-footer-inner {
 }
 
 .colors-copy {
-  max-width: 74rem;
-  padding: 1.7rem 1.75rem 1.55rem;
+  container-type: inline-size;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.35rem;
+  max-width: none;
+  padding: 1.35rem 1.2rem 1.45rem;
   border-radius: 22px;
-  background: rgba(36, 18, 27, 0.84);
+  background: rgba(36, 18, 27, 0.9);
   color: #f7eef3;
 }
 
 .colors-layout {
   display: grid;
-  gap: 2rem;
-  align-items: center;
+  gap: 1.35rem;
+  align-items: stretch;
 }
 
-.colors-copy h2,
-.colors-copy p {
+.colors-copy h2 {
+  margin: 0 0 0.65rem;
+  font-size: clamp(2rem, 2.8vw, 2.7rem);
   color: #f7eef3;
+}
+
+.colors-copy p {
+  margin: 0;
+  color: #f7eef3;
+}
+
+.colors-lead p + p {
+  margin-top: 0.95rem;
 }
 
 .colors-copy a {
@@ -1377,26 +1393,58 @@ body:has(.band) .site-footer-inner {
 
 .colors-side {
   display: grid;
-  gap: 1.15rem;
+  gap: 1rem;
   align-content: start;
   min-width: 0;
 }
 
 .band-colors .preset-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.7rem;
   margin: 0;
 }
 
+.band-colors .preset {
+  flex: 0 0 calc(50% - 0.7rem);
+  min-width: 0;
+  min-height: 4.75rem;
+  height: auto;
+  margin: 0;
+  padding: 0.7rem 0.75rem 0.75rem;
+  border-radius: 14px;
+  box-shadow: none;
+}
+
+.band-colors .preset > span:first-child {
+  display: block;
+  min-height: 2.4em;
+  font-size: 0.92rem;
+  line-height: 1.2;
+}
+
 .band-colors .preset-more {
-  color: #24121b;
-  border-color: color-mix(in srgb, #24121b 42%, transparent);
+  justify-content: center;
+  align-items: center;
+  background: rgba(36, 18, 27, 0.78);
+  color: #f7eef3;
+  border-color: transparent;
+  font-weight: 640;
+}
+
+.band-colors .preset-more > span:first-child {
+  min-height: 0;
+  font-size: 1rem;
 }
 
 .accent-ring {
-  --ring: 3.15rem;
+  --ring: 36cqi;
   position: relative;
-  width: 8.4rem;
-  height: 8.4rem;
-  margin: 0.2rem auto 1.5rem;
+  width: 100%;
+  aspect-ratio: 1;
+  height: auto;
+  margin: 0 auto;
   padding: 0;
   list-style: none;
 }
@@ -1436,12 +1484,9 @@ body:has(.band) .site-footer-inner {
   }
 }
 
-@media (min-width: 800px) {
+@container (min-width: 28rem) {
   .accent-ring {
-    --ring: 4.7rem;
-    width: 12rem;
-    height: 12rem;
-    margin: 0.2rem auto 2rem;
+    --ring: 42cqi;
   }
 }
 
@@ -1469,25 +1514,73 @@ body:has(.band) .site-footer-inner {
   align-content: start;
 }
 
-@media (min-width: 800px) {
-  .colors-layout {
-    grid-template-columns: minmax(16rem, 0.82fr) minmax(0, 1.18fr);
-    gap: 2.25rem;
-    align-items: start;
-  }
+.band-colors .scheme-grid li {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  margin: 0;
+  padding: 0.45rem 0.45rem 0.6rem;
+  border: 0;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.86);
+  box-shadow: 0 18px 36px -24px rgba(36, 18, 27, 0.55);
+}
 
-  .band-colors .scheme-grid {
-    gap: 1.15rem;
-  }
+.band-colors .scheme-grid img {
+  border-radius: 12px;
 }
 
 .band-colors .scheme-grid span {
+  align-self: center;
   color: #24121b;
-  background: rgba(255, 255, 255, 0.78);
-  display: inline-block;
-  margin-top: 0.55rem;
-  padding: 0.15rem 0.55rem;
-  border-radius: 999px;
+  background: transparent;
+  display: block;
+  margin-top: 0.45rem;
+  padding: 0;
+  border-radius: 0;
+  font-size: 0.92rem;
+  font-weight: 640;
+  letter-spacing: -0.02em;
+}
+
+@media (min-width: 800px) {
+  .band-colors {
+    padding: 3rem 2.25rem 3.25rem;
+  }
+
+  .colors-layout {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 1.5rem;
+  }
+
+  .colors-copy {
+    height: 100%;
+    padding: 1.6rem 1.45rem 1.75rem;
+  }
+
+  .colors-side {
+    gap: 1.1rem;
+  }
+
+  .band-colors .scheme-grid {
+    gap: 1rem;
+  }
+}
+
+@media (min-width: 1100px) {
+  .band-colors .preset {
+    flex-basis: calc(25% - 0.75rem);
+  }
+
+  .band-colors .preset-row {
+    gap: 0.75rem;
+  }
+}
+
+@media (min-width: 1440px) {
+  .band-colors {
+    padding: 3.5rem max(2.75rem, calc((100vw - 86rem) / 2)) 3.75rem;
+  }
 }
 
 .band-welcome {
