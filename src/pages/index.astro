@@ -156,8 +156,25 @@ const description =
   </ul>
 
   <section class="scheme" aria-labelledby="scheme-title">
-    <h2 id="scheme-title">Other accents</h2>
-    <p>The default is pink. The same Files window can wear another accent.</p>
+    <h2 id="scheme-title">Colors</h2>
+    <p>
+      The apps read a CSS color file and check it about every 2 seconds. When the file changes,
+      the windows restyle. You do not restart them.
+    </p>
+    <p>
+      <code>~/.config/rivet/colors.css</code> is the one matugen, or any other tool, can write.
+      The shell can add a matugen template that points at that path. The lines are GTK
+      <code>@define-color</code> colors, and <code>@import</code>s are followed.
+      <code>~/.config/rivet/palette.css</code> is the file Rivet writes when you pick a preset.
+      While it is there, it comes first. After those, the apps also read
+      <code>~/.config/gtk-4.0</code> and <code>~/.config/gtk-3.0</code> (<code>gtk.css</code> and
+      <code>colors.css</code>).
+    </p>
+    <p>
+      In the shell, colors can come from the wallpaper through matugen, from a preset, or from a
+      style and an accent. The accents are Blue, Green, Teal, Purple, Pink, Yellow, Orange, Red,
+      and Grey. The same Files window in Rose, Ember, Moss, and Violet:
+    </p>
     <ul class="scheme-grid">
       <li>
         <img src={url("screenshots/theme-rose-wide.png")} alt="Rivet Files in the rose theme, on a light pink page" width={table["theme-rose-wide.png"].w} height={table["theme-rose-wide.png"].h} />
@@ -176,6 +193,17 @@ const description =
         <span>Violet</span>
       </li>
     </ul>
+    <p>
+      The presets are the same names Edit uses for code and Terminal uses for its colors. Picking
+      one in the shell writes <code>palette.css</code>, which the other apps then read. They are
+      One Dark, One Light, Dracula, Monokai, Monokai Pro, Solarized Dark, Solarized Light, Nord,
+      Gruvbox Dark, Gruvbox Light, Catppuccin Latte, Catppuccin Frappé, Catppuccin Macchiato,
+      Catppuccin Mocha, Tokyo Night, Tokyo Night Day, GitHub Light, GitHub Dark, GitHub Dark
+      Dimmed, Rosé Pine, Rosé Pine Moon, Rosé Pine Dawn, Everforest, Everforest Light, Ayu Dark,
+      Ayu Mirage, Ayu Light, Material, Palenight, Kanagawa, Night Owl, Light Owl, VS Code Dark
+      Modern, VS Code Light Modern, JetBrains Darcula, Xcode Light, Xcode Dark, High Contrast
+      Dark, and High Contrast Light.
+    </p>
   </section>
 
   {
