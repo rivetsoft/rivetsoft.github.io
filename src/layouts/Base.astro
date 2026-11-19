@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import Seo from "../components/Seo.astro";
 import SiteMenu from "../components/SiteMenu.astro";
 import { url } from "../paths";
 
@@ -7,10 +8,12 @@ interface Props {
   title: string;
   description: string;
   current?: string;
+  jsonLd?: unknown[];
+  ogType?: string;
 }
 
-const { title, description, current = "" } = Astro.props;
-const documentTitle = current === "home" ? "Rivet" : `${title}`;
+const { title, description, current = "", jsonLd = [], ogType = "website" } = Astro.props;
+const documentTitle = current === "home" ? "Rivet" : `${title} | Rivet`;
 ---
 
 <!doctype html>
@@ -20,7 +23,8 @@ const documentTitle = current === "home" ? "Rivet" : `${title}`;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{documentTitle}</title>
     <meta name="description" content={description} />
-    <link rel="icon" href={url("rivet-files.svg")} type="image/svg+xml" />
+    <Seo title={documentTitle} description={description} jsonLd={jsonLd} ogType={ogType} />
+    <link rel="icon" href={url("rivet-mark.svg")} type="image/svg+xml" />
     <script
       is:inline
       defer

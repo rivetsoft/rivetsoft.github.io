@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ulinaaron.github.io/rivet-web/sitemap-index.xml

@@ -9,6 +9,7 @@ import NotesBody from "../bodies/Notes.astro";
 import { apps, repoUrl, type AppEntry } from "../data/apps";
 import { releaseFor } from "../data/releases";
 import { url } from "../paths";
+import { breadcrumb, siteRoot, softwareApplication } from "../seo";
 
 export function getStaticPaths() {
   return apps.map((app) => ({
@@ -22,17 +23,25 @@ interface Props {
 }
 
 const { app } = Astro.props;
+const release = releaseFor(app.slug);
+const pageUrl = new URL(Astro.url.pathname, Astro.site).href;
+const jsonLd = [
+  softwareApplication(app, release, pageUrl),
+  breadcrumb([
+    { name: "Rivet", url: siteRoot },
+    { name: app.name, url: pageUrl },
+  ]),
+];
 const bodies = {
   files: FilesBody,
   ftp: FtpBody,
   notes: NotesBody,
 } as const;
 const Body = app.template ? bodies[app.template] : null;
-const release = releaseFor(app.slug);
 const readmeUrl = app.readme ? `${repoUrl}/blob/main/${app.readme}` : repoUrl;
 ---
 
-<Base title={app.name} description={app.summary} current={app.slug}>
+<Base title={app.name} description={app.summary} current={app.slug} jsonLd={jsonLd}>
   {
     Body ? (
       <Body />

@@ -2,92 +2,97 @@
   "bloated-wide.png": {
     "w": 1100,
     "h": 700,
-    "bytes": 81276
+    "bytes": 79597
   },
   "bulk-rename-wide.png": {
     "w": 1100,
     "h": 700,
-    "bytes": 82151
+    "bytes": 80471
+  },
+  "columns-wide.png": {
+    "w": 1100,
+    "h": 700,
+    "bytes": 54012
   },
   "edit-commands-wide.png": {
     "w": 1280,
     "h": 800,
-    "bytes": 77353
+    "bytes": 75256
   },
   "edit-editor-wide.png": {
     "w": 1280,
     "h": 800,
-    "bytes": 88659
+    "bytes": 83925
   },
   "edit-go-to-file-wide.png": {
     "w": 1280,
     "h": 800,
-    "bytes": 64336
+    "bytes": 61447
   },
   "edit-light-wide.png": {
     "w": 1280,
     "h": 800,
-    "bytes": 63706
+    "bytes": 58503
   },
   "edit-preferences-wide.png": {
     "w": 1280,
     "h": 800,
-    "bytes": 84179
+    "bytes": 80759
   },
   "file-picker-wide.png": {
     "w": 1100,
     "h": 700,
-    "bytes": 44167
+    "bytes": 44258
   },
   "filters-wide.png": {
     "w": 1100,
     "h": 700,
-    "bytes": 73299
+    "bytes": 69087
   },
   "ftp-connected-wide.png": {
     "w": 1280,
     "h": 800,
-    "bytes": 100113
+    "bytes": 97574
   },
   "ftp-info-wide.png": {
     "w": 1280,
     "h": 800,
-    "bytes": 108779
+    "bytes": 106673
   },
   "ftp-keys-wide.png": {
     "w": 1280,
     "h": 800,
-    "bytes": 107605
+    "bytes": 107801
   },
   "ftp-light-wide.png": {
     "w": 1280,
     "h": 800,
-    "bytes": 90375
+    "bytes": 87840
   },
   "ftp-new-connection-wide.png": {
     "w": 1280,
     "h": 800,
-    "bytes": 108765
+    "bytes": 109365
   },
   "ftp-preferences-wide.png": {
     "w": 1280,
     "h": 800,
-    "bytes": 110215
+    "bytes": 110810
   },
   "ftp-replace-wide.png": {
     "w": 1280,
     "h": 800,
-    "bytes": 120515
+    "bytes": 117413
   },
   "icons-wide.png": {
     "w": 1100,
     "h": 700,
-    "bytes": 48445
+    "bytes": 44675
   },
   "list-wide.png": {
     "w": 1100,
     "h": 700,
-    "bytes": 63795
+    "bytes": 59774
   },
   "minimal-wide.png": {
     "w": 1100,
@@ -97,62 +102,62 @@
   "notes-live-wide.png": {
     "w": 1280,
     "h": 800,
-    "bytes": 130530
+    "bytes": 129119
   },
   "notes-preferences-wide.png": {
     "w": 1280,
     "h": 800,
-    "bytes": 80880
+    "bytes": 79400
   },
   "notes-quick-open-wide.png": {
     "w": 1280,
     "h": 800,
-    "bytes": 84157
+    "bytes": 79972
   },
   "notes-reading-wide.png": {
     "w": 1280,
     "h": 800,
-    "bytes": 83900
+    "bytes": 81712
   },
   "notes-slash-wide.png": {
     "w": 1280,
     "h": 800,
-    "bytes": 80854
+    "bytes": 75421
   },
   "notes-source-dark.png": {
     "w": 1280,
     "h": 800,
-    "bytes": 102511
+    "bytes": 98822
   },
   "notes-source-wide.png": {
     "w": 1280,
     "h": 800,
-    "bytes": 107412
+    "bytes": 102923
   },
   "notes-todos-board-wide.png": {
     "w": 1280,
     "h": 800,
-    "bytes": 89452
+    "bytes": 84937
   },
   "notes-todos-list-wide.png": {
     "w": 1280,
     "h": 800,
-    "bytes": 93111
+    "bytes": 87614
   },
   "peek-code-wide.png": {
     "w": 1100,
     "h": 700,
-    "bytes": 89344
+    "bytes": 86393
   },
   "peek-picture-wide.png": {
     "w": 1100,
     "h": 700,
-    "bytes": 77373
+    "bytes": 75688
   },
   "preferences-wide.png": {
     "w": 1100,
     "h": 700,
-    "bytes": 78534
+    "bytes": 77006
   },
   "quick-open-wide.png": {
     "w": 1100,
@@ -162,7 +167,7 @@
   "rivet-icons-wide.png": {
     "w": 1100,
     "h": 700,
-    "bytes": 50206
+    "bytes": 46459
   },
   "rivet-terminal-wide.png": {
     "w": 1280,
@@ -177,7 +182,7 @@
   "terminal-wide.png": {
     "w": 1100,
     "h": 700,
-    "bytes": 104606
+    "bytes": 102257
   },
   "theme-ember-wide.png": {
     "w": 1100,
@@ -207,6 +212,6 @@
   "zen-wide.png": {
     "w": 1100,
     "h": 700,
-    "bytes": 37625
+    "bytes": 37626
   }
 }

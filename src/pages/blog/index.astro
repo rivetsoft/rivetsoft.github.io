@@ -2,13 +2,24 @@
 import { getCollection } from "astro:content";
 import Base from "../../layouts/Base.astro";
 import { url } from "../../paths";
+import { breadcrumb, siteRoot } from "../../seo";
 
 const posts = (await getCollection("blog")).sort(
   (a, b) => b.data.date.getTime() - a.data.date.getTime(),
 );
 ---
 
-<Base title="Blog" description="Short notes from the Rivet repo." current="blog">
+<Base
+  title="Blog"
+  description="Short notes from the Rivet repo, newest first."
+  current="blog"
+  jsonLd={[
+    breadcrumb([
+      { name: "Rivet", url: siteRoot },
+      { name: "Blog", url: `${siteRoot}blog/` },
+    ]),
+  ]}
+>
   <h1>Blog</h1>
   <ul class="posts">
     {

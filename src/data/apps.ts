@@ -35,6 +35,8 @@ export interface AppEntry {
   source?: string;
   /** Home page placement. Other apps stay in the grid. */
   spotlight?: "shell" | "welcome";
+  /** schema.org applicationCategory. */
+  applicationCategory: string;
 }
 
 export const repoUrl = "https://github.com/ulinaaron/rivet-apps";
@@ -49,6 +51,7 @@ export const apps: AppEntry[] = [
     nav: true,
     navLabel: "Shell",
     spotlight: "shell",
+    applicationCategory: "DesktopApplication",
     cardShot: "shell-wide.jpg",
     cardAlt: "Rivet Shell: the panel, widgets and dock over a sunset wallpaper",
     cardCaption: "Rivet Shell in the pink scheme, over a sunset wallpaper.",
@@ -59,7 +62,7 @@ export const apps: AppEntry[] = [
     points: [
       "A panel with workspaces, the focused window, clock, volume, battery, notifications and a power menu. Top or bottom, floating or edge to edge.",
       "A dock of pinned apps, then open ones. A dot shows when a window is open. Files, Terminal, Edit and Notes start pinned.",
-      "A launcher that searches installed apps. Type a sum and it answers.",
+      "A launcher that searches installed apps.",
       "Wallpaper on every screen. matugen colors the desktop from that picture, and the Rivet apps follow it.",
       "A settings window for wallpaper, colors, panels, dock, widgets and notifications.",
     ],
@@ -76,6 +79,7 @@ export const apps: AppEntry[] = [
     nav: true,
     navLabel: "Welcome",
     spotlight: "welcome",
+    applicationCategory: "UtilitiesApplication",
     cardShot: "welcome-wide.png",
     cardAlt: "Rivet Welcome with two updates and an install under way",
     cardCaption: "Rivet Welcome, with updates and an install under way.",
@@ -101,6 +105,7 @@ export const apps: AppEntry[] = [
     nav: true,
     navLabel: "Files",
     template: "files",
+    applicationCategory: "UtilitiesApplication",
     cardShot: "icons-wide.png",
     icon: "rivet-files.svg",
     readme: "apps/rivet-files/README.md",
@@ -114,6 +119,7 @@ export const apps: AppEntry[] = [
     nav: true,
     navLabel: "FTP",
     template: "ftp",
+    applicationCategory: "UtilitiesApplication",
     cardShot: "ftp-connected-wide.png",
     icon: "rivet-ftp.svg",
     readme: "apps/rivet-ftp/README.md",
@@ -128,6 +134,7 @@ export const apps: AppEntry[] = [
     nav: true,
     navLabel: "Notes",
     template: "notes",
+    applicationCategory: "ProductivityApplication",
     cardShot: "notes-live-wide.png",
     icon: "rivet-notes.svg",
     readme: "apps/rivet-notes/README.md",
@@ -141,6 +148,7 @@ export const apps: AppEntry[] = [
     tagPrefixes: ["rivet-edit-v"],
     nav: true,
     navLabel: "Edit",
+    applicationCategory: "DeveloperApplication",
     cardShot: "edit-editor-wide.png",
     cardAlt: "Rivet Edit with a Rust project open",
     cardCaption: "Rivet Edit with a Rust project open.",
@@ -159,6 +167,7 @@ export const apps: AppEntry[] = [
     tagPrefixes: ["rivet-terminal-v"],
     nav: true,
     navLabel: "Terminal",
+    applicationCategory: "DeveloperApplication",
     cardShot: "rivet-terminal-wide.png",
     cardAlt: "Rivet Terminal with three panes",
     cardCaption: "Rivet Terminal with three panes.",

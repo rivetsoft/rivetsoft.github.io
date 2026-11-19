@@ -1,4 +1,5 @@
 import { defineConfig } from "astro/config";
+import sitemap from "@astrojs/sitemap";
 import starlight from "@astrojs/starlight";
 
 export default defineConfig({
@@ -15,7 +16,7 @@ export default defineConfig({
       title: "Rivet",
       description:
         "Notes on Rivet Shell, Rivet Welcome, and the apps. Each one also runs on its own.",
-      favicon: "/rivet-files.svg",
+      favicon: "/rivet-mark.svg",
       logo: {
         src: "./public/rivet-files.svg",
         alt: "Rivet",
@@ -24,6 +25,7 @@ export default defineConfig({
       components: {
         Header: "./src/components/DocsHeader.astro",
         Footer: "./src/components/DocsFooter.astro",
+        Head: "./src/components/DocsHead.astro",
       },
       lastUpdated: false,
       pagination: false,
@@ -58,5 +60,6 @@ export default defineConfig({
         { label: "Terminal", items: [{ label: "Rivet Terminal", link: "/docs/terminal/" }] },
       ],
     }),
+    sitemap(),
   ],
 });

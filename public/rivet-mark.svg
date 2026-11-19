@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="36 48 56 60">
+  <!-- Rivet shape only, taken from rivet-files.svg and filled with the pink scheme. -->
+  <defs>
+    <radialGradient id="dome" cx="0.38" cy="0.32" r="0.75">
+      <stop offset="0" stop-color="#ffd0e6"/>
+      <stop offset="0.55" stop-color="#eb65a6"/>
+      <stop offset="1" stop-color="#d53f8c"/>
+    </radialGradient>
+    <linearGradient id="shank" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#eb65a6"/>
+      <stop offset="1" stop-color="#b33272"/>
+    </linearGradient>
+  </defs>
+  <g transform="rotate(-40 64 76)">
+    <path d="M59 72h10v30.5l-1.5 2.5h-7l-1.5-2.5z" fill="url(#shank)"/>
+    <path d="M66 74v28" stroke="#f4b7d2" stroke-width="2" stroke-linecap="round"/>
+    <ellipse cx="64" cy="72" rx="20" ry="4.2" fill="#c43d78"/>
+    <path d="M44 72a20 9.5 0 0 1 40 0z" fill="url(#dome)"/>
+    <ellipse cx="57" cy="67" rx="6" ry="2.2" fill="#ffffff" fill-opacity="0.9" transform="rotate(-10 57 67)"/>
+  </g>
+</svg>
