@@ -1427,6 +1427,49 @@ body:has(.band) .site-footer-inner {
   gap: 0.75rem;
   margin-bottom: 1.35rem;
   font-weight: 650;
+  color: inherit;
+  text-decoration: none;
+}
+
+.shell-intro h1 {
+  font-size: clamp(3rem, 6vw, 4.6rem);
+  margin: 0 0 1rem;
+}
+
+.shell-shot {
+  margin: 1.6rem 0 0;
+}
+
+.shell-shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--code);
+}
+
+.shell-shot figcaption {
+  margin-top: 0.55rem;
+  color: var(--muted);
+}
+
+.shell-grid {
+  display: grid;
+  gap: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+@media (min-width: 800px) {
+  .shell-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.75rem;
+  }
+
+  .shell-grid .shell-shot:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    max-width: calc(50% - 0.875rem);
+  }
 }
 
 .shell-name img,

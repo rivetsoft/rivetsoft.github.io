@@ -20,7 +20,7 @@ export interface AppEntry {
   /** Set when this is an idea, not an app in the repository yet. */
   laterPhrase?: string;
   /** Which long page to render. Omit for the short generic page. */
-  template?: "files" | "ftp" | "notes";
+  template?: "files" | "ftp" | "notes" | "shell";
   /** Home-card screenshot in public/screenshots. */
   cardShot?: string;
   cardAlt?: string;
@@ -51,6 +51,7 @@ export const apps: AppEntry[] = [
     nav: true,
     navLabel: "Shell",
     spotlight: "shell",
+    template: "shell",
     applicationCategory: "DesktopApplication",
     cardShot: "shell-wide.jpg",
     cardAlt: "Rivet Shell over a sunset wallpaper, with a Rivet Files window in front",

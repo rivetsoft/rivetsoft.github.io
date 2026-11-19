@@ -84,7 +84,7 @@ const description =
       {
         shell && !shell.release && (
           <p class="hero-note">
-            Shell has no release yet. Build notes are on the <a href={url("shell/")}>Shell page</a>.
+            Shell has no release yet. The <a href={url("shell/")}>Shell page</a> shows what is on screen.
           </p>
         )
       }
@@ -218,10 +218,10 @@ const description =
         <div class="shell-frame">
           {
             shell && (
-              <div class="shell-name">
+              <a class="shell-name" href={url("shell/")}>
                 {shell.app.icon && <img src={url(shell.app.icon)} width="28" height="28" alt="" />}
                 Rivet Shell
-              </div>
+              </a>
             )
           }
           <ul class="chip-row">
