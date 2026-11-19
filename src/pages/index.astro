@@ -4,7 +4,7 @@ import Shot from "../components/Shot.astro";
 import ReleaseBlock from "../components/ReleaseBlock.astro";
 import StatusBadge from "../components/StatusBadge.astro";
 import shots from "../data/shots.json";
-import { apps, statusFor, statusLabel } from "../data/apps";
+import { apps, byReleaseStatus, statusFor, statusLabel } from "../data/apps";
 import { catalog, releaseFor } from "../data/releases";
 import { url } from "../paths";
 
@@ -21,7 +21,7 @@ for (const { app } of rows) {
 
 const shell = rows.find((row) => row.app.spotlight === "shell");
 const welcome = rows.find((row) => row.app.spotlight === "welcome");
-const appRows = rows.filter((row) => !row.app.spotlight);
+const appRows = byReleaseStatus(rows.filter((row) => !row.app.spotlight));
 
 const description =
   "A small Linux desktop shell, and apps for files, notes, FTP, editing and the terminal. Each one also runs on its own. Built for fun, held together with rivets.";

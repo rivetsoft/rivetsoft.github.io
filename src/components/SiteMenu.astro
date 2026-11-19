@@ -1,5 +1,6 @@
 ---
-import { apps, repoUrl } from "../data/apps";
+import { apps, byReleaseStatus, repoUrl, statusFor } from "../data/apps";
+import { releaseFor } from "../data/releases";
 import { url } from "../paths";
 
 interface Props {
@@ -7,7 +8,11 @@ interface Props {
 }
 
 const { current = "" } = Astro.props;
-const listed = apps.filter((app) => app.nav);
+const listed = byReleaseStatus(
+  apps
+    .filter((app) => app.nav)
+    .map((app) => ({ app, status: statusFor(app, releaseFor(app.slug)) })),
+).map((row) => row.app);
 ---
 
 <div class="site-menu">

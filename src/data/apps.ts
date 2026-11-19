@@ -194,3 +194,18 @@ export function statusFor(app: AppEntry, release: { prerelease: boolean } | unde
   if (app.laterPhrase) return "someday";
   return "unreleased";
 }
+
+/** Released first, then alpha, then anything still unpublished. Original order is kept inside a state. */
+const statusRank: Record<AppStatus, number> = {
+  released: 0,
+  alpha: 1,
+  unreleased: 2,
+  someday: 3,
+};
+
+export function byReleaseStatus<T extends { status: AppStatus }>(items: readonly T[]): T[] {
+  return items
+    .map((item, index) => ({ item, index }))
+    .sort((a, b) => statusRank[a.item.status] - statusRank[b.item.status] || a.index - b.index)
+    .map(({ item }) => item);
+}
