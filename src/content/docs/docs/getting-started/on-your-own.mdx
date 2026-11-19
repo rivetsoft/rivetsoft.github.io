@@ -1,0 +1,113 @@
+---
+title: Shell or standalone
+description: Rivet Shell is a Wayland panel and dock. Each app also runs by itself.
+---
+
+import { Aside, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
+
+Rivet Shell draws a panel, dock, launcher, widgets, and wallpaper on a Wayland compositor. Each app is its own program. Run one from your current desktop and the shell never has to be there.
+
+| | Rivet Shell | An app on its own |
+| --- | --- | --- |
+| What you get | Panel, dock, launcher, widgets, wallpaper | That app's window |
+| Where it runs | Wayland, on a compositor with the layer-shell protocol | The desktop you already use |
+| How you start it | `rivet-shell`, from the session | The app's command, or your launcher |
+| A download | None yet. Build it | Its own release |
+
+## Use Rivet Shell
+
+<Aside type="caution" title="Build it, and one bar only">
+There is no Shell release. It needs niri, Hyprland, Sway, river, labwc, Wayfire, or COSMIC. GNOME does not speak this protocol. Quit Waybar, Noctalia, or any other bar first, or both stay on screen.
+</Aside>
+
+<Steps>
+
+1. Build it from a checkout of the repository.
+
+   ```sh
+   cargo build --release -p rivet-shell
+   ```
+
+2. Run it in that Wayland session.
+
+   ```sh
+   ./target/release/rivet-shell
+   ```
+
+3. Add one line to the compositor config, once `rivet-shell` is on your `PATH`.
+
+   <Tabs syncKey="compositor">
+     <TabItem label="niri">
+       ```text
+       spawn-at-startup "rivet-shell"
+       ```
+     </TabItem>
+     <TabItem label="Hyprland">
+       ```text
+       exec-once = rivet-shell
+       ```
+     </TabItem>
+     <TabItem label="Sway">
+       ```text
+       exec rivet-shell
+       ```
+     </TabItem>
+   </Tabs>
+
+</Steps>
+
+The dock starts with Files, Terminal, Edit, Notes, and Firefox pinned. Open settings with `rivet-shell settings`.
+
+`rivet-shell --install-service` starts it with the graphical session and again if it stops. Take the shell line out of the compositor config when you use that. `--remove-service` removes it. This fits `niri-session` and uwsm.
+
+Launcher keys and the rest of the commands are in the [Shell README](https://github.com/ulinaaron/rivet-apps/blob/main/apps/rivet-shell/README.md) and on the [Shell page](/rivet-web/docs/shell/).
+
+## Run an app on its own
+
+<Steps>
+
+1. Install the app from the [install page](/rivet-web/docs/getting-started/install/#get-started).
+
+2. Open it from your launcher, or run it.
+
+   <Tabs syncKey="app">
+     <TabItem label="Files">
+       ```sh
+       rivet
+       ```
+
+       `rivet FOLDER` opens that folder. The page is [Files](/rivet-web/files/).
+     </TabItem>
+     <TabItem label="Notes">
+       ```sh
+       rivet-notes
+       ```
+
+       `rivet-notes VAULT` opens that folder of notes. The page is [Notes](/rivet-web/notes/).
+     </TabItem>
+     <TabItem label="Edit">
+       ```sh
+       rivet-edit
+       ```
+
+       `rivet-edit FOLDER` opens that folder. Extra arguments are files. The page is [Edit](/rivet-web/edit/).
+     </TabItem>
+     <TabItem label="Terminal">
+       ```sh
+       rivet-terminal
+       ```
+
+       `rivet-terminal -d FOLDER` starts in that directory. The page is [Terminal](/rivet-web/terminal/).
+     </TabItem>
+     <TabItem label="FTP">
+       ```sh
+       rivet-ftp
+       ```
+
+       The page is [FTP](/rivet-web/ftp/).
+     </TabItem>
+   </Tabs>
+
+</Steps>
+
+Same binaries if you built them: `./target/release/rivet`, and `rivet-notes`, `rivet-edit`, `rivet-terminal`, `rivet-ftp` beside it.
