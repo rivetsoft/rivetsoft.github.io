@@ -1375,8 +1375,20 @@ body:has(.band) .site-footer-inner {
   color: #9ad7ef;
 }
 
-.colors-copy .preset-row {
-  margin: 1.6rem 0 0;
+.colors-side {
+  display: grid;
+  gap: 1.15rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.band-colors .preset-row {
+  margin: 0;
+}
+
+.band-colors .preset-more {
+  color: #24121b;
+  border-color: color-mix(in srgb, #24121b 42%, transparent);
 }
 
 .accent-ring {
@@ -1384,7 +1396,7 @@ body:has(.band) .site-footer-inner {
   position: relative;
   width: 8.4rem;
   height: 8.4rem;
-  margin: 1.2rem auto 0.15rem;
+  margin: 0.2rem auto 1.5rem;
   padding: 0;
   list-style: none;
 }
@@ -1429,7 +1441,7 @@ body:has(.band) .site-footer-inner {
     --ring: 4.7rem;
     width: 12rem;
     height: 12rem;
-    margin-left: 0;
+    margin: 0.2rem auto 2rem;
   }
 }
 
@@ -1459,7 +1471,7 @@ body:has(.band) .site-footer-inner {
 
 @media (min-width: 800px) {
   .colors-layout {
-    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    grid-template-columns: minmax(16rem, 0.82fr) minmax(0, 1.18fr);
     gap: 2.25rem;
     align-items: start;
   }
