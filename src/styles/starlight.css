@@ -1,10 +1,8 @@
-@font-face {
-  font-family: Outfit;
-  font-style: normal;
-  font-weight: 400 700;
-  font-display: swap;
-  src: url("../fonts/outfit-wght.woff2") format("woff2");
-}
+@import "@fontsource/space-grotesk/latin-400.css";
+@import "@fontsource/space-grotesk/latin-500.css";
+@import "@fontsource/space-grotesk/latin-700.css";
+@import "@fontsource/space-mono/latin-400.css";
+@import "@fontsource/space-mono/latin-700.css";
 
 :root {
   --bg: #24121b;
@@ -21,7 +19,8 @@
   --chip: rgba(0, 132, 184, 0.28);
   --code: rgba(213, 63, 140, 0.2);
   --shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.7);
-  --sl-font: Outfit, "Segoe UI", sans-serif;
+  --sl-font: "Space Grotesk", "Segoe UI", sans-serif;
+  --sl-font-mono: "Space Mono", ui-monospace, monospace;
   --sl-color-white: #e9dee5;
   --sl-color-gray-1: #e9dee5;
   --sl-color-gray-2: #d6c4cc;
@@ -98,6 +97,7 @@ header.header button[data-open-modal],
 .pagination-links a,
 starlight-menu-button button,
 [role="tab"] {
+  font-family: "Space Mono", ui-monospace, monospace;
   border-radius: 0;
   border: 2px solid #24121b;
   box-shadow: 4px 4px 0 #24121b;
@@ -119,8 +119,20 @@ header.header button[data-open-modal]:hover,
   box-shadow: 2px 2px 0 #24121b;
 }
 
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 700;
+}
+
 .sl-markdown-content h2 {
   color: #d53f8c;
+}
+
+.expressive-code {
+  --ec-codeFontFml: "Space Mono", ui-monospace, monospace;
+  --ec-uiFontFml: "Space Mono", ui-monospace, monospace;
 }
 
 .sl-markdown-content h3 {
@@ -222,6 +234,7 @@ header.header button[data-open-modal]:hover,
 
 .sl-markdown-content {
   line-height: 1.75;
+  font-weight: 400;
 }
 
 .sl-markdown-content h2 {
