@@ -1,6 +1,11 @@
+import { readFileSync } from "node:fs";
 import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 import starlight from "@astrojs/starlight";
+
+function codeTheme(name) {
+  return JSON.parse(readFileSync(new URL(`./src/styles/${name}`, import.meta.url), "utf8"));
+}
 
 export default defineConfig({
   site: "https://ulinaaron.github.io",
@@ -22,13 +27,17 @@ export default defineConfig({
         alt: "Rivet",
       },
       customCss: ["./src/styles/starlight.css"],
+      expressiveCode: {
+        themes: [codeTheme("rivet-code-dark.json"), codeTheme("rivet-code-light.json")],
+        minSyntaxHighlightingColorContrast: 0,
+      },
       components: {
         Header: "./src/components/DocsHeader.astro",
         Footer: "./src/components/DocsFooter.astro",
         Head: "./src/components/DocsHead.astro",
       },
       lastUpdated: false,
-      pagefind: false,
+      pagefind: true,
       disable404Route: true,
       head: [
         {

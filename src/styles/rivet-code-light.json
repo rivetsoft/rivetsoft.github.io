@@ -1,0 +1,58 @@
+{
+  "name": "Rivet Light",
+  "type": "light",
+  "colors": {
+    "editor.background": "#ffffff",
+    "editor.foreground": "#2a2a2a"
+  },
+  "tokenColors": [
+    {
+      "settings": {
+        "foreground": "#2a2a2a"
+      }
+    },
+    {
+      "scope": ["comment", "punctuation.definition.comment"],
+      "settings": {
+        "foreground": "#91877f",
+        "fontStyle": "italic"
+      }
+    },
+    {
+      "scope": ["keyword", "storage", "storage.type", "keyword.control", "keyword.operator.new", "constant.language"],
+      "settings": {
+        "foreground": "#843fc9"
+      }
+    },
+    {
+      "scope": ["string", "string.quoted", "string.template"],
+      "settings": {
+        "foreground": "#3f8626"
+      }
+    },
+    {
+      "scope": ["constant.numeric", "constant.character", "constant.other"],
+      "settings": {
+        "foreground": "#b35a10"
+      }
+    },
+    {
+      "scope": ["entity.name.function", "support.function", "meta.function-call"],
+      "settings": {
+        "foreground": "#1f69bd"
+      }
+    },
+    {
+      "scope": ["entity.name.type", "entity.name.class", "entity.name.namespace", "support.type", "support.class", "storage.type.class"],
+      "settings": {
+        "foreground": "#956a00"
+      }
+    },
+    {
+      "scope": ["punctuation", "keyword.operator", "meta.brace"],
+      "settings": {
+        "foreground": "#6a6a6a"
+      }
+    }
+  ]
+}

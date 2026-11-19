@@ -1,0 +1,58 @@
+{
+  "name": "Rivet Dark",
+  "type": "dark",
+  "colors": {
+    "editor.background": "#242424",
+    "editor.foreground": "#d6d6d6"
+  },
+  "tokenColors": [
+    {
+      "settings": {
+        "foreground": "#d6d6d6"
+      }
+    },
+    {
+      "scope": ["comment", "punctuation.definition.comment"],
+      "settings": {
+        "foreground": "#8e837b",
+        "fontStyle": "italic"
+      }
+    },
+    {
+      "scope": ["keyword", "storage", "storage.type", "keyword.control", "keyword.operator.new", "constant.language"],
+      "settings": {
+        "foreground": "#b88cf0"
+      }
+    },
+    {
+      "scope": ["string", "string.quoted", "string.template"],
+      "settings": {
+        "foreground": "#a5d37c"
+      }
+    },
+    {
+      "scope": ["constant.numeric", "constant.character", "constant.other"],
+      "settings": {
+        "foreground": "#f2a65e"
+      }
+    },
+    {
+      "scope": ["entity.name.function", "support.function", "meta.function-call"],
+      "settings": {
+        "foreground": "#6fb5f2"
+      }
+    },
+    {
+      "scope": ["entity.name.type", "entity.name.class", "entity.name.namespace", "support.type", "support.class", "storage.type.class"],
+      "settings": {
+        "foreground": "#e9c86c"
+      }
+    },
+    {
+      "scope": ["punctuation", "keyword.operator", "meta.brace"],
+      "settings": {
+        "foreground": "#a1a1a1"
+      }
+    }
+  ]
+}
