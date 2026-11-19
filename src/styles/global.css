@@ -161,9 +161,20 @@ body {
   position: sticky;
   top: 0;
   z-index: 3;
-  background: color-mix(in srgb, var(--bg) 72%, transparent);
-  border-bottom: 1px solid var(--line);
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  border-bottom: 0;
+  box-shadow: 0 4px 0 #24121b;
   backdrop-filter: blur(16px) saturate(1.2);
+}
+
+:root[data-theme="dark"] .mast {
+  box-shadow: 0 4px 0 #e9dee5;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .mast {
+    box-shadow: 0 4px 0 #e9dee5;
+  }
 }
 
 .column {
@@ -227,10 +238,12 @@ nav[aria-label="Pages"] a.repo svg {
 .theme {
   grid-area: theme;
   font: inherit;
-  color: var(--fg);
-  background: var(--bg-raised);
-  border: 1px solid var(--line);
-  border-radius: 10px;
+  font-weight: 700;
+  color: #24121b;
+  background: #fff270;
+  border: 2px solid #24121b;
+  border-radius: 0;
+  box-shadow: 4px 4px 0 #24121b;
   width: 44px;
   height: 44px;
   padding: 0;
@@ -238,7 +251,6 @@ nav[aria-label="Pages"] a.repo svg {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  backdrop-filter: blur(10px);
 }
 
 .theme:hover {
@@ -364,21 +376,30 @@ main.column:has(.band) {
   min-height: 44px;
   display: inline-flex;
   align-items: center;
-  padding: 0.4rem 1rem;
-  border-radius: 12px;
-  font-weight: 640;
+  padding: 0.55rem 1rem;
+  border-radius: 0;
+  border: 2px solid #24121b;
+  box-shadow: 4px 4px 0 #24121b;
+  background: #fff270;
+  color: #24121b;
+  font-weight: 700;
   text-decoration: none;
 }
 
 .btn-primary {
-  background: #c83b84;
-  color: #fff;
+  background: #fff270;
+  color: #24121b;
 }
 
 .btn-secondary {
-  background: var(--bg-raised);
-  color: var(--secondary);
-  border: 1px solid var(--accent-2);
+  background: #3ecf9a;
+  color: #24121b;
+  border-color: #24121b;
+}
+
+.btn:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 #24121b;
 }
 
 .hero-visual {
@@ -1903,27 +1924,7 @@ body:has(.band) .site-footer-inner {
 }
 
 .band-cta .btn {
-  border: 3px solid #24121b;
-  border-radius: 0;
-  box-shadow: 6px 6px 0 #24121b;
   padding: 0.7rem 1.15rem;
-  font-weight: 700;
-}
-
-.band-cta .btn-primary {
-  background: #fff270;
-  color: #24121b;
-}
-
-.band-cta .btn-secondary {
-  background: #3ecf9a;
-  color: #24121b;
-  border-color: #24121b;
-}
-
-.band-cta .btn:hover {
-  transform: translate(2px, 2px);
-  box-shadow: 4px 4px 0 #24121b;
 }
 
 .brut-svg {
@@ -1958,6 +1959,7 @@ body:has(.band) .site-footer-inner {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .btn,
   .band-cta .btn,
   .brut-back,
   .brut-front {
@@ -1965,9 +1967,10 @@ body:has(.band) .site-footer-inner {
     transform: none;
   }
 
+  .btn:hover,
   .band-cta .btn:hover {
     transform: none;
-    box-shadow: 6px 6px 0 #24121b;
+    box-shadow: 4px 4px 0 #24121b;
   }
 }
 

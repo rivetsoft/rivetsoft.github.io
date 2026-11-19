@@ -30,16 +30,19 @@ import SiteMenu from "./SiteMenu.astro";
   }
 
   .docs-search :global(button[data-open-modal]) {
-    background: #e9dee5;
+    background: #fff270;
     color: #24121b;
     border: 2px solid #24121b;
-    border-radius: 10px;
-    box-shadow: 3px 3px 0 #24121b;
+    border-radius: 0;
+    box-shadow: 4px 4px 0 #24121b;
+    font-weight: 700;
   }
 
   .docs-search :global(button[data-open-modal]:hover) {
-    border-color: #24121b;
-    color: #24121b;
     background: #fff270;
+    color: #24121b;
+    border-color: #24121b;
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 #24121b;
   }
 </style>
