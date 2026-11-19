@@ -351,6 +351,10 @@ main.column:has(.band) {
   --plate-grain: rgba(36, 18, 27, 0.05);
 }
 
+.home-grid .hero-plate {
+  opacity: 0.28;
+}
+
 :root[data-theme="dark"] .home-grid {
   color: #e9dee5;
   --plate-seam: rgba(213, 63, 140, 0.34);
@@ -359,6 +363,10 @@ main.column:has(.band) {
   --plate-rivet-lo: #2a1218;
   --plate-shadow: rgba(0, 0, 0, 0.5);
   --plate-grain: rgba(213, 63, 140, 0.05);
+}
+
+:root[data-theme="dark"] .home-grid .hero-plate {
+  opacity: 1;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -370,6 +378,10 @@ main.column:has(.band) {
     --plate-rivet-lo: #2a1218;
     --plate-shadow: rgba(0, 0, 0, 0.5);
     --plate-grain: rgba(213, 63, 140, 0.05);
+  }
+
+  :root:not([data-theme="light"]) .home-grid .hero-plate {
+    opacity: 1;
   }
 }
 
