@@ -56,12 +56,15 @@ const documentTitle = current === "home" ? "Rivet" : `${title} | Rivet`;
     </main>
     <footer class="site-footer column">
       <div class="site-footer-inner">
-        <p>
-          <a href="https://github.com/ulinaaron/rivet-apps/blob/main/LICENSE-MIT">MIT</a> or
-          <a href="https://github.com/ulinaaron/rivet-apps/blob/main/LICENSE-APACHE">Apache-2.0</a>.
-          Code on <a href="https://github.com/ulinaaron/rivet-apps">GitHub</a>.
-        </p>
-        <p class="visits">Visits are counted with self-hosted Umami. No cookies, no personal data.</p>
+        <div class="site-footer-copy">
+          <p>
+            <a href="https://github.com/ulinaaron/rivet-apps/blob/main/LICENSE-MIT">MIT</a> or
+            <a href="https://github.com/ulinaaron/rivet-apps/blob/main/LICENSE-APACHE">Apache-2.0</a>.
+            Code on <a href="https://github.com/ulinaaron/rivet-apps">GitHub</a>.
+          </p>
+          <p class="visits">Visits are counted with self-hosted Umami. No cookies, no personal data.</p>
+        </div>
+        <slot name="footer-aside" />
       </div>
     </footer>
   </body>

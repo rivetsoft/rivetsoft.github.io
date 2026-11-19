@@ -1207,19 +1207,54 @@ a {
 body:has(.band) .site-footer {
   width: 100%;
   max-width: none;
-  margin: 0;
+  margin: 40px 0 0;
   padding: 0 var(--frame) 2.5rem;
   border-top: 0;
 }
 
 body:has(.band) .site-footer-inner {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.25rem 2.5rem;
   border-top: 1px solid var(--line);
   padding-top: 1.25rem;
+}
+
+.site-footer p {
+  margin: 0;
 }
 
 .site-footer .visits {
   margin-top: 0.35rem;
   font-size: 0.82rem;
+}
+
+.vibe-foot {
+  margin: 0;
+  max-width: 22rem;
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.55;
+  text-align: right;
+}
+
+.vibe-foot-title {
+  display: block;
+  margin-bottom: 0.2rem;
+  color: var(--fg);
+  font-weight: 620;
+}
+
+@media (max-width: 700px) {
+  body:has(.band) .site-footer-inner {
+    flex-direction: column;
+  }
+
+  .vibe-foot {
+    max-width: none;
+    text-align: left;
+  }
 }
 
 .vh {
@@ -1279,7 +1314,8 @@ body:has(.band) .site-footer-inner {
 }
 
 .band > h2,
-.band .spotlight h2 {
+.band .spotlight h2,
+.band-welcome h2 {
   font-size: clamp(2.15rem, 4.4vw, 3.2rem);
   margin: 0 0 0.85rem;
 }
@@ -1317,6 +1353,34 @@ body:has(.band) .site-footer-inner {
 
 .band-welcome {
   background: color-mix(in srgb, var(--accent-2) 8%, var(--bg));
+  padding-top: 4.5rem;
+  padding-bottom: 4.75rem;
+}
+
+.welcome-layout {
+  display: grid;
+  gap: 2.25rem;
+}
+
+.welcome-copy {
+  min-width: 0;
+}
+
+.band-welcome .shot {
+  margin: 0;
+}
+
+@media (min-width: 800px) {
+  .band-welcome {
+    padding-top: 5.5rem;
+    padding-bottom: 5.75rem;
+  }
+
+  .welcome-layout {
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+    gap: 3rem;
+    align-items: center;
+  }
 }
 
 .band-cta {
@@ -1468,51 +1532,9 @@ body:has(.band) .site-footer-inner {
   margin-top: 1.2rem;
 }
 
-.vibe {
-  padding: 40px var(--frame);
-}
-
-.vibe-card {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.8rem;
-  max-width: 36rem;
-  margin-inline: auto;
-  padding: 0.95rem 1.05rem 1rem;
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  background: var(--bg-raised);
-  box-shadow: var(--shadow);
-}
-
-.vibe-heart {
-  flex: none;
-  width: 1.7rem;
-  height: 1.7rem;
-  margin-top: 0.1rem;
-  display: grid;
-  place-items: center;
-  color: var(--accent);
-}
-
-.vibe-heart svg {
-  display: block;
-}
-
-.vibe-card h2 {
-  margin: 0 0 0.25rem;
-  font-size: 1.15rem;
-}
-
-.vibe-card p {
-  margin: 0;
-  color: var(--muted);
-}
-
 @media (min-width: 800px) {
-  .vibe {
-    padding-top: 64px;
-    padding-bottom: 64px;
+  body:has(.band) .site-footer {
+    margin-top: 64px;
   }
 
   .band-facts,

@@ -365,25 +365,29 @@ const description =
   {
     welcome && (
       <section class="band band-welcome reveal" aria-labelledby="welcome-title">
-        <div class="spotlight">
-          <h2 id="welcome-title" class="spot-title">
-            {welcome.app.icon && (
-              <img src={url(welcome.app.icon)} width="40" height="40" alt="" />
-            )}
-            {welcome.app.name}
-          </h2>
-          <StatusBadge app={welcome.app} release={welcome.release} />
-          <p>
-            The way to install the set. It downloads each release, checks the sha256, and runs
-            install.sh, so the programs land in <code>~/.local/bin</code> and in your launcher. A
-            tray icon looks for newer versions after you sign in. Skip it if you would rather
-            install one app from its own release. Apps installed by a package are shown and left
-            alone.
-          </p>
+        <div class="welcome-layout">
+          <div class="welcome-copy">
+            <h2 id="welcome-title" class="spot-title">
+              {welcome.app.icon && (
+                <img src={url(welcome.app.icon)} width="40" height="40" alt="" />
+              )}
+              {welcome.app.name}
+            </h2>
+            <StatusBadge app={welcome.app} release={welcome.release} />
+            <p>
+              The way to install the set. It downloads each release, checks the sha256, and runs
+              install.sh, so the programs land in <code>~/.local/bin</code> and in your launcher. A
+              tray icon looks for newer versions after you sign in. Skip it if you would rather
+              install one app from its own release. Apps installed by a package are shown and left
+              alone.
+            </p>
+            <ReleaseBlock slug="welcome" heading="h3" />
+          </div>
           {welcome.app.cardShot && welcome.app.cardAlt && welcome.app.cardCaption && (
-            <Shot name={welcome.app.cardShot} alt={welcome.app.cardAlt} caption={welcome.app.cardCaption} />
+            <div class="welcome-visual">
+              <Shot name={welcome.app.cardShot} alt={welcome.app.cardAlt} caption={welcome.app.cardCaption} />
+            </div>
           )}
-          <ReleaseBlock slug="welcome" heading="h3" />
         </div>
       </section>
     )
@@ -398,19 +402,6 @@ const description =
     </div>
   </section>
 
-  <section class="vibe" aria-labelledby="vibe-title">
-    <div class="vibe-card">
-      <span class="vibe-heart" aria-hidden="true">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-          <path d="M12 20s-7-4.4-7-9a4 4 0 0 1 7-2 4 4 0 0 1 7 2c0 4.6-7 9-7 9z"></path>
-        </svg>
-      </span>
-      <div>
-        <h2 id="vibe-title">Vibe-coded with love</h2>
-        <p>Yes, Rivet is vibe-coded. Every line still gets reviewed by a developer with 25+ years in tech.</p>
-      </div>
-    </div>
-  </section>
   <script is:inline>
     (function () {
       var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -486,4 +477,8 @@ const description =
       );
     })();
   </script>
+  <p slot="footer-aside" class="vibe-foot">
+    <span class="vibe-foot-title">Vibe-coded with love</span>
+    Yes, Rivet is vibe-coded. Every line still gets reviewed by a developer with 25+ years in tech.
+  </p>
 </Base>
