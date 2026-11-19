@@ -1,4 +1,19 @@
 :root {
   --radius-card: 3px;
   --radius-shot: 6px;
+  --shadow-hard: #24121b;
+}
+
+:root[data-theme="light"] {
+  --shadow-hard: #24121b;
+}
+
+:root[data-theme="dark"] {
+  --shadow-hard: #fff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --shadow-hard: #fff;
+  }
 }

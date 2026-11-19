@@ -371,7 +371,7 @@ main.column:has(.band) {
   padding: 0.55rem 1rem;
   border-radius: 0;
   border: 2px solid #24121b;
-  box-shadow: 4px 4px 0 #24121b;
+  box-shadow: 4px 4px 0 var(--shadow-hard);
   background: #fff270;
   color: #24121b;
   font-weight: 700;
@@ -391,7 +391,7 @@ main.column:has(.band) {
 
 .btn:hover {
   transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0 #24121b;
+  box-shadow: 2px 2px 0 var(--shadow-hard);
 }
 
 .hero-visual {
@@ -1486,27 +1486,31 @@ body:has(.band) .site-footer-inner {
   gap: 1.15rem;
   max-width: none;
   height: auto;
-  padding: 1.15rem 1.15rem 1.35rem;
-  border-radius: var(--radius-card);
-  background: rgba(36, 18, 27, 0.9);
-  color: #f7eef3;
+  padding: 0.85rem 0.35rem 0.25rem;
+  border-radius: 0;
+  background: transparent;
+  color: #e9dee5;
 }
 
 .colors-layout {
   display: grid;
-  gap: 1.35rem;
+  gap: 1.15rem;
   align-items: start;
+  padding: 1.15rem;
+  border-radius: var(--radius-card);
+  background: #24121b;
+  color: #e9dee5;
 }
 
 .colors-copy h2 {
   margin: 0 0 0.65rem;
   font-size: clamp(2rem, 2.8vw, 2.7rem);
-  color: #f7eef3;
+  color: #e9dee5;
 }
 
 .colors-copy p {
   margin: 0;
-  color: #f7eef3;
+  color: #e9dee5;
 }
 
 .colors-lead p + p {
@@ -1538,6 +1542,9 @@ body:has(.band) .site-footer-inner {
   margin: 0;
   padding: 0.65rem 0.7rem 0.7rem;
   border-radius: var(--radius-card);
+  background: #321c28;
+  color: #e9dee5;
+  border: 1px solid rgba(233, 222, 229, 0.14);
   box-shadow: none;
 }
 
@@ -1551,9 +1558,9 @@ body:has(.band) .site-footer-inner {
 .band-colors .preset-more {
   justify-content: center;
   align-items: center;
-  background: rgba(36, 18, 27, 0.78);
-  color: #f7eef3;
-  border-color: transparent;
+  background: #321c28;
+  color: #e9dee5;
+  border-color: rgba(233, 222, 229, 0.14);
   font-weight: 640;
 }
 
@@ -1735,10 +1742,15 @@ body:has(.band) .site-footer-inner {
   align-items: stretch;
   margin: 0;
   padding: 0.45rem 0.45rem 0.6rem;
-  border: 0;
+  border: 1px solid rgba(233, 222, 229, 0.14);
   border-radius: var(--radius-card);
-  background: rgba(255, 255, 255, 0.86);
-  box-shadow: 0 18px 36px -24px rgba(36, 18, 27, 0.55);
+  background: #321c28;
+  box-shadow: none;
+}
+
+.band-colors .scheme-grid li:hover {
+  transform: none;
+  box-shadow: none;
 }
 
 .band-colors .scheme-grid img {
@@ -1747,7 +1759,7 @@ body:has(.band) .site-footer-inner {
 
 .band-colors .scheme-grid span {
   align-self: center;
-  color: #24121b;
+  color: #e9dee5;
   background: transparent;
   display: block;
   margin-top: 0.45rem;
@@ -1765,11 +1777,12 @@ body:has(.band) .site-footer-inner {
 
   .colors-layout {
     grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-    gap: 1.5rem;
+    gap: 1.35rem;
+    padding: 1.35rem;
   }
 
   .colors-copy {
-    padding: 2.65rem 1.5rem 1.55rem;
+    padding: 1.15rem 0.35rem 0.25rem;
   }
 
   .colors-side {
@@ -1829,6 +1842,7 @@ body:has(.band) .site-footer-inner {
 .band-cta {
   position: relative;
   overflow: hidden;
+  --shadow-hard: #fff;
   background: #0084b8;
   color: #e9dee5;
   padding-top: 5.75rem;
@@ -1964,7 +1978,7 @@ body:has(.band) .site-footer-inner {
   .btn:hover,
   .band-cta .btn:hover {
     transform: none;
-    box-shadow: 4px 4px 0 #24121b;
+    box-shadow: 4px 4px 0 var(--shadow-hard);
   }
 }
 
