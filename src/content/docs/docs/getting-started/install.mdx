@@ -1,0 +1,20 @@
+---
+title: Install
+description: Install a Rivet app from its release archive.
+---
+
+import InstallCommands from "../../../../components/InstallCommands.astro";
+
+Unpack the archive and run `install.sh`. That puts the program in `~/.local/bin` and in your launcher. It does not ask for a password.
+
+<InstallCommands slugs={["files", "notes", "edit", "terminal", "ftp"]} />
+
+Each app page has the AppImage too, and Files has a Flatpak. Rivet Shell has no release yet. Build it from the [Shell page](/rivet-web/docs/shell/).
+
+## Welcome
+
+Welcome is optional. Install it the same way if you want it to download and update the apps.
+
+<InstallCommands slugs={["welcome"]} heading={false} />
+
+What it does after that is on the [Welcome page](/rivet-web/docs/welcome/).

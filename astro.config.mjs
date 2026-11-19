@@ -47,7 +47,7 @@ export default defineConfig({
           label: "Getting started",
           items: [
             { label: "What Rivet is", link: "/docs/" },
-            { label: "Install with Welcome", link: "/docs/getting-started/install/" },
+            { label: "Install", link: "/docs/getting-started/install/" },
             { label: "Shell, or on its own", link: "/docs/getting-started/on-your-own/" },
             { label: "How colors work", link: "/docs/colors/" },
           ],
