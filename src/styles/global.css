@@ -1812,7 +1812,119 @@ body:has(.band) .site-footer-inner {
 }
 
 .band-cta {
-  background: color-mix(in srgb, var(--accent) 14%, var(--bg));
+  position: relative;
+  overflow: hidden;
+  background: #0084b8;
+  color: #e9dee5;
+}
+
+.cta-floor {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 48%;
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.cta-layout {
+  position: relative;
+  display: grid;
+  gap: 2.75rem;
+  align-items: center;
+}
+
+.cta-copy h2 {
+  margin: 0 0 1rem;
+  font-size: clamp(3.6rem, 8vw, 6.4rem);
+  font-weight: 640;
+  letter-spacing: -0.045em;
+  line-height: 0.88;
+  background: linear-gradient(185deg, #fff270 0%, #fff7c2 16%, #3ecf9a 40%, #7ad7ef 58%, #d53f8c 84%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(6px 6px 0 #24121b);
+}
+
+.band-cta p {
+  margin: 0;
+  max-width: 34rem;
+  color: #e9dee5;
+  font-size: 1.15rem;
+  line-height: 1.55;
+}
+
+.band-cta .cta-actions {
+  margin-top: 1.75rem;
+  gap: 1.1rem;
+}
+
+.band-cta .btn {
+  border: 3px solid #24121b;
+  border-radius: 0;
+  box-shadow: 6px 6px 0 #24121b;
+  padding: 0.7rem 1.15rem;
+  font-weight: 700;
+}
+
+.band-cta .btn-primary {
+  background: #fff270;
+  color: #24121b;
+}
+
+.band-cta .btn-secondary {
+  background: #3ecf9a;
+  color: #24121b;
+  border-color: #24121b;
+}
+
+.band-cta .btn:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 4px 4px 0 #24121b;
+}
+
+.brut-svg {
+  display: block;
+  width: min(100%, 36rem);
+  height: auto;
+  margin-inline: auto;
+}
+
+.brut-back {
+  transform: translate(calc(var(--bx, 0px) * -0.45), calc(var(--by, 0px) * -0.45));
+}
+
+.brut-front {
+  transform: translate(var(--bx, 0px), var(--by, 0px));
+}
+
+@media (min-width: 800px) {
+  .band-cta {
+    padding-top: 5.25rem;
+    padding-bottom: 5.5rem;
+  }
+
+  .cta-layout {
+    grid-template-columns: minmax(0, 0.9fr) minmax(16rem, 1.1fr);
+    gap: 3.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .band-cta .btn,
+  .brut-back,
+  .brut-front {
+    transition: none;
+    transform: none;
+  }
+
+  .band-cta .btn:hover {
+    transform: none;
+    box-shadow: 6px 6px 0 #24121b;
+  }
 }
 
 .band .facts {

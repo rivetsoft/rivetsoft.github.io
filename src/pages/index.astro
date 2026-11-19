@@ -366,11 +366,78 @@ const description =
   }
 
   <section class="band band-cta reveal" aria-labelledby="cta-title">
-    <h2 id="cta-title">Try Rivet</h2>
-    <p>Welcome can install a release. The docs cover the shell, which you build from source for now.</p>
-    <div class="cta-actions">
-      <a class="btn btn-primary" href={url("docs/getting-started/install/")}>Getting Started →</a>
-      <a class="btn btn-secondary" href={repoUrl}>GitHub</a>
+    <svg class="cta-floor" viewBox="0 0 1200 360" preserveAspectRatio="none" aria-hidden="true">
+      <g fill="none" stroke="#fff270" stroke-width="1.5">
+        <line x1="600" y1="28" x2="0" y2="360" />
+        <line x1="600" y1="28" x2="120" y2="360" />
+        <line x1="600" y1="28" x2="240" y2="360" />
+        <line x1="600" y1="28" x2="360" y2="360" />
+        <line x1="600" y1="28" x2="480" y2="360" />
+        <line x1="600" y1="28" x2="600" y2="360" />
+        <line x1="600" y1="28" x2="720" y2="360" />
+        <line x1="600" y1="28" x2="840" y2="360" />
+        <line x1="600" y1="28" x2="960" y2="360" />
+        <line x1="600" y1="28" x2="1080" y2="360" />
+        <line x1="600" y1="28" x2="1200" y2="360" />
+        <line x1="0" y1="90" x2="1200" y2="90" />
+        <line x1="0" y1="130" x2="1200" y2="130" />
+        <line x1="0" y1="180" x2="1200" y2="180" />
+        <line x1="0" y1="245" x2="1200" y2="245" />
+        <line x1="0" y1="330" x2="1200" y2="330" />
+      </g>
+    </svg>
+    <div class="cta-layout">
+      <div class="cta-copy">
+        <h2 id="cta-title">Try Rivet</h2>
+        <p>Welcome can install a release. The docs cover the shell, which you build from source for now.</p>
+        <div class="cta-actions">
+          <a class="btn btn-primary" href={url("docs/getting-started/install/")}>Getting Started →</a>
+          <a class="btn btn-secondary" href={repoUrl}>GitHub</a>
+        </div>
+      </div>
+      <div class="brut">
+        <svg class="brut-svg" viewBox="0 0 560 480" role="img" aria-label="Overlapping windows, folders, and a small computer">
+          <defs>
+            <pattern id="brut-dot" width="6" height="6" patternUnits="userSpaceOnUse">
+              <circle cx="1.4" cy="1.4" r="1.15" fill="#24121b" />
+            </pattern>
+            <pattern id="brut-tile" width="16" height="16" patternUnits="userSpaceOnUse">
+              <path d="M16 0H0V16" fill="none" stroke="#24121b" stroke-width="1.4" />
+            </pattern>
+          </defs>
+          <g class="brut-back">
+            <rect x="46" y="86" width="248" height="292" fill="#24121b" />
+            <rect x="34" y="72" width="248" height="292" fill="#e9dee5" stroke="#24121b" stroke-width="4" />
+            <rect x="34" y="72" width="248" height="36" fill="#d53f8c" stroke="#24121b" stroke-width="4" />
+            <rect x="46" y="82" width="22" height="16" fill="#3ecf9a" stroke="#24121b" stroke-width="3" />
+            <path d="M52 86l10 8M62 86l-10 8" stroke="#24121b" stroke-width="2.4" />
+            <rect x="50" y="124" width="216" height="128" fill="#fff270" stroke="#24121b" stroke-width="4" />
+            <rect x="50" y="124" width="216" height="128" fill="url(#brut-tile)" />
+            <path d="M78 214h36l8 10h52v52H78z" fill="#3ecf9a" stroke="#24121b" stroke-width="4" />
+            <path d="M168 250h28l6 8h36v40h-70z" fill="#d53f8c" stroke="#24121b" stroke-width="4" />
+          </g>
+          <g class="brut-front">
+            <rect x="236" y="52" width="286" height="246" fill="#24121b" />
+            <rect x="222" y="36" width="286" height="246" fill="#e9dee5" stroke="#24121b" stroke-width="4" />
+            <rect x="222" y="36" width="286" height="34" fill="#0084b8" stroke="#24121b" stroke-width="4" />
+            <text x="238" y="59" fill="#e9dee5" font-family="Outfit, sans-serif" font-size="16" font-weight="700">Rivet</text>
+            <rect x="468" y="44" width="26" height="18" fill="#fff270" stroke="#24121b" stroke-width="3" />
+            <path d="M476 48l10 10M486 48l-10 10" stroke="#24121b" stroke-width="2.4" />
+            <rect x="238" y="86" width="254" height="176" fill="#d53f8c" stroke="#24121b" stroke-width="4" />
+            <rect x="238" y="86" width="254" height="176" fill="url(#brut-dot)" />
+            <rect x="268" y="108" width="168" height="124" fill="#e9dee5" stroke="#24121b" stroke-width="4" />
+            <rect x="268" y="108" width="168" height="24" fill="#3ecf9a" stroke="#24121b" stroke-width="3" />
+            <rect x="278" y="114" width="16" height="12" fill="#fff270" stroke="#24121b" stroke-width="2" />
+            <rect x="280" y="146" width="144" height="72" fill="url(#brut-tile)" stroke="#24121b" stroke-width="3" />
+          </g>
+          <g class="brut-mac">
+            <rect x="292" y="318" width="168" height="118" fill="#24121b" />
+            <rect x="300" y="308" width="150" height="96" fill="#e9dee5" stroke="#24121b" stroke-width="4" />
+            <rect x="312" y="320" width="126" height="72" fill="#24121b" />
+            <rect x="318" y="392" width="114" height="28" fill="#e9dee5" stroke="#24121b" stroke-width="4" />
+          </g>
+        </svg>
+      </div>
     </div>
   </section>
 
@@ -404,6 +471,21 @@ const description =
           for (var k = 0; k < nodes.length; k++) nodes[k].classList.add("is-in");
         }
         document.documentElement.classList.add("motion");
+      }
+      var brut = document.querySelector(".brut");
+      if (brut && !reduce && !coarse) {
+        brut.addEventListener(
+          "pointermove",
+          function (e) {
+            var box = brut.getBoundingClientRect();
+            if (!box.width) return;
+            var x = (e.clientX - (box.left + box.width / 2)) / box.width;
+            var y = (e.clientY - (box.top + box.height / 2)) / box.height;
+            brut.style.setProperty("--bx", (x * 12).toFixed(1) + "px");
+            brut.style.setProperty("--by", (y * 8).toFixed(1) + "px");
+          },
+          { passive: true }
+        );
       }
       var ring = document.querySelector(".accent-ring");
       if (ring && !reduce) {
