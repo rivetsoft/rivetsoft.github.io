@@ -8,4 +8,4 @@ The app screenshots were replaced from rivet-web-screens (November 2026). They a
 
 edit-editor-wide.png and rivet-terminal-wide.png are from the same repository, later than that commit. Those PNGs were RGBA with alpha 254 or 255, converted to RGB. rivet-terminal-wide.png is Rivet Terminal. terminal-wide.png is still Rivet Files' terminal mode.
 
-shell-wide.jpg and welcome-wide.png are the Shell and Welcome screenshots from docs/screenshots. The Welcome PNG was RGBA with alpha 254 or 255, converted to RGB. public/rivet-shell.svg and public/rivet-welcome.svg are the desktop icons from each app's data folder.
+shell-wide.jpg is the Shell screenshot from docs/screenshots. welcome-wide.png is Aaron's 1000x720 pink Welcome screenshot, copied as-is. public/rivet-shell.svg and public/rivet-welcome.svg are the desktop icons from each app's data folder.
