@@ -26,8 +26,6 @@ for (const { app } of rows) {
 const shell = rows.find((row) => row.app.spotlight === "shell");
 const welcome = rows.find((row) => row.app.spotlight === "welcome");
 const appRows = byReleaseStatus(rows.filter((row) => !row.app.spotlight));
-const bySlug = Object.fromEntries(apps.map((app) => [app.slug, app]));
-const dockPins = ["files", "terminal", "edit", "notes"].map((slug) => bySlug[slug]);
 const heroAlt = "Rivet Shell over a sunset wallpaper, with a Rivet Files window in front";
 
 const description =
@@ -209,51 +207,6 @@ const description =
   </ul>
   </section>
 
-  <section class="band band-split reveal" aria-labelledby="split-title">
-    <h2 id="split-title">Together or apart</h2>
-    <p>Each app runs on its own. Put them with the shell and they share a dock and colors.</p>
-    <div class="split">
-      <div>
-        <h3>With the shell</h3>
-        <div class="shell-frame">
-          {
-            shell && (
-              <a class="shell-name" href={url("shell/")}>
-                {shell.app.icon && <img src={url(shell.app.icon)} width="28" height="28" alt="" />}
-                Rivet Shell
-              </a>
-            )
-          }
-          <ul class="chip-row">
-            {
-              dockPins.map((app) => (
-                <li class="app-chip">
-                  {app.icon && <img src={url(app.icon)} width="28" height="28" alt="" />}
-                  {app.navLabel ?? app.name}
-                </li>
-              ))
-            }
-          </ul>
-        </div>
-        <p class="split-note">Files, Terminal, Edit, and Notes start pinned.</p>
-      </div>
-      <div>
-        <h3>On their own</h3>
-        <ul class="apart-list">
-          {
-            dockPins.map((app) => (
-              <li class="app-chip">
-                {app.icon && <img src={url(app.icon)} width="28" height="28" alt="" />}
-                {app.navLabel ?? app.name}
-              </li>
-            ))
-          }
-        </ul>
-        <p class="split-note">Every app works on its own, on any Linux desktop. You don't need Rivet Shell to use them.</p>
-      </div>
-    </div>
-  </section>
-
   <section class="band band-apps reveal" aria-labelledby="apps-title">
     <h2 id="apps-title">Apps</h2>
     <p>Apps for files, notes, editing, terminals and FTP. You don't need Rivet Shell to run them.</p>
@@ -298,7 +251,8 @@ const description =
   </section>
 
   <section class="band band-colors scheme reveal" aria-labelledby="scheme-title">
-    <h2 id="scheme-title">Colors</h2>
+    <div class="colors-copy">
+    <h2 id="scheme-title">Colors Galore!</h2>
     <p>
       The apps follow your wallpaper colors as they change, through matugen or any other tool that
       writes the color file. Or pick one of nine accents, or a code theme such as Tokyo Night,
@@ -316,6 +270,7 @@ const description =
       <li><span class="rivet-dot" style="--dot:#c01c28"></span>Red</li>
       <li><span class="rivet-dot" style="--dot:#77767b"></span>Grey</li>
     </ul>
+    </div>
     <ul class="preset-row" aria-label="A few code themes">
       <li class="preset" style="--bg:#1a1b26;--fg:#a9b1d6">
         <span>Tokyo Night</span>
