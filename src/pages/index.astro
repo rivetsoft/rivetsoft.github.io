@@ -251,9 +251,9 @@ const description =
   </section>
 
   <section class="band band-colors scheme reveal" aria-labelledby="scheme-title">
+    <div class="colors-layout">
     <div class="colors-copy">
-      <div class="colors-top">
-        <div class="colors-lead">
+      <div class="colors-lead">
           <h2 id="scheme-title">Colors Galore!</h2>
           <p>
             The apps follow your wallpaper colors as they change, through matugen or any other tool that
@@ -261,17 +261,17 @@ const description =
             Catppuccin, Dracula, Nord, or Gruvbox.
           </p>
           <p><a href={url("docs/colors/")}>How colors work →</a></p>
-        </div>
-        <ul class="accent-row" aria-label="Nine accents">
-          <li><span class="rivet-dot" style="--dot:#3584e4" role="img" aria-label="Blue" title="Blue"></span></li>
-          <li><span class="rivet-dot" style="--dot:#5e9c3c" role="img" aria-label="Green" title="Green"></span></li>
-          <li><span class="rivet-dot" style="--dot:#1f9e9a" role="img" aria-label="Teal" title="Teal"></span></li>
-          <li><span class="rivet-dot" style="--dot:#9141ac" role="img" aria-label="Purple" title="Purple"></span></li>
-          <li><span class="rivet-dot" style="--dot:#d53f8c" role="img" aria-label="Pink" title="Pink"></span></li>
-          <li><span class="rivet-dot" style="--dot:#e5a50a" role="img" aria-label="Yellow" title="Yellow"></span></li>
-          <li><span class="rivet-dot" style="--dot:#e66100" role="img" aria-label="Orange" title="Orange"></span></li>
-          <li><span class="rivet-dot" style="--dot:#c01c28" role="img" aria-label="Red" title="Red"></span></li>
-          <li><span class="rivet-dot" style="--dot:#77767b" role="img" aria-label="Grey" title="Grey"></span></li>
+      </div>
+        <ul class="accent-ring" aria-label="Nine accents">
+          <li style="--i:0"><span class="rivet-float"><span class="rivet-dot" style="--dot:#3584e4" role="img" aria-label="Blue" title="Blue"></span></span></li>
+          <li style="--i:1"><span class="rivet-float"><span class="rivet-dot" style="--dot:#5e9c3c" role="img" aria-label="Green" title="Green"></span></span></li>
+          <li style="--i:2"><span class="rivet-float"><span class="rivet-dot" style="--dot:#1f9e9a" role="img" aria-label="Teal" title="Teal"></span></span></li>
+          <li style="--i:3"><span class="rivet-float"><span class="rivet-dot" style="--dot:#9141ac" role="img" aria-label="Purple" title="Purple"></span></span></li>
+          <li style="--i:4"><span class="rivet-float"><span class="rivet-dot" style="--dot:#d53f8c" role="img" aria-label="Pink" title="Pink"></span></span></li>
+          <li style="--i:5"><span class="rivet-float"><span class="rivet-dot" style="--dot:#e5a50a" role="img" aria-label="Yellow" title="Yellow"></span></span></li>
+          <li style="--i:6"><span class="rivet-float"><span class="rivet-dot" style="--dot:#e66100" role="img" aria-label="Orange" title="Orange"></span></span></li>
+          <li style="--i:7"><span class="rivet-float"><span class="rivet-dot" style="--dot:#c01c28" role="img" aria-label="Red" title="Red"></span></span></li>
+          <li style="--i:8"><span class="rivet-float"><span class="rivet-dot" style="--dot:#77767b" role="img" aria-label="Grey" title="Grey"></span></span></li>
         </ul>
       </div>
       <ul class="preset-row" aria-label="A few code themes">
@@ -392,6 +392,53 @@ const description =
           for (var k = 0; k < nodes.length; k++) nodes[k].classList.add("is-in");
         }
         document.documentElement.classList.add("motion");
+      }
+      var ring = document.querySelector(".accent-ring");
+      if (ring && !reduce) {
+        var balls = ring.querySelectorAll("li");
+        var rx = 0;
+        var ry = 0;
+        var rsy = 0;
+        var ringQueued = false;
+        function paintRing() {
+          ringQueued = false;
+          for (var n = 0; n < balls.length; n++) {
+            var depth = 0.42 + (n % 3) * 0.26;
+            var x = coarse ? 0 : rx * 7 * depth;
+            var y = ((coarse ? 0 : ry * 5) + rsy * 9) * depth;
+            balls[n].style.setProperty("--px", x.toFixed(2) + "px");
+            balls[n].style.setProperty("--py", y.toFixed(2) + "px");
+          }
+        }
+        function queueRing() {
+          if (!ringQueued) {
+            ringQueued = true;
+            requestAnimationFrame(paintRing);
+          }
+        }
+        if (!coarse) {
+          window.addEventListener(
+            "pointermove",
+            function (e) {
+              var box = ring.getBoundingClientRect();
+              if (!box.width) return;
+              rx = Math.max(-0.85, Math.min(0.85, (e.clientX - (box.left + box.width / 2)) / box.width));
+              ry = Math.max(-0.85, Math.min(0.85, (e.clientY - (box.top + box.height / 2)) / box.height));
+              queueRing();
+            },
+            { passive: true }
+          );
+        }
+        window.addEventListener(
+          "scroll",
+          function () {
+            var box = ring.getBoundingClientRect();
+            var vh = window.innerHeight || 1;
+            rsy = Math.max(-1, Math.min(1, (vh * 0.45 - (box.top + box.height / 2)) / vh));
+            queueRing();
+          },
+          { passive: true }
+        );
       }
       if (reduce || coarse) return;
       var stage = document.querySelector(".hero-stage");
