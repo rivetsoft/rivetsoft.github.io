@@ -35,6 +35,38 @@ const description =
   jsonLd={[...websiteAndPerson(description), breadcrumb([{ name: "Rivet", url: siteRoot }])]}
 >
   <header class="hero">
+    <svg class="hero-plate" aria-hidden="true" focusable="false">
+      <defs>
+        <radialGradient id="rivet-dome" cx="34%" cy="30%" r="72%">
+          <stop offset="0%" stop-color="var(--plate-rivet-hi)" />
+          <stop offset="46%" stop-color="var(--plate-rivet)" />
+          <stop offset="100%" stop-color="var(--plate-rivet-lo)" />
+        </radialGradient>
+        <pattern id="rivet-plate" width="220" height="150" patternUnits="userSpaceOnUse">
+          <path d="M0 0.6H220M0.6 0V150" fill="none" stroke="var(--plate-seam)" stroke-width="1.2" />
+          <g fill="var(--plate-shadow)">
+            <circle cx="28.6" cy="1.5" r="3.3" />
+            <circle cx="78.6" cy="1.5" r="3.3" />
+            <circle cx="128.6" cy="1.5" r="3.3" />
+            <circle cx="178.6" cy="1.5" r="3.3" />
+            <circle cx="1.5" cy="38.6" r="3.3" />
+            <circle cx="1.5" cy="88.6" r="3.3" />
+            <circle cx="1.5" cy="138.6" r="3.3" />
+          </g>
+          <g fill="url(#rivet-dome)">
+            <circle cx="28" cy="0.6" r="3.15" />
+            <circle cx="78" cy="0.6" r="3.15" />
+            <circle cx="128" cy="0.6" r="3.15" />
+            <circle cx="178" cy="0.6" r="3.15" />
+            <circle cx="0.6" cy="38" r="3.15" />
+            <circle cx="0.6" cy="88" r="3.15" />
+            <circle cx="0.6" cy="138" r="3.15" />
+          </g>
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#rivet-plate)" />
+    </svg>
+    <div class="hero-grain" aria-hidden="true"></div>
     <div class="hero-copy">
       <p class="eyebrow">
         <img src={url("rivet-shell.svg")} width="36" height="36" alt="" />
@@ -158,23 +190,48 @@ const description =
   <section class="scheme" aria-labelledby="scheme-title">
     <h2 id="scheme-title">Colors</h2>
     <p>
-      The apps read a CSS color file and check it about every 2 seconds. When the file changes,
-      the windows restyle. You do not restart them.
+      The apps follow your wallpaper colors as they change, through matugen or any other tool that
+      writes the color file. Or pick one of nine accents, or a code theme such as Tokyo Night,
+      Catppuccin, Dracula, Nord, or Gruvbox.
     </p>
-    <p>
-      <code>~/.config/rivet/colors.css</code> is the one matugen, or any other tool, can write.
-      The shell can add a matugen template that points at that path. The lines are GTK
-      <code>@define-color</code> colors, and <code>@import</code>s are followed.
-      <code>~/.config/rivet/palette.css</code> is the file Rivet writes when you pick a preset.
-      While it is there, it comes first. After those, the apps also read
-      <code>~/.config/gtk-4.0</code> and <code>~/.config/gtk-3.0</code> (<code>gtk.css</code> and
-      <code>colors.css</code>).
-    </p>
-    <p>
-      In the shell, colors can come from the wallpaper through matugen, from a preset, or from a
-      style and an accent. The accents are Blue, Green, Teal, Purple, Pink, Yellow, Orange, Red,
-      and Grey. The same Files window in Rose, Ember, Moss, and Violet:
-    </p>
+    <p><a href={url("docs/colors/")}>How colors work →</a></p>
+    <ul class="accent-row" aria-label="Nine accents">
+      <li><span class="rivet-dot" style="--dot:#3584e4"></span>Blue</li>
+      <li><span class="rivet-dot" style="--dot:#5e9c3c"></span>Green</li>
+      <li><span class="rivet-dot" style="--dot:#1f9e9a"></span>Teal</li>
+      <li><span class="rivet-dot" style="--dot:#9141ac"></span>Purple</li>
+      <li><span class="rivet-dot" style="--dot:#d53f8c"></span>Pink</li>
+      <li><span class="rivet-dot" style="--dot:#e5a50a"></span>Yellow</li>
+      <li><span class="rivet-dot" style="--dot:#e66100"></span>Orange</li>
+      <li><span class="rivet-dot" style="--dot:#c01c28"></span>Red</li>
+      <li><span class="rivet-dot" style="--dot:#77767b"></span>Grey</li>
+    </ul>
+    <ul class="preset-row" aria-label="A few code themes">
+      <li class="preset" style="--bg:#1a1b26;--fg:#a9b1d6">
+        <span>Tokyo Night</span>
+        <span class="swatch"><i style="background:#bb9af7"></i><i style="background:#9ece6a"></i><i style="background:#7aa2f7"></i><i style="background:#2ac3de"></i></span>
+      </li>
+      <li class="preset" style="--bg:#1e1e2e;--fg:#cdd6f4">
+        <span>Catppuccin Mocha</span>
+        <span class="swatch"><i style="background:#cba6f7"></i><i style="background:#a6e3a1"></i><i style="background:#89b4fa"></i><i style="background:#f9e2af"></i></span>
+      </li>
+      <li class="preset" style="--bg:#282a36;--fg:#f8f8f2">
+        <span>Dracula</span>
+        <span class="swatch"><i style="background:#ff79c6"></i><i style="background:#f1fa8c"></i><i style="background:#50fa7b"></i><i style="background:#8be9fd"></i></span>
+      </li>
+      <li class="preset" style="--bg:#2e3440;--fg:#d8dee9">
+        <span>Nord</span>
+        <span class="swatch"><i style="background:#81a1c1"></i><i style="background:#a3be8c"></i><i style="background:#88c0d0"></i><i style="background:#8fbcbb"></i></span>
+      </li>
+      <li class="preset" style="--bg:#282828;--fg:#ebdbb2">
+        <span>Gruvbox Dark</span>
+        <span class="swatch"><i style="background:#fb4934"></i><i style="background:#b8bb26"></i><i style="background:#fabd2f"></i><i style="background:#83a598"></i></span>
+      </li>
+      <li class="preset" style="--bg:#191724;--fg:#e0def4">
+        <span>Rosé Pine</span>
+        <span class="swatch"><i style="background:#31748f"></i><i style="background:#f6c177"></i><i style="background:#ebbcba"></i><i style="background:#9ccfd8"></i></span>
+      </li>
+    </ul>
     <ul class="scheme-grid">
       <li>
         <img src={url("screenshots/theme-rose-wide.png")} alt="Rivet Files in the rose theme, on a light pink page" width={table["theme-rose-wide.png"].w} height={table["theme-rose-wide.png"].h} />
@@ -193,17 +250,6 @@ const description =
         <span>Violet</span>
       </li>
     </ul>
-    <p>
-      The presets are the same names Edit uses for code and Terminal uses for its colors. Picking
-      one in the shell writes <code>palette.css</code>, which the other apps then read. They are
-      One Dark, One Light, Dracula, Monokai, Monokai Pro, Solarized Dark, Solarized Light, Nord,
-      Gruvbox Dark, Gruvbox Light, Catppuccin Latte, Catppuccin Frappé, Catppuccin Macchiato,
-      Catppuccin Mocha, Tokyo Night, Tokyo Night Day, GitHub Light, GitHub Dark, GitHub Dark
-      Dimmed, Rosé Pine, Rosé Pine Moon, Rosé Pine Dawn, Everforest, Everforest Light, Ayu Dark,
-      Ayu Mirage, Ayu Light, Material, Palenight, Kanagawa, Night Owl, Light Owl, VS Code Dark
-      Modern, VS Code Light Modern, JetBrains Darcula, Xcode Light, Xcode Dark, High Contrast
-      Dark, and High Contrast Light.
-    </p>
   </section>
 
   {
