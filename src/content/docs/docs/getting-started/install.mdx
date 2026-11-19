@@ -1,23 +1,42 @@
 ---
 title: Install
-description: Install a Rivet app from its release archive, or run the AppImage.
+description: Get started with the Welcome AppImage. It installs the Rivet apps.
 ---
 
 import { Aside, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
 
-Each app has its own release. Download that archive and run `install.sh`. Welcome, at the end of this page, can do the same thing later if you want it.
+The usual way in is the Welcome AppImage. Download it, make it executable, and run it. From the window that opens, install the apps you want.
 
-<Aside type="caution" title="Pre-releases">
-FTP 0.3.0 and Welcome 0.1.0 are pre-releases. Files 0.8.0, Notes 0.3.0, Edit 0.2.0, and Terminal 0.2.0 are regular releases.
+<Aside type="caution" title="Pre-release">
+Welcome 0.1.0 is a pre-release. It installs Files, Notes, Edit, Terminal, and FTP from their GitHub releases.
 </Aside>
 
-## Prerequisites
+## Get started
 
-<Aside type="note" title="No password for the installer">
-`install.sh` copies the program to `~/.local/bin` and adds a launcher entry. The builds are linked against glibc 2.31, so Ubuntu 22.04 and Debian 12 are fine. The AppImage already includes the keyboard libraries below.
+<Steps>
+
+1. Download [Rivet_Welcome-0.1.0-x86_64.AppImage](https://github.com/ulinaaron/rivet-apps/releases/download/rivet-welcome-v0.1.0/Rivet_Welcome-0.1.0-x86_64.AppImage).
+
+2. Make it executable and run it.
+
+   ```sh
+   chmod +x Rivet_Welcome-0.1.0-x86_64.AppImage
+   ./Rivet_Welcome-0.1.0-x86_64.AppImage
+   ```
+
+3. In Welcome, install the apps. They land in `~/.local/bin` and in your launcher. Welcome does not ask for a password.
+
+</Steps>
+
+What Welcome does after that is on the [Welcome page](/rivet-web/docs/welcome/). The terminal commands are in the [Welcome README](https://github.com/ulinaaron/rivet-apps/blob/main/apps/rivet-welcome/README.md).
+
+## Alternative methods
+
+Each app also has its own release. The archive runs `install.sh`. An AppImage is one file you run directly.
+
+<Aside type="note" title="Libraries for the archive">
+The AppImage already includes the keyboard libraries. The archive build needs them on a minimal system. A full desktop usually has them. The builds are linked against glibc 2.31, so Ubuntu 22.04 and Debian 12 are fine. `install.sh` does not ask for a password.
 </Aside>
-
-A full desktop usually has these libraries. A minimal install often does not. Rivet prints the install command if one is missing.
 
 <Tabs syncKey="distro">
   <TabItem label="Debian and Ubuntu">
@@ -42,79 +61,69 @@ A full desktop usually has these libraries. A minimal install often does not. Ri
   </TabItem>
 </Tabs>
 
-## Install an app
+### Archive
 
-<Steps>
+<Tabs syncKey="app">
+  <TabItem label="Files">
+    [rivet-files-0.8.0-x86_64-linux.tar.gz](https://github.com/ulinaaron/rivet-apps/releases/download/v0.8.0/rivet-files-0.8.0-x86_64-linux.tar.gz)
 
-1. Download the archive. The file name matches the command in the next step.
+    ```sh
+    tar xzf rivet-files-0.8.0-x86_64-linux.tar.gz
+    cd rivet-files-0.8.0-x86_64-linux
+    ./install.sh
+    ```
 
-2. Unpack it and run the installer.
+    `./install.sh --default` makes Rivet Files the default file manager. Other downloads, including a Flatpak when the release has one, are on the [Files page](/rivet-web/files/).
+  </TabItem>
+  <TabItem label="Notes">
+    [rivet-notes-0.3.0-x86_64-linux.tar.gz](https://github.com/ulinaaron/rivet-apps/releases/download/rivet-notes-v0.3.0/rivet-notes-0.3.0-x86_64-linux.tar.gz)
 
-   <Tabs syncKey="app">
-     <TabItem label="Files">
-       [rivet-files-0.8.0-x86_64-linux.tar.gz](https://github.com/ulinaaron/rivet-apps/releases/download/v0.8.0/rivet-files-0.8.0-x86_64-linux.tar.gz)
+    ```sh
+    tar xzf rivet-notes-0.3.0-x86_64-linux.tar.gz
+    cd rivet-notes-0.3.0-x86_64-linux
+    ./install.sh
+    ```
 
-       ```sh
-       tar xzf rivet-files-0.8.0-x86_64-linux.tar.gz
-       cd rivet-files-0.8.0-x86_64-linux
-       ./install.sh
-       ```
+    Other downloads are on the [Notes page](/rivet-web/notes/).
+  </TabItem>
+  <TabItem label="Edit">
+    [rivet-edit-0.2.0-x86_64-linux.tar.gz](https://github.com/ulinaaron/rivet-apps/releases/download/rivet-edit-v0.2.0/rivet-edit-0.2.0-x86_64-linux.tar.gz)
 
-       `./install.sh --default` makes Rivet Files the default file manager. Other downloads, including a Flatpak when the release has one, are on the [Files page](/rivet-web/files/).
-     </TabItem>
-     <TabItem label="Notes">
-       [rivet-notes-0.3.0-x86_64-linux.tar.gz](https://github.com/ulinaaron/rivet-apps/releases/download/rivet-notes-v0.3.0/rivet-notes-0.3.0-x86_64-linux.tar.gz)
+    ```sh
+    tar xzf rivet-edit-0.2.0-x86_64-linux.tar.gz
+    cd rivet-edit-0.2.0-x86_64-linux
+    ./install.sh
+    ```
 
-       ```sh
-       tar xzf rivet-notes-0.3.0-x86_64-linux.tar.gz
-       cd rivet-notes-0.3.0-x86_64-linux
-       ./install.sh
-       ```
+    Other downloads are on the [Edit page](/rivet-web/edit/).
+  </TabItem>
+  <TabItem label="Terminal">
+    [rivet-terminal-0.2.0-x86_64-linux.tar.gz](https://github.com/ulinaaron/rivet-apps/releases/download/rivet-terminal-v0.2.0/rivet-terminal-0.2.0-x86_64-linux.tar.gz)
 
-       Other downloads are on the [Notes page](/rivet-web/notes/).
-     </TabItem>
-     <TabItem label="Edit">
-       [rivet-edit-0.2.0-x86_64-linux.tar.gz](https://github.com/ulinaaron/rivet-apps/releases/download/rivet-edit-v0.2.0/rivet-edit-0.2.0-x86_64-linux.tar.gz)
+    ```sh
+    tar xzf rivet-terminal-0.2.0-x86_64-linux.tar.gz
+    cd rivet-terminal-0.2.0-x86_64-linux
+    ./install.sh
+    ```
 
-       ```sh
-       tar xzf rivet-edit-0.2.0-x86_64-linux.tar.gz
-       cd rivet-edit-0.2.0-x86_64-linux
-       ./install.sh
-       ```
+    Other downloads are on the [Terminal page](/rivet-web/terminal/).
+  </TabItem>
+  <TabItem label="FTP">
+    [rivet-ftp-0.3.0-x86_64-linux.tar.gz](https://github.com/ulinaaron/rivet-apps/releases/download/rivet-ftp-v0.3.0/rivet-ftp-0.3.0-x86_64-linux.tar.gz)
 
-       Other downloads are on the [Edit page](/rivet-web/edit/).
-     </TabItem>
-     <TabItem label="Terminal">
-       [rivet-terminal-0.2.0-x86_64-linux.tar.gz](https://github.com/ulinaaron/rivet-apps/releases/download/rivet-terminal-v0.2.0/rivet-terminal-0.2.0-x86_64-linux.tar.gz)
+    ```sh
+    tar xzf rivet-ftp-0.3.0-x86_64-linux.tar.gz
+    cd rivet-ftp-0.3.0-x86_64-linux
+    ./install.sh
+    ```
 
-       ```sh
-       tar xzf rivet-terminal-0.2.0-x86_64-linux.tar.gz
-       cd rivet-terminal-0.2.0-x86_64-linux
-       ./install.sh
-       ```
+    FTP 0.3.0 is a pre-release. Other downloads are on the [FTP page](/rivet-web/ftp/).
+  </TabItem>
+</Tabs>
 
-       Other downloads are on the [Terminal page](/rivet-web/terminal/).
-     </TabItem>
-     <TabItem label="FTP">
-       [rivet-ftp-0.3.0-x86_64-linux.tar.gz](https://github.com/ulinaaron/rivet-apps/releases/download/rivet-ftp-v0.3.0/rivet-ftp-0.3.0-x86_64-linux.tar.gz)
+The launcher commands are `rivet`, `rivet-notes`, `rivet-edit`, `rivet-terminal`, and `rivet-ftp`.
 
-       ```sh
-       tar xzf rivet-ftp-0.3.0-x86_64-linux.tar.gz
-       cd rivet-ftp-0.3.0-x86_64-linux
-       ./install.sh
-       ```
-
-       Other downloads are on the [FTP page](/rivet-web/ftp/).
-     </TabItem>
-   </Tabs>
-
-3. Open the app from your launcher. From a terminal the commands are `rivet`, `rivet-notes`, `rivet-edit`, `rivet-terminal`, and `rivet-ftp`.
-
-</Steps>
-
-## AppImage
-
-The AppImage is one file. It does not copy anything into `~/.local/bin`.
+### AppImage for one app
 
 <Tabs syncKey="app">
   <TabItem label="Files">
@@ -161,29 +170,17 @@ The AppImage is one file. It does not copy anything into `~/.local/bin`.
 
 In the app, Preferences, System, Add Rivet to the app launcher puts that AppImage in your menus.
 
-## Welcome
+You can also install Welcome from the archive, the same way as the other apps:
 
-<Aside type="tip" title="Optional">
-Skip this if the apps above are enough. Welcome installs and updates them from one window.
-</Aside>
+```sh
+tar xzf rivet-welcome-0.1.0-x86_64-linux.tar.gz
+cd rivet-welcome-0.1.0-x86_64-linux
+./install.sh
+```
 
-<Steps>
+[rivet-welcome-0.1.0-x86_64-linux.tar.gz](https://github.com/ulinaaron/rivet-apps/releases/download/rivet-welcome-v0.1.0/rivet-welcome-0.1.0-x86_64-linux.tar.gz)
 
-1. Download [rivet-welcome-0.1.0-x86_64-linux.tar.gz](https://github.com/ulinaaron/rivet-apps/releases/download/rivet-welcome-v0.1.0/rivet-welcome-0.1.0-x86_64-linux.tar.gz) and install it.
-
-   ```sh
-   tar xzf rivet-welcome-0.1.0-x86_64-linux.tar.gz
-   cd rivet-welcome-0.1.0-x86_64-linux
-   ./install.sh
-   ```
-
-2. Open it with `rivet-welcome`.
-
-</Steps>
-
-There is also an [AppImage](https://github.com/ulinaaron/rivet-apps/releases/download/rivet-welcome-v0.1.0/Rivet_Welcome-0.1.0-x86_64.AppImage). What Welcome does after it is installed is on the [Welcome page](/rivet-web/docs/welcome/). The terminal commands are in the [Welcome README](https://github.com/ulinaaron/rivet-apps/blob/main/apps/rivet-welcome/README.md).
-
-## Shell
+### Shell
 
 Rivet Shell has no release yet. From a checkout of the repository:
 

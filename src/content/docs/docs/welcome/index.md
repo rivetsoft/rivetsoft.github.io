@@ -3,7 +3,7 @@ title: Rivet Welcome
 description: An optional installer and updater for the Rivet shell and apps.
 ---
 
-Welcome installs and updates the shell and the apps. You can skip it and install another way.
+Welcome installs and updates the apps. The usual way to start is its AppImage.
 
 ![Rivet Welcome, with updates and an install under way](/rivet-web/screenshots/welcome-wide.png)
 
@@ -11,6 +11,6 @@ It downloads the Linux archive, checks the published `.sha256`, and runs `instal
 
 The tray sits in the shell panel, or in any StatusNotifierItem tray.
 
-Install it from the [install page](/rivet-web/docs/getting-started/install/). The terminal commands and the paths are in the [Welcome README](https://github.com/ulinaaron/rivet-apps/blob/main/apps/rivet-welcome/README.md). Current downloads are on the [Welcome page](/rivet-web/welcome/).
+Install it from the [install page](/rivet-web/docs/getting-started/install/#get-started). The terminal commands and the paths are in the [Welcome README](https://github.com/ulinaaron/rivet-apps/blob/main/apps/rivet-welcome/README.md). Current downloads are on the [Welcome page](/rivet-web/welcome/).
 
 More coming soon.

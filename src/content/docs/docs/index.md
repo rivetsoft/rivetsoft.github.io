@@ -9,6 +9,10 @@ The shell and the apps are written in Rust and drawn with [egui](https://github.
 
 The source is [ulinaaron/rivet-apps](https://github.com/ulinaaron/rivet-apps), under MIT or Apache-2.0.
 
+## Get started
+
+Download the Welcome AppImage, make it executable, and run it. Welcome then installs the apps. The steps are on the [install page](/rivet-web/docs/getting-started/install/#get-started).
+
 ## Pieces
 
 - **Rivet Shell** is the Wayland desktop: panel, dock, launcher, widgets, wallpaper.
