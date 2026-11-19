@@ -2,7 +2,7 @@
   "name": "Rivet Dark",
   "type": "dark",
   "colors": {
-    "editor.background": "#2c1822",
+    "editor.background": "#2a1922",
     "editor.foreground": "#d6d6d6"
   },
   "tokenColors": [
@@ -14,44 +14,44 @@
     {
       "scope": ["comment", "punctuation.definition.comment"],
       "settings": {
-        "foreground": "#8e837b",
+        "foreground": "#8f7c86",
         "fontStyle": "italic"
       }
     },
     {
       "scope": ["keyword", "storage", "storage.type", "keyword.control", "keyword.operator.new", "constant.language"],
       "settings": {
-        "foreground": "#b88cf0"
+        "foreground": "#cc5de8"
       }
     },
     {
       "scope": ["string", "string.quoted", "string.template"],
       "settings": {
-        "foreground": "#a5d37c"
+        "foreground": "#d4db63"
       }
     },
     {
       "scope": ["constant.numeric", "constant.character", "constant.other"],
       "settings": {
-        "foreground": "#f2a65e"
+        "foreground": "#f2d45b"
       }
     },
     {
       "scope": ["entity.name.function", "support.function", "meta.function-call"],
       "settings": {
-        "foreground": "#6fb5f2"
+        "foreground": "#33a7e0"
       }
     },
     {
       "scope": ["entity.name.type", "entity.name.class", "entity.name.namespace", "support.type", "support.class", "storage.type.class"],
       "settings": {
-        "foreground": "#e9c86c"
+        "foreground": "#efdd68"
       }
     },
     {
       "scope": ["punctuation", "keyword.operator", "meta.brace"],
       "settings": {
-        "foreground": "#a1a1a1"
+        "foreground": "#a29da0"
       }
     }
   ]

@@ -14,44 +14,44 @@
     {
       "scope": ["comment", "punctuation.definition.comment"],
       "settings": {
-        "foreground": "#91877f",
+        "foreground": "#87767f",
         "fontStyle": "italic"
       }
     },
     {
       "scope": ["keyword", "storage", "storage.type", "keyword.control", "keyword.operator.new", "constant.language"],
       "settings": {
-        "foreground": "#843fc9"
+        "foreground": "#bd3ace"
       }
     },
     {
       "scope": ["string", "string.quoted", "string.template"],
       "settings": {
-        "foreground": "#3f8626"
+        "foreground": "#5c7522"
       }
     },
     {
       "scope": ["constant.numeric", "constant.character", "constant.other"],
       "settings": {
-        "foreground": "#b35a10"
+        "foreground": "#8c7622"
       }
     },
     {
       "scope": ["entity.name.function", "support.function", "meta.function-call"],
       "settings": {
-        "foreground": "#1f69bd"
+        "foreground": "#1383be"
       }
     },
     {
       "scope": ["entity.name.type", "entity.name.class", "entity.name.namespace", "support.type", "support.class", "storage.type.class"],
       "settings": {
-        "foreground": "#956a00"
+        "foreground": "#81731d"
       }
     },
     {
       "scope": ["punctuation", "keyword.operator", "meta.brace"],
       "settings": {
-        "foreground": "#6a6a6a"
+        "foreground": "#636062"
       }
     }
   ]

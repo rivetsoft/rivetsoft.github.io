@@ -397,15 +397,19 @@ main.column:has(.band) {
 
 .hero-plate {
   display: block;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 86%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 86%, transparent 100%);
 }
 
 .hero-grain {
-  opacity: 0.45;
+  opacity: 0.55;
   background-image: repeating-linear-gradient(
     102deg,
     transparent 0 3px,
     var(--plate-grain) 3px 4px
   );
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, transparent 80%);
+  mask-image: linear-gradient(to bottom, #000 0%, transparent 80%);
 }
 
 .hero-copy,

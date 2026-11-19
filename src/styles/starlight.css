@@ -325,11 +325,11 @@ h4 {
 }
 
 .expressive-code {
-  --ec-codeBg: #2c1822;
+  --ec-codeBg: #2a1922;
   --ec-codeFg: #d6d6d6;
-  --ec-frm-trmBg: #2c1822;
-  --ec-frm-edBg: #2c1822;
-  --ec-frm-trmTtbBg: #3a2030;
+  --ec-frm-trmBg: #2a1922;
+  --ec-frm-edBg: #2a1922;
+  --ec-frm-trmTtbBg: #34242c;
   --ec-frm-trmTtbFg: #e9dee5;
   --ec-frm-trmTtbBrdBtmCol: rgba(213, 63, 140, 0.45);
   --ec-frm-trmTtbDotsOpa: 1;
@@ -340,7 +340,7 @@ h4 {
   --ec-frm-inlBtnBrd: #24121b;
   --ec-frm-tooltipSuccessBg: #3ecf9a;
   --ec-frm-tooltipSuccessFg: #24121b;
-  --code-background: #2c1822;
+  --code-background: #2a1922;
 }
 
 :root[data-theme="light"] .expressive-code {
@@ -360,7 +360,7 @@ h4 {
   border: 2px solid rgba(213, 63, 140, 0.5);
   border-radius: var(--radius-card);
   box-shadow: 4px 4px 0 #24121b;
-  background: #2c1822;
+  background: #2a1922;
 }
 
 :root[data-theme="light"] .expressive-code .frame {
@@ -371,7 +371,7 @@ h4 {
 
 .expressive-code .frame .header,
 .expressive-code .frame.is-terminal .header {
-  background: #3a2030;
+  background: #34242c;
   color: #e9dee5;
 }
 
@@ -389,7 +389,7 @@ h4 {
 
 .expressive-code .frame pre,
 .expressive-code pre {
-  background: #2c1822;
+  background: #2a1922;
   color: #d6d6d6;
 }
 
