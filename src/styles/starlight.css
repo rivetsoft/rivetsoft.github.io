@@ -324,20 +324,89 @@ h4 {
   transform: none;
 }
 
+.expressive-code {
+  --ec-codeBg: #2c1822;
+  --ec-codeFg: #d6d6d6;
+  --ec-frm-trmBg: #2c1822;
+  --ec-frm-edBg: #2c1822;
+  --ec-frm-trmTtbBg: #3a2030;
+  --ec-frm-trmTtbFg: #e9dee5;
+  --ec-frm-trmTtbBrdBtmCol: rgba(213, 63, 140, 0.45);
+  --ec-frm-trmTtbDotsOpa: 1;
+  --ec-brdCol: rgba(213, 63, 140, 0.5);
+  --ec-gtrFg: #b09aa2;
+  --ec-frm-inlBtnFg: #24121b;
+  --ec-frm-inlBtnBg: #fff270;
+  --ec-frm-inlBtnBrd: #24121b;
+  --ec-frm-tooltipSuccessBg: #3ecf9a;
+  --ec-frm-tooltipSuccessFg: #24121b;
+  --code-background: #2c1822;
+}
+
+:root[data-theme="light"] .expressive-code {
+  --ec-codeBg: #e9dee5;
+  --ec-codeFg: #2a2a2a;
+  --ec-frm-trmBg: #e9dee5;
+  --ec-frm-edBg: #e9dee5;
+  --ec-frm-trmTtbBg: #f3eaee;
+  --ec-frm-trmTtbFg: #24121b;
+  --ec-frm-trmTtbBrdBtmCol: rgba(36, 18, 27, 0.16);
+  --ec-brdCol: rgba(36, 18, 27, 0.22);
+  --ec-gtrFg: #5c4650;
+  --code-background: #e9dee5;
+}
+
 .expressive-code .frame {
-  border: 2px solid #24121b;
+  border: 2px solid rgba(213, 63, 140, 0.5);
   border-radius: var(--radius-card);
   box-shadow: 4px 4px 0 #24121b;
+  background: #2c1822;
 }
 
-:root[data-theme="dark"] .expressive-code .frame {
-  border-color: #d53f8c;
-  box-shadow: 4px 4px 0 #d53f8c;
+:root[data-theme="light"] .expressive-code .frame {
+  border-color: rgba(36, 18, 27, 0.22);
+  box-shadow: 4px 4px 0 rgba(36, 18, 27, 0.18);
+  background: #e9dee5;
 }
 
-.expressive-code .frame .header {
-  background: #24121b;
+.expressive-code .frame .header,
+.expressive-code .frame.is-terminal .header {
+  background: #3a2030;
   color: #e9dee5;
+}
+
+:root[data-theme="light"] .expressive-code .frame .header,
+:root[data-theme="light"] .expressive-code .frame.is-terminal .header {
+  background: #f3eaee;
+  color: #24121b;
+}
+
+.expressive-code .frame.is-terminal .header::before {
+  opacity: 1;
+  background-color: transparent;
+  background-image: linear-gradient(90deg, #d53f8c 0 33%, #fff270 33% 66%, #3ecf9a 66% 100%);
+}
+
+.expressive-code .frame pre,
+.expressive-code pre {
+  background: #2c1822;
+  color: #d6d6d6;
+}
+
+:root[data-theme="light"] .expressive-code .frame pre,
+:root[data-theme="light"] .expressive-code pre {
+  background: #e9dee5;
+  color: #2a2a2a;
+}
+
+.expressive-code .copy button,
+.expressive-code .copy button div {
+  background: #fff270;
+  color: #24121b;
+}
+
+.expressive-code .copy button::after {
+  background-color: #24121b;
 }
 
 .starlight-aside {

@@ -2,7 +2,7 @@
   "name": "Rivet Dark",
   "type": "dark",
   "colors": {
-    "editor.background": "#242424",
+    "editor.background": "#2c1822",
     "editor.foreground": "#d6d6d6"
   },
   "tokenColors": [
