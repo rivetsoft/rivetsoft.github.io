@@ -1842,7 +1842,7 @@ body:has(.band) .site-footer-inner {
 .band-cta {
   position: relative;
   overflow: hidden;
-  --shadow-hard: #fff;
+  --shadow-hard: #24121b;
   background: #0084b8;
   color: #e9dee5;
   padding-top: 5.75rem;
