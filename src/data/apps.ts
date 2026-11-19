@@ -20,7 +20,7 @@ export interface AppEntry {
   /** Set when this is an idea, not an app in the repository yet. */
   laterPhrase?: string;
   /** Which long page to render. Omit for the short generic page. */
-  template?: "files" | "ftp" | "notes" | "shell";
+  template?: "files" | "ftp" | "notes" | "shell" | "edit";
   /** Home-card screenshot in public/screenshots. */
   cardShot?: string;
   cardAlt?: string;
@@ -149,6 +149,7 @@ export const apps: AppEntry[] = [
     tagPrefixes: ["rivet-edit-v"],
     nav: true,
     navLabel: "Edit",
+    template: "edit",
     applicationCategory: "DeveloperApplication",
     cardShot: "edit-editor-wide.png",
     cardAlt: "Rivet Edit with a Rust project open",

@@ -1566,6 +1566,26 @@ body:has(.band) .site-footer-inner {
   }
 }
 
+.edit-files {
+  background: color-mix(in srgb, var(--accent) 7%, var(--bg));
+}
+
+.edit-quick {
+  background: color-mix(in srgb, var(--accent-2) 8%, var(--bg));
+}
+
+.edit-look {
+  background: color-mix(in srgb, var(--rivet-quaternary) 12%, var(--bg));
+}
+
+.edit-git {
+  background: color-mix(in srgb, var(--accent-3) 16%, var(--bg));
+}
+
+.edit-page .shell-grid .shot img {
+  width: 100%;
+}
+
 
 .showcase {
   list-style: none;

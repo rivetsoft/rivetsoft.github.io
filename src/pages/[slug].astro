@@ -7,6 +7,7 @@ import FilesBody from "../bodies/Files.astro";
 import FtpBody from "../bodies/Ftp.astro";
 import NotesBody from "../bodies/Notes.astro";
 import ShellBody from "../bodies/Shell.astro";
+import EditBody from "../bodies/Edit.astro";
 import { apps, repoUrl, type AppEntry } from "../data/apps";
 import { releaseFor } from "../data/releases";
 import { url } from "../paths";
@@ -38,6 +39,7 @@ const bodies = {
   ftp: FtpBody,
   notes: NotesBody,
   shell: ShellBody,
+  edit: EditBody,
 } as const;
 const Body = app.template ? bodies[app.template] : null;
 const readmeUrl = app.readme ? `${repoUrl}/blob/main/${app.readme}` : repoUrl;

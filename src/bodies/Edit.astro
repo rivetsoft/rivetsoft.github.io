@@ -1,0 +1,105 @@
+---
+import Shot from "../components/Shot.astro";
+import ReleaseBlock from "../components/ReleaseBlock.astro";
+import { url } from "../paths";
+---
+
+<div class="shell-page edit-page">
+  <section class="band shell-intro">
+    <h1>Rivet Edit</h1>
+    <p class="lede">
+      A small code editor for a folder, or for a few files on their own. It uses the same colors,
+      fonts, menus, Preferences, and quick panel as the other Rivet apps.
+    </p>
+    <p>
+      It is still young. Keep a copy of anything you care about. Keys and the build are in the
+      <a href={url("docs/edit/")}>Edit docs</a>.
+    </p>
+    <Shot
+      name="edit-editor-wide.png"
+      alt="Rivet Edit with the hello-rivet folder open, the file tree on the left, and main.rs in the editor"
+      caption="A folder open. The tree is on the left, the file in the middle."
+      eager
+    />
+  </section>
+
+  <section class="band edit-files" aria-labelledby="edit-files">
+    <h2 id="edit-files">A folder, or a file</h2>
+    <p>
+      Open a folder and its files sit in a tree. The tree leaves out <code>.git</code>,
+      <code>node_modules</code>, <code>target</code>, and a few other tool and build folders. You
+      can also open single files, each in its own tab.
+    </p>
+    <p>
+      One click in the tree, or Go to File, opens a preview. The tab title is in italics, and the
+      next preview takes its place. Double-click the file, Ctrl+click it, double-click the tab, or
+      change the text, and the tab stays.
+    </p>
+    <p>
+      Rust, Python, JavaScript, TypeScript, JSON, shell, C, Go, HTML, CSS, TOML, and YAML are
+      colored with tree-sitter. Other files use the same colors as Peek in Rivet Files. Those
+      colors follow the theme and the accent.
+    </p>
+  </section>
+
+  <section class="band edit-quick" aria-labelledby="edit-quick">
+    <h2 id="edit-quick">Find a file, or a command</h2>
+    <p>
+      Ctrl+P finds a file from a few letters of its name or its path. Shift+Ctrl+P is the command
+      list. Ctrl+G jumps to a line. The same quick panel is in the other apps.
+    </p>
+    <div class="shell-grid">
+      <Shot
+        name="edit-go-to-file-wide.png"
+        alt="Go to File in Rivet Edit, with a short search and matching paths"
+        caption="Go to File."
+      />
+      <Shot
+        name="edit-commands-wide.png"
+        alt="The Rivet Edit command list, opened with Shift+Ctrl+P"
+        caption="Commands."
+      />
+    </div>
+  </section>
+
+  <section class="band edit-look" aria-labelledby="edit-look">
+    <h2 id="edit-look">Desktop colors, or a code theme</h2>
+    <p>
+      By default the editor follows the app, which follows your desktop. Preferences can turn that
+      off. Color Theme, in the command list, switches the code to one of 39 themes, including One
+      Dark, Dracula, Catppuccin, Tokyo Night, Nord, Gruvbox, and Rosé Pine. Moving through the list
+      previews each one.
+    </p>
+    <div class="shell-grid">
+      <Shot
+        name="edit-preferences-wide.png"
+        alt="Rivet Edit Preferences on Appearance, set to follow the desktop colors, with the pink accent selected"
+        caption="Preferences, following the desktop."
+      />
+      <Shot
+        name="edit-light-wide.png"
+        alt="Rivet Edit in the light theme, with a JavaScript file open"
+        caption="The light theme."
+      />
+    </div>
+  </section>
+
+  <section class="band edit-git" aria-labelledby="edit-git">
+    <h2 id="edit-git">Git, find, and the rest</h2>
+    <p>
+      The sidebar has a Git tab. It shows the branch, a commit message, conflicts, staged changes,
+      and changes not staged yet. Changed files are colored in the tree, and the gutter marks what
+      changed since you staged. It runs your own git, so your config, hooks, and sign-in apply.
+    </p>
+    <p>
+      Find and replace work in the open file, and search can cover the whole folder. Suggestions
+      show up as you type. You can add another cursor, on the next copy of a word or on the line
+      above. F12 goes to a definition. Vim keys stay off until you turn them on in Preferences.
+    </p>
+    <p>A panel item for Rivet Edit is coming soon.</p>
+  </section>
+
+  <section class="band edit-download">
+    <ReleaseBlock slug="edit" heading="h2" />
+  </section>
+</div>
