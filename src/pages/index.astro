@@ -1,13 +1,16 @@
 ---
+import { Image } from "astro:assets";
 import Base from "../layouts/Base.astro";
 import Shot from "../components/Shot.astro";
 import ReleaseBlock from "../components/ReleaseBlock.astro";
 import StatusBadge from "../components/StatusBadge.astro";
 import shots from "../data/shots.json";
-import { apps, byReleaseStatus, statusFor, statusLabel } from "../data/apps";
+import { apps, byReleaseStatus, repoUrl, statusFor, statusLabel } from "../data/apps";
 import { catalog, releaseFor } from "../data/releases";
 import { url } from "../paths";
 import { breadcrumb, siteRoot, websiteAndPerson } from "../seo";
+import heroDesktop from "../assets/hero/hero-desktop.jpg";
+import heroFiles from "../assets/hero/hero-files.png";
 
 const table = shots as Record<string, { w: number; h: number }>;
 const rows = apps.map((app) => {
@@ -23,6 +26,9 @@ for (const { app } of rows) {
 const shell = rows.find((row) => row.app.spotlight === "shell");
 const welcome = rows.find((row) => row.app.spotlight === "welcome");
 const appRows = byReleaseStatus(rows.filter((row) => !row.app.spotlight));
+const bySlug = Object.fromEntries(apps.map((app) => [app.slug, app]));
+const dockPins = ["files", "terminal", "edit", "notes"].map((slug) => bySlug[slug]);
+const heroAlt = "Rivet Shell over a sunset wallpaper, with a Rivet Files window in front";
 
 const description =
   "A small Linux desktop shell, and apps for files, notes, FTP, editing and the terminal. Each one also runs on its own. Built for fun, held together with rivets.";
@@ -92,16 +98,37 @@ const description =
       }
     </div>
     <figure class="hero-visual">
-      <img
-        src={url("screenshots/shell-wide.jpg")}
-        alt="Rivet Shell in the pink scheme: panel, widgets and dock over a sunset wallpaper"
-        width={table["shell-wide.jpg"].w}
-        height={table["shell-wide.jpg"].h}
-        decoding="async"
-      />
+      <div class="hero-stage" role="img" aria-label={heroAlt}>
+        <div class="hero-layer hero-layer-back">
+          <Image
+            src={heroDesktop}
+            alt=""
+            widths={[640, 960, 1280, 1600, 1920]}
+            sizes="(min-width: 800px) 58vw, 100vw"
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+          />
+        </div>
+        <div class="hero-layer hero-layer-front">
+          <Image
+            src={heroFiles}
+            alt=""
+            format="webp"
+            widths={[480, 720, 1080, 1440]}
+            sizes="(min-width: 800px) 36vw, 64vw"
+            loading="eager"
+            decoding="async"
+          />
+        </div>
+      </div>
     </figure>
   </header>
 
+  <section class="band band-facts reveal" aria-labelledby="facts-title">
+    <div class="rivet-seam" aria-hidden="true"></div>
+    <p class="kicker kicker-blue">Notes</p>
+    <h2 id="facts-title">How it is put together</h2>
   <ul class="facts">
     <li>
       <span class="fact-icon pink" aria-hidden="true">
@@ -110,7 +137,7 @@ const description =
           <path d="M12 3v2M12 19v2M3 12h2M19 12h2"></path>
         </svg>
       </span>
-      <h2>One look</h2>
+      <h3>One look</h3>
       <p>Menus, toolbars, Preferences, and the quick panel (Ctrl+P) are the same. Colors, fonts, and icons follow the desktop.</p>
     </li>
     <li>
@@ -120,7 +147,7 @@ const description =
           <path d="M12 21V11M4 7l8 4 8-4"></path>
         </svg>
       </span>
-      <h2>Rust, no GTK or Qt</h2>
+      <h3>Rust, no GTK or Qt</h3>
       <p>The shell and the apps are written in Rust and draw with egui.</p>
     </li>
     <li>
@@ -131,7 +158,7 @@ const description =
           <rect x="8" y="14" width="7" height="7" rx="1.5"></rect>
         </svg>
       </span>
-      <h2>Together or apart</h2>
+      <h3>Together or apart</h3>
       <p>Each app runs on its own. Put them with the shell and they share a dock and colors.</p>
     </li>
     <li>
@@ -142,7 +169,7 @@ const description =
           <path d="M5 19h14"></path>
         </svg>
       </span>
-      <h2>Unified Install</h2>
+      <h3>Unified Install</h3>
       <p>Optional. It downloads a release, checks the sha256, and runs install.sh.</p>
     </li>
     <li>
@@ -152,7 +179,7 @@ const description =
           <path d="M8 20h8"></path>
         </svg>
       </span>
-      <h2>Theme Follows Your Wallpaper</h2>
+      <h3>Theme Follows Your Wallpaper</h3>
       <p>The shell runs matugen on the wallpaper. The apps follow those colors, with no restart.</p>
     </li>
     <li>
@@ -162,7 +189,7 @@ const description =
           <path d="M4 12h16M12 4c2.5 2.5 2.5 13.5 0 16M12 4c-2.5 2.5-2.5 13.5 0 16"></path>
         </svg>
       </span>
-      <h2>Wayland</h2>
+      <h3>Wayland</h3>
       <p>The apps are for Linux. The shell needs a Wayland compositor with layer-shell, not GNOME.</p>
     </li>
     <li>
@@ -172,7 +199,7 @@ const description =
           <circle cx="12" cy="12" r="3"></circle>
         </svg>
       </span>
-      <h2>Draws when it changes</h2>
+      <h3>Draws when it changes</h3>
       <p>The shell paints with its own software renderer, and only when something on screen changed. No GPU.</p>
     </li>
     <li>
@@ -182,12 +209,110 @@ const description =
           <path d="M14 4v5h5"></path>
         </svg>
       </span>
-      <h2>Open source</h2>
+      <h3>Open source</h3>
       <p>MIT or Apache-2.0, at your option.</p>
     </li>
   </ul>
+  </section>
 
-  <section class="scheme" aria-labelledby="scheme-title">
+  <section class="band band-split reveal" aria-labelledby="split-title">
+    <div class="rivet-seam" aria-hidden="true"></div>
+    <p class="kicker kicker-pink">Layout</p>
+    <h2 id="split-title">Together or apart</h2>
+    <p>Each app runs on its own. Put them with the shell and they share a dock and colors.</p>
+    <div class="split">
+      <div>
+        <h3>With the shell</h3>
+        <div class="shell-frame">
+          {
+            shell && (
+              <div class="shell-name">
+                {shell.app.icon && <img src={url(shell.app.icon)} width="28" height="28" alt="" />}
+                Rivet Shell
+              </div>
+            )
+          }
+          <ul class="chip-row">
+            {
+              dockPins.map((app) => (
+                <li class="app-chip">
+                  {app.icon && <img src={url(app.icon)} width="28" height="28" alt="" />}
+                  {app.navLabel ?? app.name}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+        <p class="split-note">Files, Terminal, Edit, and Notes start pinned.</p>
+      </div>
+      <div>
+        <h3>On their own</h3>
+        <ul class="apart-list">
+          {
+            dockPins.map((app) => (
+              <li class="app-chip">
+                {app.icon && <img src={url(app.icon)} width="28" height="28" alt="" />}
+                {app.navLabel ?? app.name}
+              </li>
+            ))
+          }
+        </ul>
+        <p class="split-note">Each one also runs on a desktop that is not Rivet Shell. FTP and Welcome do too.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band-apps reveal" aria-labelledby="apps-title">
+    <div class="rivet-seam" aria-hidden="true"></div>
+    <p class="kicker kicker-blue">Apps</p>
+    <h2 id="apps-title">The apps</h2>
+    <p>
+      Files, Terminal, Edit and Notes start pinned in the dock. Each of these also runs on its own,
+      on a desktop that is not Rivet Shell.
+    </p>
+    <ul class="showcase">
+      {
+        appRows.map(({ app, release, status }) => (
+          <li class="show-row">
+            <a href={url(`${app.slug}/`)}>
+              {app.cardShot && table[app.cardShot] && (
+                <img
+                  class="show-shot"
+                  src={url(`screenshots/${app.cardShot}`)}
+                  alt={app.cardAlt ?? `${app.name} screenshot`}
+                  width={table[app.cardShot].w}
+                  height={table[app.cardShot].h}
+                  decoding="async"
+                  loading="lazy"
+                />
+              )}
+              <span class="show-copy">
+                <span class={`badge badge-${status}`}>{statusLabel[status]}</span>
+                <span class="card-name">
+                  {app.icon && (
+                    <img class="card-icon" src={url(app.icon)} width="32" height="32" alt="" />
+                  )}
+                  {app.name}
+                </span>
+                {release && (
+                  <span class="card-version">
+                    {release.prerelease
+                      ? `${release.version} pre-release, ${release.dateLabel}`
+                      : `${release.version}, ${release.dateLabel}`}
+                  </span>
+                )}
+                <span class="card-summary">{app.summary}</span>
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="band band-colors scheme reveal" aria-labelledby="scheme-title">
+    <div class="rivet-seam" aria-hidden="true"></div>
+    <p class="kicker kicker-pink">From the wallpaper</p>
     <h2 id="scheme-title">Colors</h2>
     <p>
       The apps follow your wallpaper colors as they change, through matugen or any other tool that
@@ -254,70 +379,116 @@ const description =
 
   {
     welcome && (
-      <section class="spotlight" aria-labelledby="welcome-title">
-        <h2 id="welcome-title" class="spot-title">
-          {welcome.app.icon && (
-            <img src={url(welcome.app.icon)} width="40" height="40" alt="" />
+      <section class="band band-welcome reveal" aria-labelledby="welcome-title">
+        <div class="rivet-seam" aria-hidden="true"></div>
+        <p class="kicker kicker-blue">Optional</p>
+        <div class="spotlight">
+          <h2 id="welcome-title" class="spot-title">
+            {welcome.app.icon && (
+              <img src={url(welcome.app.icon)} width="40" height="40" alt="" />
+            )}
+            {welcome.app.name}
+          </h2>
+          <StatusBadge app={welcome.app} release={welcome.release} />
+          <p>
+            The way to install the set. It downloads each release, checks the sha256, and runs
+            install.sh, so the programs land in <code>~/.local/bin</code> and in your launcher. A
+            tray icon looks for newer versions after you sign in. Skip it if you would rather
+            install one app from its own release. Apps installed by a package are shown and left
+            alone.
+          </p>
+          {welcome.app.cardShot && welcome.app.cardAlt && welcome.app.cardCaption && (
+            <Shot name={welcome.app.cardShot} alt={welcome.app.cardAlt} caption={welcome.app.cardCaption} />
           )}
-          {welcome.app.name}
-        </h2>
-        <StatusBadge app={welcome.app} release={welcome.release} />
-        <p>
-          The way to install the set. It downloads each release, checks the sha256, and runs
-          install.sh, so the programs land in <code>~/.local/bin</code> and in your launcher. A
-          tray icon looks for newer versions after you sign in. Skip it if you would rather
-          install one app from its own release. Apps installed by a package are shown and left
-          alone.
-        </p>
-        {welcome.app.cardShot && welcome.app.cardAlt && welcome.app.cardCaption && (
-          <Shot name={welcome.app.cardShot} alt={welcome.app.cardAlt} caption={welcome.app.cardCaption} />
-        )}
-        <ReleaseBlock slug="welcome" heading="h3" />
+          <ReleaseBlock slug="welcome" heading="h3" />
+        </div>
       </section>
     )
   }
 
-  <h2>The apps</h2>
-  <p>
-    Files, Terminal, Edit and Notes start pinned in the dock. Each of these also runs on its own,
-    on a desktop that is not Rivet Shell.
-  </p>
-
-  <ul class="cards">
-    {
-      appRows.map(({ app, release, status }) => (
-        <li>
-          <a class="card" href={url(`${app.slug}/`)}>
-            {app.cardShot && table[app.cardShot] && (
-              <img
-                class="card-shot"
-                src={url(`screenshots/${app.cardShot}`)}
-                alt={app.cardAlt ?? `${app.name} screenshot`}
-                width={table[app.cardShot].w}
-                height={table[app.cardShot].h}
-                decoding="async"
-              />
-            )}
-            <span class="card-copy">
-              <span class={`badge badge-${status}`}>{statusLabel[status]}</span>
-              <span class="card-name">
-                {app.icon && (
-                  <img class="card-icon" src={url(app.icon)} width="32" height="32" alt="" />
-                )}
-                {app.name}
-              </span>
-              {release && (
-                <span class="card-version">
-                  {release.prerelease
-                    ? `${release.version} pre-release, ${release.dateLabel}`
-                    : `${release.version}, ${release.dateLabel}`}
-                </span>
-              )}
-              <span class="card-summary">{app.summary}</span>
-            </span>
-          </a>
-        </li>
-      ))
-    }
-  </ul>
+  <section class="band band-cta reveal" aria-labelledby="cta-title">
+    <div class="rivet-seam" aria-hidden="true"></div>
+    <p class="kicker kicker-pink">Next</p>
+    <h2 id="cta-title">Getting started</h2>
+    <p>Welcome can install a release. The docs cover the shell, which you build from source for now.</p>
+    <div class="cta-actions">
+      <a class="btn btn-primary" href={url("docs/getting-started/install/")}>Getting Started →</a>
+      <a class="btn btn-secondary" href={repoUrl}>GitHub</a>
+    </div>
+  </section>
+  <script is:inline>
+    (function () {
+      var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      var coarse = window.matchMedia("(pointer: coarse)").matches;
+      if (!reduce) {
+        var nodes = document.querySelectorAll(".reveal");
+        function shown(el) {
+          var r = el.getBoundingClientRect();
+          return r.top < (window.innerHeight || 0) * 0.92 && r.bottom > 0;
+        }
+        if ("IntersectionObserver" in window) {
+          var io = new IntersectionObserver(
+            function (entries) {
+              for (var i = 0; i < entries.length; i++) {
+                if (entries[i].isIntersecting) {
+                  entries[i].target.classList.add("is-in");
+                  io.unobserve(entries[i].target);
+                }
+              }
+            },
+            { rootMargin: "0px 0px -8% 0px", threshold: 0.08 }
+          );
+          for (var j = 0; j < nodes.length; j++) {
+            if (shown(nodes[j])) nodes[j].classList.add("is-in");
+            else io.observe(nodes[j]);
+          }
+        } else {
+          for (var k = 0; k < nodes.length; k++) nodes[k].classList.add("is-in");
+        }
+        document.documentElement.classList.add("motion");
+      }
+      if (reduce || coarse) return;
+      var stage = document.querySelector(".hero-stage");
+      if (!stage) return;
+      var back = stage.querySelector(".hero-layer-back");
+      var front = stage.querySelector(".hero-layer-front");
+      var px = 0;
+      var py = 0;
+      var sy = 0;
+      var queued = false;
+      function paint() {
+        queued = false;
+        back.style.setProperty("--nx", (px * 8).toFixed(2) + "px");
+        back.style.setProperty("--ny", (py * 5 + sy * 8).toFixed(2) + "px");
+        front.style.setProperty("--nx", (px * 14).toFixed(2) + "px");
+        front.style.setProperty("--ny", (py * 9 + sy * 14).toFixed(2) + "px");
+      }
+      function queue() {
+        if (!queued) {
+          queued = true;
+          requestAnimationFrame(paint);
+        }
+      }
+      window.addEventListener(
+        "pointermove",
+        function (e) {
+          var r = stage.getBoundingClientRect();
+          if (!r.width || r.bottom < 0 || r.top > window.innerHeight) return;
+          px = (e.clientX - (r.left + r.width / 2)) / r.width;
+          py = (e.clientY - (r.top + r.height / 2)) / r.height;
+          queue();
+        },
+        { passive: true }
+      );
+      window.addEventListener(
+        "scroll",
+        function () {
+          var r = stage.getBoundingClientRect();
+          sy = Math.max(-1, Math.min(1, -r.top / (window.innerHeight || 1)));
+          queue();
+        },
+        { passive: true }
+      );
+    })();
+  </script>
 </Base>

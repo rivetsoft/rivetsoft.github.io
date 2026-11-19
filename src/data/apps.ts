@@ -53,8 +53,8 @@ export const apps: AppEntry[] = [
     spotlight: "shell",
     applicationCategory: "DesktopApplication",
     cardShot: "shell-wide.jpg",
-    cardAlt: "Rivet Shell: the panel, widgets and dock over a sunset wallpaper",
-    cardCaption: "Rivet Shell in the pink scheme, over a sunset wallpaper.",
+    cardAlt: "Rivet Shell over a sunset wallpaper, with a Rivet Files window in front",
+    cardCaption: "Rivet Shell, with Rivet Files open over the wallpaper.",
     icon: "rivet-shell.svg",
     readme: "apps/rivet-shell/README.md",
     summary:

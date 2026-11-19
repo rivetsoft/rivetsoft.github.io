@@ -9,7 +9,7 @@ Rivet has a shell now. It is early. There is no release yet, so you build it fro
 
 It is a Wayland desktop in the same look as the other Rivet apps: a panel, a dock, widgets, and the wallpaper, plus a settings window. The apps still start on their own. You do not need the shell to use them.
 
-![Rivet Shell: the panel, widgets and dock over a sunset wallpaper](/rivet-web/screenshots/shell-wide.jpg)
+![Rivet Shell over a sunset wallpaper, with a Rivet Files window in front](/rivet-web/screenshots/shell-wide.jpg)
 
 ## What is on screen
 
