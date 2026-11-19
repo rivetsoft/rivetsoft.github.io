@@ -1,0 +1,104 @@
+---
+import Base from "../layouts/Base.astro";
+import { officialPlugins, pluginsGuideUrl, sharedPlugins } from "../data/plugins";
+import { url } from "../paths";
+import { breadcrumb, siteRoot } from "../seo";
+
+const plugins = [...officialPlugins, ...sharedPlugins];
+const description = "Plugins for Rivet Shell: the ones that come with it, and the ones other people have shared.";
+---
+
+<Base
+  title="Plugins"
+  description={description}
+  current="plugins"
+  jsonLd={[
+    breadcrumb([
+      { name: "Rivet", url: siteRoot },
+      { name: "Plugins", url: `${siteRoot}plugins/` },
+    ]),
+  ]}
+>
+  <header class="blog-head">
+    <h1>Plugins</h1>
+    <p>
+      A plugin adds an item to a <a href={url("shell/")}>Rivet Shell</a> panel, and can add entries to the
+      launcher. Some come with the shell. Others are shared by the people who wrote them.
+    </p>
+  </header>
+
+  <div class="plugin-filter" role="group" aria-label="Which plugins to show">
+    <button type="button" data-show="all" aria-pressed="true">All</button>
+    <button type="button" data-show="official" aria-pressed="false">Official</button>
+    <button type="button" data-show="third-party" aria-pressed="false">Third-Party</button>
+  </div>
+
+  <ul class="plugin-list" id="plugin-list">
+    {
+      plugins.map((plugin) => (
+        <li class="plugin" data-kind={plugin.official ? "official" : "third-party"}>
+          <div class="plugin-head">
+            <h2 class="plugin-name">{plugin.name}</h2>
+            <span class={`badge ${plugin.official ? "badge-released" : "badge-unreleased"}`}>
+              {plugin.official ? "Official" : "Third-party"}
+            </span>
+          </div>
+          <p class="plugin-summary">{plugin.description}</p>
+          <p class="plugin-meta">
+            {plugin.author && <span>by {plugin.author}</span>}
+            {plugin.version && <span>version {plugin.version}</span>}
+            {plugin.homepage && <a href={plugin.homepage}>Source</a>}
+          </p>
+          {plugin.official ? (
+            <p class="plugin-how">Comes with Rivet Shell. Turn it on in Settings, Plugins.</p>
+          ) : (
+            <p class="plugin-how">
+              In Settings, Plugins, choose Get Plugins. Or run <code>rivet-shell plugin install {plugin.id}</code>
+            </p>
+          )}
+        </li>
+      ))
+    }
+  </ul>
+  <p class="plugin-empty" id="plugin-empty" hidden={sharedPlugins.length > 0}>
+    No one has shared a plugin yet. Yours can be the first.
+  </p>
+
+  <h2>Share a plugin</h2>
+  <p>
+    A plugin is a folder with a <code>plugin.conf</code> and a program in any language. To list yours here and
+    in Rivet Shell's Get Plugins window, open a pull request that adds it to
+    <code>plugins/registry.json</code>. The <a href={`${pluginsGuideUrl}#sharing-a-plugin`}>plugin guide</a> has
+    what a listing needs, and how to write a plugin.
+  </p>
+  <p>
+    Third-party plugins are made by other people. A plugin can do anything you can on your computer, so read
+    its source and turn on only the ones you trust.
+  </p>
+</Base>
+
+<script is:inline>
+  (function () {
+    var buttons = document.querySelectorAll(".plugin-filter button");
+    var items = document.querySelectorAll("#plugin-list .plugin");
+    var empty = document.getElementById("plugin-empty");
+    function show(kind) {
+      var shared = 0;
+      items.forEach(function (item) {
+        var on = kind === "all" || item.dataset.kind === kind;
+        item.hidden = !on;
+        if (on && item.dataset.kind === "third-party") shared += 1;
+      });
+      buttons.forEach(function (button) {
+        button.setAttribute("aria-pressed", button.dataset.show === kind ? "true" : "false");
+      });
+      // The note about sharing shows wherever third-party plugins would, when there are none.
+      empty.hidden = kind === "official" || shared > 0;
+    }
+    buttons.forEach(function (button) {
+      button.addEventListener("click", function () {
+        show(button.dataset.show);
+      });
+    });
+  })();
+</script>

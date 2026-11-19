@@ -8,6 +8,8 @@ Versions and downloads are read from the [GitHub Releases](https://github.com/ul
 
 Rivet Files, Rivet FTP, Rivet Notes, Rivet Edit, Rivet Terminal, Rivet Shell, and Rivet Welcome are on the site. The home page leads with the shell, then Welcome as the installer. Facts come from the public repository. Screenshots are copied from `docs/screenshots`. The Notes, FTP, Edit, and Terminal pictures are recompressed RGB copies of those files.
 
+The Plugins page lists Rivet Shell's plugins. The official ones are in `src/data/plugins.ts`. The shared ones are read from [`plugins/registry.json`](https://github.com/ulinaaron/rivet-apps/blob/main/plugins/registry.json) in `ulinaaron/rivet-apps` when the site is built, so a listing merged there shows on the next build. If the list is unreachable, the build uses `src/data/plugins.fallback.json`.
+
 ## Run
 
 Node.js 22 or newer.

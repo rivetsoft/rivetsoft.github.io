@@ -63,6 +63,7 @@ const listed = menuSlugs.map((slug) => {
         </li>
       </ul>
     </div>
+    <a href={url("plugins/")} aria-current={current === "plugins" ? "page" : undefined}>Plugins</a>
     <a href={url("docs/")} aria-current={current === "docs" ? "page" : undefined}>Docs</a>
     <a href={url("blog/")} aria-current={current === "blog" ? "page" : undefined}>Blog</a>
     <a class="repo" href={repoUrl} aria-label="GitHub repository" title="GitHub repository">

@@ -2349,3 +2349,99 @@ body:has(.band) .site-footer-inner {
     transition: opacity 0.55s ease, transform 0.55s ease;
   }
 }
+
+/* The Plugins page: a filter, then one card per plugin. */
+.plugin-filter {
+  display: inline-flex;
+  gap: 0;
+  margin: 0 0 1.5rem;
+  border: 2px solid var(--line);
+  border-radius: var(--radius-card);
+  background: var(--bg-raised);
+}
+
+.plugin-filter button {
+  min-height: 44px;
+  padding: 0.45rem 1rem;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-weight: 620;
+  cursor: pointer;
+}
+
+.plugin-filter button:hover {
+  color: var(--fg);
+}
+
+.plugin-filter button[aria-pressed="true"] {
+  background: #fff270;
+  color: #24121b;
+}
+
+.plugin-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.25rem;
+  margin: 0;
+  padding: 0;
+}
+
+@media (min-width: 800px) {
+  .plugin-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.plugin {
+  margin: 0;
+  padding: 1.35rem 1.4rem 1.45rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  background: var(--bg-raised);
+  box-shadow: var(--shadow);
+}
+
+.plugin[hidden] {
+  display: none;
+}
+
+.plugin-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.plugin-name {
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+.plugin-summary {
+  margin: 0.6rem 0 0;
+}
+
+.plugin-meta,
+.plugin-how,
+.plugin-empty {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.plugin-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.9rem;
+  margin: 0.5rem 0 0;
+}
+
+.plugin-how {
+  margin: 0.75rem 0 0;
+}
+
+.plugin-empty {
+  margin: 1.25rem 0 0;
+}
