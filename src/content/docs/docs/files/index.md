@@ -12,4 +12,20 @@ The longer feature list, the libraries it needs, and the current downloads are o
 
 The full shortcut and config map is in the [Files README](https://github.com/ulinaaron/rivet-apps/blob/main/apps/files/README.md).
 
+![Icon view of Home in the pink scheme](/rivet-web/screenshots/icons-wide.png)
+
+List view, a filter on the folder, Peek on a picture, bulk rename, Preferences, and Rivet's own icons:
+
+![List view](/rivet-web/screenshots/list-wide.png)
+
+![A filter hiding some of the folder](/rivet-web/screenshots/filters-wide.png)
+
+![Peek showing a picture](/rivet-web/screenshots/peek-picture-wide.png)
+
+![Bulk rename, with a preview of the new names](/rivet-web/screenshots/bulk-rename-wide.png)
+
+![Preferences, Appearance](/rivet-web/screenshots/preferences-wide.png)
+
+![Folders drawn with Rivet's own icons](/rivet-web/screenshots/rivet-icons-wide.png)
+
 More coming soon.

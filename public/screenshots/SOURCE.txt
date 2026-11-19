@@ -2,7 +2,9 @@ Copied from https://github.com/ulinaaron/rivet-apps at commit db610abbc788a7f948
 
 The Notes and FTP PNGs in that commit are 1280x800 RGBA. Every pixel's alpha was 254 or 255, so they were converted to RGB and recompressed with optipng. The picture is unchanged. The Rivet Files PNGs were already RGB and are copied as they were.
 
-The icons public/rivet-files.svg, public/rivet-ftp.svg, public/rivet-notes.svg, public/rivet-edit.svg, public/rivet-terminal.svg, public/rivet-shell.svg, and public/rivet-welcome.svg started as the desktop icons from each app's data folder. rivet-apps still has the older colors (orange, purple, blue, green). The site copies are recreations in the pink scheme. theme-rose-wide.png, theme-ember-wide.png, theme-moss-wide.png, and theme-violet-wide.png are copied from docs/screenshots. Rose is the pink scheme. The other three are only for the color-switching section.
+The icons public/rivet-files.svg, public/rivet-ftp.svg, public/rivet-notes.svg, public/rivet-edit.svg, public/rivet-terminal.svg, public/rivet-shell.svg, and public/rivet-welcome.svg started as the desktop icons from each app's data folder. rivet-apps still has the older colors (orange, purple, blue, green). The site copies are recreations in the pink scheme.
+
+The app screenshots were replaced from rivet-web-screens (November 2026). They are the default pink scheme. shell-wide.jpg is the 2880x1620 sunset shot. shell-wide.png from that set was not used. ftp-light-wide, ftp-keys-wide, notes-source-wide, notes-slash-wide, notes-todos-list-wide, and edit-light-wide are the light palette. theme-rose, theme-ember, theme-moss, and theme-violet stay only in the color-switching section.
 
 edit-editor-wide.png and rivet-terminal-wide.png are from the same repository, later than that commit. Those PNGs were RGBA with alpha 254 or 255, converted to RGB. rivet-terminal-wide.png is Rivet Terminal. terminal-wide.png is still Rivet Files' terminal mode.
 

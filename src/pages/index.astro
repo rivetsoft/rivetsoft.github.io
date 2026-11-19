@@ -53,8 +53,14 @@ const description =
         )
       }
     </div>
-    <figure class="hero-visual hero-mark">
-      <img src={url("rivet-shell.svg")} width="280" height="280" alt="The Rivet Shell icon in the pink scheme: a dark panel with a pink dot, a blue mark and a yellow dot, a yellow sun, and a dock of pink, blue, yellow and pink." />
+    <figure class="hero-visual">
+      <img
+        src={url("screenshots/shell-wide.jpg")}
+        alt="Rivet Shell in the pink scheme: panel, widgets and dock over a sunset wallpaper"
+        width={table["shell-wide.jpg"].w}
+        height={table["shell-wide.jpg"].h}
+        decoding="async"
+      />
     </figure>
   </header>
 
@@ -144,11 +150,8 @@ const description =
   </ul>
 
   <section class="scheme" aria-labelledby="scheme-title">
-    <h2 id="scheme-title">Pink, unless the wallpaper says otherwise</h2>
-    <p>
-      Rose is the pink scheme. The same Files window can wear another accent, and the shell can
-      take its colors from the wallpaper.
-    </p>
+    <h2 id="scheme-title">Other accents</h2>
+    <p>The default is pink. The same Files window can wear another accent.</p>
     <ul class="scheme-grid">
       <li>
         <img src={url("screenshots/theme-rose-wide.png")} alt="Rivet Files in the rose theme, on a light pink page" width={table["theme-rose-wide.png"].w} height={table["theme-rose-wide.png"].h} />
@@ -167,15 +170,6 @@ const description =
         <span>Violet</span>
       </li>
     </ul>
-    <figure class="scheme-wallpaper">
-      <img
-        src={url("screenshots/shell-wide.jpg")}
-        alt="Rivet Shell over a warm sunset wallpaper, with the panel and dock tinted by that picture"
-        width={table["shell-wide.jpg"].w}
-        height={table["shell-wide.jpg"].h}
-      />
-      <figcaption>The shell following a warm wallpaper.</figcaption>
-    </figure>
   </section>
 
   {

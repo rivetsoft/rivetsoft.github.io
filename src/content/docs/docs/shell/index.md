@@ -5,6 +5,8 @@ description: A Wayland desktop shell with a panel, dock, launcher, and wallpaper
 
 Rivet Shell is a Wayland shell. It draws a panel (you can have more than one), quick settings, notifications, an on-screen display, a dock, a launcher, widgets, and the wallpaper.
 
+![Rivet Shell in the pink scheme, over a sunset wallpaper](/rivet-web/screenshots/shell-wide.jpg)
+
 The launcher also evaluates a sum. Widgets include a clock, CPU, memory, and battery. Notifications stay out of the way when mako or dunst is already running.
 
 It talks to the compositor with the layer-shell protocol. That covers niri, Hyprland, Sway, river, labwc, Wayfire, and COSMIC. GNOME is not one of them.

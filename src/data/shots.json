@@ -2,142 +2,182 @@
   "bloated-wide.png": {
     "w": 1100,
     "h": 700,
-    "bytes": 82250
+    "bytes": 81276
   },
-  "file-picker-wide.png": {
+  "bulk-rename-wide.png": {
     "w": 1100,
     "h": 700,
-    "bytes": 58717
+    "bytes": 82151
   },
-  "icons-wide.png": {
-    "w": 1100,
-    "h": 700,
-    "bytes": 45507
-  },
-  "minimal-wide.png": {
-    "w": 1100,
-    "h": 700,
-    "bytes": 43281
-  },
-  "peek-code-wide.png": {
-    "w": 1100,
-    "h": 700,
-    "bytes": 93346
-  },
-  "quick-open-wide.png": {
-    "w": 1100,
-    "h": 700,
-    "bytes": 32594
-  },
-  "terminal-wide.png": {
-    "w": 1100,
-    "h": 700,
-    "bytes": 118060
-  },
-  "zen-wide.png": {
-    "w": 1100,
-    "h": 700,
-    "bytes": 34474
-  },
-  "ftp-connected-wide.png": {
+  "edit-commands-wide.png": {
     "w": 1280,
     "h": 800,
-    "bytes": 126926
-  },
-  "ftp-info-wide.png": {
-    "w": 1280,
-    "h": 800,
-    "bytes": 81710
-  },
-  "ftp-keys-wide.png": {
-    "w": 1280,
-    "h": 800,
-    "bytes": 217466
-  },
-  "ftp-light-wide.png": {
-    "w": 1280,
-    "h": 800,
-    "bytes": 151907
-  },
-  "ftp-new-connection-wide.png": {
-    "w": 1280,
-    "h": 800,
-    "bytes": 89205
-  },
-  "ftp-preferences-wide.png": {
-    "w": 1280,
-    "h": 800,
-    "bytes": 155996
-  },
-  "ftp-replace-wide.png": {
-    "w": 1280,
-    "h": 800,
-    "bytes": 82040
-  },
-  "notes-live-wide.png": {
-    "w": 1280,
-    "h": 800,
-    "bytes": 159032
-  },
-  "notes-preferences-wide.png": {
-    "w": 1280,
-    "h": 800,
-    "bytes": 145499
-  },
-  "notes-quick-open-wide.png": {
-    "w": 1280,
-    "h": 800,
-    "bytes": 61620
-  },
-  "notes-reading-wide.png": {
-    "w": 1280,
-    "h": 800,
-    "bytes": 177561
-  },
-  "notes-slash-wide.png": {
-    "w": 1280,
-    "h": 800,
-    "bytes": 149103
-  },
-  "notes-source-wide.png": {
-    "w": 1280,
-    "h": 800,
-    "bytes": 174279
-  },
-  "notes-todos-board-wide.png": {
-    "w": 1280,
-    "h": 800,
-    "bytes": 144575
-  },
-  "notes-todos-list-wide.png": {
-    "w": 1280,
-    "h": 800,
-    "bytes": 137853
+    "bytes": 77353
   },
   "edit-editor-wide.png": {
     "w": 1280,
     "h": 800,
-    "bytes": 173691
+    "bytes": 88659
+  },
+  "edit-go-to-file-wide.png": {
+    "w": 1280,
+    "h": 800,
+    "bytes": 64336
+  },
+  "edit-light-wide.png": {
+    "w": 1280,
+    "h": 800,
+    "bytes": 63706
+  },
+  "edit-preferences-wide.png": {
+    "w": 1280,
+    "h": 800,
+    "bytes": 84179
+  },
+  "file-picker-wide.png": {
+    "w": 1100,
+    "h": 700,
+    "bytes": 44167
+  },
+  "filters-wide.png": {
+    "w": 1100,
+    "h": 700,
+    "bytes": 73299
+  },
+  "ftp-connected-wide.png": {
+    "w": 1280,
+    "h": 800,
+    "bytes": 100113
+  },
+  "ftp-info-wide.png": {
+    "w": 1280,
+    "h": 800,
+    "bytes": 108779
+  },
+  "ftp-keys-wide.png": {
+    "w": 1280,
+    "h": 800,
+    "bytes": 107605
+  },
+  "ftp-light-wide.png": {
+    "w": 1280,
+    "h": 800,
+    "bytes": 90375
+  },
+  "ftp-new-connection-wide.png": {
+    "w": 1280,
+    "h": 800,
+    "bytes": 108765
+  },
+  "ftp-preferences-wide.png": {
+    "w": 1280,
+    "h": 800,
+    "bytes": 110215
+  },
+  "ftp-replace-wide.png": {
+    "w": 1280,
+    "h": 800,
+    "bytes": 120515
+  },
+  "icons-wide.png": {
+    "w": 1100,
+    "h": 700,
+    "bytes": 48445
+  },
+  "list-wide.png": {
+    "w": 1100,
+    "h": 700,
+    "bytes": 63795
+  },
+  "minimal-wide.png": {
+    "w": 1100,
+    "h": 700,
+    "bytes": 40060
+  },
+  "notes-live-wide.png": {
+    "w": 1280,
+    "h": 800,
+    "bytes": 130530
+  },
+  "notes-preferences-wide.png": {
+    "w": 1280,
+    "h": 800,
+    "bytes": 80880
+  },
+  "notes-quick-open-wide.png": {
+    "w": 1280,
+    "h": 800,
+    "bytes": 84157
+  },
+  "notes-reading-wide.png": {
+    "w": 1280,
+    "h": 800,
+    "bytes": 83900
+  },
+  "notes-slash-wide.png": {
+    "w": 1280,
+    "h": 800,
+    "bytes": 80854
+  },
+  "notes-source-dark.png": {
+    "w": 1280,
+    "h": 800,
+    "bytes": 102511
+  },
+  "notes-source-wide.png": {
+    "w": 1280,
+    "h": 800,
+    "bytes": 107412
+  },
+  "notes-todos-board-wide.png": {
+    "w": 1280,
+    "h": 800,
+    "bytes": 89452
+  },
+  "notes-todos-list-wide.png": {
+    "w": 1280,
+    "h": 800,
+    "bytes": 93111
+  },
+  "peek-code-wide.png": {
+    "w": 1100,
+    "h": 700,
+    "bytes": 89344
+  },
+  "peek-picture-wide.png": {
+    "w": 1100,
+    "h": 700,
+    "bytes": 77373
+  },
+  "preferences-wide.png": {
+    "w": 1100,
+    "h": 700,
+    "bytes": 78534
+  },
+  "quick-open-wide.png": {
+    "w": 1100,
+    "h": 700,
+    "bytes": 34552
+  },
+  "rivet-icons-wide.png": {
+    "w": 1100,
+    "h": 700,
+    "bytes": 50206
   },
   "rivet-terminal-wide.png": {
     "w": 1280,
     "h": 760,
-    "bytes": 205265
+    "bytes": 91354
   },
   "shell-wide.jpg": {
     "w": 2880,
     "h": 1620,
-    "bytes": 572366
+    "bytes": 530575
   },
-  "welcome-wide.png": {
-    "w": 1280,
-    "h": 760,
-    "bytes": 91096
-  },
-  "theme-rose-wide.png": {
+  "terminal-wide.png": {
     "w": 1100,
     "h": 700,
-    "bytes": 49486
+    "bytes": 104606
   },
   "theme-ember-wide.png": {
     "w": 1100,
@@ -149,9 +189,24 @@
     "h": 700,
     "bytes": 48439
   },
+  "theme-rose-wide.png": {
+    "w": 1100,
+    "h": 700,
+    "bytes": 49486
+  },
   "theme-violet-wide.png": {
     "w": 1100,
     "h": 700,
     "bytes": 48489
+  },
+  "welcome-wide.png": {
+    "w": 1280,
+    "h": 760,
+    "bytes": 112650
+  },
+  "zen-wide.png": {
+    "w": 1100,
+    "h": 700,
+    "bytes": 37625
   }
 }
