@@ -1812,11 +1812,7 @@ body:has(.band) .site-footer-inner {
 }
 
 .band-cta {
-  background-color: color-mix(in srgb, var(--accent) 16%, var(--bg));
-  background-image:
-    repeating-linear-gradient(to bottom, transparent 0 3px, color-mix(in srgb, #d53f8c 16%, transparent) 3px 4px),
-    radial-gradient(circle, color-mix(in srgb, #fff270 55%, transparent) 0.6px, transparent 0.85px);
-  background-size: auto, 4px 4px;
+  background: color-mix(in srgb, var(--accent) 14%, var(--bg));
 }
 
 .cta-layout {
@@ -1827,12 +1823,7 @@ body:has(.band) .site-footer-inner {
 
 .cta-copy h2 {
   margin: 0 0 0.85rem;
-  font-family: "Azeret Mono", ui-monospace, monospace;
-  font-size: clamp(1.85rem, 3.6vw, 2.7rem);
-  font-weight: 400;
-  letter-spacing: -0.04em;
-  line-height: 1.05;
-  text-shadow: 4px 4px 0 #fff270;
+  font-size: clamp(2.15rem, 4.4vw, 3.2rem);
 }
 
 .cta-copy p {
@@ -1851,7 +1842,7 @@ body:has(.band) .site-footer-inner {
 }
 
 .floppy {
-  transform: translate(0, 0);
+  transform: translate(-220px, 46px);
 }
 
 .led {
@@ -1859,63 +1850,28 @@ body:has(.band) .site-footer-inner {
 }
 
 .crt-boot,
-.crt-desk,
-.boot-cursor,
-.boot-joke {
+.crt-desk {
   opacity: 0;
 }
 
-.type-mask {
-  width: 0;
-}
-
 .band-cta.is-in .floppy {
-  animation: disk-in 1.15s cubic-bezier(0.5, 0, 0.2, 1) forwards;
-}
-
-.band-cta.is-in .mac {
-  animation: case-click 0.16s ease-out 1.12s;
+  animation: disk-in 1.35s cubic-bezier(0.45, 0, 0.2, 1) forwards;
 }
 
 .band-cta.is-in .led {
-  animation: led-blink 0.18s steps(1, end) 1.28s 8, led-hold 0.01s 2.8s forwards;
-}
-
-.band-cta.is-in .crt-flick {
-  animation: crt-flick 0.36s linear 1.22s;
+  animation: led-blink 0.22s steps(1, end) 1.05s 10, led-hold 0.01s 3.3s forwards;
 }
 
 .band-cta.is-in .crt-boot {
-  animation: boot-show 2.5s linear 1.4s forwards;
-}
-
-.band-cta.is-in .type-mask {
-  animation: type-on 1.35s steps(16, end) 1.55s forwards;
-}
-
-.band-cta.is-in .boot-cursor {
-  animation: cursor-step 1.35s steps(16, end) 1.55s forwards, cursor-blink 0.42s steps(1, end) 1.55s 8;
-}
-
-.band-cta.is-in .boot-joke {
-  animation: joke-on 0.15s linear 2.95s forwards;
+  animation: boot-msg 2s linear 1.25s forwards;
 }
 
 .band-cta.is-in .crt-desk {
-  animation: desk-on 0.35s ease 3.85s forwards;
+  animation: desk-on 0.45s ease 3.15s forwards;
 }
 
 @keyframes disk-in {
-  0% { transform: translate(0, 0); }
-  86% { transform: translate(348px, 0); }
-  93% { transform: translate(340px, 0); }
-  100% { transform: translate(348px, 0); }
-}
-
-@keyframes case-click {
-  0% { transform: none; }
-  45% { transform: translate(3px, 0); }
-  100% { transform: none; }
+  to { transform: translate(0, 46px); }
 }
 
 @keyframes led-blink {
@@ -1927,33 +1883,10 @@ body:has(.band) .site-footer-inner {
   to { fill: #3ecf9a; }
 }
 
-@keyframes crt-flick {
-  0%, 100% { opacity: 1; }
-  35% { opacity: 0.25; }
-  68% { opacity: 0.8; }
-}
-
-@keyframes boot-show {
+@keyframes boot-msg {
   0% { opacity: 0; }
-  8%, 78% { opacity: 1; }
+  12%, 78% { opacity: 1; }
   100% { opacity: 0; }
-}
-
-@keyframes type-on {
-  to { width: 132px; }
-}
-
-@keyframes cursor-step {
-  to { transform: translateX(124px); }
-}
-
-@keyframes cursor-blink {
-  0%, 49% { opacity: 1; }
-  50%, 100% { opacity: 0; }
-}
-
-@keyframes joke-on {
-  to { opacity: 1; }
 }
 
 @keyframes desk-on {
@@ -1979,32 +1912,23 @@ body:has(.band) .site-footer-inner {
 
 @media (prefers-reduced-motion: reduce) {
   .floppy {
-    transform: translate(348px, 0);
+    transform: translate(0, 46px);
     animation: none;
   }
 
-  .mac,
-  .crt-flick,
-  .crt-boot,
-  .type-mask,
-  .boot-cursor,
-  .crt-desk,
-  .led {
-    animation: none;
-  }
-
-  .crt-boot,
-  .boot-cursor,
-  .boot-joke {
+  .crt-boot {
     opacity: 0;
+    animation: none;
   }
 
   .crt-desk {
     opacity: 1;
+    animation: none;
   }
 
   .led {
     fill: #3ecf9a;
+    animation: none;
   }
 }
 
