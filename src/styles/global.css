@@ -1839,6 +1839,35 @@ body:has(.band) .site-footer-inner {
   transform: scaleY(-1);
 }
 
+.cta-wave-top .cta-wave-cap {
+  fill: color-mix(in srgb, var(--accent-2) 8%, var(--bg));
+}
+
+.cta-wave-bottom .cta-wave-cap {
+  fill: var(--bg);
+}
+
+.band-cta::before,
+.band-cta::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  z-index: 3;
+  width: 100%;
+  height: 2px;
+  pointer-events: none;
+}
+
+.band-cta::before {
+  top: 0;
+  background: color-mix(in srgb, var(--accent-2) 8%, var(--bg));
+}
+
+.band-cta::after {
+  bottom: 0;
+  background: var(--bg);
+}
+
 .cta-floor {
   position: absolute;
   left: 0;
@@ -1864,11 +1893,8 @@ body:has(.band) .site-footer-inner {
   font-weight: 640;
   letter-spacing: -0.04em;
   line-height: 1.08;
-  background: linear-gradient(185deg, #fff270 0%, #fff7c2 16%, #3ecf9a 40%, #7ad7ef 58%, #d53f8c 84%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  filter: drop-shadow(4px 4px 0 #24121b);
+  color: #fff270;
+  text-shadow: 4px 4px 0 #24121b;
 }
 
 .band-cta .cta-actions {
