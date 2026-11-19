@@ -1,16 +1,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- Pink-scheme recreation. apps/rivet-ftp/data/rivet-ftp.svg in rivet-apps is still blue. -->
   <defs>
     <linearGradient id="front" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#5cc8ff"/>
-      <stop offset="1" stop-color="#1f7fe0"/>
+      <stop offset="0" stop-color="#eb65a6"/>
+      <stop offset="1" stop-color="#d53f8c"/>
     </linearGradient>
     <linearGradient id="back" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#1a63b8"/>
-      <stop offset="1" stop-color="#14519a"/>
+      <stop offset="0" stop-color="#a33a6e"/>
+      <stop offset="1" stop-color="#6e2448"/>
     </linearGradient>
     <linearGradient id="arrow" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#ffffff"/>
-      <stop offset="1" stop-color="#dcecfb"/>
+      <stop offset="1" stop-color="#fdeef5"/>
     </linearGradient>
   </defs>
 
@@ -21,8 +22,8 @@
   <rect x="12" y="40" width="104" height="6" rx="3" fill="#ffffff" fill-opacity="0.22"/>
 
   <!-- soft shadows under the arrows -->
-  <ellipse cx="50" cy="101" rx="11" ry="2.6" fill="#0b3c75" fill-opacity="0.3"/>
-  <ellipse cx="78" cy="101" rx="11" ry="2.6" fill="#0b3c75" fill-opacity="0.3"/>
+  <ellipse cx="50" cy="101" rx="11" ry="2.6" fill="#4a1834" fill-opacity="0.3"/>
+  <ellipse cx="78" cy="101" rx="11" ry="2.6" fill="#4a1834" fill-opacity="0.3"/>
   <!-- up arrow (upload) -->
   <path d="M50 54l15 16h-9v26h-12v-26h-9z" fill="url(#arrow)" stroke-linejoin="round"/>
   <!-- down arrow (download) -->

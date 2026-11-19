@@ -37,12 +37,6 @@ const repo = repoUrl;
   {release?.prerelease && " It is usable, and still young: things may change or break. Try it on a copy of notes you have backups of."}
 </p>
 
-<Shot
-  name="notes-live-wide.png"
-  alt="Rivet Notes in live mode, with Peek open on a note called Launch plan"
-  caption="Live mode, with Peek open. The line you are on stays Markdown. Screenshot from the repository, of a demo vault."
-  eager
-/>
 
 <nav class="onpage" aria-label="On this page">
   <a href="#vaults">Vaults</a>
@@ -127,18 +121,12 @@ const repo = repoUrl;
   takes its size as soon as its <code>#</code> marks are typed. With the keyboard elsewhere, the
   whole note shows rendered. The reading view (the eye, or Ctrl+Space) works in either mode.
 </p>
-<div class="pair">
-  <Shot
-    name="notes-reading-wide.png"
-    alt="The reading view of Launch plan, with a code block and a picture"
-    caption="Reading view. Links to other notes open in place. Backspace goes back."
-  />
-  <Shot
-    name="notes-source-wide.png"
-    alt="Source mode, showing the Markdown of Launch plan in the light theme"
-    caption="Source mode, in the light theme. The same note, as written."
-  />
-</div>
+<Shot
+  name="notes-source-wide.png"
+  alt="Source mode, showing the Markdown of Launch plan in the light theme"
+  caption="Source mode, in the light theme. The same note, as written."
+  eager
+/>
 <p>
   The reading view renders headings, bold and italic, lists and tasks, quotes, code blocks with a
   Copy button, tables, rules, links, tags, and pictures stored beside the note. Esc or Ctrl+Space
@@ -150,11 +138,6 @@ const repo = repoUrl;
   block, a divider, a link to a note, or today's date. Keep typing to filter. Up and Down choose,
   Enter or Tab adds it, and Esc hides the menu. Used mid-line, a line block starts a new line.
 </p>
-<Shot
-  name="notes-slash-wide.png"
-  alt="The slash menu open in a note called Inbox, listing headings and lists"
-  caption="The slash menu. Type / at the start of a line."
-/>
 <p>
   Point at a line and a handle shows in the margin. Drag it up or down. A list item or task brings
   the items nested under it, and a fenced code block moves as a whole. This works in both modes.
@@ -207,22 +190,10 @@ const repo = repoUrl;
   progress, and Done. Drag a card to another column to change its progress. The List / Board
   switch is remembered. Peek on that page is its own: list or board, width, and counts.
 </p>
-<div class="pair">
-  <Shot
-    name="notes-todos-board-wide.png"
-    alt="The Todos page as a board, with To do, In progress, and Done columns"
-    caption="The Todos page as a board. Drag a card to change its progress."
-  />
-  <Shot
-    name="notes-todos-list-wide.png"
-    alt="The Todos page as a list in the light theme, grouped by when each task is due"
-    caption="The same page as a list, in the light theme, grouped by due date."
-  />
-</div>
 <Shot
-  name="notes-preferences-wide.png"
-  alt="Preferences, Modules, with Super todos and Daily notes turned on"
-  caption="Preferences, Modules. Both modules are optional."
+  name="notes-todos-list-wide.png"
+  alt="The Todos page as a list in the light theme, grouped by when each task is due"
+  caption="The Todos page as a list, in the light theme, grouped by due date."
 />
 
 <h2>Quick Open and Quick Actions</h2>
@@ -231,11 +202,6 @@ const repo = repoUrl;
   typed, it lists the most recently edited notes. Shift+Ctrl+P runs a command or option by name,
   and on / off options are ticked. They use the same panel as Rivet Files.
 </p>
-<Shot
-  name="notes-quick-open-wide.png"
-  alt="Quick Open matching Launch plan from the letters la"
-  caption="Quick Open. A few letters of the title, then Enter."
-/>
 <p>
   Peek (the button at the far right of the toolbar, F11, or View, Peek) is a panel about the open
   note: how it is shown, the file's name, folder, size, words, characters, lines, and reading

@@ -1,0 +1,19 @@
+---
+import SiteMenu from "./SiteMenu.astro";
+---
+
+<div class="header">
+  <SiteMenu current="docs" />
+</div>
+
+<style>
+  .header {
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
+
+  .header :global(.site-menu) {
+    width: 100%;
+  }
+</style>

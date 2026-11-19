@@ -1,0 +1,336 @@
+---
+import { apps, repoUrl } from "../data/apps";
+import { url } from "../paths";
+
+interface Props {
+  current?: string;
+}
+
+const { current = "" } = Astro.props;
+const listed = apps.filter((app) => app.nav);
+---
+
+<div class="site-menu">
+  <a class="brand" href={url()}>Rivet</a>
+  <button
+    type="button"
+    class="menu-toggle"
+    id="menu-toggle"
+    aria-expanded="false"
+    aria-controls="site-nav"
+  >
+    Menu
+  </button>
+  <nav id="site-nav" class="site-nav" aria-label="Pages">
+    <div class="apps" id="apps">
+      <button
+        type="button"
+        class="apps-toggle"
+        id="apps-toggle"
+        aria-expanded="false"
+        aria-controls="apps-menu"
+      >
+        Apps
+      </button>
+      <ul class="apps-panel" id="apps-menu">
+        {
+          listed.map((app) => (
+            <li>
+              <a href={url(`${app.slug}/`)} aria-current={current === app.slug ? "page" : undefined}>
+                {app.icon && <img src={url(app.icon)} width="32" height="32" alt="" />}
+                <span>
+                  <span class="apps-name">{app.name}</span>
+                  <span class="apps-line">{app.line}</span>
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <a href={url("docs/")} aria-current={current === "docs" ? "page" : undefined}>Docs</a>
+    <a href={url("blog/")} aria-current={current === "blog" ? "page" : undefined}>Blog</a>
+    <a class="repo" href={repoUrl} aria-label="GitHub repository" title="GitHub repository">
+      <svg viewBox="0 0 16 16" width="20" height="20" aria-hidden="true">
+        <path
+          fill="currentColor"
+          d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"
+        ></path>
+      </svg>
+    </a>
+    <button type="button" class="theme" id="theme" aria-label="Switch to dark theme" title="Switch to dark theme">
+      <svg class="when-light" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+        <path
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M20 14.5A8.2 8.2 0 0 1 9.5 4 7 7 0 1 0 20 14.5z"></path>
+      </svg>
+      <svg class="when-dark" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+        <g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+          <circle cx="12" cy="12" r="4"></circle>
+          <path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M18.4 5.6 17 7M7 17l-1.4 1.4"></path>
+        </g>
+      </svg>
+    </button>
+  </nav>
+</div>
+
+<script is:inline>
+  (function () {
+    var nav = document.getElementById("site-nav");
+    var menuBtn = document.getElementById("menu-toggle");
+    var apps = document.getElementById("apps");
+    var appsBtn = document.getElementById("apps-toggle");
+    var themeBtn = document.getElementById("theme");
+
+    function setOpen(el, btn, open) {
+      if (!el || !btn) return;
+      el.classList.toggle("is-open", open);
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+    }
+
+    if (menuBtn && nav) {
+      menuBtn.addEventListener("click", function () {
+        setOpen(nav, menuBtn, !nav.classList.contains("is-open"));
+      });
+    }
+    if (appsBtn && apps) {
+      appsBtn.addEventListener("click", function () {
+        setOpen(apps, appsBtn, !apps.classList.contains("is-open"));
+      });
+    }
+    document.addEventListener("click", function (event) {
+      var target = event.target;
+      if (apps && appsBtn && !apps.contains(target)) setOpen(apps, appsBtn, false);
+    });
+    document.addEventListener("keydown", function (event) {
+      if (event.key !== "Escape") return;
+      if (apps && appsBtn) setOpen(apps, appsBtn, false);
+      if (nav && menuBtn) setOpen(nav, menuBtn, false);
+    });
+
+    if (!themeBtn) return;
+    function current() {
+      if (document.documentElement.dataset.theme === "dark") return "dark";
+      if (document.documentElement.dataset.theme === "light") return "light";
+      return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+    function label() {
+      var text = current() === "dark" ? "Switch to light theme" : "Switch to dark theme";
+      themeBtn.setAttribute("aria-label", text);
+      themeBtn.setAttribute("title", text);
+    }
+    function store(theme) {
+      try {
+        localStorage.setItem("rivet-theme", theme);
+        localStorage.setItem("starlight-theme", theme);
+      } catch (e) {}
+    }
+    label();
+    themeBtn.addEventListener("click", function () {
+      var next = current() === "dark" ? "light" : "dark";
+      document.documentElement.dataset.theme = next;
+      store(next);
+      label();
+    });
+  })();
+</script>
+
+<style>
+  .site-menu {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem 0.75rem;
+    min-height: 4rem;
+  }
+
+  .brand {
+    margin-right: auto;
+    color: var(--fg);
+    font-size: 1.2rem;
+    font-weight: 650;
+    letter-spacing: -0.03em;
+    text-decoration: none;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .menu-toggle,
+  .apps-toggle,
+  .theme {
+    font: inherit;
+    font-weight: 560;
+    color: var(--fg);
+    background: var(--bg-raised);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    min-height: 44px;
+    cursor: pointer;
+  }
+
+  .menu-toggle,
+  .apps-toggle {
+    padding: 0.35rem 0.85rem;
+  }
+
+  .theme {
+    width: 44px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .theme svg {
+    display: block;
+  }
+
+  .theme .when-dark {
+    display: none;
+  }
+
+  :global(:root[data-theme="dark"]) .theme .when-light {
+    display: none;
+  }
+
+  :global(:root[data-theme="dark"]) .theme .when-dark {
+    display: block;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-theme="light"])) .theme .when-light {
+      display: none;
+    }
+
+    :global(:root:not([data-theme="light"])) .theme .when-dark {
+      display: block;
+    }
+  }
+
+  .site-nav {
+    display: none;
+    flex-basis: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.2rem;
+    padding-bottom: 0.75rem;
+  }
+
+  .site-nav.is-open {
+    display: flex;
+  }
+
+  .site-nav > a,
+  .apps-toggle {
+    color: var(--muted);
+    text-decoration: none;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    padding-inline: 0.7rem;
+    border-radius: 8px;
+  }
+
+  .site-nav > a:hover,
+  .site-nav > a[aria-current="page"],
+  .apps.is-open .apps-toggle {
+    color: var(--secondary);
+    background: var(--chip);
+  }
+
+  .repo {
+    width: 44px;
+    justify-content: center;
+    padding-inline: 0;
+  }
+
+  .apps {
+    position: relative;
+  }
+
+  .apps-panel {
+    display: none;
+    list-style: none;
+    margin: 0.25rem 0 0;
+    padding: 0.35rem;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+  }
+
+  .apps.is-open .apps-panel,
+  .site-nav.is-open .apps-panel {
+    display: grid;
+    gap: 0.15rem;
+  }
+
+  .apps-panel a {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.45rem 0.55rem;
+    border-radius: 10px;
+    color: inherit;
+    text-decoration: none;
+    min-height: 44px;
+  }
+
+  .apps-panel a:hover,
+  .apps-panel a[aria-current="page"] {
+    background: var(--chip);
+  }
+
+  .apps-panel img {
+    width: 2rem;
+    height: 2rem;
+    flex: none;
+  }
+
+  .apps-name,
+  .apps-line {
+    display: block;
+  }
+
+  .apps-name {
+    font-weight: 640;
+    color: var(--fg);
+  }
+
+  .apps-line {
+    color: var(--muted);
+    font-size: 0.92rem;
+  }
+
+  @media (min-width: 960px) {
+    .menu-toggle {
+      display: none;
+    }
+
+    .site-nav {
+      display: flex;
+      flex-basis: auto;
+      flex-direction: row;
+      align-items: center;
+      padding-bottom: 0;
+    }
+
+    .site-nav.is-open .apps-panel {
+      display: none;
+    }
+
+    .apps.is-open .apps-panel {
+      display: grid;
+      position: absolute;
+      top: calc(100% + 0.35rem);
+      left: 0;
+      width: 22rem;
+      z-index: 6;
+    }
+  }
+</style>

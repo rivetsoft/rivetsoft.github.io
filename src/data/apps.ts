@@ -13,6 +13,8 @@ export interface AppEntry {
   nav: boolean;
   /** Short header label. Defaults to the name. */
   navLabel?: string;
+  /** One line for the Apps menu. */
+  line: string;
   /** Home index and generic page. Also the meta description. */
   summary: string;
   /** Set when this is an idea, not an app in the repository yet. */
@@ -42,13 +44,13 @@ export const apps: AppEntry[] = [
   {
     slug: "shell",
     name: "Rivet Shell",
+    line: "A Wayland desktop shell: panel, dock, launcher and wallpaper.",
     tagPrefixes: ["rivet-shell-v"],
     nav: true,
     navLabel: "Shell",
     spotlight: "shell",
-    cardShot: "shell-wide.jpg",
     cardAlt: "Rivet Shell: the panel, widgets and dock over a wallpaper",
-    cardCaption: "Rivet Shell: the panel, widgets and dock over a wallpaper. Screenshot from the repository.",
+    cardCaption: "The shell following a warm wallpaper. The default scheme is pink. This picture is the color switching.",
     icon: "rivet-shell.svg",
     readme: "apps/rivet-shell/README.md",
     summary:
@@ -68,11 +70,11 @@ export const apps: AppEntry[] = [
   {
     slug: "welcome",
     name: "Rivet Welcome",
+    line: "Installs and updates the shell and the apps.",
     tagPrefixes: ["rivet-welcome-v"],
     nav: true,
     navLabel: "Welcome",
     spotlight: "welcome",
-    cardShot: "welcome-wide.png",
     cardAlt: "Rivet Welcome with two updates and an install under way",
     cardCaption: "Rivet Welcome with updates and an install under way. Screenshot from the repository.",
     icon: "rivet-welcome.svg",
@@ -92,11 +94,12 @@ export const apps: AppEntry[] = [
   {
     slug: "files",
     name: "Rivet Files",
+    line: "A Linux file manager, with no GTK or Qt.",
     tagPrefixes: ["rivet-files-v", "v"],
     nav: true,
     navLabel: "Files",
     template: "files",
-    cardShot: "icons-wide.png",
+    cardShot: "theme-rose-wide.png",
     icon: "rivet-files.svg",
     readme: "apps/rivet-files/README.md",
     summary: "A Linux file manager in Rust and egui, with no GTK or Qt.",
@@ -104,11 +107,11 @@ export const apps: AppEntry[] = [
   {
     slug: "ftp",
     name: "Rivet FTP",
+    line: "Dual-pane SFTP, with a transfer queue.",
     tagPrefixes: ["rivet-ftp-v"],
     nav: true,
     navLabel: "FTP",
     template: "ftp",
-    cardShot: "ftp-connected-wide.png",
     icon: "rivet-ftp.svg",
     readme: "apps/rivet-ftp/README.md",
     summary:
@@ -117,11 +120,11 @@ export const apps: AppEntry[] = [
   {
     slug: "notes",
     name: "Rivet Notes",
+    line: "Markdown notes in plain folders.",
     tagPrefixes: ["rivet-notes-v"],
     nav: true,
     navLabel: "Notes",
     template: "notes",
-    cardShot: "notes-live-wide.png",
     icon: "rivet-notes.svg",
     readme: "apps/rivet-notes/README.md",
     summary:
@@ -130,10 +133,10 @@ export const apps: AppEntry[] = [
   {
     slug: "edit",
     name: "Rivet Edit",
+    line: "A lightweight code editor for folders and files.",
     tagPrefixes: ["rivet-edit-v"],
     nav: true,
     navLabel: "Edit",
-    cardShot: "edit-editor-wide.png",
     cardAlt: "Rivet Edit with a Rust project open",
     cardCaption: "Rivet Edit with a Rust project open. Screenshot from the repository.",
     icon: "rivet-edit.svg",
@@ -147,10 +150,10 @@ export const apps: AppEntry[] = [
   {
     slug: "terminal",
     name: "Rivet Terminal",
+    line: "A terminal with tabs and split panes.",
     tagPrefixes: ["rivet-terminal-v"],
     nav: true,
     navLabel: "Terminal",
-    cardShot: "rivet-terminal-wide.png",
     cardAlt: "Rivet Terminal with three panes",
     cardCaption: "Rivet Terminal with three panes. Screenshot from the repository.",
     icon: "rivet-terminal.svg",

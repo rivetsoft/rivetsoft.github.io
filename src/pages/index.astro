@@ -29,44 +29,154 @@ const description =
 
 <Base title="Rivet" description={description} current="home">
   <header class="hero">
-    <h1>Rivet</h1>
-    <p class="lede">{description}</p>
-    {
-      catalog.source === "fallback" && (
-        <p class="notice">GitHub was unreachable when this page was built. Versions below are the last saved release info.</p>
-      )
-    }
+    <div class="hero-copy">
+      <p class="eyebrow">
+        <img src={url("rivet-shell.svg")} width="36" height="36" alt="" />
+        Rivet Shell
+      </p>
+      <h1>Rivet</h1>
+      <p class="lede">{description}</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href={welcome ? url("welcome/") : url("docs/")}>Install with Welcome</a>
+        <a class="btn btn-secondary" href={url("docs/")}>Docs</a>
+      </div>
+      {
+        shell && !shell.release && (
+          <p class="hero-note">
+            Shell has no release yet. Build notes are on the <a href={url("shell/")}>Shell page</a>.
+          </p>
+        )
+      }
+      {
+        catalog.source === "fallback" && (
+          <p class="notice">GitHub was unreachable when this page was built. Versions below are the last saved release info.</p>
+        )
+      }
+    </div>
+    <figure class="hero-visual hero-mark">
+      <img src={url("rivet-shell.svg")} width="280" height="280" alt="The Rivet Shell icon in the pink scheme: a dark panel with a pink dot, a blue mark and a yellow dot, a yellow sun, and a dock of pink, blue, yellow and pink." />
+    </figure>
   </header>
 
-  {
-    shell && (
-      <section class="spotlight" aria-labelledby="shell-title">
-        <h2 id="shell-title" class="spot-title">
-          {shell.app.icon && (
-            <img src={url(shell.app.icon)} width="40" height="40" alt="" />
-          )}
-          {shell.app.name}
-        </h2>
-        <StatusBadge app={shell.app} release={shell.release} />
-        <p>
-          The desktop in the middle. A panel, a dock, a launcher, widgets and the wallpaper, for
-          Wayland compositors with the layer-shell protocol (niri, Hyprland, Sway and others, not
-          GNOME). The dock starts with Files, Terminal, Edit and Notes. It runs matugen on the
-          wallpaper, and the Rivet apps follow those colors. They also run without the shell.
-        </p>
-        {shell.app.cardShot && shell.app.cardAlt && shell.app.cardCaption && (
-          <Shot name={shell.app.cardShot} alt={shell.app.cardAlt} caption={shell.app.cardCaption} eager />
-        )}
-        {shell.release ? (
-          <ReleaseBlock slug="shell" heading="h3" />
-        ) : (
-          <p>
-            No release yet. The build commands are on the <a href={url("shell/")}>Shell page</a>.
-          </p>
-        )}
-      </section>
-    )
-  }
+  <ul class="facts">
+    <li>
+      <span class="fact-icon pink" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M12 3v2M12 19v2M3 12h2M19 12h2"></path>
+        </svg>
+      </span>
+      <h2>One look</h2>
+      <p>Menus, toolbars, Preferences, and the quick panel (Ctrl+P) are the same. Colors, fonts, and icons follow the desktop.</p>
+    </li>
+    <li>
+      <span class="fact-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 3 4 7v10l8 4 8-4V7z"></path>
+          <path d="M12 21V11M4 7l8 4 8-4"></path>
+        </svg>
+      </span>
+      <h2>Rust, no GTK or Qt</h2>
+      <p>The shell and the apps are written in Rust and draw with egui.</p>
+    </li>
+    <li>
+      <span class="fact-icon pink" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+          <rect x="3" y="4" width="7" height="7" rx="1.5"></rect>
+          <rect x="14" y="4" width="7" height="7" rx="1.5"></rect>
+          <rect x="8" y="14" width="7" height="7" rx="1.5"></rect>
+        </svg>
+      </span>
+      <h2>Together or apart</h2>
+      <p>Each app runs on its own. Put them with the shell and they share a dock and colors.</p>
+    </li>
+    <li>
+      <span class="fact-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 4v10"></path>
+          <path d="m8 10 4 4 4-4"></path>
+          <path d="M5 19h14"></path>
+        </svg>
+      </span>
+      <h2>Welcome installs</h2>
+      <p>Optional. It downloads a release, checks the sha256, and runs install.sh.</p>
+    </li>
+    <li>
+      <span class="fact-icon yellow" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+          <rect x="4" y="5" width="16" height="12" rx="2"></rect>
+          <path d="M8 20h8"></path>
+        </svg>
+      </span>
+      <h2>Wallpaper colors</h2>
+      <p>The shell runs matugen on the wallpaper. The apps follow those colors, with no restart.</p>
+    </li>
+    <li>
+      <span class="fact-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+          <circle cx="12" cy="12" r="8"></circle>
+          <path d="M4 12h16M12 4c2.5 2.5 2.5 13.5 0 16M12 4c-2.5 2.5-2.5 13.5 0 16"></path>
+        </svg>
+      </span>
+      <h2>Linux, Wayland shell</h2>
+      <p>The apps are for Linux. The shell needs a Wayland compositor with layer-shell, not GNOME.</p>
+    </li>
+    <li>
+      <span class="fact-icon pink" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M7 4h7l5 5v11a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"></path>
+          <path d="M14 4v5h5"></path>
+        </svg>
+      </span>
+      <h2>Open source</h2>
+      <p>MIT or Apache-2.0, at your option.</p>
+    </li>
+    <li>
+      <span class="fact-icon yellow" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+          <path d="M12 3v4M12 17v4M5 12H3M21 12h-2"></path>
+          <circle cx="12" cy="12" r="3"></circle>
+        </svg>
+      </span>
+      <h2>Draws when it changes</h2>
+      <p>The shell paints with its own software renderer, and only when something on screen changed. No GPU.</p>
+    </li>
+  </ul>
+
+  <section class="scheme" aria-labelledby="scheme-title">
+    <h2 id="scheme-title">Pink, unless the wallpaper says otherwise</h2>
+    <p>
+      Rose is the pink scheme. The same Files window can wear another accent, and the shell can
+      take its colors from the wallpaper.
+    </p>
+    <ul class="scheme-grid">
+      <li>
+        <img src={url("screenshots/theme-rose-wide.png")} alt="Rivet Files in the rose theme, on a light pink page" width={table["theme-rose-wide.png"].w} height={table["theme-rose-wide.png"].h} />
+        <span>Rose</span>
+      </li>
+      <li>
+        <img src={url("screenshots/theme-ember-wide.png")} alt="The same Files window in the ember accent" width={table["theme-ember-wide.png"].w} height={table["theme-ember-wide.png"].h} />
+        <span>Ember</span>
+      </li>
+      <li>
+        <img src={url("screenshots/theme-moss-wide.png")} alt="The same Files window in the moss accent" width={table["theme-moss-wide.png"].w} height={table["theme-moss-wide.png"].h} />
+        <span>Moss</span>
+      </li>
+      <li>
+        <img src={url("screenshots/theme-violet-wide.png")} alt="The same Files window in the violet accent" width={table["theme-violet-wide.png"].w} height={table["theme-violet-wide.png"].h} />
+        <span>Violet</span>
+      </li>
+    </ul>
+    <figure class="scheme-wallpaper">
+      <img
+        src={url("screenshots/shell-wide.jpg")}
+        alt="Rivet Shell over a warm sunset wallpaper, with the panel and dock tinted by that picture"
+        width={table["shell-wide.jpg"].w}
+        height={table["shell-wide.jpg"].h}
+      />
+      <figcaption>The shell following a warm wallpaper.</figcaption>
+    </figure>
+  </section>
 
   {
     welcome && (

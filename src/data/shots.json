@@ -133,5 +133,25 @@
     "w": 1280,
     "h": 760,
     "bytes": 91096
+  },
+  "theme-rose-wide.png": {
+    "w": 1100,
+    "h": 700,
+    "bytes": 49486
+  },
+  "theme-ember-wide.png": {
+    "w": 1100,
+    "h": 700,
+    "bytes": 48430
+  },
+  "theme-moss-wide.png": {
+    "w": 1100,
+    "h": 700,
+    "bytes": 48439
+  },
+  "theme-violet-wide.png": {
+    "w": 1100,
+    "h": 700,
+    "bytes": 48489
   }
 }

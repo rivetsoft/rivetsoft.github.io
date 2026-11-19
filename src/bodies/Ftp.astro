@@ -38,12 +38,6 @@ const repo = repoUrl;
   {release?.prerelease && " Things may still change or break. Try it on servers and files you have backups of."}
 </p>
 
-<Shot
-  name="ftp-connected-wide.png"
-  alt="Rivet FTP connected to a server, with this computer and the server side by side and a few finished transfers"
-  caption="Connected, with finished transfers. The pictures use a demo server made of a local folder. No network, and no ssh daemon."
-  eager
-/>
 
 <nav class="onpage" aria-label="On this page">
   <a href="#window">The window</a>
@@ -73,11 +67,6 @@ const repo = repoUrl;
   alt="Rivet FTP in the light theme, with both panes showing the same site"
   caption="The same window in the light theme."
 />
-<Shot
-  name="ftp-new-connection-wide.png"
-  alt="The New Connection window, with SFTP selected and a name of Work site"
-  caption="A new connection. It is saved for the window and for rivet-ftp in a terminal."
-/>
 
 <h2 id="transfers">Transfers</h2>
 <p>
@@ -93,18 +82,6 @@ const repo = repoUrl;
   or only select it. Pause and resume, a bandwidth limit, several transfers at once, and folder
   sync are still on the list.
 </p>
-<div class="pair">
-  <Shot
-    name="ftp-replace-wide.png"
-    alt="A dialog comparing two items that are already on the server, with Keep Theirs, Replace Older, and Replace All"
-    caption="Already on the server. Dates and sizes are compared before anything is replaced."
-  />
-  <Shot
-    name="ftp-preferences-wide.png"
-    alt="Preferences, Transfers: ask, replace, or skip when a file is already there, and the editor for server files"
-    caption="Preferences, Transfers. Ask, replace, or skip, and which editor opens a server file."
-  />
-</div>
 
 <h2 id="editing">Editing and file info</h2>
 <p>
@@ -120,11 +97,6 @@ const repo = repoUrl;
   file deleted on a server cannot be brought back. Pictures and text can be previewed. A server
   file is downloaded to a private temporary folder first.
 </p>
-<Shot
-  name="ftp-info-wide.png"
-  alt="Info for index.html on the server, with owner, size, and permission checkboxes"
-  caption="Info and permissions for a file on the server."
-/>
 
 <h2 id="ssh">SSH keys</h2>
 <p>
@@ -141,11 +113,6 @@ const repo = repoUrl;
 </p>
 <pre><code>rivet-ftp keys
 rivet-ftp add Pi pi@192.168.1.4 --key id_ed25519</code></pre>
-<Shot
-  name="ftp-keys-wide.png"
-  alt="Preferences, SSH Keys, listing id_ed25519 with Add to Server and Copy Public Key"
-  caption="Preferences, SSH Keys. Add to Server sends the public half."
-/>
 
 <h2 id="connections">Saved connections</h2>
 <p>

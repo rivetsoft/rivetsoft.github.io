@@ -1,0 +1,60 @@
+@font-face {
+  font-family: Outfit;
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("../fonts/outfit-wght.woff2") format("woff2");
+}
+
+:root {
+  --bg: #24121b;
+  --bg-raised: rgba(47, 30, 38, 0.78);
+  --fg: #d6d6d6;
+  --muted: #b09aa2;
+  --line: rgba(214, 214, 214, 0.14);
+  --accent: #d53f8c;
+  --accent-2: #0084b8;
+  --accent-3: #fff270;
+  --press: #e07aab;
+  --secondary: #40a3ca;
+  --chip: rgba(0, 132, 184, 0.28);
+  --code: rgba(213, 63, 140, 0.2);
+  --shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.7);
+  --sl-font: Outfit, "Segoe UI", sans-serif;
+  --sl-color-bg: #24121b;
+  --sl-color-bg-nav: #24121b;
+  --sl-color-bg-sidebar: #2a1922;
+  --sl-color-text: #d6d6d6;
+  --sl-color-text-accent: #e07aab;
+  --sl-color-accent: #d53f8c;
+  --sl-color-accent-high: #e07aab;
+  --sl-color-accent-low: #4b1c34;
+  --sl-color-hairline-light: rgba(214, 214, 214, 0.14);
+  --sl-color-hairline: rgba(214, 214, 214, 0.22);
+}
+
+:root[data-theme="light"] {
+  --bg: #e9dee5;
+  --bg-raised: rgba(255, 255, 255, 0.72);
+  --fg: #2a2a2a;
+  --muted: #656264;
+  --line: rgba(42, 18, 27, 0.14);
+  --press: #992f64;
+  --secondary: #006a93;
+  --chip: rgba(0, 132, 184, 0.16);
+  --code: rgba(213, 63, 140, 0.12);
+  --sl-color-bg: #e9dee5;
+  --sl-color-bg-nav: #e9dee5;
+  --sl-color-bg-sidebar: #e2d8de;
+  --sl-color-text: #2a2a2a;
+  --sl-color-text-accent: #992f64;
+  --sl-color-accent: #d53f8c;
+  --sl-color-accent-high: #992f64;
+  --sl-color-accent-low: #e6c8d9;
+  --sl-color-hairline-light: rgba(42, 18, 27, 0.12);
+  --sl-color-hairline: rgba(42, 18, 27, 0.2);
+}
+
+header.header {
+  overflow: visible;
+}

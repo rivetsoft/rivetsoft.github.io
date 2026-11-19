@@ -9,6 +9,8 @@
     "preview": "astro preview --host 0.0.0.0 --port 43123"
   },
   "dependencies": {
+    "@astrojs/rss": "4.0.12",
+    "@astrojs/starlight": "0.37.7",
     "astro": "5.18.2"
   }
 }
