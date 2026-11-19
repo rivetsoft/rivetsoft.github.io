@@ -86,7 +86,7 @@ const description =
       <p>The shell and the apps are written in Rust and draw with egui.</p>
     </li>
     <li>
-      <span class="fact-icon pink" aria-hidden="true">
+      <span class="fact-icon yellow" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
           <rect x="3" y="4" width="7" height="7" rx="1.5"></rect>
           <rect x="14" y="4" width="7" height="7" rx="1.5"></rect>
@@ -97,18 +97,18 @@ const description =
       <p>Each app runs on its own. Put them with the shell and they share a dock and colors.</p>
     </li>
     <li>
-      <span class="fact-icon" aria-hidden="true">
+      <span class="fact-icon mint" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
           <path d="M12 4v10"></path>
           <path d="m8 10 4 4 4-4"></path>
           <path d="M5 19h14"></path>
         </svg>
       </span>
-      <h2>Welcome installs</h2>
+      <h2>Unified Install</h2>
       <p>Optional. It downloads a release, checks the sha256, and runs install.sh.</p>
     </li>
     <li>
-      <span class="fact-icon yellow" aria-hidden="true">
+      <span class="fact-icon" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
           <rect x="4" y="5" width="16" height="12" rx="2"></rect>
           <path d="M8 20h8"></path>
@@ -118,14 +118,24 @@ const description =
       <p>The shell runs matugen on the wallpaper. The apps follow those colors, with no restart.</p>
     </li>
     <li>
-      <span class="fact-icon" aria-hidden="true">
+      <span class="fact-icon yellow" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
           <circle cx="12" cy="12" r="8"></circle>
           <path d="M4 12h16M12 4c2.5 2.5 2.5 13.5 0 16M12 4c-2.5 2.5-2.5 13.5 0 16"></path>
         </svg>
       </span>
-      <h2>Linux, Wayland shell</h2>
+      <h2>Wayland</h2>
       <p>The apps are for Linux. The shell needs a Wayland compositor with layer-shell, not GNOME.</p>
+    </li>
+    <li>
+      <span class="fact-icon mint" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+          <path d="M12 3v4M12 17v4M5 12H3M21 12h-2"></path>
+          <circle cx="12" cy="12" r="3"></circle>
+        </svg>
+      </span>
+      <h2>Draws when it changes</h2>
+      <p>The shell paints with its own software renderer, and only when something on screen changed. No GPU.</p>
     </li>
     <li>
       <span class="fact-icon pink" aria-hidden="true">
@@ -136,16 +146,6 @@ const description =
       </span>
       <h2>Open source</h2>
       <p>MIT or Apache-2.0, at your option.</p>
-    </li>
-    <li>
-      <span class="fact-icon yellow" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
-          <path d="M12 3v4M12 17v4M5 12H3M21 12h-2"></path>
-          <circle cx="12" cy="12" r="3"></circle>
-        </svg>
-      </span>
-      <h2>Draws when it changes</h2>
-      <p>The shell paints with its own software renderer, and only when something on screen changed. No GPU.</p>
     </li>
   </ul>
 

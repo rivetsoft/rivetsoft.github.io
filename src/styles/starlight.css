@@ -15,6 +15,7 @@
   --accent: #d53f8c;
   --accent-2: #0084b8;
   --accent-3: #fff270;
+  --rivet-quaternary: #3ecf9a;
   --press: #e07aab;
   --secondary: #40a3ca;
   --chip: rgba(0, 132, 184, 0.28);
@@ -39,6 +40,10 @@
   --fg: #2a2a2a;
   --muted: #656264;
   --line: rgba(42, 18, 27, 0.14);
+  --accent: #d53f8c;
+  --accent-2: #0084b8;
+  --accent-3: #fff270;
+  --rivet-quaternary: #3ecf9a;
   --press: #992f64;
   --secondary: #006a93;
   --chip: rgba(0, 132, 184, 0.16);

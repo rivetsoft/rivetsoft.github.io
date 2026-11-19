@@ -23,6 +23,7 @@ export default defineConfig({
       customCss: ["./src/styles/starlight.css"],
       components: {
         Header: "./src/components/DocsHeader.astro",
+        Footer: "./src/components/DocsFooter.astro",
       },
       lastUpdated: false,
       pagination: false,
