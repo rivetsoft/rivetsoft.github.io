@@ -28,6 +28,17 @@ export default defineConfig({
       pagination: false,
       pagefind: false,
       disable404Route: true,
+      head: [
+        {
+          tag: "script",
+          attrs: {
+            defer: true,
+            src: "https://analytics.stevenswebhosting.com/script.js",
+            "data-website-id": "6e7cbc54-64b7-4cc5-9304-d5c2dc7a08a0",
+            "data-domains": "ulinaaron.github.io",
+          },
+        },
+      ],
       sidebar: [
         {
           label: "Getting started",
