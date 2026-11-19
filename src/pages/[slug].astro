@@ -44,6 +44,13 @@ const readmeUrl = app.readme ? `${repoUrl}/blob/main/${app.readme}` : repoUrl;
         </h1>
         <StatusBadge app={app} release={release} />
         <p>{app.summary}</p>
+        {app.points && (
+          <ul>
+            {app.points.map((point) => (
+              <li>{point}</li>
+            ))}
+          </ul>
+        )}
         {app.cardShot && app.cardAlt && app.cardCaption && (
           <Shot name={app.cardShot} alt={app.cardAlt} caption={app.cardCaption} eager />
         )}

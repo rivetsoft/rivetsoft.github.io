@@ -255,6 +255,26 @@ main.column {
   padding: 3.5rem 0 0.5rem;
 }
 
+.spotlight {
+  margin-top: 2.6rem;
+}
+
+.spotlight h2 {
+  margin-top: 0;
+}
+
+.spot-title {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.spot-title img {
+  width: 2.5rem;
+  height: 2.5rem;
+  flex: none;
+}
+
 h1,
 h2,
 h3,

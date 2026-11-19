@@ -1,5 +1,296 @@
 [
   {
+    "tag_name": "v0.8.0",
+    "name": "Rivet Files 0.8.0",
+    "draft": false,
+    "prerelease": false,
+    "published_at": "2026-11-19T05:27:33Z",
+    "html_url": "https://github.com/ulinaaron/rivet-apps/releases/tag/v0.8.0",
+    "body": "\n- Tabs look and work like Rivet Edit's and Rivet Terminal's (one shared strip): drag a tab to\n  move it, with a glow, and when there are too many to fit they scroll, with\n  < and > at the end. Files dropped on a tab still go to its folder.\n- The current place and folder in the sidebar are marked the way the other apps mark a chosen\n  item: a soft tile with an accent edge, the icon in its own colors.\n- The disk usage bar under a drive is the theme's tertiary color (red when nearly full).\n- **Column view** (Ctrl+4, View → Columns, or the toolbar): Miller columns. The folders above this\n  one sit side by side (from Home, or from / outside it), and the column on the right shows what\n  the chosen folder holds, or Peek for a chosen file when the Peek panel is closed. Click in\n  any column to go there; ← and → (or Vim's h / l) move between columns.\n- **Shortcuts**: Ctrl+N makes a new folder, Ctrl+Shift+N opens a new window (File → New Window).\n\n\n### Install\n\n**AppImage (one file, nothing to install):** download `Rivet_Files-0.8.0-x86_64.AppImage`, then\n\n```sh\nchmod +x Rivet_Files-0.8.0-x86_64.AppImage\n./Rivet_Files-0.8.0-x86_64.AppImage\n```\n\nInside Rivet, Preferences → System → *Add Rivet to the app launcher* puts it in your menus.\n\n**Archive:** download `rivet-files-0.8.0-x86_64-linux.tar.gz`, then:\n\n```sh\ntar xzf rivet-files-0.8.0-x86_64-linux.tar.gz\ncd rivet-files-0.8.0-x86_64-linux\n./install.sh          # adds Rivet to your app launcher (add --default to make it the default file manager)\n```\n\nPortable x86_64 build, linked against glibc 2.31 rather than the build machine's libc.\nThe program's highest GLIBC symbol is 2.30. Counting the keyboard libraries bundled in the AppImage, the artifacts need glibc 2.33 or newer, which Ubuntu 22.04 and Debian 12 both have.\nOlder systems can build from source: `cargo build --release`.\n",
+    "assets": [
+      {
+        "name": "rivet-files-0.8.0-x86_64-linux.tar.gz",
+        "size": 7971888,
+        "browser_download_url": "https://github.com/ulinaaron/rivet-apps/releases/download/v0.8.0/rivet-files-0.8.0-x86_64-linux.tar.gz",
+        "state": "uploaded"
+      },
+      {
+        "name": "rivet-files-0.8.0-x86_64-linux.tar.gz.sha256",
+        "size": 104,
+        "browser_download_url": "https://github.com/ulinaaron/rivet-apps/releases/download/v0.8.0/rivet-files-0.8.0-x86_64-linux.tar.gz.sha256",
+        "state": "uploaded"
+      },
+      {
+        "name": "Rivet_Files-0.8.0-x86_64.AppImage",
+        "size": 8342008,
+        "browser_download_url": "https://github.com/ulinaaron/rivet-apps/releases/download/v0.8.0/Rivet_Files-0.8.0-x86_64.AppImage",
+        "state": "uploaded"
+      },
+      {
+        "name": "Rivet_Files-0.8.0-x86_64.AppImage.sha256",
+        "size": 100,
+        "browser_download_url": "https://github.com/ulinaaron/rivet-apps/releases/download/v0.8.0/Rivet_Files-0.8.0-x86_64.AppImage.sha256",
+        "state": "uploaded"
+      }
+    ]
+  },
+  {
+    "tag_name": "rivet-terminal-v0.2.0",
+    "name": "Rivet Terminal 0.2.0",
+    "draft": false,
+    "prerelease": false,
+    "published_at": "2026-11-19T05:29:51Z",
+    "html_url": "https://github.com/ulinaaron/rivet-apps/releases/tag/rivet-terminal-v0.2.0",
+    "body": "\n- Drag a tab to move it: it lifts and follows the pointer with a glow, the\n  tabs it passes slide aside, and it glides into place when let go. Ctrl+Shift+, and\n  Ctrl+Shift+. still move the open one.\n- **Faster drawing**: a full screen draws in about a third of the time, a whole row of text at\n  a time, with runs of one background as one rectangle. The screen is copied out quickly and\n  drawn after, so a program's output keeps streaming in while a frame is drawn (`cat` of a big\n  file finishes sooner).\n- Columns line up with the font's real advance, so long lines of text stay on the grid.\n- The scrollback marker and the bell flash show while a program hides the cursor.\n\n\n### Install\n\n\n**AppImage (one file, nothing to install):** download `Rivet_Terminal-0.2.0-x86_64.AppImage`, then\n\n```sh\nchmod +x Rivet_Terminal-0.2.0-x86_64.AppImage\n./Rivet_Terminal-0.2.0-x86_64.AppImage\n```\n\n**Archive:** download `rivet-terminal-0.2.0-x86_64-linux.tar.gz`, then:\n\n```sh\ntar xzf rivet-terminal-0.2.0-x86_64-linux.tar.gz\ncd rivet-terminal-0.2.0-x86_64-linux\n./install.sh          # rivet-terminal in ~/.local/bin, and Rivet Terminal in your app launcher\n```\n\nPortable x86_64 build, linked against glibc 2.31. Or build from source: `cargo build --release -p rivet-terminal`.\n\n\n",
+    "assets": [
+      {
+        "name": "rivet-terminal-0.2.0-x86_64-linux.tar.gz",
+        "size": 5576581,
+        "browser_download_url": "https://github.com/ulinaaron/rivet-apps/releases/download/rivet-terminal-v0.2.0/rivet-terminal-0.2.0-x86_64-linux.tar.gz",
+        "state": "uploaded"
+      },
+      {
+        "name": "rivet-terminal-0.2.0-x86_64-linux.tar.gz.sha256",
+        "size": 107,
+        "browser_download_url": "https://github.com/ulinaaron/rivet-apps/releases/download/rivet-terminal-v0.2.0/rivet-terminal-0.2.0-x86_64-linux.tar.gz.sha256",
+        "state": "uploaded"
+      },
+      {
+        "name": "Rivet_Terminal-0.2.0-x86_64.AppImage",
+        "size": 6195704,
+        "browser_download_url": "https://github.com/ulinaaron/rivet-apps/releases/download/rivet-terminal-v0.2.0/Rivet_Terminal-0.2.0-x86_64.AppImage",
+        "state": "uploaded"
+      },
+      {
+        "name": "Rivet_Terminal-0.2.0-x86_64.AppImage.sha256",
+        "size": 103,
+        "browser_download_url": "https://github.com/ulinaaron/rivet-apps/releases/download/rivet-terminal-v0.2.0/Rivet_Terminal-0.2.0-x86_64.AppImage.sha256",
+        "state": "uploaded"
+      }
+    ]
+  },
+  {
+    "tag_name": "rivet-notes-v0.3.0",
+    "name": "Rivet Notes 0.3.0",
+    "draft": false,
+    "prerelease": false,
+    "published_at": "2026-11-19T05:31:19Z",
+    "html_url": "https://github.com/ulinaaron/rivet-apps/releases/tag/rivet-notes-v0.3.0",
+    "body": "\n- Rivet Shell's Notes plugin: open tasks and the latest notes on the panel, New Note in the\n  launcher (and `@notes` to find a note by name), and a notice when something is due today (turn it on in the shell's Settings,\n  Plugins).\n- `rivet-notes FOLDER --note PATH` opens the window on a note, and `rivet-notes new [--vault\n  FOLDER] [TITLE]` makes a note and opens it.\n\n\n### Install\n\n\n**AppImage (one file, nothing to install):** download `Rivet_Notes-0.3.0-x86_64.AppImage`, then\n\n```sh\nchmod +x Rivet_Notes-0.3.0-x86_64.AppImage\n./Rivet_Notes-0.3.0-x86_64.AppImage\n```\n\n**Archive:** download `rivet-notes-0.3.0-x86_64-linux.tar.gz`, then:\n\n```sh\ntar xzf rivet-notes-0.3.0-x86_64-linux.tar.gz\ncd rivet-notes-0.3.0-x86_64-linux\n./install.sh          # rivet-notes in ~/.local/bin, and Rivet Notes in your app launcher\n```\n\nPortable x86_64 build, linked against glibc 2.31. Or build from source: `cargo build --release -p rivet-notes`.\n\n\n",
+    "assets": [
+      {
+        "name": "rivet-notes-0.3.0-x86_64-linux.tar.gz",
+        "size": 5684880,
+        "browser_download_url": "https://github.com/ulinaaron/rivet-apps/releases/download/rivet-notes-v0.3.0/rivet-notes-0.3.0-x86_64-linux.tar.gz",
+        "state": "uploaded"
+      },
+      {
+        "name": "rivet-notes-0.3.0-x86_64-linux.tar.gz.sha256",
+        "size": 104,
+        "browser_download_url": "https://github.com/ulinaaron/rivet-apps/releases/download/rivet-notes-v0.3.0/rivet-notes-0.3.0-x86_64-linux.tar.gz.sha256",
+        "state": "uploaded"
+      },
+      {
+        "name": "Rivet_Notes-0.3.0-x86_64.AppImage",
+        "size": 6310392,
+        "browser_download_url": "https://github.com/ulinaaron/rivet-apps/releases/download/rivet-notes-v0.3.0/Rivet_Notes-0.3.0-x86_64.AppImage",
+        "state": "uploaded"
+      },
+      {
+        "name": "Rivet_Notes-0.3.0-x86_64.AppImage.sha256",
+        "size": 100,
+        "browser_download_url": "https://github.com/ulinaaron/rivet-apps/releases/download/rivet-notes-v0.3.0/Rivet_Notes-0.3.0-x86_64.AppImage.sha256",
+        "state": "uploaded"
+      }
+    ]
+  },
+  {
+    "tag_name": "rivet-edit-v0.2.0",
+    "name": "Rivet Edit 0.2.0",
+    "draft": false,
+    "prerelease": false,
+    "published_at": "2026-11-19T05:28:54Z",
+    "html_url": "https://github.com/ulinaaron/rivet-apps/releases/tag/rivet-edit-v0.2.0",
+    "body": "\n- Drag a tab to move it: it lifts and follows the pointer with a glow, the\n  tabs it passes slide aside, and it glides into place when let go. Dragging near either end of\n  a full strip scrolls it.\n- Several windows, each its own workspace: New Window (Shift+Ctrl+N), Open Folder in New Window,\n  and Open in New Window on a folder in the sidebar; also from the app launcher.\n- Large files scroll and repaint smoothly: the laid-out text is kept between frames instead of\n  being rebuilt and looked up again each time, and only the line numbers on screen are drawn.\n- Typing in a large file no longer waits for its colors: they're worked out on another thread,\n  and until then the old ones move along with the edit. A large file opens at once, colored a\n  moment later.\n- Undo and redo of its own (Ctrl+Z, Shift+Ctrl+Z or Ctrl+Y, Vim's u and Ctrl+R, and in the Edit\n  menu): typing undoes a word at a time, every command (moving lines, commenting, several\n  cursors, replace, Vim's changes) is a step of its own, and undo brings every cursor back.\n  Each step keeps only what changed, not a copy of the file.\n- Line height for the code (Preferences → Editor → Text), from 1.00× (as the font sets it) to\n  2.00×. The extra space is shared above and below each line.\n- Git, in the spirit of VS Code's and Zed's:\n  - A Git panel in the sidebar (Shift+Ctrl+G) lists merge conflicts, staged changes and changes\n    not staged yet. Hover a file to stage, unstage or discard it, or a section to do all of its\n    files.\n  - Write a message and commit (Ctrl+Enter); with nothing staged, Commit All stages everything\n    first. You can also amend the last commit or undo it.\n  - The branch shows in the panel and the status bar, with how far it is ahead of and behind\n    its upstream. Click it to switch branch, or type a new name to make one.\n  - Sync (pull, then push), fetch, pull, push and publishing a new branch are in the panel's\n    more menu, the Git menu and Commands. A folder that isn't a repository gets an Initialize\n    Repository button.\n  - The tree colors changed files and shows their letter (M, A, U, D), with a dot on folders\n    that hold changes.\n  - The gutter marks lines added, changed and deleted since staged, including edits not saved\n    yet. Click a mark to see the old lines, revert that change, stage just it, or step to the\n    next one (Alt+F5, Shift+Alt+F5).\n  - The git work is the new shared `rivet-git` crate, which has no user interface, so a Git app\n    can be built on it later. It runs the `git` program, so your own config, hooks, credentials\n    and signing all apply.\n\n\n### Install\n\n\n**AppImage (one file, nothing to install):** download `Rivet_Edit-0.2.0-x86_64.AppImage`, then\n\n```sh\nchmod +x Rivet_Edit-0.2.0-x86_64.AppImage\n./Rivet_Edit-0.2.0-x86_64.AppImage\n```\n\n**Archive:** download `rivet-edit-0.2.0-x86_64-linux.tar.gz`, then:\n\n```sh\ntar xzf rivet-edit-0.2.0-x86_64-linux.tar.gz\ncd rivet-edit-0.2.0-x86_64-linux\n./install.sh          # rivet-edit in ~/.local/bin, and Rivet Edit in your app launcher\n```\n\nPortable x86_64 build, linked against glibc 2.31. Or build from source: `cargo build --release -p rivet-edit`.\n\n\n",
+    "assets": [
+      {
+        "name": "rivet-edit-0.2.0-x86_64-linux.tar.gz",
+        "size": 7354068,
+        "browser_download_url": "https://github.com/ulinaaron/rivet-apps/releases/download/rivet-edit-v0.2.0/rivet-edit-0.2.0-x86_64-linux.tar.gz",
+        "state": "uploaded"
+      },
+      {
+        "name": "rivet-edit-0.2.0-x86_64-linux.tar.gz.sha256",
+        "size": 103,
+        "browser_download_url": "https://github.com/ulinaaron/rivet-apps/releases/download/rivet-edit-v0.2.0/rivet-edit-0.2.0-x86_64-linux.tar.gz.sha256",
+        "state": "uploaded"
+      },
+      {
+        "name": "Rivet_Edit-0.2.0-x86_64.AppImage",
+        "size": 7772664,
+        "browser_download_url": "https://github.com/ulinaaron/rivet-apps/releases/download/rivet-edit-v0.2.0/Rivet_Edit-0.2.0-x86_64.AppImage",
+        "state": "uploaded"
+      },
+      {
+        "name": "Rivet_Edit-0.2.0-x86_64.AppImage.sha256",
+        "size": 99,
+        "browser_download_url": "https://github.com/ulinaaron/rivet-apps/releases/download/rivet-edit-v0.2.0/Rivet_Edit-0.2.0-x86_64.AppImage.sha256",
+        "state": "uploaded"
+      }
+    ]
+  },
+  {
+    "tag_name": "rivet-welcome-v0.1.0",
+    "name": "Rivet Welcome 0.1.0",
+    "draft": false,
+    "prerelease": true,
+    "published_at": "2026-11-19T00:00:46Z",
+    "html_url": "https://github.com/ulinaaron/rivet-apps/releases/tag/rivet-welcome-v0.1.0",
+    "body": "\nThe first version.\n\n- Every Rivet app as a card: what's installed, what's released, and Install, Update, Open and\n  Remove. Apps released after this version are found in the releases and offered too.\n- Installs from the GitHub release archives for this computer, checked against their SHA-256\n  sums, with each archive's own installer: programs in ~/.local/bin and the apps in the\n  launcher, no password. Apps installed another way (a package, AUR) are shown and left alone.\n- Looks for releases as soon as it opens, and from a tray icon that starts when you sign in:\n  it checks then and every few hours, shows a dot and sends a notification when there are\n  updates, and can install them all from its menu.\n- `rivet-welcome check`, `list`, `install APP`, `update` and `remove APP` from a terminal.\n\n### Install\n\nRivet Welcome is an early alpha: keep backups of what you use it with.\n\n**AppImage (one file, nothing to install):** download `Rivet_Welcome-0.1.0-x86_64.AppImage`, then\n\n```sh\nchmod +x Rivet_Welcome-0.1.0-x86_64.AppImage\n./Rivet_Welcome-0.1.0-x86_64.AppImage\n```\n\n**Archive:** download `rivet-welcome-0.1.0-x86_64-linux.tar.gz`, then:\n\n```sh\ntar xzf rivet-welcome-0.1.0-x86_64-linux.tar.gz\ncd rivet-welcome-0.1.0-x86_64-linux\n./install.sh          # rivet-welcome in ~/.local/bin, and Rivet Welcome in your app launcher\n```\n\nPortable x86_64 build, linked against glibc 2.31. Or build from source: `cargo build --release -p rivet-welcome`.\n\n",
+    "assets": [
+      {
+        "name": "rivet-welcome-0.1.0-x86_64-linux.tar.gz",
+        "size": 5511227,
+        "browser_download_url": "https://github.com/ulinaaron/rivet-apps/releases/download/rivet-welcome-v0.1.0/rivet-welcome-0.1.0-x86_64-linux.tar.gz",
+        "state": "uploaded"
+      },
+      {
+        "name": "rivet-welcome-0.1.0-x86_64-linux.tar.gz.sha256",
+        "size": 106,
+        "browser_download_url": "https://github.com/ulinaaron/rivet-apps/releases/download/rivet-welcome-v0.1.0/rivet-welcome-0.1.0-x86_64-linux.tar.gz.sha256",
+        "state": "uploaded"
+      },
+      {
+        "name": "Rivet_Welcome-0.1.0-x86_64.AppImage",
+        "size": 6154744,
+        "browser_download_url": "https://github.com/ulinaaron/rivet-apps/releases/download/rivet-welcome-v0.1.0/Rivet_Welcome-0.1.0-x86_64.AppImage",
+        "state": "uploaded"
+      },
+      {
+        "name": "Rivet_Welcome-0.1.0-x86_64.AppImage.sha256",
+        "size": 102,
+        "browser_download_url": "https://github.com/ulinaaron/rivet-apps/releases/download/rivet-welcome-v0.1.0/Rivet_Welcome-0.1.0-x86_64.AppImage.sha256",
+        "state": "uploaded"
+      }
+    ]
+  },
+  {
+    "tag_name": "rivet-ftp-v0.3.0",
+    "name": "Rivet FTP 0.3.0",
+    "draft": false,
+    "prerelease": true,
+    "published_at": "2026-11-19T05:30:53Z",
+    "html_url": "https://github.com/ulinaaron/rivet-apps/releases/tag/rivet-ftp-v0.3.0",
+    "body": "\n- Rivet Shell's FTP plugin: your saved connections on the panel and in the launcher (`@ftp`),\n  each opening a new window connected to it (turn it on in the shell's Settings, Plugins).\n- Ctrl+N makes a new folder and Ctrl+Shift+N opens a new window (File → New Window); a new\n  connection is Ctrl+Shift+K. Ctrl+Shift+Tab goes to the previous tab again (Ctrl+Tab used to\n  catch it).\n\n\n### Install\n\nRivet FTP is an early alpha: keep backups of what you use it with.\n\n**AppImage (one file, nothing to install):** download `Rivet_FTP-0.3.0-x86_64.AppImage`, then\n\n```sh\nchmod +x Rivet_FTP-0.3.0-x86_64.AppImage\n./Rivet_FTP-0.3.0-x86_64.AppImage\n```\n\n**Archive:** download `rivet-ftp-0.3.0-x86_64-linux.tar.gz`, then:\n\n```sh\ntar xzf rivet-ftp-0.3.0-x86_64-linux.tar.gz\ncd rivet-ftp-0.3.0-x86_64-linux\n./install.sh          # rivet-ftp in ~/.local/bin, and Rivet FTP in your app launcher\n```\n\nPortable x86_64 build, linked against glibc 2.31. Or build from source: `cargo build --release -p rivet-ftp`.\n\n",
+    "assets": [
+      {
+        "name": "rivet-ftp-0.3.0-x86_64-linux.tar.gz",
+        "size": 6151830,
+        "browser_download_url": "https://github.com/ulinaaron/rivet-apps/releases/download/rivet-ftp-v0.3.0/rivet-ftp-0.3.0-x86_64-linux.tar.gz",
+        "state": "uploaded"
+      },
+      {
+        "name": "rivet-ftp-0.3.0-x86_64-linux.tar.gz.sha256",
+        "size": 102,
+        "browser_download_url": "https://github.com/ulinaaron/rivet-apps/releases/download/rivet-ftp-v0.3.0/rivet-ftp-0.3.0-x86_64-linux.tar.gz.sha256",
+        "state": "uploaded"
+      },
+      {
+        "name": "Rivet_FTP-0.3.0-x86_64.AppImage",
+        "size": 6748664,
+        "browser_download_url": "https://github.com/ulinaaron/rivet-apps/releases/download/rivet-ftp-v0.3.0/Rivet_FTP-0.3.0-x86_64.AppImage",
+        "state": "uploaded"
+      },
+      {
+        "name": "Rivet_FTP-0.3.0-x86_64.AppImage.sha256",
+        "size": 98,
+        "browser_download_url": "https://github.com/ulinaaron/rivet-apps/releases/download/rivet-ftp-v0.3.0/Rivet_FTP-0.3.0-x86_64.AppImage.sha256",
+        "state": "uploaded"
+      }
+    ]
+  },
+  {
+    "tag_name": "v0.7.0",
+    "name": "Rivet Files 0.7.0",
+    "draft": false,
+    "prerelease": false,
+    "published_at": "2026-11-17T20:08:21Z",
+    "html_url": "https://github.com/ulinaaron/rivet-apps/releases/tag/v0.7.0",
+    "body": "\n### New\n- **Thumbnails beyond pictures**: videos, PDFs, fonts, office files, e-books and anything else\n  the system has a thumbnailer for (`/usr/share/thumbnailers`), and the shared\n  `~/.cache/thumbnails` cache that other file managers use — Rivet reads it first and adds what it\n  makes, following the freedesktop thumbnail rules (failures are remembered too).\n- **Custom actions**: your own commands in the right-click menu. Each is a small `.action` file\n  in `~/.local/share/rivet/actions`: a name, an icon, the command (`%F` the selected files, `%d`\n  the folder…), when it shows (one item, several, empty space) and for which files (folders,\n  types like `image/*`, endings like `.png`), with optional submenus, a terminal window, and\n  once-per-item runs. Preferences → Modules counts them, opens the folder and can add an example\n  to start from.\n- **Split view** (F3, View → Split View, or Quick Actions): two folders side by side, each with\n  its own history and a header naming its folder. Click a pane (or F6) to work in it — the\n  toolbar, path bar, keyboard and Peek follow — drag files between them, or use Copy / Move to\n  Other Pane from the right-click menu.\n- **Copy and paste with other apps**: Copy or Cut in Rivet and paste in Dolphin, GNOME Files,\n  Nemo or a terminal; copy files there and paste them into Rivet (a cut there moves them). Rivet\n  offers files the standard ways (`text/uri-list`, `x-special/gnome-copied-files`, KDE's cut flag\n  and plain paths), and only pastes its own copy while it's still the newest one. On X11 files go\n  across as paths.\n- **Drag files out to other apps** (Wayland): drag files out of the window into a browser upload,\n  a chat, an editor or another file manager.\n\n### Fixed\n- A background job that fails (a copy, a thumbnail, a search) can no longer take the window down\n  with it.\n- Dragging the zoom slider no longer keeps a copy of every icon at every size in memory, and\n  thumbnails beyond the last 800 shown are let go (they come back quickly from the disk cache).\n- When a file changes, only its own thumbnail is redone (the old one stays until then), instead of\n  every thumbnail in the folder.\n- In split view, the other pane now updates when files change on disk too.\n- Copy Location (and every other text copy: crash reports, the terminal link command) reaches\n  other apps again, and pasting text into Rivet's fields from other apps works.\n- Bold text uses the font's real bold face when the desktop font can't be read (it fell back to\n  the regular one).\n\n### Changed\n- Rivet Files now lives in the [Rivet Apps](https://github.com/ulinaaron/rivet-apps) repository,\n  beside Rivet FTP and Rivet Notes; its downloads, Flatpak id and AUR packages are unchanged.\n\n\n### Install\n\n**AppImage (one file, nothing to install):** download `Rivet_Files-0.7.0-x86_64.AppImage`, then\n\n```sh\nchmod +x Rivet_Files-0.7.0-x86_64.AppImage\n./Rivet_Files-0.7.0-x86_64.AppImage\n```\n\nInside Rivet, Preferences → System → *Add Rivet to the app launcher* puts it in your menus.\n\n**Archive:** download `rivet-files-0.7.0-x86_64-linux.tar.gz`, then:\n\n```sh\ntar xzf rivet-files-0.7.0-x86_64-linux.tar.gz\ncd rivet-files-0.7.0-x86_64-linux\n./install.sh          # adds Rivet to your app launcher (add --default to make it the default file manager)\n```\n\nPortable x86_64 build, linked against glibc 2.31 rather than the build machine's libc.\nThe program's highest GLIBC symbol is 2.30. Counting the keyboard libraries bundled in the AppImage, the artifacts need glibc 2.33 or newer, which Ubuntu 22.04 and Debian 12 both have.\nOlder systems can build from source: `cargo build --release`.\n",
+    "assets": [
+      {
+        "name": "rivet-files-0.7.0-x86_64-linux.tar.gz",
+        "size": 7914396,
+        "browser_download_url": "https://github.com/ulinaaron/rivet-apps/releases/download/v0.7.0/rivet-files-0.7.0-x86_64-linux.tar.gz",
+        "state": "uploaded"
+      },
+      {
+        "name": "rivet-files-0.7.0-x86_64-linux.tar.gz.sha256",
+        "size": 104,
+        "browser_download_url": "https://github.com/ulinaaron/rivet-apps/releases/download/v0.7.0/rivet-files-0.7.0-x86_64-linux.tar.gz.sha256",
+        "state": "uploaded"
+      },
+      {
+        "name": "Rivet_Files-0.7.0-x86_64.AppImage",
+        "size": 8296952,
+        "browser_download_url": "https://github.com/ulinaaron/rivet-apps/releases/download/v0.7.0/Rivet_Files-0.7.0-x86_64.AppImage",
+        "state": "uploaded"
+      },
+      {
+        "name": "Rivet_Files-0.7.0-x86_64.AppImage.sha256",
+        "size": 100,
+        "browser_download_url": "https://github.com/ulinaaron/rivet-apps/releases/download/v0.7.0/Rivet_Files-0.7.0-x86_64.AppImage.sha256",
+        "state": "uploaded"
+      }
+    ]
+  },
+  {
+    "tag_name": "rivet-terminal-v0.1.0",
+    "name": "Rivet Terminal 0.1.0",
+    "draft": false,
+    "prerelease": true,
+    "published_at": "2026-11-17T20:19:43Z",
+    "html_url": "https://github.com/ulinaaron/rivet-apps/releases/tag/rivet-terminal-v0.1.0",
+    "body": "\nThe first version.\n\n- Tabs, each with one or more panes in a layout: Tall, Fat, Grid, Side by Side, Stacked, or one\n  at a time; new tabs and panes start in the current folder.\n- The terminal (`crates/rivet-term`, on alacritty_terminal): 24-bit and 256 colors, bold,\n  italic, underlines, strikethrough, wide characters, the alternate screen, mouse reporting,\n  bracketed paste, focus reports, program titles, OSC 52 copying, the bell.\n- Colors from the desktop and accent, the same as Rivet Edit's code colors (Rivet's default palette\n  leaning toward the theme), or any of the shared\n  color themes, previewed in the quick panel.\n- Selecting (drag, double-click a word, triple-click a line, Alt for a block), copy and paste,\n  Ctrl+click links, scrollback with search, clear scrollback.\n- Ctrl+Shift keys like kitty's, a command list (Ctrl+Shift+P), a right-click menu, an optional\n  menu bar, and Preferences like the other Rivet apps: font, size, cursor, padding, shell,\n  scrollback, copy on select, the bell, asking before closing a running program.\n\n### Install\n\nRivet Terminal is an early alpha: keep backups of what you use it with.\n\n```sh\ntar xzf rivet-terminal-0.1.0-x86_64-linux.tar.gz\ncd rivet-terminal-0.1.0-x86_64-linux\n./install.sh          # rivet-terminal in ~/.local/bin, and Rivet Terminal in your app launcher\n```\n\nPortable x86_64 build, linked against glibc 2.31. Or build from source: `cargo build --release -p rivet-terminal`.\n",
+    "assets": [
+      {
+        "name": "rivet-terminal-0.1.0-x86_64-linux.tar.gz",
+        "size": 5533779,
+        "browser_download_url": "https://github.com/ulinaaron/rivet-apps/releases/download/rivet-terminal-v0.1.0/rivet-terminal-0.1.0-x86_64-linux.tar.gz",
+        "state": "uploaded"
+      },
+      {
+        "name": "rivet-terminal-0.1.0-x86_64-linux.tar.gz.sha256",
+        "size": 107,
+        "browser_download_url": "https://github.com/ulinaaron/rivet-apps/releases/download/rivet-terminal-v0.1.0/rivet-terminal-0.1.0-x86_64-linux.tar.gz.sha256",
+        "state": "uploaded"
+      }
+    ]
+  },
+  {
+    "tag_name": "rivet-notes-v0.2.0",
+    "name": "Rivet Notes 0.2.0",
+    "draft": false,
+    "prerelease": true,
+    "published_at": "2026-11-17T20:16:14Z",
+    "html_url": "https://github.com/ulinaaron/rivet-apps/releases/tag/rivet-notes-v0.2.0",
+    "body": "\n- Code blocks take Rivet's own code colors (a color for keywords, strings, numbers, functions\n  and types), leaning toward your desktop's colors and accent, the same as Rivet Edit and Rivet\n  Terminal: distinct, familiar colors that still sit in your theme.\n\n### Install\n\nRivet Notes is an early alpha: keep backups of what you use it with.\n\n```sh\ntar xzf rivet-notes-0.2.0-x86_64-linux.tar.gz\ncd rivet-notes-0.2.0-x86_64-linux\n./install.sh          # rivet-notes in ~/.local/bin, and Rivet Notes in your app launcher\n```\n\nPortable x86_64 build, linked against glibc 2.31. Or build from source: `cargo build --release -p rivet-notes`.\n",
+    "assets": [
+      {
+        "name": "rivet-notes-0.2.0-x86_64-linux.tar.gz",
+        "size": 5573493,
+        "browser_download_url": "https://github.com/ulinaaron/rivet-apps/releases/download/rivet-notes-v0.2.0/rivet-notes-0.2.0-x86_64-linux.tar.gz",
+        "state": "uploaded"
+      },
+      {
+        "name": "rivet-notes-0.2.0-x86_64-linux.tar.gz.sha256",
+        "size": 104,
+        "browser_download_url": "https://github.com/ulinaaron/rivet-apps/releases/download/rivet-notes-v0.2.0/rivet-notes-0.2.0-x86_64-linux.tar.gz.sha256",
+        "state": "uploaded"
+      }
+    ]
+  },
+  {
     "tag_name": "rivet-notes-v0.1.0",
     "name": "Rivet Notes 0.1.0",
     "draft": false,
@@ -23,6 +314,29 @@
     ]
   },
   {
+    "tag_name": "rivet-ftp-v0.2.0",
+    "name": "Rivet FTP 0.2.0",
+    "draft": false,
+    "prerelease": true,
+    "published_at": "2026-11-17T20:15:25Z",
+    "html_url": "https://github.com/ulinaaron/rivet-apps/releases/tag/rivet-ftp-v0.2.0",
+    "body": "\n- Code in the preview takes Rivet's own code colors (a color for keywords, strings, numbers,\n  functions and types), leaning toward your desktop's colors and accent, the same as Rivet Edit\n  and Rivet Terminal: distinct, familiar colors that still sit in your theme.\n\n### Install\n\nRivet FTP is an early alpha: keep backups of what you use it with.\n\n```sh\ntar xzf rivet-ftp-0.2.0-x86_64-linux.tar.gz\ncd rivet-ftp-0.2.0-x86_64-linux\n./install.sh          # rivet-ftp in ~/.local/bin, and Rivet FTP in your app launcher\n```\n\nPortable x86_64 build, linked against glibc 2.31. Or build from source: `cargo build --release -p rivet-ftp`.\n",
+    "assets": [
+      {
+        "name": "rivet-ftp-0.2.0-x86_64-linux.tar.gz",
+        "size": 6078770,
+        "browser_download_url": "https://github.com/ulinaaron/rivet-apps/releases/download/rivet-ftp-v0.2.0/rivet-ftp-0.2.0-x86_64-linux.tar.gz",
+        "state": "uploaded"
+      },
+      {
+        "name": "rivet-ftp-0.2.0-x86_64-linux.tar.gz.sha256",
+        "size": 102,
+        "browser_download_url": "https://github.com/ulinaaron/rivet-apps/releases/download/rivet-ftp-v0.2.0/rivet-ftp-0.2.0-x86_64-linux.tar.gz.sha256",
+        "state": "uploaded"
+      }
+    ]
+  },
+  {
     "tag_name": "rivet-ftp-v0.1.0",
     "name": "Rivet FTP 0.1.0",
     "draft": false,
@@ -41,6 +355,29 @@
         "name": "rivet-ftp-0.1.0-x86_64-linux.tar.gz.sha256",
         "size": 102,
         "browser_download_url": "https://github.com/ulinaaron/rivet-apps/releases/download/rivet-ftp-v0.1.0/rivet-ftp-0.1.0-x86_64-linux.tar.gz.sha256",
+        "state": "uploaded"
+      }
+    ]
+  },
+  {
+    "tag_name": "rivet-edit-v0.1.0",
+    "name": "Rivet Edit 0.1.0",
+    "draft": false,
+    "prerelease": true,
+    "published_at": "2026-11-17T20:17:01Z",
+    "html_url": "https://github.com/ulinaaron/rivet-apps/releases/tag/rivet-edit-v0.1.0",
+    "body": "\nThe first version.\n\n- Open a folder as the workspace, or single files; a tree with faint guides, and tabs.\n- Tree-sitter highlighting for Rust, Python, JavaScript, TypeScript, TSX, JSON, shell, C, Go,\n  HTML, CSS, TOML and YAML, in the theme's colors; the shared highlighter for other files.\n- Go to File (Ctrl+P, fuzzy), Commands (Shift+Ctrl+P) and Go to Line (Ctrl+G), on Rivet's quick panel.\n- Line numbers, word wrap, Tab as spaces, code font and size, a status bar with line, column and language.\n- Safe saving, reloading files changed elsewhere, and questions before losing changes.\n- 39 editor color themes (One Dark, Dracula, Catppuccin, Gruvbox, Solarized, Tokyo Night, GitHub,\n  Rosé Pine…), previewed live from Commands → Color Theme, or the app's own colors.\n- A right-click menu in the sidebar: new file or folder, rename, move to the Trash, copy the path,\n  search in a folder, open in the file manager or a terminal, collapse all, reload.\n- A right-click menu in the editor: Go to Definition, Find References, Back / Forward, cut, copy,\n  paste, select all, matches, comment out, find and search the folder for the word.\n- Go to Definition (F12, Ctrl+click), Find References (Shift+F12), what a name is when the\n  pointer rests on it, and Back / Forward (Alt+Left / Alt+Right), from the language's server;\n  without one, Go to Definition finds `fn` / `def` / `class` / `struct`… by name in the folder.\n- Vim keys (Preferences > Editor): Normal, Insert, Visual and Visual Line modes, counts,\n  operators with motions and text objects, registers, `.` repeat, search, and `:` commands\n  (w, q, wq, x, a line number, s///). A block cursor, and the mode in the status bar.\n- Esc no longer takes the keyboard away from the editor.\n- File and folder icons by type (Material Design Icons), each kind in its own colour leaning a\n  little toward the accent; Preferences > Appearance > Icons can switch back to the icon theme.\n- Suggestions as you type (Ctrl+Space any time) and errors underlined, from the language's\n  server when one is installed (rust-analyzer, clangd, pyright, typescript-language-server,\n  gopls…), else from the file's own words.\n- The language and the indentation (tabs or spaces, and how many) are told from each file and\n  shown in the status bar; click either to change it, or to convert the indentation.\n- A new start page (Start and Recent side by side, with icons and keys) and Preferences laid\n  out like the other Rivet apps: pages for Appearance, Editor, Window, Keyboard and About.\n- Faster folder search: several threads at once, a newer query stops the old one, pictures and\n  other binaries skipped, and only the result rows on screen drawn.\n- Find and replace (Ctrl+F, Ctrl+H; case, whole words, regular expressions), and search and\n  replace across the folder (Shift+Ctrl+F) in the sidebar.\n- Multiple cursors (Ctrl+D, Shift+Ctrl+L, Alt+click, Ctrl+Alt+Up/Down) and VS Code's line keys:\n  move, copy, delete, comment, indent, new line above/below, select line.\n- Preferences for the look, the editor and the window; `--install-desktop-entry`.\n\n### Install\n\nRivet Edit is an early alpha: keep backups of what you use it with.\n\n```sh\ntar xzf rivet-edit-0.1.0-x86_64-linux.tar.gz\ncd rivet-edit-0.1.0-x86_64-linux\n./install.sh          # rivet-edit in ~/.local/bin, and Rivet Edit in your app launcher\n```\n\nPortable x86_64 build, linked against glibc 2.31. Or build from source: `cargo build --release -p rivet-edit`.\n",
+    "assets": [
+      {
+        "name": "rivet-edit-0.1.0-x86_64-linux.tar.gz",
+        "size": 7161994,
+        "browser_download_url": "https://github.com/ulinaaron/rivet-apps/releases/download/rivet-edit-v0.1.0/rivet-edit-0.1.0-x86_64-linux.tar.gz",
+        "state": "uploaded"
+      },
+      {
+        "name": "rivet-edit-0.1.0-x86_64-linux.tar.gz.sha256",
+        "size": 103,
+        "browser_download_url": "https://github.com/ulinaaron/rivet-apps/releases/download/rivet-edit-v0.1.0/rivet-edit-0.1.0-x86_64-linux.tar.gz.sha256",
         "state": "uploaded"
       }
     ]

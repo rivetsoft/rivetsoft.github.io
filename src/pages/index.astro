@@ -1,6 +1,8 @@
 ---
 import Base from "../layouts/Base.astro";
 import Shot from "../components/Shot.astro";
+import ReleaseBlock from "../components/ReleaseBlock.astro";
+import StatusBadge from "../components/StatusBadge.astro";
 import shots from "../data/shots.json";
 import { apps, statusFor, statusLabel } from "../data/apps";
 import { catalog, releaseFor } from "../data/releases";
@@ -17,8 +19,12 @@ for (const { app } of rows) {
   }
 }
 
+const shell = rows.find((row) => row.app.spotlight === "shell");
+const welcome = rows.find((row) => row.app.spotlight === "welcome");
+const appRows = rows.filter((row) => !row.app.spotlight);
+
 const description =
-  "A small set of Linux desktop apps for files, notes, FTP, editing and the terminal. Built for fun, held together with rivets.";
+  "A small Linux desktop shell, and apps for files, notes, FTP, editing and the terminal. Each one also runs on its own. Built for fun, held together with rivets.";
 ---
 
 <Base title="Rivet" description={description} current="home">
@@ -32,9 +38,70 @@ const description =
     }
   </header>
 
+  {
+    shell && (
+      <section class="spotlight" aria-labelledby="shell-title">
+        <h2 id="shell-title" class="spot-title">
+          {shell.app.icon && (
+            <img src={url(shell.app.icon)} width="40" height="40" alt="" />
+          )}
+          {shell.app.name}
+        </h2>
+        <StatusBadge app={shell.app} release={shell.release} />
+        <p>
+          The desktop in the middle. A panel, a dock, a launcher, widgets and the wallpaper, for
+          Wayland compositors with the layer-shell protocol (niri, Hyprland, Sway and others, not
+          GNOME). The dock starts with Files, Terminal, Edit and Notes. It runs matugen on the
+          wallpaper, and the Rivet apps follow those colors. They also run without the shell.
+        </p>
+        {shell.app.cardShot && shell.app.cardAlt && shell.app.cardCaption && (
+          <Shot name={shell.app.cardShot} alt={shell.app.cardAlt} caption={shell.app.cardCaption} eager />
+        )}
+        {shell.release ? (
+          <ReleaseBlock slug="shell" heading="h3" />
+        ) : (
+          <p>
+            No release yet. The build commands are on the <a href={url("shell/")}>Shell page</a>.
+          </p>
+        )}
+      </section>
+    )
+  }
+
+  {
+    welcome && (
+      <section class="spotlight" aria-labelledby="welcome-title">
+        <h2 id="welcome-title" class="spot-title">
+          {welcome.app.icon && (
+            <img src={url(welcome.app.icon)} width="40" height="40" alt="" />
+          )}
+          {welcome.app.name}
+        </h2>
+        <StatusBadge app={welcome.app} release={welcome.release} />
+        <p>
+          The way to install the set. It downloads each release, checks the sha256, and runs
+          install.sh, so the programs land in <code>~/.local/bin</code> and in your launcher. A
+          tray icon looks for newer versions after you sign in. Skip it if you would rather
+          install one app from its own release. Apps installed by a package are shown and left
+          alone.
+        </p>
+        {welcome.app.cardShot && welcome.app.cardAlt && welcome.app.cardCaption && (
+          <Shot name={welcome.app.cardShot} alt={welcome.app.cardAlt} caption={welcome.app.cardCaption} />
+        )}
+        <ReleaseBlock slug="welcome" heading="h3" />
+      </section>
+    )
+  }
+
+  <h2>The apps</h2>
+  <p>
+    Files, Terminal, Edit and Notes start pinned in the dock. Each of these also runs on its own,
+    on a desktop that is not Rivet Shell.
+  </p>
+
   <ul class="cards">
     {
-      rows.map(({ app, release, status }) => (
+      appRows.map(({ app, release, status }) => (
         <li>
           <a class="card" href={url(`${app.slug}/`)}>
             {app.cardShot && table[app.cardShot] && (
@@ -69,11 +136,4 @@ const description =
       ))
     }
   </ul>
-
-  <Shot
-    name="icons-wide.png"
-    alt="Rivet Files showing a home folder"
-    caption="Rivet Files, icon view, in a home folder. Screenshot from the repository."
-    eager
-  />
 </Base>

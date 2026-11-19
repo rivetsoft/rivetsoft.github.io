@@ -6,7 +6,7 @@ The built site is served at [https://ulinaaron.github.io/rivet-web/](https://uli
 
 Versions and downloads are read from the [GitHub Releases](https://github.com/ulinaaron/rivet-apps/releases) of `ulinaaron/rivet-apps` when the site is built. Drafts are skipped. The newest release for each app is kept, including pre-releases. If the API is unreachable, the build uses `src/data/releases.fallback.json` and still succeeds.
 
-Rivet Files, Rivet FTP, Rivet Notes, Rivet Edit, and Rivet Terminal are on the site. Facts come from the public repository. Screenshots are copied from `docs/screenshots`. The Notes, FTP, Edit, and Terminal pictures are recompressed RGB copies of those files.
+Rivet Files, Rivet FTP, Rivet Notes, Rivet Edit, Rivet Terminal, Rivet Shell, and Rivet Welcome are on the site. The home page leads with the shell, then Welcome as the installer. Facts come from the public repository. Screenshots are copied from `docs/screenshots`. The Notes, FTP, Edit, and Terminal pictures are recompressed RGB copies of those files.
 
 ## Run
 

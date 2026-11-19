@@ -27,14 +27,68 @@ export interface AppEntry {
   icon?: string;
   /** README path inside the rivet-apps repository. */
   readme?: string;
+  /** Short facts for the generic page. */
+  points?: readonly string[];
   /** Shell lines shown on the short page. */
   source?: string;
+  /** Home page placement. Other apps stay in the grid. */
+  spotlight?: "shell" | "welcome";
 }
 
 export const repoUrl = "https://github.com/ulinaaron/rivet-apps";
 export const allReleasesUrl = `${repoUrl}/releases`;
 
 export const apps: AppEntry[] = [
+  {
+    slug: "shell",
+    name: "Rivet Shell",
+    tagPrefixes: ["rivet-shell-v"],
+    nav: true,
+    navLabel: "Shell",
+    spotlight: "shell",
+    cardShot: "shell-wide.jpg",
+    cardAlt: "Rivet Shell: the panel, widgets and dock over a wallpaper",
+    cardCaption: "Rivet Shell: the panel, widgets and dock over a wallpaper. Screenshot from the repository.",
+    icon: "rivet-shell.svg",
+    readme: "apps/rivet-shell/README.md",
+    summary:
+      "A Wayland desktop shell: panel, dock, launcher, quick settings, notifications, widgets and wallpaper. It colors the desktop from the wallpaper with matugen. Needs a layer-shell compositor (niri, Hyprland, Sway and others, not GNOME).",
+    points: [
+      "A panel with workspaces, the focused window, clock, volume, battery, notifications and a power menu. Top or bottom, floating or edge to edge.",
+      "A dock of pinned apps, then open ones. A dot shows when a window is open. Files, Terminal, Edit and Notes start pinned.",
+      "A launcher that searches installed apps. Type a sum and it answers.",
+      "Wallpaper on every screen. matugen colors the desktop from that picture, and the Rivet apps follow it.",
+      "A settings window for wallpaper, colors, panels, dock, widgets and notifications.",
+    ],
+    source: `cargo build --release -p rivet-shell
+./target/release/rivet-shell
+./target/release/rivet-shell settings
+./target/release/rivet-shell --install-desktop-entry`,
+  },
+  {
+    slug: "welcome",
+    name: "Rivet Welcome",
+    tagPrefixes: ["rivet-welcome-v"],
+    nav: true,
+    navLabel: "Welcome",
+    spotlight: "welcome",
+    cardShot: "welcome-wide.png",
+    cardAlt: "Rivet Welcome with two updates and an install under way",
+    cardCaption: "Rivet Welcome with updates and an install under way. Screenshot from the repository.",
+    icon: "rivet-welcome.svg",
+    readme: "apps/rivet-welcome/README.md",
+    summary:
+      "Optional. Installs and updates Rivet Shell and the apps from their GitHub releases, and looks for new versions from a tray icon. Every app can still be installed from its own release.",
+    points: [
+      "Lists Files, Notes, Edit, Terminal, FTP, Shell and Welcome, with Install, Update, Open or Remove. A later app with a rivet-something-v tag and a Linux archive shows up too.",
+      "Downloads the archive for this computer, checks the published sha256, and runs install.sh. The program goes in ~/.local/bin. No password.",
+      "An app installed by a package (AUR, a distribution, a build in /usr/local/bin) is shown and left alone.",
+      "A tray icon checks at sign-in and on a schedule. It works with Rivet Shell, KDE, waybar and other StatusNotifierItem trays.",
+    ],
+    source: `cargo build --release -p rivet-welcome
+./target/release/rivet-welcome --install-desktop-entry
+./target/release/rivet-welcome`,
+  },
   {
     slug: "files",
     name: "Rivet Files",

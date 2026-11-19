@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="front" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffab4a"/>
+      <stop offset="1" stop-color="#ec6a12"/>
+    </linearGradient>
+    <linearGradient id="back" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#c4520b"/>
+      <stop offset="1" stop-color="#a94506"/>
+    </linearGradient>
+  </defs>
+  <!-- a shelf of apps behind -->
+  <rect x="20" y="12" width="88" height="44" rx="13" fill="url(#back)"/>
+  <rect x="31" y="22" width="18" height="18" rx="5" fill="#ffffff" fill-opacity="0.35"/>
+  <rect x="55" y="22" width="18" height="18" rx="5" fill="#ffffff" fill-opacity="0.5"/>
+  <rect x="79" y="22" width="18" height="18" rx="5" fill="#ffffff" fill-opacity="0.35"/>
+  <!-- the box they come in -->
+  <rect x="12" y="38" width="104" height="78" rx="14" fill="url(#front)"/>
+  <rect x="12" y="38" width="104" height="6" rx="3" fill="#ffffff" fill-opacity="0.22"/>
+  <!-- an arrow going in -->
+  <path d="M64 56v34M49 76l15 15 15-15" fill="none" stroke="#ffffff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="40" y="99" width="48" height="7" rx="3.5" fill="#ffd2a3"/>
+</svg>
