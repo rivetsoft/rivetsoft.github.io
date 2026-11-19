@@ -1345,20 +1345,52 @@ body:has(.band) .site-footer-inner {
 
 .colors-copy {
   max-width: 74rem;
-  padding: 1.5rem 1.6rem 1.35rem;
+  padding: 1.7rem 1.75rem 1.55rem;
   border-radius: 22px;
   background: rgba(36, 18, 27, 0.84);
   color: #f7eef3;
 }
 
+.colors-top {
+  display: grid;
+  gap: 1.75rem;
+}
+
 .colors-copy h2,
-.colors-copy p,
-.colors-copy .accent-row li {
+.colors-copy p {
   color: #f7eef3;
 }
 
 .colors-copy a {
   color: #9ad7ef;
+}
+
+.colors-copy .accent-row,
+.colors-copy .preset-row {
+  margin: 0;
+}
+
+.colors-copy .preset-row {
+  margin-top: 1.85rem;
+}
+
+.colors-copy .accent-row li {
+  min-width: 0;
+}
+
+@media (min-width: 800px) {
+  .colors-top {
+    grid-template-columns: minmax(0, 1.15fr) minmax(13rem, 0.7fr);
+    gap: 2.75rem;
+    align-items: center;
+  }
+
+  .colors-copy .accent-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+    gap: 1.15rem 0.75rem;
+  }
 }
 
 .band-colors .scheme-grid span {
