@@ -217,16 +217,56 @@ nav[aria-label="Pages"] a[aria-current="page"] {
 }
 
 nav[aria-label="Pages"] .apps-panel a,
-nav[aria-label="Pages"] .apps-panel .apps-name,
-nav[aria-label="Pages"] .apps-panel .apps-line {
-  color: #e9dee5;
+nav[aria-label="Pages"] .apps-panel .apps-name {
+  color: var(--fg);
 }
 
-nav[aria-label="Pages"] .apps-panel a:hover,
-nav[aria-label="Pages"] .apps-panel a:focus-visible,
-nav[aria-label="Pages"] .apps-panel a[aria-current="page"] {
+nav[aria-label="Pages"] .apps-panel .apps-line {
+  color: var(--muted);
+}
+
+nav[aria-label="Pages"] .apps-panel a:hover:not(.apps-install),
+nav[aria-label="Pages"] .apps-panel a:focus:not(.apps-install),
+nav[aria-label="Pages"] .apps-panel a:focus-visible:not(.apps-install),
+nav[aria-label="Pages"] .apps-panel a[aria-current="page"]:not(.apps-install) {
   color: #e9dee5;
-  background: color-mix(in srgb, #24121b 28%, #0084b8);
+  background: #0084b8;
+}
+
+nav[aria-label="Pages"] .apps-panel a.apps-install,
+nav[aria-label="Pages"] .apps-panel a.apps-install:hover,
+nav[aria-label="Pages"] .apps-panel a.apps-install:focus,
+nav[aria-label="Pages"] .apps-panel a.apps-install:focus-visible {
+  width: 100%;
+  box-sizing: border-box;
+  justify-content: space-between;
+  margin-top: 0.35rem;
+  padding: 0.55rem 0.85rem;
+  border-radius: 0;
+  border: 2px solid #24121b;
+  background: #fff270;
+  color: #24121b;
+  font-family: "Space Mono", ui-monospace, monospace;
+  font-weight: 700;
+  box-shadow: 4px 4px 0 #8b8231;
+}
+
+nav[aria-label="Pages"] .apps-panel a.apps-install:hover,
+nav[aria-label="Pages"] .apps-panel a.apps-install:focus,
+nav[aria-label="Pages"] .apps-panel a.apps-install:focus-visible {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 #8b8231;
+}
+
+nav[aria-label="Pages"] .apps-panel a:hover .apps-name,
+nav[aria-label="Pages"] .apps-panel a:hover .apps-line,
+nav[aria-label="Pages"] .apps-panel a:focus .apps-name,
+nav[aria-label="Pages"] .apps-panel a:focus .apps-line,
+nav[aria-label="Pages"] .apps-panel a:focus-visible .apps-name,
+nav[aria-label="Pages"] .apps-panel a:focus-visible .apps-line,
+nav[aria-label="Pages"] .apps-panel a[aria-current="page"] .apps-name,
+nav[aria-label="Pages"] .apps-panel a[aria-current="page"] .apps-line {
+  color: #e9dee5;
 }
 
 nav[aria-label="Pages"] a.repo {
@@ -1582,8 +1622,12 @@ body:has(.band) .site-footer-inner {
 }
 
 .band-colors .preset {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   min-width: 0;
-  min-height: 4.6rem;
+  min-height: 7.5rem;
   height: 100%;
   margin: 0;
   padding: 0.65rem 0.7rem 0.7rem;
@@ -1596,9 +1640,24 @@ body:has(.band) .site-footer-inner {
 
 .band-colors .preset > span:first-child {
   display: block;
+  width: 100%;
   min-height: 2.4em;
   font-size: 0.92rem;
   line-height: 1.2;
+  text-align: center;
+}
+
+.band-colors .preset .swatch {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  margin: 0;
+  transform: translateY(-50%);
 }
 
 .band-colors .preset-more {

@@ -57,7 +57,10 @@ const listed = menuSlugs.map((slug) => {
         }
         <li class="apps-rule" role="separator"></li>
         <li>
-          <a class="apps-install" href={url("docs/getting-started/install/")}>Install With Welcome App</a>
+          <a class="apps-install" href={url("docs/getting-started/install/")}>
+            Install With Welcome App
+            <span aria-hidden="true">→</span>
+          </a>
         </li>
       </ul>
     </div>
@@ -317,11 +320,11 @@ const listed = menuSlugs.map((slug) => {
     list-style: none;
     margin: 0;
     padding: 0.35rem;
-    background: #0084b8;
-    color: #e9dee5;
-    border: 0;
+    background: var(--bg);
+    color: var(--fg);
+    border: 1px solid var(--line);
     border-radius: var(--radius-card);
-    box-shadow: none;
+    box-shadow: var(--shadow);
   }
 
   .apps:hover > .apps-panel,
@@ -337,26 +340,67 @@ const listed = menuSlugs.map((slug) => {
     gap: 0.7rem;
     padding: 0.45rem 0.55rem;
     border-radius: var(--radius-card);
-    color: #e9dee5;
+    color: var(--fg);
     text-decoration: none;
     min-height: 44px;
   }
 
-  .apps-panel a:hover,
-  .apps-panel a:focus-visible,
-  .apps-panel a[aria-current="page"] {
-    background: color-mix(in srgb, #24121b 28%, #0084b8);
+  .apps-panel a:hover:not(.apps-install),
+  .apps-panel a:focus:not(.apps-install),
+  .apps-panel a:focus-visible:not(.apps-install),
+  .apps-panel a[aria-current="page"]:not(.apps-install) {
+    background: #0084b8;
+    color: #e9dee5;
+  }
+
+  .apps-panel a:hover .apps-name,
+  .apps-panel a:hover .apps-line,
+  .apps-panel a:focus .apps-name,
+  .apps-panel a:focus .apps-line,
+  .apps-panel a:focus-visible .apps-name,
+  .apps-panel a:focus-visible .apps-line,
+  .apps-panel a[aria-current="page"] .apps-name,
+  .apps-panel a[aria-current="page"] .apps-line {
     color: #e9dee5;
   }
 
   .apps-rule {
     height: 1px;
     margin: 0.3rem 0.55rem;
-    background: color-mix(in srgb, #e9dee5 55%, transparent);
+    background: var(--line);
   }
 
   .apps-install {
+    width: 100%;
+    box-sizing: border-box;
+    justify-content: space-between;
+    margin-top: 0.35rem;
+    padding: 0.55rem 0.85rem;
+    border-radius: 0;
+    border: 2px solid #24121b;
+    background: #fff270;
+    color: #24121b;
+    font-family: "Space Mono", ui-monospace, monospace;
     font-weight: 700;
+    box-shadow: 4px 4px 0 #8b8231;
+  }
+
+  .apps-install:hover,
+  .apps-install:focus,
+  .apps-install:focus-visible {
+    background: #fff270;
+    color: #24121b;
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 #8b8231;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .apps-install:hover,
+    .apps-install:focus,
+    .apps-install:focus-visible {
+      transform: none;
+      box-shadow: 4px 4px 0 #8b8231;
+    }
   }
 
   .apps-panel img {
@@ -372,11 +416,11 @@ const listed = menuSlugs.map((slug) => {
 
   .apps-name {
     font-weight: 640;
-    color: #e9dee5;
+    color: var(--fg);
   }
 
   .apps-line {
-    color: #e9dee5;
+    color: var(--muted);
     font-size: 0.92rem;
   }
 
