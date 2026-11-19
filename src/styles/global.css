@@ -1204,6 +1204,19 @@ a {
   color: var(--muted);
 }
 
+body:has(.band) .site-footer {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0 var(--frame) 2.5rem;
+  border-top: 0;
+}
+
+body:has(.band) .site-footer-inner {
+  border-top: 1px solid var(--line);
+  padding-top: 1.25rem;
+}
+
 .site-footer .visits {
   margin-top: 0.35rem;
   font-size: 0.82rem;
@@ -1456,7 +1469,7 @@ a {
 }
 
 .vibe {
-  padding: 0.4rem var(--frame) 3.4rem;
+  padding: 40px var(--frame);
 }
 
 .vibe-card {
@@ -1464,6 +1477,7 @@ a {
   align-items: flex-start;
   gap: 0.8rem;
   max-width: 36rem;
+  margin-inline: auto;
   padding: 0.95rem 1.05rem 1rem;
   border: 1px solid var(--line);
   border-radius: 16px;
@@ -1496,6 +1510,11 @@ a {
 }
 
 @media (min-width: 800px) {
+  .vibe {
+    padding-top: 64px;
+    padding-bottom: 64px;
+  }
+
   .band-facts,
   .band-split {
     padding-top: 6.25rem;
