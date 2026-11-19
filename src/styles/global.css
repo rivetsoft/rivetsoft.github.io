@@ -201,7 +201,7 @@ nav[aria-label="Pages"] {
 }
 
 nav[aria-label="Pages"] a {
-  color: var(--muted);
+  color: var(--fg);
   text-decoration: none;
   min-height: 44px;
   display: inline-flex;
@@ -212,8 +212,21 @@ nav[aria-label="Pages"] a {
 
 nav[aria-label="Pages"] a:hover,
 nav[aria-label="Pages"] a[aria-current="page"] {
-  color: var(--secondary);
-  background: var(--chip);
+  color: var(--accent);
+  background: transparent;
+}
+
+nav[aria-label="Pages"] .apps-panel a,
+nav[aria-label="Pages"] .apps-panel .apps-name,
+nav[aria-label="Pages"] .apps-panel .apps-line {
+  color: #e9dee5;
+}
+
+nav[aria-label="Pages"] .apps-panel a:hover,
+nav[aria-label="Pages"] .apps-panel a:focus-visible,
+nav[aria-label="Pages"] .apps-panel a[aria-current="page"] {
+  color: #e9dee5;
+  background: color-mix(in srgb, #24121b 28%, #0084b8);
 }
 
 nav[aria-label="Pages"] a.repo {

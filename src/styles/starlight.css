@@ -95,6 +95,19 @@ header.header {
   box-shadow: 0 12px 28px -12px rgba(0, 0, 0, 0.72);
 }
 
+header.header .apps-panel a,
+header.header .apps-panel .apps-name,
+header.header .apps-panel .apps-line {
+  color: #e9dee5;
+}
+
+header.header .apps-panel a:hover,
+header.header .apps-panel a:focus-visible,
+header.header .apps-panel a[aria-current="page"] {
+  color: #e9dee5;
+  background: color-mix(in srgb, #24121b 28%, #0084b8);
+}
+
 header.header button[data-open-modal],
 starlight-menu-button button {
   background: transparent;
