@@ -9,6 +9,8 @@ export interface PluginEntry {
   version: string;
   /** Comes with Rivet Shell, so there is nothing to install. */
   official: boolean;
+  /** A shared plugin's release file: its author's own, naming the current version. */
+  release?: string;
 }
 
 /**
@@ -28,8 +30,7 @@ export function selectPlugins(raw: unknown): PluginEntry[] {
     const ok =
       /^[a-z0-9][a-z0-9_-]{0,39}$/.test(id) &&
       text(row, "name") !== "" &&
-      text(row, "download").startsWith("https://") &&
-      /^[0-9a-fA-F]{64}$/.test(text(row, "sha256")) &&
+      text(row, "release").startsWith("https://") &&
       !out.some((entry) => entry.id === id);
     if (!ok) continue;
     out.push({
@@ -38,8 +39,9 @@ export function selectPlugins(raw: unknown): PluginEntry[] {
       description: text(row, "description"),
       author: text(row, "author"),
       homepage: homepage.startsWith("https://") ? homepage : "",
-      version: text(row, "version"),
+      version: "",
       official: false,
+      release: text(row, "release"),
     });
   }
   return out.sort((a, b) => a.name.localeCompare(b.name));
@@ -55,4 +57,19 @@ export function readPluginConf(text: string): { name: string; description: strin
     found[trimmed.slice(0, at).trim()] = trimmed.slice(at + 1).trim();
   }
   return { name: found["name"] ?? "", description: found["description"] ?? "" };
+}
+
+/**
+ * The current version from an author's release file, or undefined when the file is not one Rivet
+ * Shell would install from (the shell leaves such a plugin out, and so does the page).
+ */
+export function releaseVersion(raw: unknown): string | undefined {
+  const row = raw as Record<string, unknown>;
+  const text = (key: string) => (row && typeof row[key] === "string" ? (row[key] as string).trim() : "");
+  const ok =
+    text("version") !== "" &&
+    text("version").length <= 40 &&
+    text("download").startsWith("https://") &&
+    /^[0-9a-fA-F]{64}$/.test(text("sha256"));
+  return ok ? text("version") : undefined;
 }

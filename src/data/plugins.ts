@@ -1,6 +1,6 @@
 import { repoUrl } from "./apps";
 import fallback from "./plugins.fallback.json";
-import { readPluginConf, selectPlugins, type PluginEntry } from "./plugin-model";
+import { readPluginConf, releaseVersion, selectPlugins, type PluginEntry } from "./plugin-model";
 
 const REGISTRY = "https://raw.githubusercontent.com/ulinaaron/rivet-apps/main/plugins/registry.json";
 
@@ -74,7 +74,19 @@ export const sharedPlugins: PluginEntry[] = await (async () => {
   try {
     const response = await fetch(registryUrl(), { signal: AbortSignal.timeout(20_000) });
     if (!response.ok) throw new Error(`plugin list HTTP ${response.status}`);
-    const live = selectPlugins(await response.json()).filter((plugin) => !taken.has(plugin.id));
+    const listed = selectPlugins(await response.json()).filter((plugin) => !taken.has(plugin.id));
+    // Each author's release file says which version is current.
+    const versions = await Promise.all(
+      listed.map(async (plugin) => {
+        try {
+          const release = await fetch(plugin.release ?? "", { signal: AbortSignal.timeout(20_000) });
+          return release.ok ? releaseVersion(await release.json()) : undefined;
+        } catch {
+          return undefined;
+        }
+      }),
+    );
+    const live = listed.flatMap((plugin, index) => (versions[index] ? [{ ...plugin, version: versions[index] }] : []));
     console.log(`[plugins] registry: ${live.length} shared`);
     return live;
   } catch (error) {

@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import { readPluginConf, selectPlugins } from "../src/data/plugin-model.ts";
+import { readPluginConf, releaseVersion, selectPlugins } from "../src/data/plugin-model.ts";
 
 const sum = "a".repeat(64);
 const listing = (over: Record<string, unknown>) => ({
@@ -9,9 +9,7 @@ const listing = (over: Record<string, unknown>) => ({
   description: "Today's forecast on the panel.",
   author: "Sam Rivera",
   homepage: "https://example.org/weather",
-  version: "1.0",
-  download: "https://example.org/weather-1.0.tar.gz",
-  sha256: sum,
+  release: "https://example.org/weather/release.json",
   ...over,
 });
 
@@ -26,8 +24,8 @@ describe("selectPlugins", () => {
   it("leaves out listings Rivet Shell would refuse", () => {
     const plugins = selectPlugins({
       plugins: [
-        listing({ id: "no-sum", sha256: "" }),
-        listing({ id: "plain", download: "http://example.org/x.tar.gz" }),
+        listing({ id: "no-release", release: "" }),
+        listing({ id: "plain", release: "http://example.org/release.json" }),
         listing({ id: "../up" }),
         listing({ id: "Caps" }),
         listing({ id: "nameless", name: "" }),
@@ -62,5 +60,18 @@ describe("readPluginConf", () => {
     const conf = "# a plugin\nname=Disk Space\ndescription = Free space on your disk\nexec=./disk.sh /   # with a comment\n";
     assert.deepEqual(readPluginConf(conf), { name: "Disk Space", description: "Free space on your disk" });
     assert.deepEqual(readPluginConf("exec=./x.sh"), { name: "", description: "" });
+  });
+});
+
+describe("releaseVersion", () => {
+  const release = { version: "1.2", download: "https://example.org/weather-1.2.tar.gz", sha256: sum };
+  it("reads the version of a release Rivet Shell would install", () => {
+    assert.equal(releaseVersion(release), "1.2");
+  });
+  it("refuses one it would not", () => {
+    assert.equal(releaseVersion({ ...release, sha256: "" }), undefined);
+    assert.equal(releaseVersion({ ...release, download: "http://example.org/x.tar.gz" }), undefined);
+    assert.equal(releaseVersion({ ...release, version: "" }), undefined);
+    assert.equal(releaseVersion(null), undefined);
   });
 });
