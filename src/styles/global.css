@@ -2300,6 +2300,20 @@ body:has(.band) .site-footer-inner {
   text-decoration: none;
 }
 
+/* The type's own arrow is thin and small, so the arrow is drawn, as heavy as the letters. */
+.show-arrow {
+  display: inline-block;
+  width: 1.7em;
+  height: 1.1em;
+  margin-left: 0.2rem;
+  vertical-align: -0.22em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.6;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+}
+
 .show-more:hover {
   background: #fff270;
   color: #24121b;
