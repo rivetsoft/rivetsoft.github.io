@@ -29,6 +29,11 @@ const heroAlt = "Rivet Shell over a sunset wallpaper, with a Rivet Files window 
 
 const description =
   "A small Linux desktop shell, and apps for files, notes, FTP, editing and the terminal. Each one also runs on its own. Built for fun, held together with rivets. Human-driven — executed with vibes.";
+
+// The hero's halftone: dot radius for each band, top to bottom.
+const HALFTONE_BANDS = 16;
+const halftoneBand = 84 / HALFTONE_BANDS;
+const halftone = Array.from({ length: HALFTONE_BANDS }, (_, i) => +(4.2 * Math.pow(1 - i / HALFTONE_BANDS, 1.25)).toFixed(2));
 ---
 
 <Base
@@ -39,38 +44,22 @@ const description =
 >
   <div class="home-grid">
   <header class="hero">
+  {/* Halftone: dots that are big at the top of the hero and shrink to nothing going down.
+      The hero is cut into bands, each with a smaller dot; every band uses the same spacing,
+      so the dots line up from one band to the next. */}
   <svg class="hero-plate" aria-hidden="true" focusable="false">
       <defs>
-        <radialGradient id="rivet-dome" cx="34%" cy="30%" r="72%">
-          <stop offset="0%" stop-color="var(--plate-rivet-hi)" />
-          <stop offset="46%" stop-color="var(--plate-rivet)" />
-          <stop offset="100%" stop-color="var(--plate-rivet-lo)" />
-        </radialGradient>
-        <pattern id="rivet-plate" width="220" height="150" patternUnits="userSpaceOnUse">
-          <path d="M0 0.6H220M0.6 0V150" fill="none" stroke="var(--plate-seam)" stroke-width="1.2" />
-          <g fill="var(--plate-shadow)">
-            <circle cx="28.6" cy="1.5" r="3.3" />
-            <circle cx="78.6" cy="1.5" r="3.3" />
-            <circle cx="128.6" cy="1.5" r="3.3" />
-            <circle cx="178.6" cy="1.5" r="3.3" />
-            <circle cx="1.5" cy="38.6" r="3.3" />
-            <circle cx="1.5" cy="88.6" r="3.3" />
-            <circle cx="1.5" cy="138.6" r="3.3" />
-          </g>
-          <g fill="url(#rivet-dome)">
-            <circle cx="28" cy="0.6" r="3.15" />
-            <circle cx="78" cy="0.6" r="3.15" />
-            <circle cx="128" cy="0.6" r="3.15" />
-            <circle cx="178" cy="0.6" r="3.15" />
-            <circle cx="0.6" cy="38" r="3.15" />
-            <circle cx="0.6" cy="88" r="3.15" />
-            <circle cx="0.6" cy="138" r="3.15" />
-          </g>
-        </pattern>
+        {
+          halftone.map((r, i) => (
+            <pattern id={`halftone-${i}`} width="14" height="14" patternUnits="userSpaceOnUse">
+              <circle cx="3.5" cy="3.5" r={r} fill="var(--plate-rivet)" />
+              <circle cx="10.5" cy="10.5" r={r} fill="var(--plate-rivet)" />
+            </pattern>
+          ))
+        }
       </defs>
-      <rect width="100%" height="100%" fill="url(#rivet-plate)" />
+      {halftone.map((_, i) => <rect x="0" y={`${i * halftoneBand}%`} width="100%" height={`${halftoneBand + 0.2}%`} fill={`url(#halftone-${i})`} />)}
     </svg>
-  <div class="hero-grain" aria-hidden="true"></div>
     <div class="hero-copy">
       <img class="hero-shell" src={url("rivet-shell.svg")} width="128" height="128" alt="Rivet Shell" />
       <h1>Rivet</h1>
