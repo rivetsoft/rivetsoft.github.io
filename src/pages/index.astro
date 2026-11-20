@@ -1,7 +1,6 @@
 ---
 import { Image } from "astro:assets";
 import Base from "../layouts/Base.astro";
-import Shot from "../components/Shot.astro";
 import ReleaseBlock from "../components/ReleaseBlock.astro";
 import StatusBadge from "../components/StatusBadge.astro";
 import shots from "../data/shots.json";
@@ -362,18 +361,15 @@ import islandArt from "../assets/mascot/island.svg?raw";
             </p>
             <ReleaseBlock slug="welcome" heading="h3" />
           </div>
-          {welcome.app.cardShot && welcome.app.cardAlt && welcome.app.cardCaption && (
-            <div class="welcome-visual">
-              <Shot name={welcome.app.cardShot} alt={welcome.app.cardAlt} caption={welcome.app.cardCaption} />
-            </div>
-          )}
+          {/* Rivet on his island stands where the screenshot was: the home page has plenty of
+              those, and the app's own page still shows it. */}
+          <div
+            class="welcome-rivet"
+            role="img"
+            aria-label="Rivet, the mascot, lies on a lounge chair on a tiny island in sunglasses, under a palm tree, sipping from a coconut. Shark fins circle in the water."
+            set:html={islandArt}
+          />
         </div>
-        <div
-          class="welcome-rivet"
-          role="img"
-          aria-label="Rivet, the mascot, lies on a lounge chair on a tiny island in sunglasses, under a palm tree, sipping from a coconut. Shark fins circle in the water."
-          set:html={islandArt}
-        />
       </section>
     )
   }

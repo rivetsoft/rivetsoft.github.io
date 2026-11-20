@@ -2002,10 +2002,11 @@ body:has(.band) .site-footer-inner {
   }
 }
 
-/* Rivet on his island, under the Rivet Welcome band's words: it does the installing. */
+/* Rivet on his island, beside the Rivet Welcome band's words: it does the installing. */
 .welcome-rivet {
-  max-width: 54rem;
-  margin: 3rem auto 0;
+  width: 100%;
+  max-width: 46rem;
+  margin-inline: auto;
 }
 
 .welcome-rivet svg {
