@@ -30,9 +30,10 @@
   --sl-color-gray-5: #4a3140;
   --sl-color-gray-6: #321c28;
   --sl-color-black: #24121b;
-  --sl-color-bg: #24121b;
+  /* The page is a step darker than the apps' own background, so a screenshot stands off it. */
+  --sl-color-bg: #190b12;
   --sl-color-bg-nav: #d53f8c;
-  --sl-color-bg-sidebar: #321c28;
+  --sl-color-bg-sidebar: #21101a;
   --sl-color-text: #e9dee5;
   --sl-color-text-accent: #d53f8c;
   --sl-color-text-invert: #24121b;
@@ -68,7 +69,8 @@
   --sl-color-gray-6: #e2d4db;
   --sl-color-gray-7: #f3eaee;
   --sl-color-black: #e9dee5;
-  --sl-color-bg: #e9dee5;
+  /* And a step lighter in the light theme, for the same reason. */
+  --sl-color-bg: #faf7f8;
   --sl-color-bg-nav: #d53f8c;
   --sl-color-bg-sidebar: #f3eaee;
   --sl-color-text: #24121b;
@@ -431,6 +433,8 @@ h4 {
 
 .sl-markdown-content img {
   border-radius: var(--radius-shot);
+  border: 1px solid var(--sl-color-hairline);
+  box-shadow: var(--shadow);
 }
 
 .sl-markdown-content {
