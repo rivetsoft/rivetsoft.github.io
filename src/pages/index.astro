@@ -23,7 +23,6 @@ for (const { app } of rows) {
   }
 }
 
-const shell = rows.find((row) => row.app.spotlight === "shell");
 const welcome = rows.find((row) => row.app.spotlight === "welcome");
 const appRows = byReleaseStatus(rows.filter((row) => !row.app.spotlight));
 const heroAlt = "Rivet Shell over a sunset wallpaper, with a Rivet Files window in front";
@@ -80,13 +79,6 @@ const description =
         <a class="btn btn-primary" href={url("docs/getting-started/install/#get-started")}>Getting Started →</a>
         <a class="btn btn-secondary" href={url("docs/")}>Docs</a>
       </div>
-      {
-        shell && !shell.release && (
-          <p class="hero-note">
-            Shell has no release yet. The <a href={url("shell/")}>Shell page</a> shows what is on screen.
-          </p>
-        )
-      }
       {
         catalog.source === "fallback" && (
           <p class="notice">GitHub was unreachable when this page was built. Versions below are the last saved release info.</p>
