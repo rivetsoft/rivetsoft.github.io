@@ -44,3 +44,15 @@ export function selectPlugins(raw: unknown): PluginEntry[] {
   }
   return out.sort((a, b) => a.name.localeCompare(b.name));
 }
+
+/** The name and description from a plugin's `plugin.conf` (`key=value` lines, `#` comments). */
+export function readPluginConf(text: string): { name: string; description: string } {
+  const found: Record<string, string> = {};
+  for (const line of text.split("\n")) {
+    const trimmed = line.trim();
+    const at = trimmed.indexOf("=");
+    if (trimmed.startsWith("#") || at < 1) continue;
+    found[trimmed.slice(0, at).trim()] = trimmed.slice(at + 1).trim();
+  }
+  return { name: found["name"] ?? "", description: found["description"] ?? "" };
+}

@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import { selectPlugins } from "../src/data/plugin-model.ts";
+import { readPluginConf, selectPlugins } from "../src/data/plugin-model.ts";
 
 const sum = "a".repeat(64);
 const listing = (over: Record<string, unknown>) => ({
@@ -54,5 +54,13 @@ describe("selectPlugins", () => {
       ["clock", "weather"],
     );
     assert.throws(() => selectPlugins({}));
+  });
+});
+
+describe("readPluginConf", () => {
+  it("reads the name and description, skipping comments", () => {
+    const conf = "# a plugin\nname=Disk Space\ndescription = Free space on your disk\nexec=./disk.sh /   # with a comment\n";
+    assert.deepEqual(readPluginConf(conf), { name: "Disk Space", description: "Free space on your disk" });
+    assert.deepEqual(readPluginConf("exec=./x.sh"), { name: "", description: "" });
   });
 });
