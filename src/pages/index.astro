@@ -211,8 +211,8 @@ const description =
       {
         appRows.map(({ app, release, status }) => (
           <li class="show-row">
-            <a href={url(`${app.slug}/`)}>
-              {app.cardShot && table[app.cardShot] && (
+            {app.cardShot && table[app.cardShot] && (
+              <a class="show-shot-link" href={url(`${app.slug}/`)}>
                 <img
                   class="show-shot"
                   src={url(`screenshots/${app.cardShot}`)}
@@ -222,26 +222,28 @@ const description =
                   decoding="async"
                   loading="lazy"
                 />
-              )}
-              <span class="show-copy">
-                <span class={`badge badge-${status}`}>{statusLabel[status]}</span>
-                <span class="card-name">
-                  {app.icon && (
-                    <img class="card-icon" src={url(app.icon)} width="32" height="32" alt="" />
-                  )}
-                  {app.name}
-                </span>
-                {release && (
-                  <span class="card-version">
-                    {release.prerelease
-                      ? `${release.version} pre-release, ${release.dateLabel}`
-                      : `${release.version}, ${release.dateLabel}`}
-                  </span>
+              </a>
+            )}
+            <div class="show-copy">
+              <span class={`badge badge-${status}`}>{statusLabel[status]}</span>
+              <a class="card-name" href={url(`${app.slug}/`)}>
+                {app.icon && (
+                  <img class="card-icon" src={url(app.icon)} width="32" height="32" alt="" />
                 )}
-                <span class="card-summary">{app.summary}</span>
-                <span class="show-more">Go Deeper <span aria-hidden="true">→</span></span>
-              </span>
-            </a>
+                {app.name}
+              </a>
+              {release && (
+                <span class="card-version">
+                  {release.prerelease
+                    ? `${release.version} pre-release, ${release.dateLabel}`
+                    : `${release.version}, ${release.dateLabel}`}
+                </span>
+              )}
+              <span class="card-summary">{app.summary}</span>
+              <a class="show-more" href={url(`${app.slug}/`)} aria-label={`Go deeper into ${app.name}`}>
+                Go Deeper <span aria-hidden="true">→</span>
+              </a>
+            </div>
           </li>
         ))
       }

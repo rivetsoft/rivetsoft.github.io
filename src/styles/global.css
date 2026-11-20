@@ -730,7 +730,7 @@ main.column:has(.band) {
 
   .scheme-grid li:hover,
   .facts li:hover,
-  .show-row a:hover .show-shot {
+  .show-shot-link:hover .show-shot {
     transform: none;
   }
 }
@@ -2231,14 +2231,20 @@ body:has(.band) .site-footer-inner {
   padding: 0;
 }
 
+/* The picture, the name and Go Deeper are each a link to the app's page; the rest of the row is
+   plain text. */
 .show-row {
+  display: grid;
+  gap: 1.1rem;
   margin: 0;
   max-width: none;
 }
 
-.show-row a {
-  display: grid;
-  gap: 1.1rem;
+.show-shot-link {
+  display: block;
+}
+
+.show-copy .card-name {
   color: inherit;
   text-decoration: none;
 }
@@ -2254,7 +2260,7 @@ body:has(.band) .site-footer-inner {
   transition: transform 180ms ease;
 }
 
-.show-row a:hover .show-shot {
+.show-shot-link:hover .show-shot {
   transform: translateY(-4px);
 }
 
@@ -2282,8 +2288,7 @@ body:has(.band) .site-footer-inner {
   height: 2rem;
 }
 
-/* The row is one link to the app's page; this is its visible cue, in the buttons' type. It lights
-   up only when the pointer is on these words, not anywhere on the row. */
+/* In the buttons' type. It lights up only when the pointer is on these words. */
 .show-more {
   margin-top: 0.35rem;
   padding-bottom: 0.1rem;
@@ -2326,17 +2331,17 @@ body:has(.band) .site-footer-inner {
     gap: 2.15rem;
   }
 
-  .show-row a {
+  .show-row {
     grid-template-columns: 1.35fr 0.8fr;
     gap: 2.4rem;
     align-items: center;
   }
 
-  .show-row:nth-child(even) a {
+  .show-row:nth-child(even) {
     grid-template-columns: 0.8fr 1.35fr;
   }
 
-  .show-row:nth-child(even) .show-shot {
+  .show-row:nth-child(even) .show-shot-link {
     order: 2;
   }
 }
