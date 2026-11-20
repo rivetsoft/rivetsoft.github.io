@@ -15,8 +15,8 @@ import { url } from "../paths";
       fonts, menus, Preferences, and quick panel as the other Rivet apps.
     </p>
     <p>
-      It is still young. Keep a copy of anything you care about. Keys and the build are in the
-      <a href={url("docs/edit/")}>Edit docs</a>.
+      It is still young. Keep a copy of anything you care about. How to use it, the keys, and the
+      build are in the <a href={url("docs/edit/")}>Edit docs</a>.
     </p>
     <Shot
       name="edit-editor-wide.png"
@@ -29,14 +29,9 @@ import { url } from "../paths";
   <section class="band edit-files" aria-labelledby="edit-files">
     <h2 id="edit-files">A folder, or a file</h2>
     <p>
-      Open a folder and its files sit in a tree. The tree leaves out <code>.git</code>,
-      <code>node_modules</code>, <code>target</code>, and a few other tool and build folders. You
-      can also open single files, each in its own tab.
-    </p>
-    <p>
-      One click in the tree, or Go to File, opens a preview. The tab title is in italics, and the
-      next preview takes its place. Double-click the file, Ctrl+click it, double-click the tab, or
-      change the text, and the tab stays.
+      Open a folder and its files sit in a tree, without the tool and build folders you never
+      open. Single files open too, each in its own tab. A file you are only looking at opens as a
+      preview, so tabs do not pile up.
     </p>
     <p>
       Rust, Python, JavaScript, TypeScript, JSON, shell, C, Go, HTML, CSS, TOML, and YAML are
@@ -48,8 +43,8 @@ import { url } from "../paths";
   <section class="band edit-quick" aria-labelledby="edit-quick">
     <h2 id="edit-quick">Find a file, or a command</h2>
     <p>
-      Ctrl+P finds a file from a few letters of its name or its path. Shift+Ctrl+P is the command
-      list. Ctrl+G jumps to a line. The same quick panel is in the other apps.
+      Go to File finds a file from a few letters of its name or its path. The command list runs
+      anything by name. The same quick panel is in the other apps.
     </p>
     <div class="shell-grid">
       <Shot
@@ -59,7 +54,7 @@ import { url } from "../paths";
       />
       <Shot
         name="edit-commands-wide.png"
-        alt="The Rivet Edit command list, opened with Shift+Ctrl+P"
+        alt="The Rivet Edit command list"
         caption="Commands."
       />
     </div>
@@ -68,10 +63,9 @@ import { url } from "../paths";
   <section class="band edit-look" aria-labelledby="edit-look">
     <h2 id="edit-look">Desktop colors, or a code theme</h2>
     <p>
-      By default the editor follows the app, which follows your desktop. Preferences can turn that
-      off. Color Theme, in the command list, switches the code to one of 39 themes, including One
-      Dark, Dracula, Catppuccin, Tokyo Night, Nord, Gruvbox, and Rosé Pine. Moving through the list
-      previews each one.
+      By default the editor follows the app, which follows your desktop. Or pick one of 39 code
+      themes, including One Dark, Dracula, Catppuccin, Tokyo Night, Nord, Gruvbox, and Rosé Pine,
+      with a preview of each as you move through the list.
     </p>
     <div class="shell-grid">
       <Shot
@@ -97,9 +91,12 @@ import { url } from "../paths";
     <p>
       Find and replace work in the open file, and search can cover the whole folder. Suggestions
       show up as you type. You can add another cursor, on the next copy of a word or on the line
-      above. F12 goes to a definition. Vim keys stay off until you turn them on in Preferences.
+      above, and go to a definition. Vim keys are optional.
     </p>
-    <p>A panel item for Rivet Edit is coming soon.</p>
+    <p>
+      In Rivet Shell, the Edit plugin puts your five most recent folders on the panel and in the
+      launcher.
+    </p>
   </section>
 
   <section class="band edit-download">

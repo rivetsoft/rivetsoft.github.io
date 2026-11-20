@@ -19,7 +19,7 @@ const repo = repoUrl;
 </h1>
 <StatusBadge app={app} release={release} />
 <p>
-  Markdown notes in plain folders. A vault is any folder of <code>.md</code> files, so there is
+  Markdown notes in plain folders. A vault is any folder of Markdown files, so there is
   nothing to import and nothing locked in. Any other Markdown app can open the same notes. It is
   written in Rust, draws with egui, and does not use GTK or Qt. Theme, desktop colors, icons,
   fonts, and in-app windows are the same parts Rivet Files and Rivet FTP use.
@@ -53,80 +53,45 @@ const repo = repoUrl;
   <a href="#editing">Editing</a>
   <a href="#modules">Modules</a>
   <a href="#install">Install</a>
-  <a href="#keys">Keys</a>
 </nav>
+<p>How each of these works, and the keys, are in the <a href={url("docs/notes/")}>Notes docs</a>.</p>
 
 <h2 id="vaults">Vaults</h2>
 <p>
-  A vault is any folder. Its <code>.md</code> files are the notes, and its subfolders are their
-  folders. Nothing is added to the folder: no database, and no hidden settings. Names that start
-  with a dot, such as <code>.git</code> or <code>.obsidian</code>, are left out. Switch vaults from
-  the button at the left of the toolbar, or with File, Switch Vault. Preferences lists your vaults.
-  Forget takes one off the list and leaves the folder alone.
+  A vault is any folder. Its Markdown files are the notes, and its subfolders are their folders.
+  Nothing is added to the folder: no database, and no hidden settings. Keep several vaults and
+  switch between them.
 </p>
 <p>
-  New notes get <code>title</code>, <code>created</code>, and <code>tags</code>. The title at the
-  top of a note can be edited in place. Enter or clicking away keeps it, and Esc puts it back. A
-  note's title is its <code>title</code> property, or else its file name. Changing the title
-  renames the file to match. Breadcrumbs above the title show the vault, the folders, and the
-  file. View, Breadcrumbs hides that bar. Delete moves a note to the desktop's Trash.
-</p>
-<p>
-  Drag a note or a folder onto a folder to move it, or onto the empty space under the folders to
-  move it to the top of the vault. Notes save a second after you stop typing, and with Ctrl+S. A
-  note changed by another program is reloaded, or you are asked if you still had unsaved changes.
+  Notes save as you type. A note changed by another program is reloaded. Deleting a note moves it
+  to the desktop's Trash.
 </p>
 
 <h2 id="properties">Properties</h2>
 <p>
-  The <code>---</code> block at the top of a note is shown as properties: text, number, checkbox,
-  date (with a calendar), list, tags, or link. The type is worked out from the value. Click a
-  property's name, or right-click it, to change its type, rename it, or remove it. Add property
-  asks for a name and a type. The block folds from its header. <code>title</code> and
-  <code>created</code> stay in the file and are not listed there. The file stays plain YAML.
-  Nested values are kept as written and shown read-only. Saving writes back only what changed in
-  that block. The rest of the file is untouched.
-</p>
-<p>
-  Tags come from the frontmatter (<code>tags: [a, b]</code> or a list) and from <code>#tags</code>
-  in the text, outside of code.
+  The frontmatter at the top of a note is shown as properties: text, number, checkbox, date with a
+  calendar, list, tags, or link. The file stays plain YAML, and saving writes back only what
+  changed.
 </p>
 
 <h2 id="browse">Folders and tags</h2>
 <p>
-  Browse by folder, in a tree that folds, or by tag. Each tag lists its notes, and there is an
-  Untagged group. The sidebar holds those panels. Drag a panel's title onto another panel to make
-  them tabs, or to its top or bottom edge to stack them. The same choices are in the menu, in
-  View, and in Preferences, Sidebar. Ctrl+T switches tabs, or folds the last pane when they are
-  stacked. Search looks at titles, paths, the first line, and tags. <code>#name</code> searches
-  tags only. Ctrl+F opens search.
-</p>
-<p>
-  The status bar shows the vault and the open note's word count, and any problem. View, Status Bar
-  hides it.
+  Browse by folder, in a tree that folds, or by tag. The sidebar's panels can be tabs or stacked.
+  Search looks at titles, paths, the first line, and tags.
 </p>
 
 <h2 id="links">Links</h2>
 <p>
-  Link a note with <code>[[Note name]]</code>, and optionally <code>[[Note|shown text]]</code> or
-  <code>[[Note#Heading]]</code>. A Markdown link to an <code>.md</code> file counts too. A link
-  finds its note by path, file name, or title. Typing <code>[[</code> lists matches. Up and Down
-  choose, Enter or Tab puts the link in, and Esc hides the list.
-</p>
-<p>
-  Ctrl+click a link in either mode, or click it in live mode, to follow it. A link to a note that
-  is not there yet makes it, beside the current note. Peek lists backlinks, with the line each
-  link is on, and the open note's own links. Renaming a note updates the <code>[[links]]</code>
-  that point at it, and keeps their shown text and heading.
+  Link notes to each other, to a heading, or with your own shown text. Matches are suggested as
+  you type. A link to a note that is not there yet makes it. Backlinks are listed in Peek, and
+  renaming a note updates the links that point at it.
 </p>
 
 <h2 id="editing">Editing</h2>
 <p>
-  Two modes, switched with the button left of the eye at the top right, or from Preferences,
-  Editor, View, Live Mode, or Quick Actions. Source mode shows the Markdown as written, colored.
-  Live mode still writes Markdown. Every line except the one you are on is rendered, and a heading
-  takes its size as soon as its <code>#</code> marks are typed. With the keyboard elsewhere, the
-  whole note shows rendered. The reading view (the eye, or Ctrl+Space) works in either mode.
+  Two modes. Source mode shows the Markdown as written, colored. Live mode still writes Markdown,
+  and renders every line except the one you are on. A reading view shows the whole note rendered,
+  with tables, code blocks, and pictures.
 </p>
 <div class="pair">
   <Shot
@@ -143,75 +108,33 @@ const repo = repoUrl;
 <Shot
   name="notes-reading-wide.png"
   alt="The reading view of a note, with a code block and a picture"
-  caption="Reading view. Links to other notes open in place. Backspace goes back."
+  caption="Reading view. Links to other notes open in place."
 />
 <p>
-  The reading view renders headings, bold and italic, lists and tasks, quotes, code blocks with a
-  Copy button, tables, rules, links, tags, and pictures stored beside the note. Esc or Ctrl+Space
-  closes it. Arrow keys, Page Up and Page Down, Space, Home, and End scroll.
-</p>
-<p>
-  Type <code>/</code> at the start of a line, or after a space, for a menu of blocks: headings 1
-  to 3, bulleted and numbered lists, a todo, a super todo when that module is on, a quote, a code
-  block, a divider, a link to a note, or today's date. Keep typing to filter. Up and Down choose,
-  Enter or Tab adds it, and Esc hides the menu. Used mid-line, a line block starts a new line.
-</p>
-<p>
-  Point at a line and a handle shows in the margin. Drag it up or down. A list item or task brings
-  the items nested under it, and a fenced code block moves as a whole. This works in both modes.
+  A slash menu adds blocks: headings, lists, todos, quotes, code blocks, dividers, links, and
+  today's date. A handle in the margin drags a line, a list item with everything nested under it,
+  or a whole code block. Selecting text brings up a small formatting bar.
 </p>
 <Shot
   name="notes-slash-wide.png"
   alt="The slash menu open in a note, in the light theme"
-  caption="The slash menu, in the light theme. Type / at the start of a line."
+  caption="The slash menu, in the light theme."
 />
 <p>
-  Selecting text brings up a small bar: bold, italic, strikethrough, code, link, headings, lists,
-  and quote. The same ones are keys. Ctrl+B, Ctrl+I, Shift+Ctrl+X, Ctrl+E, and Ctrl+K wrap the
-  selection, or the word under the cursor, and a second press takes the marks off. Ctrl+1, Ctrl+2,
-  and Ctrl+3 are headings. Ctrl+0 is plain text. Shift+Ctrl+8, Shift+Ctrl+7, and Shift+Ctrl+9 are
-  the lists. Ctrl+Enter ticks a task. Shift+Ctrl+Q is a quote. Shift+Ctrl+E is a code block. They
-  are also in the Format menu, the right-click menu, and Preferences, Keyboard.
-</p>
-<p>
-  Drop files from a file manager onto a note. They are copied into the vault's attachments folder
-  (<code>Attachments</code> by default, under Preferences, Editor, Attachments) and linked where
-  the cursor is, relative to the note. A second <code>photo.png</code> becomes
-  <code>photo 2.png</code>. In live mode, a line that is only a picture shows the picture. The
-  reading view shows them too.
-</p>
-<p>
-  Preferences, Editor sets three fonts, the editor's size, and its line spacing: Interface, Editor,
-  and Monospace. A sample shows the editor's fonts as you choose. The window follows the desktop's
-  colors, fonts, and icon theme, in light or dark. Rivet's own icons are the default.
+  Drop files onto a note and they are copied into the vault and linked. Pictures show in place.
+  Fonts, text size, and line spacing are yours to set, and the window follows the desktop's
+  colors, fonts, and icon theme, in light or dark.
 </p>
 
 <h2 id="modules">Modules</h2>
+<p>Optional parts you turn on.</p>
 <p>
-  Optional, and turned on in Preferences, Modules.
+  Daily notes: a note for each day, named by its date, in a folder you pick.
 </p>
 <p>
-  Daily notes are a note for each day, named by its date (<code>2026-11-16.md</code>) in a folder
-  you pick. Daily is the default, and the folder is made when it is first needed. Ctrl+D, File,
-  Daily Note, or the + button opens today's note, and makes it with a <code>daily</code> tag when
-  it is not there yet.
-</p>
-<p>
-  Super todos use a tag, <code>#task</code> by default. A plain <code>- [ ]</code> stays an
-  ordinary todo. One that carries the tag is a super todo. Shift+Ctrl+T makes the line at the
-  cursor one. The details are plain text in the line:
-  <code>due:2026-12-01</code> and <code>priority:high</code>. Progress is the box:
-  <code>[ ]</code> to do, <code>[/]</code> in progress, <code>[x]</code> done. In live mode the tag
-  folds away, the date becomes a pill, and the priority becomes a flag. Clicking the words opens a
-  panel for progress, the due date, the priority, and tags.
-</p>
-<p>
-  The Todos page (the check box button, File, Todos, or Quick Actions) lists every super todo in
-  the vault. Filter by text, by Open, In progress, Done, or All, by when it is due, and by tag.
-  Sort by due date, priority, or note, which also groups the list. Tick a box to finish a task.
-  The note changes on disk. Click a row to open its note. The other view is a board: To do, In
-  progress, and Done. Drag a card to another column to change its progress. The List / Board
-  switch is remembered. Peek on that page is its own: list or board, width, and counts.
+  Super todos: tasks with a due date, a priority, and progress, kept as plain text in the note. A
+  Todos page lists every one in the vault, as a filtered and sorted list or as a board with To do,
+  In progress, and Done columns.
 </p>
 <div class="pair">
   <Shot
@@ -233,20 +156,17 @@ const repo = repoUrl;
 
 <h2>Quick Open and Quick Actions</h2>
 <p>
-  Ctrl+P finds a note from part of its title or folder. Letters in order are enough. With nothing
-  typed, it lists the most recently edited notes. Shift+Ctrl+P runs a command or option by name,
-  and on / off options are ticked. They use the same panel as Rivet Files.
+  Find a note from a few letters of its title or folder, or run any command or option by name.
+  They use the same panel as Rivet Files.
 </p>
 <Shot
   name="notes-quick-open-wide.png"
   alt="Quick Open matching a note from a few letters"
-  caption="Quick Open. A few letters of the title, then Enter."
+  caption="Quick Open. A few letters of the title find the note."
 />
 <p>
-  Peek (the button at the far right of the toolbar, F11, or View, Peek) is a panel about the open
-  note: how it is shown, the file's name, folder, size, words, characters, lines, and reading
-  time, its dates, and its properties. A width chosen in Peek belongs to that note. Preferences,
-  Appearance, Default note width sets it for every other note.
+  Peek is a panel about the open note: its file, size, word count, reading time, dates, and
+  properties.
 </p>
 
 <h2 id="install">Install</h2>
@@ -274,58 +194,9 @@ const repo = repoUrl;
   <code>utilities/rivet-dev install notes</code> builds a release and adds the launcher entry. Or:
 </p>
 <pre><code>cargo build --release -p rivet-notes
-./target/release/rivet-notes [VAULT]
-./target/release/rivet-notes tags [VAULT]
+./target/release/rivet-notes
 ./target/release/rivet-notes --install-desktop-entry</code></pre>
 
-<h2 id="keys">Keys</h2>
-<p>The project notes list these:</p>
-<dl class="keys">
-  <div>
-    <dt><kbd>Ctrl</kbd>+<kbd>N</kbd></dt>
-    <dd>New note. Shift+Ctrl+N makes a folder.</dd>
-  </div>
-  <div>
-    <dt><kbd>Ctrl</kbd>+<kbd>S</kbd></dt>
-    <dd>Save now.</dd>
-  </div>
-  <div>
-    <dt><kbd>Ctrl</kbd>+<kbd>Space</kbd></dt>
-    <dd>Reading view. Esc closes it.</dd>
-  </div>
-  <div>
-    <dt><kbd>F11</kbd></dt>
-    <dd>Peek.</dd>
-  </div>
-  <div>
-    <dt><kbd>Ctrl</kbd>+<kbd>F</kbd></dt>
-    <dd>Search.</dd>
-  </div>
-  <div>
-    <dt><kbd>Ctrl</kbd>+<kbd>T</kbd></dt>
-    <dd>Switch folders and tags, or fold the pane when they are stacked.</dd>
-  </div>
-  <div>
-    <dt><kbd>Ctrl</kbd>+<kbd>P</kbd></dt>
-    <dd>Quick Open.</dd>
-  </div>
-  <div>
-    <dt><kbd>Shift</kbd>+<kbd>Ctrl</kbd>+<kbd>P</kbd></dt>
-    <dd>Quick Actions.</dd>
-  </div>
-  <div>
-    <dt><kbd>Ctrl</kbd>+<kbd>D</kbd></dt>
-    <dd>Daily note, when that module is on.</dd>
-  </div>
-  <div>
-    <dt><kbd>F9</kbd> <kbd>Ctrl</kbd>+<kbd>M</kbd></dt>
-    <dd>Show or hide the sidebar, the menu bar.</dd>
-  </div>
-  <div>
-    <dt><kbd>Ctrl</kbd>+<kbd>,</kbd></dt>
-    <dd>Preferences.</dd>
-  </div>
-</dl>
 <p>
   The docs still list templates, and full-text search in the shared file views, as next. Search
   today looks at titles, paths, the first line, and tags.

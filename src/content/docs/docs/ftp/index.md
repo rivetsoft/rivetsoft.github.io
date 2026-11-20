@@ -1,13 +1,53 @@
 ---
 title: Rivet FTP
-description: Dual-pane SFTP with a transfer queue.
+description: How to connect, move and edit files, use SSH keys and saved connections from a terminal, and the keys in Rivet FTP.
 ---
 
 Rivet FTP is a dual-pane SFTP client with a transfer queue. Saved connections are also there for `ssh`. FTP and FTPS are not built.
 
 ![Rivet FTP connected, in the pink scheme](/rivet-web/screenshots/ftp-connected-wide.png)
 
-Connections are stored in `~/.config/rivet-ftp/connections.conf`.
+## Connect
+
+The quick-connect bar takes `user@server` or `sftp://user@server:port/folder`. `user@server` alone means SFTP. To keep a connection, use New Connection (Ctrl+N); it shows in the sidebar, where connections sit in groups that fold.
+
+![The New Connection window](/rivet-web/screenshots/ftp-new-connection-wide.png)
+
+Passwords are never written into the connections file. If you ask the window to remember a password or a key passphrase, it goes in the desktop keyring.
+
+## Move files
+
+Drag between the panes, double-click a file to send it across, or use Upload (Ctrl+U) and Download (Ctrl+D). Files and whole folders go into a queue. A failed transfer can be retried from its row.
+
+When a file is already on the other side, the dates and sizes are compared first. You can keep the copy already there, replace the older files, or replace all of them. Preferences, Transfers sets that choice to ask, replace, or skip, and whether a double-click sends the file or only selects it.
+
+![A dialog comparing two items that are already on the server](/rivet-web/screenshots/ftp-replace-wide.png)
+
+## Edit a file on the server
+
+Right-click a file on the server and choose Open in Editor (or press F4), or Open With to pick an app. Rivet FTP downloads it to a private folder, opens it, and sends each save back. If the server copy changed, it asks before replacing it.
+
+The files open for editing are listed above the transfers. Stop ends it and deletes the local copy. Preferences, Transfers chooses the editor: one app, or the default for each type.
+
+## Permissions
+
+Info shows a file's size, date, owner, and permissions, and changes the permissions (chmod), for one file or for everything in a folder.
+
+![Info for a file on the server](/rivet-web/screenshots/ftp-info-wide.png)
+
+## SSH keys
+
+SFTP goes through the system's own `sftp` program, so your keys, the ssh agent, `~/.ssh/config`, and known_hosts apply. A new server is trusted on first use. A changed server key is refused.
+
+Preferences, SSH Keys lists the keys in `~/.ssh`. From there you can:
+
+- make a new Ed25519 or RSA 4096 key, with an optional passphrase;
+- copy a public key;
+- add a key to a server, which runs `ssh-copy-id` in a terminal.
+
+Each connection's settings pick its key. With no key chosen, ssh tries the agent and its usual keys. A key with a passphrase needs to be in your ssh agent (`ssh-add`) before connecting. Private keys stay in `~/.ssh`.
+
+![Preferences, SSH Keys](/rivet-web/screenshots/ftp-keys-wide.png)
 
 ## Saved connections in a terminal
 
@@ -62,6 +102,47 @@ rivet-ftp remove Pi
 
 A connection added this way shows in the window the next time it opens. `rivet-ftp --help` lists every command.
 
+## The connections file
+
+Connections are stored in `~/.config/rivet-ftp/connections.conf`: plain text, readable only by you. You can edit it by hand.
+
+```ini
+[Work site]
+protocol=sftp
+host=example.com
+port=2222
+user=me
+key=~/.ssh/id_ed25519
+remote=/var/www
+local=~/Sites/work
+```
+
+## Keys
+
+These are also in the menus, and in Help, Keyboard Shortcuts.
+
+| Keys | What |
+| --- | --- |
+| Tab | Switch between the panes. |
+| Enter | Open a folder, or send a file to the other side. |
+| Backspace, Alt+Up | Up a folder. Alt+Home is the home folder. |
+| Up, Down | Move through the list. Shift extends the selection. |
+| Ctrl+A | Select everything. |
+| F4 | Open a server file in an editor. |
+| Ctrl+U, Ctrl+D | Upload or download the selection. |
+| F2 | Rename. |
+| Delete | Delete on the server, after a confirmation. |
+| Ctrl+Shift+N | New folder. |
+| Ctrl+L | Type a path. |
+| Ctrl+N, Ctrl+K | New connection, quick connect. |
+| Ctrl+Shift+D | Disconnect. |
+| Ctrl+H | Show hidden files. |
+| Ctrl+M, F9, F8 | Show or hide the menu bar, connections, transfers. |
+| F5 | Refresh. |
+| Ctrl+T, Ctrl+W | New tab, close the tab. |
+| Ctrl+Tab | Next or previous tab. Ctrl+Page Down and Ctrl+Page Up do this too. |
+| Ctrl+, | Preferences. |
+
 ## More
 
-The current downloads are on the [FTP page](/rivet-web/ftp/). The key table is in the [FTP README](https://github.com/ulinaaron/rivet-apps/blob/main/apps/rivet-ftp/README.md).
+The current downloads are on the [FTP page](/rivet-web/ftp/). More is in the [FTP README](https://github.com/ulinaaron/rivet-apps/blob/main/apps/rivet-ftp/README.md).

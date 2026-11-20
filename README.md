@@ -12,7 +12,13 @@ The Plugins page lists Rivet Shell's plugins. The official ones are the folders 
 
 The docs page Plugins and hooks (`src/content/docs/docs/shell/plugins.md`) is `apps/rivet-shell/PLUGINS.md` from `ulinaaron/rivet-apps` with site links. When that file changes, change the page to match.
 
-## Run
+## What goes where
+
+- **The site's own pages** (home, the app pages, Plugins, blog) are marketing: what each app is and does, with pictures. No how-tos, no key bindings, no commands or file paths.
+- **The docs** (`src/content/docs`) are the how-tos: steps, keys, commands, settings and where files are kept.
+- **Downloads and install steps** can be in both.
+
+
 
 Node.js 22 or newer.
 
