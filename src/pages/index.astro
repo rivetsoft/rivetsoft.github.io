@@ -34,6 +34,12 @@ const description =
 const HALFTONE_BANDS = 16;
 const halftoneBand = 84 / HALFTONE_BANDS;
 const halftone = Array.from({ length: HALFTONE_BANDS }, (_, i) => +(4.2 * Math.pow(1 - i / HALFTONE_BANDS, 1.25)).toFixed(2));
+// Rivet beside the Apps heading, drawn into the page so his words use the site's font.
+import namedArt from "../assets/mascot/named.svg?raw";
+// Rivet in pixels, for the grid floor of the last band.
+import pixelArt from "../assets/mascot/rivet-pixel.svg?raw";
+// Rivet on his island, for the Rivet Welcome band.
+import islandArt from "../assets/mascot/island.svg?raw";
 ---
 
 <Base
@@ -194,8 +200,18 @@ const halftone = Array.from({ length: HALFTONE_BANDS }, (_, i) => +(4.2 * Math.p
   </div>
 
   <section class="band band-apps reveal" aria-labelledby="apps-title">
-    <h2 id="apps-title">Apps</h2>
-    <p>Apps for files, notes, editing, terminals and FTP. You don't need Rivet Shell to run them.</p>
+    <div class="apps-head">
+      <div class="apps-head-copy">
+        <h2 id="apps-title">Apps</h2>
+        <p>Apps for files, notes, editing, terminals and FTP. You don't need Rivet Shell to run them.</p>
+      </div>
+      <div
+        class="apps-rivet"
+        role="img"
+        aria-label="Rivet, the mascot, stands in a folder, looks down at the apps and says: They named all of these after me. I don't know what any of them do."
+        set:html={namedArt}
+      />
+    </div>
     <ul class="showcase">
       {
         appRows.map(({ app, release, status }) => (
@@ -352,6 +368,12 @@ const halftone = Array.from({ length: HALFTONE_BANDS }, (_, i) => +(4.2 * Math.p
             </div>
           )}
         </div>
+        <div
+          class="welcome-rivet"
+          role="img"
+          aria-label="Rivet, the mascot, lies on a lounge chair on a tiny island in sunglasses, under a palm tree, sipping from a coconut. Shark fins circle in the water."
+          set:html={islandArt}
+        />
       </section>
     )
   }
@@ -382,6 +404,9 @@ const halftone = Array.from({ length: HALFTONE_BANDS }, (_, i) => +(4.2 * Math.p
         <line x1="0" y1="330" x2="1200" y2="330" />
       </g>
     </svg>
+    {/* Rivet, pulled into the computer: he rises from behind the wave at the bottom of the band,
+        blinks, and sinks back. */}
+    <div class="cta-rivet" aria-hidden="true" set:html={pixelArt} />
     <div class="cta-layout">
       <div class="cta-copy">
         <h2 id="cta-title">Get Ready for a Riveting Experience Like Never Before!</h2>

@@ -1572,6 +1572,41 @@ body:has(.band) .site-footer-inner {
   padding-bottom: 5.25rem;
 }
 
+/* The Apps heading, with Rivet's remark beside it (under it on a narrow screen). */
+.apps-head {
+  display: grid;
+  gap: 1.5rem;
+  align-items: end;
+  margin-bottom: 0.85rem;
+}
+
+.apps-head h2 {
+  font-size: clamp(2.15rem, 4.4vw, 3.2rem);
+  margin: 0 0 0.85rem;
+}
+
+.apps-head-copy p {
+  margin-bottom: 0;
+}
+
+.apps-rivet {
+  max-width: 34rem;
+}
+
+.apps-rivet svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+@media (min-width: 800px) {
+  .apps-head {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 34rem);
+    gap: 3rem;
+  }
+}
+
 .band-colors {
   padding: 2.5rem var(--frame) 2.75rem;
   background-color: #d53f8c;
@@ -1967,6 +2002,44 @@ body:has(.band) .site-footer-inner {
   }
 }
 
+/* Rivet on his island, under the Rivet Welcome band's words: it does the installing. */
+.welcome-rivet {
+  max-width: 54rem;
+  margin: 3rem auto 0;
+}
+
+.welcome-rivet svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+/* The sharks go round the island. Each fin is drawn where it stands in the still picture;
+   here that place is swapped for a lap of an oval in the water, a third of a lap apart.
+   They are under the sand in the drawing, so the island hides one passing behind it. */
+@media (prefers-reduced-motion: no-preference) {
+  .welcome-rivet .mascot-shark {
+    transform: none;
+    offset-path: path("M130 332 a320 52 0 1 0 640 0 a320 52 0 1 0 -640 0");
+    offset-rotate: 0deg;
+    animation: shark-lap 22s linear infinite;
+  }
+
+  .welcome-rivet .mascot-shark:nth-of-type(2) {
+    animation-delay: -7.3s;
+  }
+
+  .welcome-rivet .mascot-shark:nth-of-type(3) {
+    animation-delay: -14.6s;
+  }
+}
+
+@keyframes shark-lap {
+  from { offset-distance: 0%; }
+  to { offset-distance: 100%; }
+}
+
 .band-cta {
   position: relative;
   overflow: hidden;
@@ -2034,6 +2107,65 @@ body:has(.band) .site-footer-inner {
   height: 48%;
   opacity: 0.45;
   pointer-events: none;
+}
+
+/* Pixel Rivet behind the wave at the bottom of the band. He is drawn under the wave (which is
+   one layer up), so rising shows him over its top edge and sinking hides him behind it. The
+   moves go in steps, like an old game's. */
+.cta-rivet {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(1.4rem, 3.4vw, 2.6rem);
+  z-index: 1;
+  width: clamp(4.5rem, 8vw, 7rem);
+  margin-left: calc(clamp(4.5rem, 8vw, 7rem) / -2);
+  pointer-events: none;
+  animation: rivet-rise 9s steps(7) infinite;
+}
+
+.cta-rivet svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.cta-rivet .pixel-lids {
+  animation: rivet-pixel-blink 2.7s steps(1) infinite;
+}
+
+/* On a narrow screen the windows fill the middle, so he comes up to their left. */
+@media (max-width: 799px) {
+  .cta-rivet {
+    left: 20%;
+  }
+}
+
+@keyframes rivet-rise {
+  0%,
+  10% { transform: translateY(105%); }
+  20% { transform: translateY(0); }
+  38% { transform: translateY(12%); }
+  54% { transform: translateY(0); }
+  66% { transform: translateY(12%); }
+  78%,
+  100% { transform: translateY(105%); }
+}
+
+/* Shut for about a tenth of a second, twice in each 2.7 s. */
+@keyframes rivet-pixel-blink {
+  0% { opacity: 0; }
+  40% { opacity: 1; }
+  45% { opacity: 0; }
+  52% { opacity: 1; }
+  57% { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta-rivet,
+  .cta-rivet .pixel-lids {
+    animation: none;
+  }
 }
 
 .cta-layout {
