@@ -60,7 +60,13 @@ export default defineConfig({
             { label: "How colors work", link: "/docs/colors/" },
           ],
         },
-        { label: "Shell", items: [{ label: "Rivet Shell", link: "/docs/shell/" }] },
+        {
+          label: "Shell",
+          items: [
+            { label: "Rivet Shell", link: "/docs/shell/" },
+            { label: "Plugins and hooks", link: "/docs/shell/plugins/" },
+          ],
+        },
         { label: "Welcome", items: [{ label: "Rivet Welcome", link: "/docs/welcome/" }] },
         { label: "Files", items: [{ label: "Rivet Files", link: "/docs/files/" }] },
         { label: "FTP", items: [{ label: "Rivet FTP", link: "/docs/ftp/" }] },

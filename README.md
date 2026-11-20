@@ -10,6 +10,8 @@ Rivet Files, Rivet FTP, Rivet Notes, Rivet Edit, Rivet Terminal, Rivet Shell, an
 
 The Plugins page lists Rivet Shell's plugins. The official ones are the folders of `apps/rivet-shell/data/plugins` in `ulinaaron/rivet-apps`, read when the site is built; `src/data/plugins.ts` keeps a saved copy for when GitHub is unreachable. The shared ones are read from [`plugins/registry.json`](https://github.com/ulinaaron/rivet-apps/blob/main/plugins/registry.json) in `ulinaaron/rivet-apps` when the site is built, so a listing merged there shows on the next build. Each shared plugin's version comes from its author's release file, read at the same time. If the list is unreachable, the build uses `src/data/plugins.fallback.json`.
 
+The docs page Plugins and hooks (`src/content/docs/docs/shell/plugins.md`) is `apps/rivet-shell/PLUGINS.md` from `ulinaaron/rivet-apps` with site links. When that file changes, change the page to match.
+
 ## Run
 
 Node.js 22 or newer.

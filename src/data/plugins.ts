@@ -96,4 +96,5 @@ export const sharedPlugins: PluginEntry[] = await (async () => {
   }
 })();
 
-export const pluginsGuideUrl = `${repoUrl}/blob/main/apps/rivet-shell/PLUGINS.md`;
+/** The plugin guide in the docs (a site path, for `url()`). */
+export const pluginsGuidePath = "docs/shell/plugins/";

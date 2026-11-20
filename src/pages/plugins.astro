@@ -1,6 +1,6 @@
 ---
 import Base from "../layouts/Base.astro";
-import { officialPlugins, pluginsGuideUrl, sharedPlugins } from "../data/plugins";
+import { officialPlugins, pluginsGuidePath, sharedPlugins } from "../data/plugins";
 import { url } from "../paths";
 import { breadcrumb, siteRoot } from "../seo";
 
@@ -69,7 +69,7 @@ const description = "Plugins for Rivet Shell: the ones that come with it, and th
     A plugin is a folder with a <code>plugin.conf</code> and a program in any language. To list yours here and
     in Rivet Shell's Get Plugins window, open a pull request that adds it to
     <code>plugins/registry.json</code>. That happens once: after it, you publish updates yourself. The
-    <a href={`${pluginsGuideUrl}#sharing-a-plugin`}>plugin guide</a> has what a listing needs, and how to
+    <a href={`${url(pluginsGuidePath)}#sharing-a-plugin`}>plugin guide</a> has what a listing needs, and how to
     write a plugin.
   </p>
   <p>

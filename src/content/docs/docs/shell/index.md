@@ -30,6 +30,10 @@ Settings live in `~/.config/rivet-shell/settings`. Open the window with `rivet-s
 
 If a tool is missing, that control simply does not show. The list includes `wpctl`, `brightnessctl`, `nmcli`, `bluetoothctl`, `playerctl`, `powerprofilesctl`, `gammastep`, `hyprsunset`, `wlsunset`, `loginctl`, and `systemctl`.
 
+## Plugins
+
+A plugin adds an item to a panel and entries to the launcher. Notes, FTP, Edit and Disk Space come with the shell, and other people can share theirs. [Plugins and hooks](/rivet-web/docs/shell/plugins/) covers installing one, writing one, and running your own commands on the shell's events.
+
 The shell paints with `rivet_kit::soft` into shared memory. There is no GPU path. It redraws when something on screen changed.
 
 There is no GitHub release yet. Build it from the [Shell README](https://github.com/ulinaaron/rivet-apps/blob/main/apps/shell/README.md). Startup snippets for niri, Hyprland, and Sway are there too.
