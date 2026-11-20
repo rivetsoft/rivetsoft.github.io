@@ -1,11 +1,128 @@
 ---
 import Base from "../layouts/Base.astro";
+import PageBand from "../components/PageBand.astro";
 import { url } from "../paths";
+// Drawn into the page, not loaded as a picture, so its words use the site's own font.
+import art from "../assets/mascot/not-found.svg?raw";
+
+// The field under the band: mushrooms scattered by a fixed sequence, so every build draws the
+// same field. Ones lower down are nearer, so they are bigger and drawn last.
+const INK = "#24121b";
+const PAPER = "#e9dee5";
+const CAPS = ["#d53f8c", "#d53f8c", "#fff270", "#3ecf9a", "#0084b8", "#d53f8c", PAPER];
+let seed = 404;
+const rand = () => {
+  seed = (seed + 0x6d2b79f5) | 0;
+  let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+  t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+  return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+};
+// One to a column, nudged sideways, so the field is spread across the page with no bare patch.
+const COUNT = 44;
+const field = Array.from({ length: COUNT }, (_, i) => {
+  const depth = rand();
+  return { x: ((i + 0.15 + rand() * 0.7) / COUNT) * 1200, y: 78 + depth * 172, s: 0.4 + depth * 0.6, cap: CAPS[Math.floor(rand() * CAPS.length)] };
+}).sort((a, b) => a.y - b.y);
+// One mushroom, standing on (0, 0): stem, cap and three spots, with the site's hard shadow.
+const shape = (fill: (c: string) => string, cap: string) =>
+  `<rect x="-14" y="-40" width="28" height="40" rx="6" fill="${fill(PAPER)}" stroke="${INK}" stroke-width="4"/>` +
+  `<path d="M-46 -36C-46 -86 46 -86 46 -36C46 -28 -46 -28 -46 -36Z" fill="${fill(cap)}" stroke="${INK}" stroke-width="4"/>`;
+const mushroom = (m: { x: number; y: number; s: number; cap: string }) =>
+  `<g transform="translate(${m.x.toFixed(1)} ${m.y.toFixed(1)}) scale(${m.s.toFixed(2)})">` +
+  `<g transform="translate(7 8)">${shape(() => INK, m.cap)}</g>${shape((c) => c, m.cap)}` +
+  [[-20, -54, 6], [6, -62, 5], [24, -48, 5.5]].map(([cx, cy, r]) => `<circle cx="${cx}" cy="${cy}" r="${r}" fill="#f7f2f4" stroke="${INK}" stroke-width="2.5"/>`).join("") +
+  `</g>`;
+// Grass between them: tufts of three blades, scattered the same way and sorted in with the
+// mushrooms, so a tuft in front of a mushroom overlaps it. Thin outline and no shadow: the
+// blades are too fine to carry the mushrooms' heavy ink.
+const BLADES = "M-17 0L-12 -19L-6 -5L0 -28L6 -5L13 -17L17 0Z";
+const TUFTS = 60;
+const grass = Array.from({ length: TUFTS }, (_, i) => {
+  const depth = rand();
+  return { x: ((i + rand()) / TUFTS) * 1200, y: 74 + depth * 184, s: 0.45 + depth * 0.6 };
+});
+const tuft = (g: { x: number; y: number; s: number }) =>
+  `<g transform="translate(${g.x.toFixed(1)} ${g.y.toFixed(1)}) scale(${g.s.toFixed(2)})">` +
+  `<path d="${BLADES}" fill="#3ecf9a" stroke="${INK}" stroke-width="2" stroke-linejoin="round"/></g>`;
+const fieldSvg = [...field.map((m) => ({ y: m.y, svg: mushroom(m) })), ...grass.map((g) => ({ y: g.y, svg: tuft(g) }))]
+  .sort((a, b) => a.y - b.y)
+  .map((item) => item.svg)
+  .join("");
 ---
 
 <Base title="Not found" description="That address is not on this site.">
-  <h1>No page there</h1>
-  <p>
-    That address is not on this site. The apps that are listed live on the <a href={url()}>home page</a>.
-  </p>
+  <PageBand>
+    <h1>There's no page here.</h1>
+    <p>But here is a field of mushrooms. The apps are all on the home page.</p>
+    <div class="cta-actions">
+      <a class="btn btn-primary" href={url()}>Take Me Home →</a>
+    </div>
+    <p class="band-page-small">Rivet is a rivet. He has been asked about this before.</p>
+    <div
+      slot="art"
+      role="img"
+      aria-label="Rivet's mascot says: It looks like you're lost. I can't help with that. I'm a rivet. A small pink mushroom stands beside him."
+      set:html={art}
+    />
+  </PageBand>
+  <svg class="mushroom-field" viewBox="0 0 1200 270" preserveAspectRatio="xMidYMid slice" aria-hidden="true" set:html={fieldSvg} />
 </Base>
+
+<script is:inline>
+  // Rivet follows the pointer a little, and the mushroom behind him a little less, the way the
+  // home page's two pictures do. Not on touch screens, and not when motion is turned down.
+  (function () {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || window.matchMedia("(pointer: coarse)").matches) return;
+    var art = document.querySelector(".band-page-art");
+    var back = art && art.querySelector(".mascot-back");
+    var front = art && art.querySelector(".mascot-front");
+    if (!back || !front) return;
+    var px = 0;
+    var py = 0;
+    var queued = false;
+    function paint() {
+      queued = false;
+      back.style.setProperty("--nx", (px * 8).toFixed(2) + "px");
+      back.style.setProperty("--ny", (py * 5).toFixed(2) + "px");
+      front.style.setProperty("--nx", (px * 16).toFixed(2) + "px");
+      front.style.setProperty("--ny", (py * 10).toFixed(2) + "px");
+    }
+    window.addEventListener(
+      "pointermove",
+      function (e) {
+        var r = art.getBoundingClientRect();
+        if (!r.width || r.bottom < 0 || r.top > window.innerHeight) return;
+        px = Math.max(-1.5, Math.min(1.5, (e.clientX - (r.left + r.width / 2)) / r.width));
+        py = Math.max(-1.5, Math.min(1.5, (e.clientY - (r.top + r.height / 2)) / r.height));
+        if (!queued) {
+          queued = true;
+          requestAnimationFrame(paint);
+        }
+      },
+      { passive: true }
+    );
+  })();
+</script>
+
+<style is:global>
+  .band-page-art svg {
+    overflow: visible;
+  }
+  .mascot-back,
+  .mascot-front {
+    transform: translate(var(--nx, 0px), var(--ny, 0px));
+    will-change: transform;
+  }
+</style>
+
+<style>
+  .mushroom-field {
+    display: block;
+    width: 100%;
+    /* The whole field at any width; on a phone it keeps its height and loses its sides. */
+    height: auto;
+    aspect-ratio: 1200 / 270;
+    min-height: 11rem;
+    margin-top: 0.5rem;
+  }
+</style>
