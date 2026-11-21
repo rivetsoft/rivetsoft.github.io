@@ -18,13 +18,13 @@ export default defineConfig({
   },
   integrations: [
     starlight({
-      title: "Rivet",
+      title: "Rivetsoft",
       description:
         "Notes on Rivet Shell, Rivet Welcome, and the apps. Each one also runs on its own.",
       favicon: "/rivet-mark.svg",
       logo: {
         src: "./public/rivet-files.svg",
-        alt: "Rivet",
+        alt: "Rivetsoft",
       },
       customCss: ["./src/styles/starlight.css"],
       expressiveCode: {
@@ -54,7 +54,7 @@ export default defineConfig({
         {
           label: "Getting started",
           items: [
-            { label: "What Rivet is", link: "/docs/" },
+            { label: "What Rivetsoft is", link: "/docs/" },
             { label: "Install", link: "/docs/getting-started/install/" },
             { label: "Shell or standalone", link: "/docs/getting-started/on-your-own/" },
             { label: "How colors work", link: "/docs/colors/" },

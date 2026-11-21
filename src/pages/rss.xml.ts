@@ -6,8 +6,8 @@ export async function GET(context) {
     (a, b) => b.data.date.getTime() - a.data.date.getTime(),
   );
   return rss({
-    title: "Rivet",
-    description: "Short notes from the Rivet repo.",
+    title: "Rivetsoft",
+    description: "Short notes from the Rivetsoft repo.",
     site: "https://rivetsoft.github.io",
     items: posts.map((post) => ({
       title: post.data.title,

@@ -26,7 +26,7 @@ export function websiteAndPerson(description: string) {
     {
       "@type": "WebSite",
       "@id": `${siteRoot}#website`,
-      name: "Rivet",
+      name: "Rivetsoft",
       url: siteRoot,
       description,
       inLanguage: "en",

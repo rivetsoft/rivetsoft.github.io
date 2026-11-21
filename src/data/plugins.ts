@@ -17,7 +17,7 @@ const official = (id: string, name: string, description: string): PluginEntry =>
   name,
   // Listed as a sentence, whether or not the plugin's own line ends with a period.
   description: /[.!?]$/.test(description) || description === "" ? description : `${description}.`,
-  author: "Rivet",
+  author: "Rivetsoft",
   homepage: `${repoUrl}/tree/main/${OFFICIAL_DIR}/${id}`,
   version: "",
   official: true,

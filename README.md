@@ -1,6 +1,6 @@
-# Rivet
+# Rivetsoft
 
-A small static site for [Rivet](https://github.com/rivetsoft/apps), Aaron Mazade's family of Linux desktop apps.
+A small static site for [Rivetsoft](https://github.com/rivetsoft/apps), Aaron Mazade's family of Linux desktop apps.
 
 The built site is served at [https://rivetsoft.github.io/](https://rivetsoft.github.io/). Astro's `base` is `/`.
 
