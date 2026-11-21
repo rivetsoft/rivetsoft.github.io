@@ -2350,6 +2350,20 @@ body:has(.band) .site-footer-inner {
   transform: translateY(-4px);
 }
 
+/* The apps' windows are the same dark plum as the page, so on dark they get a light edge and a
+   soft pink glow to stand off it. */
+:root[data-theme="dark"] .show-shot {
+  border-color: rgba(255, 255, 255, 0.22);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.4), 0 24px 70px -20px rgba(213, 63, 140, 0.55);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .show-shot {
+    border-color: rgba(255, 255, 255, 0.22);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.4), 0 24px 70px -20px rgba(213, 63, 140, 0.55);
+  }
+}
+
 .show-copy {
   display: flex;
   flex-direction: column;
