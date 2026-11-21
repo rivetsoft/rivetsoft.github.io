@@ -1570,9 +1570,11 @@ body:has(.band) .site-footer-inner {
    print, over large soft blotches where the colour has soaked in unevenly. */
 .band-apps {
   --apps-bg: color-mix(in srgb, var(--accent) 7%, var(--bg));
+  /* The wave above is the band's flat colour, so the texture starts clear and comes in below it. */
   background:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='n' x='0' y='0' width='100%' height='100%'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.84  0 0 0 0 0.25  0 0 0 0 0.55  1.1 0 0 0 -0.57'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23n)'/%3E%3C/svg%3E") 0 0 / 320px 320px,
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='900'%3E%3Cfilter id='n' x='0' y='0' width='100%' height='100%'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.006' numOctaves='3' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.84  0 0 0 0 0.25  0 0 0 0 0.55  0.45 0 0 0 -0.2'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23n)'/%3E%3C/svg%3E") 0 0 / 900px 900px,
+    linear-gradient(var(--apps-bg), transparent 16rem),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='n' x='0' y='0' width='100%' height='100%'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.84  0 0 0 0 0.25  0 0 0 0 0.55  0.85 0 0 0 -0.44'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23n)'/%3E%3C/svg%3E") 0 0 / 320px 320px,
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='900'%3E%3Cfilter id='n' x='0' y='0' width='100%' height='100%'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.006' numOctaves='3' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.84  0 0 0 0 0.25  0 0 0 0 0.55  0.34 0 0 0 -0.15'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23n)'/%3E%3C/svg%3E") 0 0 / 900px 900px,
     var(--apps-bg);
   padding-top: 5rem;
   padding-bottom: 5.25rem;
