@@ -29,6 +29,47 @@ import SiteMenu from "./SiteMenu.astro";
     flex: 0 1 22rem;
   }
 
+  /* Below the width where the site's links fit in a row, the bar stays one line: the name, Menu,
+     and search as a button, with Starlight's own menu button at the far right. The site's links
+     open as a sheet under the bar, since the bar itself cannot grow. */
+  @media (max-width: 959px) {
+    .docs-bar :global(.site-menu) {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 0.25rem;
+    }
+
+    .docs-bar :global(.brand) {
+      flex: 0 1 auto;
+      min-width: 0;
+      white-space: nowrap;
+    }
+
+    .docs-bar :global(.menu-toggle) {
+      flex: none;
+      margin-left: 0.5rem;
+    }
+
+    .docs-search {
+      flex: none;
+    }
+
+    .docs-bar :global(.site-nav.is-open) {
+      position: fixed;
+      top: var(--sl-nav-height);
+      left: 0;
+      right: 0;
+      max-height: calc(100vh - var(--sl-nav-height));
+      overflow-y: auto;
+      padding: 0.5rem var(--sl-nav-pad-x) 1rem;
+      background: var(--bg);
+      box-shadow: 0 16px 28px -14px rgba(0, 0, 0, 0.6);
+      z-index: 20;
+    }
+  }
+
   .docs-search :global(button[data-open-modal]) {
     background: #3a2430;
     color: #e9dee5;
