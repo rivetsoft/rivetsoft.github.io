@@ -8,12 +8,12 @@ export async function GET(context) {
   return rss({
     title: "Rivet",
     description: "Short notes from the Rivet repo.",
-    site: "https://ulinaaron.github.io/rivet-web",
+    site: "https://rivetsoft.github.io",
     items: posts.map((post) => ({
       title: post.data.title,
       description: post.data.description,
       pubDate: post.data.date,
-      link: `/rivet-web/blog/${post.id}/`,
+      link: `/blog/${post.id}/`,
     })),
     customData: `<language>en-us</language>`,
     trailingSlash: true,

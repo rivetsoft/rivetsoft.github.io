@@ -7,11 +7,11 @@ Rivet is a small Linux desktop shell, and apps for files, notes, FTP, editing an
 
 The shell and the apps are written in Rust and drawn with [egui](https://github.com/emilk/egui). There is no GTK or Qt. They share menus, toolbars, Preferences, and the quick panel (`Ctrl+P`). Colors, fonts, and icons follow the desktop. The shell runs [matugen](https://github.com/InioX/matugen) on the wallpaper, and the apps follow those colors while they are open.
 
-The source is [ulinaaron/rivet-apps](https://github.com/ulinaaron/rivet-apps), under MIT or Apache-2.0.
+The source is [ulinaaron/rivet-apps](https://github.com/rivetsoft/rivet-apps), under MIT or Apache-2.0.
 
 ## Get started
 
-Download the Welcome AppImage, make it executable, and run it. Welcome then installs the apps. The steps are on the [install page](/rivet-web/docs/getting-started/install/#get-started).
+Download the Welcome AppImage, make it executable, and run it. Welcome then installs the apps. The steps are on the [install page](/docs/getting-started/install/#get-started).
 
 ## Pieces
 

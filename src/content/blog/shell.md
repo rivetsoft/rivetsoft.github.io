@@ -11,7 +11,7 @@ Rivet has a shell now. It is early. There is no release yet, so you build it fro
 
 It is a Wayland desktop in the same look as the other Rivet apps: a panel, a dock, widgets, and the wallpaper, plus a settings window. The apps still start on their own. You do not need the shell to use them.
 
-![Rivet Shell over a sunset wallpaper, with a Rivet Files window in front](/rivet-web/screenshots/shell-wide.jpg)
+![Rivet Shell over a sunset wallpaper, with a Rivet Files window in front](/screenshots/shell-wide.jpg)
 
 ## What is on screen
 
@@ -37,11 +37,11 @@ Settings has three ways to color the shell, and the Rivet apps follow them. Colo
 
 Files, Notes, Edit, Terminal, and FTP keep working without the shell. The dock is one way to start the ones you pin. Welcome is optional and already has a pre-release: it installs and updates apps from their GitHub releases, checks the sha256, and can sit in the shell's tray. The shell itself has no release, so Welcome cannot install it yet.
 
-Build it from the top of the [repository](https://github.com/ulinaaron/rivet-apps):
+Build it from the top of the [repository](https://github.com/rivetsoft/rivet-apps):
 
 ```sh
 cargo build --release -p rivet-shell
 ./target/release/rivet-shell
 ```
 
-More is on the [Shell page](/rivet-web/docs/shell/) and in the [Shell README](https://github.com/ulinaaron/rivet-apps/blob/main/apps/rivet-shell/README.md), including how to start it from niri, Hyprland, or Sway.
+More is on the [Shell page](/docs/shell/) and in the [Shell README](https://github.com/rivetsoft/rivet-apps/blob/main/apps/rivet-shell/README.md), including how to start it from niri, Hyprland, or Sway.

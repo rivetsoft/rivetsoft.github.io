@@ -5,7 +5,7 @@ description: A Wayland desktop shell with a panel, dock, launcher, and wallpaper
 
 Rivet Shell is a Wayland shell. It draws a panel (you can have more than one), quick settings, notifications, an on-screen display, a dock, a launcher, widgets, and the wallpaper.
 
-![Rivet Shell over a sunset wallpaper, with a Rivet Files window in front](/rivet-web/screenshots/shell-wide.jpg)
+![Rivet Shell over a sunset wallpaper, with a Rivet Files window in front](/screenshots/shell-wide.jpg)
 
 The launcher also evaluates a sum. Widgets include a clock, CPU, memory, and battery. Notifications stay out of the way when mako or dunst is already running.
 
@@ -32,10 +32,10 @@ If a tool is missing, that control simply does not show. The list includes `wpct
 
 ## Plugins
 
-A plugin adds an item to a panel and entries to the launcher. Notes, FTP, Edit and Disk Space come with the shell, and other people can share theirs. [Plugins and hooks](/rivet-web/docs/shell/plugins/) covers installing one, writing one, and running your own commands on the shell's events.
+A plugin adds an item to a panel and entries to the launcher. Notes, FTP, Edit and Disk Space come with the shell, and other people can share theirs. [Plugins and hooks](/docs/shell/plugins/) covers installing one, writing one, and running your own commands on the shell's events.
 
 The shell paints with `rivet_kit::soft` into shared memory. There is no GPU path. It redraws when something on screen changed.
 
-There is no GitHub release yet. Build it from the [Shell README](https://github.com/ulinaaron/rivet-apps/blob/main/apps/rivet-shell/README.md). Startup snippets for niri, Hyprland, and Sway are there too.
+There is no GitHub release yet. Build it from the [Shell README](https://github.com/rivetsoft/rivet-apps/blob/main/apps/rivet-shell/README.md). Startup snippets for niri, Hyprland, and Sway are there too.
 
 More coming soon.

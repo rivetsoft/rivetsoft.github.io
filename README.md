@@ -1,16 +1,16 @@
 # Rivet
 
-A small static site for [Rivet](https://github.com/ulinaaron/rivet-apps), Aaron Mazade's family of Linux desktop apps.
+A small static site for [Rivet](https://github.com/rivetsoft/rivet-apps), Aaron Mazade's family of Linux desktop apps.
 
-The built site is served at [https://ulinaaron.github.io/rivet-web/](https://ulinaaron.github.io/rivet-web/). Astro's `base` is `/rivet-web`.
+The built site is served at [https://rivetsoft.github.io/](https://rivetsoft.github.io/). Astro's `base` is `/`.
 
-Versions and downloads are read from the [GitHub Releases](https://github.com/ulinaaron/rivet-apps/releases) of `ulinaaron/rivet-apps` when the site is built. Drafts are skipped. The newest release for each app is kept, including pre-releases. If the API is unreachable, the build uses `src/data/releases.fallback.json` and still succeeds.
+Versions and downloads are read from the [GitHub Releases](https://github.com/rivetsoft/rivet-apps/releases) of `rivetsoft/rivet-apps` when the site is built. Drafts are skipped. The newest release for each app is kept, including pre-releases. If the API is unreachable, the build uses `src/data/releases.fallback.json` and still succeeds.
 
 Rivet Files, Rivet FTP, Rivet Notes, Rivet Edit, Rivet Terminal, Rivet Shell, and Rivet Welcome are on the site. The home page leads with the shell, then Welcome as the installer. Facts come from the public repository. Screenshots are copied from `docs/screenshots`. The Notes, FTP, Edit, and Terminal pictures are recompressed RGB copies of those files.
 
-The Plugins page lists Rivet Shell's plugins. The official ones are the folders of `apps/rivet-shell/data/plugins` in `ulinaaron/rivet-apps`, read when the site is built; `src/data/plugins.ts` keeps a saved copy for when GitHub is unreachable. The shared ones are read from [`plugins/registry.json`](https://github.com/ulinaaron/rivet-apps/blob/main/plugins/registry.json) in `ulinaaron/rivet-apps` when the site is built, so a listing merged there shows on the next build. Each shared plugin's version comes from its author's release file, read at the same time. If the list is unreachable, the build uses `src/data/plugins.fallback.json`.
+The Plugins page lists Rivet Shell's plugins. The official ones are the folders of `apps/rivet-shell/data/plugins` in `rivetsoft/rivet-apps`, read when the site is built; `src/data/plugins.ts` keeps a saved copy for when GitHub is unreachable. The shared ones are read from [`plugins/registry.json`](https://github.com/rivetsoft/rivet-apps/blob/main/plugins/registry.json) in `rivetsoft/rivet-apps` when the site is built, so a listing merged there shows on the next build. Each shared plugin's version comes from its author's release file, read at the same time. If the list is unreachable, the build uses `src/data/plugins.fallback.json`.
 
-The docs page Plugins and hooks (`src/content/docs/docs/shell/plugins.md`) is `apps/rivet-shell/PLUGINS.md` from `ulinaaron/rivet-apps` with site links. When that file changes, change the page to match.
+The docs page Plugins and hooks (`src/content/docs/docs/shell/plugins.md`) is `apps/rivet-shell/PLUGINS.md` from `rivetsoft/rivet-apps` with site links. When that file changes, change the page to match.
 
 ## What goes where
 

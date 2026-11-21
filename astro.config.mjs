@@ -8,8 +8,8 @@ function codeTheme(name) {
 }
 
 export default defineConfig({
-  site: "https://ulinaaron.github.io",
-  base: "/rivet-web",
+  site: "https://rivetsoft.github.io",
+  base: "/",
   trailingSlash: "always",
   compressHTML: true,
   server: {
@@ -46,7 +46,7 @@ export default defineConfig({
             defer: true,
             src: "https://analytics.stevenswebhosting.com/script.js",
             "data-website-id": "6e7cbc54-64b7-4cc5-9304-d5c2dc7a08a0",
-            "data-domains": "ulinaaron.github.io",
+            "data-domains": "rivetsoft.github.io",
           },
         },
       ],

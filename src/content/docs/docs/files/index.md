@@ -5,9 +5,9 @@ description: How to get around, work with files, add your own actions, and the k
 
 Rivet Files is a file manager in the same family as Dolphin, Nemo, Thunar, and Caja. It is a Rust and egui app, with no GTK or Qt. It also runs on its own, and the shell can use it as the Open and Save picker.
 
-The current downloads, and what each one needs, are on the [Files page](/rivet-web/files/).
+The current downloads, and what each one needs, are on the [Files page](/files/).
 
-![Icon view of Home in the pink scheme](/rivet-web/screenshots/icons-wide.png)
+![Icon view of Home in the pink scheme](/screenshots/icons-wide.png)
 
 ## Getting around
 
@@ -18,20 +18,20 @@ The current downloads, and what each one needs, are on the [Files page](/rivet-w
 - **Filter a folder.** Start typing, or press Ctrl+F. Enter searches the subfolders too.
 - **Filters.** Ctrl+Shift+F limits a folder by type, name, or date: everywhere, for this folder, or for this folder and below. They are kept in `~/.config/rivet/filters`.
 
-![A filter hiding some of the folder](/rivet-web/screenshots/filters-wide.png)
+![A filter hiding some of the folder](/screenshots/filters-wide.png)
 
 ## Previews
 
 - **Peek.** F11 opens a side panel with a large preview, video playback, colored code, and file details. Drag the grip under the preview to change its height.
 - **Preview.** Space shows the selection in the whole window. Left and Right step through the folder's pictures, videos, and text. Return opens the file.
 
-![Peek showing a picture](/rivet-web/screenshots/peek-picture-wide.png)
+![Peek showing a picture](/screenshots/peek-picture-wide.png)
 
 ## Rename many files
 
 Select several files and press F2. Bulk Rename can insert text, dates, or numbers, remove or replace text, and change case. Every new name is previewed before anything is renamed.
 
-![Bulk rename, with a preview of the new names](/rivet-web/screenshots/bulk-rename-wide.png)
+![Bulk rename, with a preview of the new names](/screenshots/bulk-rename-wide.png)
 
 ## Be other apps' Open and Save window
 
@@ -57,7 +57,7 @@ Types=image/*
 Requires=mogrify
 ```
 
-The full list of codes is in the [Files README](https://github.com/ulinaaron/rivet-apps/blob/main/apps/rivet-files/README.md).
+The full list of codes is in the [Files README](https://github.com/rivetsoft/rivet-apps/blob/main/apps/rivet-files/README.md).
 
 ## Layout
 
@@ -68,7 +68,7 @@ The full list of codes is in the [Files README](https://github.com/ulinaaron/riv
 - **Terminal mode:** F7. Monospace text, Nerd Font icons, and panels drawn as boxes. It uses the monospace font from Preferences, Appearance, Typography, and any installed Nerd Font.
 - **Modules:** Preferences, Modules turns off Bulk Rename, Convert and Resize, or custom actions.
 
-![Preferences, Appearance](/rivet-web/screenshots/preferences-wide.png)
+![Preferences, Appearance](/screenshots/preferences-wide.png)
 
 ## Keys
 

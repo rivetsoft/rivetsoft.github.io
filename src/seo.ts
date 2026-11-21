@@ -1,7 +1,7 @@
 import type { AppEntry } from "./data/apps";
 import type { AppRelease } from "./data/release-model";
 
-export const siteRoot = "https://ulinaaron.github.io/rivet-web/";
+export const siteRoot = "https://rivetsoft.github.io/";
 export const person = {
   "@type": "Person",
   name: "Aaron Mazade",

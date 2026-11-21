@@ -2,7 +2,7 @@ import { repoUrl } from "./apps";
 import fallback from "./plugins.fallback.json";
 import { readPluginConf, releaseVersion, selectPlugins, type PluginEntry } from "./plugin-model";
 
-const REGISTRY = "https://raw.githubusercontent.com/ulinaaron/rivet-apps/main/plugins/registry.json";
+const REGISTRY = "https://raw.githubusercontent.com/rivetsoft/rivet-apps/main/plugins/registry.json";
 
 function registryUrl(): string {
   const env = (globalThis as { process?: { env?: Record<string, string | undefined> } }).process?.env;
@@ -42,7 +42,7 @@ function githubHeaders(): Record<string, string> {
 /** The plugins that come with Rivet Shell: each folder of `data/plugins` in rivet-apps, read when the site is built. */
 export const officialPlugins: PluginEntry[] = await (async () => {
   try {
-    const listing = await fetch(`https://api.github.com/repos/ulinaaron/rivet-apps/contents/${OFFICIAL_DIR}`, {
+    const listing = await fetch(`https://api.github.com/repos/rivetsoft/rivet-apps/contents/${OFFICIAL_DIR}`, {
       headers: githubHeaders(),
       signal: AbortSignal.timeout(20_000),
     });
@@ -50,7 +50,7 @@ export const officialPlugins: PluginEntry[] = await (async () => {
     const folders = ((await listing.json()) as { name: string; type: string }[]).filter((entry) => entry.type === "dir");
     const live = await Promise.all(
       folders.map(async ({ name: id }) => {
-        const conf = await fetch(`https://raw.githubusercontent.com/ulinaaron/rivet-apps/main/${OFFICIAL_DIR}/${id}/plugin.conf`, {
+        const conf = await fetch(`https://raw.githubusercontent.com/rivetsoft/rivet-apps/main/${OFFICIAL_DIR}/${id}/plugin.conf`, {
           signal: AbortSignal.timeout(20_000),
         });
         if (!conf.ok) throw new Error(`${id}/plugin.conf HTTP ${conf.status}`);

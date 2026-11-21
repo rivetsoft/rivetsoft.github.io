@@ -19,7 +19,7 @@ function release(partial: RawRelease): RawRelease {
     draft: false,
     prerelease: false,
     published_at: "2026-11-01T00:00:00Z",
-    html_url: `https://github.com/ulinaaron/rivet-apps/releases/tag/${partial.tag_name}`,
+    html_url: `https://github.com/rivetsoft/rivet-apps/releases/tag/${partial.tag_name}`,
     body: "",
     assets: [],
     ...partial,
