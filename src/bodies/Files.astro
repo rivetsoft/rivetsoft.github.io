@@ -1,340 +1,236 @@
 ---
-import Shot from "../components/Shot.astro";
+import PageBand from "../components/PageBand.astro";
 import ReleaseBlock from "../components/ReleaseBlock.astro";
-import StatusBadge from "../components/StatusBadge.astro";
-import { appBySlug, repoUrl } from "../data/apps";
-import { archiveFolder, assetByKind } from "../data/release-model";
+import Throwback from "../components/Throwback.astro";
+import shots from "../data/shots.json";
+import { appBySlug, repoUrl, statusFor, statusLabel } from "../data/apps";
+import { assetByKind, formatBytes } from "../data/release-model";
 import { releaseFor } from "../data/releases";
 import { url } from "../paths";
+// Rivet among the papers of an open folder, beside the downloads.
+import filesArt from "../assets/mascot/files.svg?raw";
 
 const app = appBySlug("files");
 const release = releaseFor("files");
+const status = statusFor(app, release);
+const table = shots as Record<string, { w: number; h: number }>;
+const shot = (name: string) => ({ src: url(`screenshots/${name}`), ...table[name] });
+
+// The page's rows: a screenshot, a claim, and what backs it up.
+const rows = [
+  {
+    shot: "columns-wide.png",
+    alt: "Rivet Files in Miller columns view",
+    title: "Four views. Tabs. A split.",
+    line: "Browse the way you already do.",
+    points: [
+      { icon: "floppy", text: "Icons, list, compact and Miller columns" },
+      { icon: "die", text: "Tabs, and a split view with drag between panes" },
+      { icon: "squiggle", text: "A stepped path bar with fuzzy completion" },
+      { icon: "globe", text: "Places, drives, SMB shares, or a folder tree in the sidebar" },
+    ],
+  },
+  {
+    shot: "peek-code-wide.png",
+    alt: "The Peek panel showing highlighted Rust code",
+    title: "Peek before you open.",
+    line: "A side panel that shows what is in the file.",
+    points: [
+      { icon: "eye", text: "Images, video playback, code and file details" },
+      { icon: "lavalamp", text: "Syntax highlighting in the theme's colors" },
+      { icon: "cassette", text: "Thumbnails from the system's thumbnailers, cache shared" },
+      { icon: "cd", text: "A full-window Preview that steps through the folder" },
+    ],
+  },
+  {
+    shot: "quick-open-wide.png",
+    alt: "Quick Open jumping to a folder",
+    title: "Type a few letters.",
+    line: "Quick Open and Quick Actions on one panel, as in every Rivet app.",
+    points: [
+      { icon: "bolt", text: "Fuzzy-find any folder, bookmark or drive" },
+      { icon: "burst", text: "Every command and setting in one searchable list" },
+      { icon: "hourglass", text: "Filters by type, name or date, per folder or everywhere" },
+      { icon: "yinyang", text: "Vim keys, optional" },
+    ],
+  },
+  {
+    shot: "bulk-rename-wide.png",
+    alt: "Bulk Rename previewing new names",
+    title: "Batch work, built in.",
+    line: "The jobs that usually mean another program.",
+    points: [
+      { icon: "checkbox", text: "Bulk rename, with every new name previewed" },
+      { icon: "tamagotchi", text: "Convert and resize images, video and audio with ffmpeg" },
+      { icon: "pager", text: "zip, tar.gz, tar.xz, tar.zst and 7z" },
+      { icon: "peace", text: "Undo and redo for copies, moves, renames and Trash" },
+    ],
+  },
+  {
+    shot: "file-picker-wide.png",
+    alt: "Rivet Files as another app's Save window",
+    title: "The desktop's file picker.",
+    line: "One file manager, in every Open and Save dialog.",
+    points: [
+      { icon: "alien", text: "An xdg-desktop-portal backend" },
+      { icon: "cursor", text: "Other apps' Open and Save windows become Rivet Files" },
+      { icon: "sign", text: "Not in the Flatpak. The picker you had stays as the fallback" },
+    ],
+  },
+];
+
+// How much file manager you want, least to most, then the two odd ones.
+const modes = [
+  { shot: "minimal-wide.png", alt: "Minimal: a short toolbar and the files", name: "Minimal", text: "A menu button, back and forward, the path, two views." },
+  { shot: "bloated-wide.png", alt: "Bloated: menu bar, full toolbar, tabs, status bar and Peek", name: "Bloated", text: "Every bar, button and panel, all at once." },
+  { shot: "zen-wide.png", alt: "Zen mode with the toolbar and sidebar slid in", name: "Zen", text: "Files fill the window. Panels slide in from the edges." },
+  { shot: "terminal-wide.png", alt: "Terminal mode: monospace text and boxed panels", name: "Terminal mode", text: "Monospace, Nerd Font icons, boxed panels. Same features." },
+];
+
+const themes = [
+  { shot: "theme-rose-wide.png", name: "Rose" },
+  { shot: "theme-ember-wide.png", name: "Ember" },
+  { shot: "theme-moss-wide.png", name: "Moss" },
+  { shot: "theme-violet-wide.png", name: "Violet" },
+];
+
 const appImage = release ? assetByKind(release, "appimage") : undefined;
-const archive = release ? assetByKind(release, "archive") : undefined;
-const flatpak = release ? assetByKind(release, "flatpak") : undefined;
+// From the README's bench: one folder of 100,000 empty files on btrfs, median of five launches.
+const numbers = [
+  { figure: "367 ms", label: "to the first window, on a folder of 100,000 files" },
+  { figure: "0.5 s", label: "until it has settled and stopped using the CPU" },
+  { figure: "76 MiB", label: "of memory with those 100,000 files listed" },
+  { figure: appImage ? formatBytes(appImage.size) : "8 MB", label: "for the whole AppImage" },
+];
 ---
 
-<h1 class="app-title">
-  {app.icon && <img src={url(app.icon)} width="48" height="48" alt="" />}
-  {app.name}
-</h1>
-<StatusBadge app={app} release={release} />
-<p>
-  A Linux file manager in the same vein as Dolphin, Nemo, Thunar, and Caja. It is written in Rust,
-  draws with egui, and does not use GTK or Qt. You can fill the window with every bar and panel, or
-  keep a short toolbar and the files.
-</p>
-<p>
-  {
-    release ? (
-      <>
-        The latest download is <a href={release.htmlUrl}>{release.version}</a>, published {release.dateLabel}.
-      </>
-    ) : (
-      <>No release is published yet.</>
-    )
-  }
-  The builds are x86_64. On main, the changelog still lists split view, custom actions, thumbnails beyond
-  pictures, and copying files to other programs under Unreleased. Those are in the current source and in
-  the README.{release && <> They may not be in the {release.version} files yet.</>}
-</p>
+<PageBand>
+  <p class="app-kicker">
+    <img src={url(app.icon ?? "rivet-files.svg")} width="40" height="40" alt="" />
+    <span class={`badge badge-${status}`}>{statusLabel[status]}</span>
+    {release && <span class="app-version">{release.version}, {release.dateLabel}</span>}
+  </p>
+  <h1>Rivet Files</h1>
+  <p class="band-page-lead">A Linux file manager with no GTK or Qt.</p>
+  <p>
+    Rust and egui, in the vein of Dolphin, Nemo, Thunar and Caja. Fill the window with every bar and
+    panel, or keep a short toolbar and the files.
+  </p>
+  <div class="cta-actions">
+    <a class="btn btn-primary" href="#download">{release ? `Download ${release.version} →` : "Download →"}</a>
+    <a class="btn btn-secondary" href={url("docs/files/")}>Docs</a>
+    <a class="btn btn-secondary" href={`${repoUrl}/tree/main/apps/rivet-files`}>GitHub</a>
+  </div>
+  <a slot="art" class="app-hero-shot" href={shot("icons-wide.png").src}>
+    <img
+      src={shot("icons-wide.png").src}
+      alt="Rivet Files in the pink scheme, icon view of Home"
+      width={shot("icons-wide.png").w}
+      height={shot("icons-wide.png").h}
+      fetchpriority="high"
+      decoding="async"
+    />
+  </a>
+</PageBand>
 
-<Shot
-  name="icons-wide.png"
-  alt="Rivet Files in the pink scheme, icon view of Home"
-  caption="Icon view, in the pink scheme."
-  eager
-/>
-<div class="pair">
-  <Shot
-    name="minimal-wide.png"
-    alt="Minimal: no menu bar, status bar or Peek; a short toolbar"
-    caption="Minimal. Menu button, back and forward, location bar, two views."
-  />
-  <Shot
-    name="bloated-wide.png"
-    alt="Bloated: menu bar, full toolbar, tabs, status bar and Peek"
-    caption="The other way. Every bar, button, and panel."
-  />
-</div>
+<section class="band band-apps app-rows" aria-label="What it does">
+  <ul class="showcase">
+    {
+      rows.map((row) => (
+        <li class="show-row">
+          <a class="show-shot-link" href={shot(row.shot).src}>
+            <img class="show-shot" src={shot(row.shot).src} alt={row.alt} width={shot(row.shot).w} height={shot(row.shot).h} decoding="async" loading="lazy" />
+          </a>
+          <div class="show-copy">
+            <h2 class="app-row-title">{row.title}</h2>
+            <span class="card-summary">{row.line}</span>
+            <ul class="show-points">
+              {row.points.map((point) => (
+                <li>
+                  <Throwback name={point.icon} />
+                  <span>{point.text}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </li>
+      ))
+    }
+  </ul>
+</section>
 
-<nav class="onpage" aria-label="On this page">
-  <a href="#getting-around">Getting around</a>
-  <a href="#files">Working with files</a>
-  <a href="#previews">Previews</a>
-  <a href="#customizing">Customizing</a>
-  <a href="#install">Install</a>
-  <a href="#bench">Bench</a>
-</nav>
-<p>How to use each of these, and the keys, are in the <a href={url("docs/files/")}>Files docs</a>.</p>
+<section class="band app-modes" aria-labelledby="modes-title">
+  <h2 id="modes-title">As much file manager as you want.</h2>
+  <p class="app-band-lead">
+    Toolbar top or bottom, your own buttons, an optional menu bar, the desktop's title bar or Rivet's
+    own. Or pick a mode and be done.
+  </p>
+  <ul class="app-grid app-grid-4">
+    {
+      modes.map((mode) => (
+        <li>
+          <a href={shot(mode.shot).src}>
+            <img src={shot(mode.shot).src} alt={mode.alt} width={shot(mode.shot).w} height={shot(mode.shot).h} decoding="async" loading="lazy" />
+          </a>
+          <h3>{mode.name}</h3>
+          <p>{mode.text}</p>
+        </li>
+      ))
+    }
+  </ul>
+</section>
 
-<h2 id="getting-around">Getting around</h2>
-<dl class="features">
-  <dt>Stepped path bar</dt>
-  <dd>Each folder in the path is its own button. Click one to jump there.</dd>
-  <dt>Fuzzy suggestions</dt>
-  <dd>Type a path and matching folders appear, even from a few scattered letters. Tab completes.</dd>
-  <dt>Three views</dt>
-  <dd>Icons, list, and compact, with tabs.</dd>
-  <dt>Split view</dt>
-  <dd>Two folders side by side. Drag between them, or copy or move to the other pane.</dd>
-  <dt>Sidebar</dt>
-  <dd>Places, bookmarks, drives with usage bars, and network shares, or a folder tree. Left or right.</dd>
-  <dt>Quick Open</dt>
-  <dd>Fuzzy-find a folder and open it. Recent folders, places, bookmarks, drives, and folders under Home.</dd>
-  <dt>Quick Actions</dt>
-  <dd>Every command and setting in one searchable list.</dd>
-  <dt>Filters</dt>
-  <dd>
-    Limit a folder by type, name, or date. Global, for this folder, or for this folder and below.
-  </dd>
-  <dt>Search</dt>
-  <dd>Filter the folder as you type, or search its subfolders too.</dd>
-  <dt>Vim keys</dt>
-  <dd>Optional, off until you turn them on: movement, counts, visual mode, copy, cut, and paste.</dd>
-  <dt>Network</dt>
-  <dd>Browse servers, open SMB shares, or connect to an address.</dd>
-  <dt>File picker</dt>
-  <dd>
-    Rivet can be the Open and Save window other apps show, through xdg-desktop-portal. Not available
-    inside Flatpak. The picker you had stays as the fallback.
-  </dd>
-</dl>
+<section class="band band-colors app-themes" aria-labelledby="themes-title">
+  <h2 id="themes-title">It wears your wallpaper.</h2>
+  <p class="app-band-lead">
+    Colors follow matugen, Noctalia, Dux Shell and GTK themes while the window is open. The built-in
+    icons recolor from the same palette, or use the system's icon theme.
+  </p>
+  <ul class="app-grid app-grid-4">
+    {
+      themes.map((theme) => (
+        <li>
+          <a href={shot(theme.shot).src}>
+            <img src={shot(theme.shot).src} alt={`Rivet Files in the ${theme.name} colors`} width={shot(theme.shot).w} height={shot(theme.shot).h} decoding="async" loading="lazy" />
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</section>
 
-<Shot
-  name="columns-wide.png"
-  alt="Rivet Files in Miller columns view"
-  caption="Miller columns."
-/>
-<Shot
-  name="quick-open-wide.png"
-  alt="Quick Open jumping to a folder"
-  caption="Quick Open. A few letters find the folder."
-/>
+<section class="band app-numbers" aria-labelledby="numbers-title">
+  <h2 id="numbers-title">Fast, and then idle.</h2>
+  <p class="app-band-lead">
+    It draws only when something changes, so an open window uses no CPU.
+    <a href={`${repoUrl}/blob/main/apps/rivet-files/README.md`}>How these were measured</a> is in the README.
+  </p>
+  <ul class="app-stats">
+    {
+      numbers.map((n) => (
+        <li>
+          <strong>{n.figure}</strong>
+          <span>{n.label}</span>
+        </li>
+      ))
+    }
+  </ul>
+</section>
 
-<h2 id="files">Working with files</h2>
-<dl class="features">
-  <dt>The basics</dt>
-  <dd>
-    Copy, cut, paste, and drag and drop, including out to a browser or chat and across to another
-    file manager or a terminal. Rename. Trash, with restore.
-  </dd>
-  <dt>Undo and redo</dt>
-  <dd>Copies, moves, renames, Trash, new items, compress, and extract.</dd>
-  <dt>Bulk rename</dt>
-  <dd>
-    Insert text, dates, or numbers, remove, replace, change case. Every new name is previewed first.
-  </dd>
-  <dt>Convert and resize</dt>
-  <dd>Pictures, video, and audio to other formats, and resize pictures. Needs ffmpeg. It can be turned off.</dd>
-  <dt>Compress and extract</dt>
-  <dd>zip, tar.gz, tar.xz, tar.zst, and 7z.</dd>
-  <dt>Open With</dt>
-  <dd>A searchable list of apps, and a way to set a new default.</dd>
-</dl>
-
-<h2 id="previews">Previews</h2>
-<dl class="features">
-  <dt>Thumbnails</dt>
-  <dd>
-    Pictures, videos, PDFs, fonts, office files, and more. Rivet uses the thumbnailers already on
-    the system and shares their cache with other file managers.
-  </dd>
-  <dt>Peek</dt>
-  <dd>
-    A side panel: large previews, video playback, syntax-highlighted code in the theme's colors, and
-    file details. Left or right.
-  </dd>
-  <dt>Preview</dt>
-  <dd>A full-window view that steps through the folder's pictures, videos, and text.</dd>
-</dl>
-
-<Shot
-  name="peek-code-wide.png"
-  alt="Peek panel showing highlighted Rust code"
-  caption="Peek on a Rust file, colored by the theme."
-/>
-
-<h2 id="customizing">Customizing</h2>
-<dl class="features">
-  <dt>Desktop colors</dt>
-  <dd>
-    Follows Matugen, Noctalia, Dux Shell, and GTK themes as they change. The README says it restyles
-    within a second.
-  </dd>
-  <dt>Built-in icons</dt>
-  <dd>Recolored from the palette: primary, secondary, or tertiary. Or use the system icon theme.</dd>
-  <dt>Layout</dt>
-  <dd>
-    Toolbar top or bottom. Status bar top, bottom, or off. Your own toolbar buttons, fonts, and
-    text size. Optional menu bar.
-  </dd>
-  <dt>Zen mode</dt>
-  <dd>The files fill the window. The toolbar, sidebar, and Peek slide in at the edges.</dd>
-  <dt>Terminal mode</dt>
-  <dd>
-    Monospace text, Nerd Font icons colored by file type, and panels drawn as boxes. The layout and
-    features stay the same.
-  </dd>
-  <dt>Modules</dt>
-  <dd>Turn off Bulk Rename, Convert and Resize, or custom actions.</dd>
-  <dt>Custom actions</dt>
-  <dd>
-    Your own commands in the right-click menu, one small file each.
-  </dd>
-  <dt>Title bar</dt>
-  <dd>The desktop's, or Rivet's own.</dd>
-</dl>
-
-<Shot
-  name="zen-wide.png"
-  alt="Zen mode with the toolbar and sidebar slid in"
-  caption="Zen mode. Move the pointer to an edge and a panel slides in."
-/>
-<Shot
-  name="terminal-wide.png"
-  alt="Rivet Files in terminal mode: monospace text and boxed panels"
-  caption="Terminal mode. Same file manager, drawn like a text program."
-/>
-<Shot
-  name="file-picker-wide.png"
-  alt="Rivet Files as another app's Save window"
-  caption="Rivet as another app's Save window."
-/>
-
-<h2 id="install">Install</h2>
-<ReleaseBlock slug="files" />
-
-<h3>AppImage</h3>
-<p>One file. It includes the keyboard libraries below, and runs on Ubuntu 22.04, Debian 12, and newer.</p>
-{
-  appImage ? (
-    <pre>
-      <code>{`chmod +x ${appImage.name}\n./${appImage.name}`}</code>
-    </pre>
-  ) : (
-    release && <p>This release has no AppImage.</p>
-  )
-}
-<p>Preferences, System, Add Rivet to the app launcher puts it in your menus.</p>
-
-<h3>Archive</h3>
-<p>
-  Unpack and run <code>install.sh</code>. It installs for the current user, with no root. Add
-  <code>--default</code> to make Rivet the default file manager. Same glibc baseline as the AppImage.
-  Install the libraries below if the desktop does not already have them.
-</p>
-{
-  archive ? (
-    <pre>
-      <code>{`tar xzf ${archive.name}\ncd ${archiveFolder(archive.name)}\n./install.sh`}</code>
-    </pre>
-  ) : (
-    release && <p>This release has no archive.</p>
-  )
-}
-<p>
-  <code>install.sh</code> copies the program to <code>~/.local/bin/rivet</code>, writes
-  <code>~/.local/share/applications/rivet-files.desktop</code>, and installs icons under
-  <code>~/.local/share/icons</code>. The script has no uninstall flag. Inside Rivet, Preferences,
-  System, App launcher, Remove takes the launcher entry back out. That deletes the desktop file and
-  the SVG icon Rivet wrote. It does not delete the binary or the PNG icons <code>install.sh</code> copied.
-</p>
-
-<h3>glibc</h3>
-<p>
-  The release notes describe a portable x86_64 build, linked against glibc 2.31 rather than
-  the build machine's libc. The program's highest GLIBC symbol is 2.30. Counting the keyboard
-  libraries in the AppImage, the files need glibc 2.33 or newer, which Ubuntu 22.04 and Debian 12
-  have. Older systems can build from source.
-</p>
-
-<h3 id="libraries">Libraries the window needs</h3>
-<p>
-  Rivet talks to X11 or Wayland directly. It does not use GTK or Qt. A normal desktop already has
-  the display libraries. What a minimal install often lacks is the keyboard library loaded at
-  startup: <code>libxkbcommon</code> on Wayland, and <code>libxkbcommon-x11</code> plus
-  <code>libxcb-xkb</code> on X11. If one is missing, Rivet prints the install command instead of
-  crashing. The AppImage already carries those three.
-</p>
-<ul class="libs">
-  <li>Debian, Ubuntu: <code>sudo apt install libxkbcommon0 libxkbcommon-x11-0 libxcb-xkb1</code></li>
-  <li>Fedora, RHEL: <code>sudo dnf install libxkbcommon libxkbcommon-x11</code></li>
-  <li>Arch Linux: <code>sudo pacman -S libxkbcommon</code></li>
-  <li>openSUSE: <code>sudo zypper install libxkbcommon0 libxkbcommon-x11-0</code></li>
-</ul>
-
-<h3>Flatpak</h3>
-<p>
-  A <code>.flatpak</code> bundle is attached to the GitHub release once CI has built it.
-  {release ? (flatpak ? " This release has one." : " This release does not have one yet.") : ""}
-  It is not on Flathub until that submission is done. The manifest and the steps are in
-  <a href={`${repoUrl}/blob/main/apps/rivet-files/packaging/README.md`}>packaging/README.md</a>. The app id there
-  is <code>io.github.ulinaaron.rivet-files</code>.
-</p>
-<p>
-  Inside the sandbox, home, other disks, Trash, and <code>~/.config</code> theme files are the real
-  ones. Host <code>/usr</code> and <code>/etc</code> are under Host system files
-  (<code>/run/host</code>). Open With a specific program, and Open in Terminal, do not launch host
-  programs from the sandbox. Unmount can fail. The file picker is not available in the Flatpak.
-</p>
-
-<h3>Arch Linux</h3>
-<p>
-  PKGBUILDs for <code>rivet-files-bin</code> (the release tarball) and <code>rivet-files</code>
-  (built from the git tag) are in <code>apps/rivet-files/packaging/aur</code>. They are not in the AUR until published.
-</p>
-
-<h3>From source</h3>
-<p>
-  <code>utilities/rivet-dev install</code> builds a release and adds Rivet to the app launcher.
-  <code>Cargo.toml</code> asks for Rust 1.88. Or build it yourself:
-</p>
-<pre><code>cargo build --release
-./target/release/rivet</code></pre>
-
-<h2 id="bench">A bench from the README</h2>
-<p>
-  One folder of 100,000 empty files on btrfs, a fresh launch each time, median of five runs, measured
-  with the release build the README calls current. First window is when the compositor lists the
-  window. Settled is when the process has used no CPU for 500 ms. When idle, Rivet uses no CPU.
-</p>
-<div class="table-wrap">
-  <table class="nums">
-    <caption class="vh">Rivet opening a folder of 100,000 files</caption>
-    <thead>
-      <tr>
-        <th scope="col">View</th>
-        <th scope="col">First window</th>
-        <th scope="col">Settled</th>
-        <th scope="col">Memory</th>
-        <th scope="col">CPU</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row">List</th>
-        <td>367 ms</td>
-        <td>0.50 s</td>
-        <td>75.6 MiB</td>
-        <td>1.30 s</td>
-      </tr>
-      <tr>
-        <th scope="row">Icons</th>
-        <td>375 ms</td>
-        <td>0.51 s</td>
-        <td>77.6 MiB</td>
-        <td>1.29 s</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-<p>
-  The README also says a stripped binary is about 16 MB, and the AppImage about 7 MB.
-  {appImage && <> The {release?.version} AppImage file is {appImage.size.toLocaleString("en-US")} bytes.</>}
-  The 0.6.0 release notes say the file picker added about 1 MB to the AppImage. The README prints
-  figures for other file managers from someone else's machine. Those are not repeated here.
-  <a href={`${repoUrl}/blob/main/apps/rivet-files/README.md`}>The numbers and how to reproduce them</a> are in the README.
-</p>
-<p>The README's roadmap, past what is already built: tagging and pinning files.</p>
-<p>Crash reports stay on the computer. Nothing is sent unless you choose to share it.</p>
+<section class="band band-apps app-download" id="download" aria-labelledby="download-title">
+  <div class="app-download-copy">
+    <h2 id="download-title">Get Rivet Files.</h2>
+    <p class="app-band-lead">
+      x86_64 builds for Ubuntu 22.04, Debian 12 and newer. The AppImage is one file; the archive installs
+      for your user, with no root.
+    </p>
+    <ReleaseBlock slug="files" />
+    <p class="app-download-more">
+      <a href={url("docs/getting-started/install/")}>Install guide</a>
+      <a href={url("docs/files/#installing")}>Flatpak, Arch and building from source</a>
+      <a href={`${repoUrl}/blob/main/apps/rivet-files/CHANGELOG.md`}>Changelog</a>
+    </p>
+    <p class="app-download-small">Crash reports stay on your computer. Nothing is sent unless you choose to share it.</p>
+  </div>
+  <div class="app-download-rivet" role="img" aria-label="Rivet, the mascot, pops up out of an open folder among its papers." set:html={filesArt} />
+</section>

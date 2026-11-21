@@ -5,7 +5,7 @@ description: How to get around, work with files, add your own actions, and the k
 
 Rivet Files is a file manager in the same family as Dolphin, Nemo, Thunar, and Caja. It is a Rust and egui app, with no GTK or Qt. It also runs on its own, and the shell can use it as the Open and Save picker.
 
-The current downloads, and what each one needs, are on the [Files page](/files/).
+The current downloads are on the [Files page](/files/). [Installing](#installing), below, has what each one needs.
 
 ![Icon view of Home in the pink scheme](/screenshots/icons-wide.png)
 
@@ -116,3 +116,36 @@ The status bar shows `-- VISUAL --` and any half-typed command. While Vim keys a
 - Actions: `~/.local/share/rivet/actions`
 - Thumbnails: `~/.cache/thumbnails`, shared with other file managers
 - Crash reports: `~/.local/state/rivet/crashes`. Nothing is sent unless you choose to share it.
+
+## Installing
+
+The [install guide](/docs/getting-started/install/) has the usual ways. This is the rest.
+
+### What the builds need
+
+The downloads are x86_64, linked against glibc 2.31. Counting the keyboard libraries in the AppImage, they need glibc 2.33 or newer, which Ubuntu 22.04 and Debian 12 have. Older systems can build from source.
+
+Rivet Files talks to X11 or Wayland directly. A normal desktop already has the display libraries. A minimal install often lacks the keyboard library loaded at startup: `libxkbcommon` on Wayland, and `libxkbcommon-x11` plus `libxcb-xkb` on X11. If one is missing, Rivet Files prints the install command instead of crashing. The AppImage carries all three.
+
+### What install.sh does
+
+It copies the program to `~/.local/bin/rivet`, writes `~/.local/share/applications/rivet-files.desktop`, and installs icons under `~/.local/share/icons`. It has no uninstall flag. In the app, Preferences, System, App launcher, Remove deletes the desktop file and the SVG icon Rivet Files wrote. It leaves the program and the PNG icons `install.sh` copied.
+
+### Flatpak
+
+A `.flatpak` bundle is attached to a GitHub release once CI has built it. It is not on Flathub yet. The manifest and the steps are in [packaging/README.md](https://github.com/rivetsoft/apps/blob/main/apps/rivet-files/packaging/README.md). The app id is `io.github.ulinaaron.rivet-files`.
+
+Inside the sandbox, home, other disks, Trash, and the theme files in `~/.config` are the real ones. The host's `/usr` and `/etc` are under Host system files (`/run/host`). Open With a specific program, and Open in Terminal, cannot start host programs. Unmount can fail. The file picker is not available.
+
+### Arch Linux
+
+PKGBUILDs for `rivet-files-bin` (the release archive) and `rivet-files` (built from the git tag) are in `apps/rivet-files/packaging/aur`. They are not in the AUR yet.
+
+### From source
+
+`utilities/rivet-dev install` builds a release and adds Rivet Files to the app launcher. It needs Rust 1.88. Or build it yourself:
+
+```sh
+cargo build --release
+./target/release/rivet
+```

@@ -2648,3 +2648,256 @@ body:has(.band) .site-footer-inner {
 .plugin-empty {
   margin: 1.25rem 0 0;
 }
+
+/* ---------------------------------------------------------------- an app's marketing page
+   Used by Rivet Files' page: a blue band for the pitch, rows of screenshot and claim as on the
+   home page, then bands for the modes, the colors, the numbers and the download. */
+.app-kicker {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.7rem;
+  margin: 0 0 1rem;
+}
+
+.band-page .cta-copy .app-kicker {
+  max-width: none;
+}
+
+.app-kicker img {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.app-version {
+  font-family: "Space Mono", ui-monospace, monospace;
+  font-size: 0.85rem;
+}
+
+.band-page .cta-copy h1 + .band-page-lead {
+  margin-top: 0.8rem;
+}
+
+/* The pitch's screenshot: a hard ink edge and shadow, like the buttons beside it. */
+.band-page-art .app-hero-shot {
+  display: block;
+}
+
+.band-page-art .app-hero-shot img {
+  width: 100%;
+  max-width: none;
+  border: 3px solid #24121b;
+  box-shadow: 12px 12px 0 #24121b;
+  transform: rotate(1.2deg);
+}
+
+@media (min-width: 800px) {
+  .band-page:has(.app-hero-shot) .cta-layout {
+    grid-template-columns: 0.8fr 1.2fr;
+  }
+}
+
+.app-row-title {
+  margin: 0;
+  font-size: clamp(1.7rem, 3vw, 2.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+.app-rows .showcase {
+  margin-top: 0;
+}
+
+.band > .app-band-lead {
+  max-width: 44rem;
+  margin: 0 0 2rem;
+  font-size: 1.1rem;
+}
+
+.app-modes,
+.app-numbers {
+  padding-top: 4.5rem;
+  padding-bottom: 4.75rem;
+}
+
+.app-grid {
+  list-style: none;
+  display: grid;
+  gap: 2rem 1.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+.app-grid li {
+  margin: 0;
+  max-width: none;
+}
+
+.app-grid img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 2px solid #24121b;
+  box-shadow: 6px 6px 0 var(--app-hard, #24121b);
+  transition: transform 160ms ease;
+}
+
+.app-grid a:hover img {
+  transform: translate(-2px, -2px);
+}
+
+.app-grid h3 {
+  margin: 1.1rem 0 0.2rem;
+  font-size: 1.15rem;
+}
+
+.app-grid p {
+  margin: 0;
+  color: var(--muted);
+}
+
+@media (min-width: 620px) {
+  .app-grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1100px) {
+  .app-grid-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* On dark the ink shadow has nothing to show against, so it turns pink. */
+:root[data-theme="dark"] .app-modes {
+  --app-hard: #d53f8c;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .app-modes {
+    --app-hard: #d53f8c;
+  }
+}
+
+/* The colors band is the home page's bright one, so its words are ink in either theme. */
+.app-themes {
+  padding-block: 4.5rem 4.75rem;
+  color: #24121b;
+}
+
+.app-themes h2 {
+  color: #24121b;
+}
+
+/* The numbers, as price tags. */
+.app-stats {
+  list-style: none;
+  display: grid;
+  gap: 1.6rem;
+  margin: 0;
+  padding: 0;
+}
+
+.app-stats li {
+  margin: 0;
+  max-width: none;
+  padding: 1.3rem 1.4rem 1.4rem;
+  border: 3px solid #24121b;
+  background: #fff270;
+  color: #24121b;
+  box-shadow: 7px 7px 0 var(--app-hard, #24121b);
+}
+
+.app-stats li:nth-child(2) {
+  background: #3ecf9a;
+}
+
+.app-stats li:nth-child(3) {
+  background: #e07aab;
+}
+
+.app-stats li:nth-child(4) {
+  background: #e9dee5;
+}
+
+.app-stats strong {
+  display: block;
+  font-size: clamp(2.2rem, 4vw, 3.1rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+}
+
+.app-stats span {
+  display: block;
+  margin-top: 0.45rem;
+  font-weight: 500;
+}
+
+:root[data-theme="dark"] .app-numbers {
+  --app-hard: #0084b8;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .app-numbers {
+    --app-hard: #0084b8;
+  }
+}
+
+@media (min-width: 620px) {
+  .app-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1100px) {
+  .app-stats {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.app-download {
+  display: grid;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.app-download h2 {
+  font-size: clamp(2.15rem, 4.4vw, 3.2rem);
+  margin: 0 0 0.85rem;
+}
+
+.app-download .app-band-lead {
+  max-width: 40rem;
+  margin: 0 0 1.5rem;
+  font-size: 1.1rem;
+}
+
+.app-download-more {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  margin: 1.5rem 0 0;
+  font-weight: 620;
+}
+
+.app-download-small {
+  margin: 1.2rem 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.app-download-rivet svg {
+  display: block;
+  width: min(100%, 26rem);
+  height: auto;
+  margin-inline: auto;
+  overflow: visible;
+}
+
+@media (min-width: 900px) {
+  .app-download {
+    grid-template-columns: 1.4fr 0.8fr;
+    gap: 3.5rem;
+  }
+}
