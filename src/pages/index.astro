@@ -29,10 +29,6 @@ const heroAlt = "Rivet Shell over a wallpaper of Rivet at dusk, with a Rivet Fil
 const description =
   "A small Linux desktop shell, and apps for files, notes, FTP, editing and the terminal. Each one also runs on its own. Built for fun, held together with rivets. Human-driven — executed with vibes.";
 
-// The hero's halftone: dot radius for each band, top to bottom.
-const HALFTONE_BANDS = 16;
-const halftoneBand = 84 / HALFTONE_BANDS;
-const halftone = Array.from({ length: HALFTONE_BANDS }, (_, i) => +(4.2 * Math.pow(1 - i / HALFTONE_BANDS, 1.25)).toFixed(2));
 // Rivet beside the Apps heading, drawn into the page so his words use the site's font.
 import namedArt from "../assets/mascot/named.svg?raw";
 // Rivet in pixels, for the grid floor of the last band.
@@ -50,22 +46,9 @@ import islandArt from "../assets/mascot/island.svg?raw";
 >
   <div class="home-grid">
   <header class="hero">
-  {/* Halftone: dots that are big at the top of the hero and shrink to nothing going down.
-      The hero is cut into bands, each with a smaller dot; every band uses the same spacing,
-      so the dots line up from one band to the next. */}
-  <svg class="hero-plate" aria-hidden="true" focusable="false">
-      <defs>
-        {
-          halftone.map((r, i) => (
-            <pattern id={`halftone-${i}`} width="14" height="14" patternUnits="userSpaceOnUse">
-              <circle cx="3.5" cy="3.5" r={r} fill="var(--plate-rivet)" />
-              <circle cx="10.5" cy="10.5" r={r} fill="var(--plate-rivet)" />
-            </pattern>
-          ))
-        }
-      </defs>
-      {halftone.map((_, i) => <rect x="0" y={`${i * halftoneBand}%`} width="100%" height={`${halftoneBand + 0.2}%`} fill={`url(#halftone-${i})`} />)}
-    </svg>
+  {/* A sunburst behind the screenshot: rays fanning out from where the desktop sits and fading
+      before they reach the edges. The wallpaper has the halftone now, so the page doesn't. */}
+  <div class="hero-plate" aria-hidden="true"></div>
     <div class="hero-copy">
       <img class="hero-shell" src={url("rivet-shell.svg")} width="128" height="128" alt="Rivet Shell" />
       <h1>Rivetsoft</h1>

@@ -375,6 +375,16 @@ main.column:has(.band) {
   height: 100%;
   pointer-events: none;
   z-index: 0;
+  --burst-at: 50% 72%;
+  background: repeating-conic-gradient(from 3deg at var(--burst-at), var(--plate-rivet) 0 7.5deg, transparent 7.5deg 15deg);
+  -webkit-mask-image: radial-gradient(circle at var(--burst-at), #000 0, transparent 72%);
+  mask-image: radial-gradient(circle at var(--burst-at), #000 0, transparent 72%);
+}
+
+@media (min-width: 800px) {
+  .hero-plate {
+    --burst-at: 70% 56%;
+  }
 }
 
 .hero-copy,
@@ -526,13 +536,14 @@ main.column:has(.band) {
   box-shadow: 0 0 0 1px rgba(36, 18, 27, 0.18);
 }
 
+/* On dark, the same soft pink glow as the apps' screenshots further down. */
 :root[data-theme="dark"] .hero-layer-back img {
-  box-shadow: none;
+  box-shadow: 0 24px 70px -20px rgba(213, 63, 140, 0.55);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .hero-layer-back img {
-    box-shadow: none;
+    box-shadow: 0 24px 70px -20px rgba(213, 63, 140, 0.55);
   }
 }
 
