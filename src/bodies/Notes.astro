@@ -1,208 +1,193 @@
 ---
-import Shot from "../components/Shot.astro";
+import PageBand from "../components/PageBand.astro";
 import ReleaseBlock from "../components/ReleaseBlock.astro";
-import StatusBadge from "../components/StatusBadge.astro";
-import { appBySlug, repoUrl } from "../data/apps";
-import { archiveFolder, assetByKind } from "../data/release-model";
+import Throwback from "../components/Throwback.astro";
+import shots from "../data/shots.json";
+import { appBySlug, repoUrl, statusFor, statusLabel } from "../data/apps";
 import { releaseFor } from "../data/releases";
 import { url } from "../paths";
+// Rivet at a note, beside the downloads.
+import notesArt from "../assets/mascot/notes.svg?raw";
 
 const app = appBySlug("notes");
 const release = releaseFor("notes");
-const archive = release ? assetByKind(release, "archive") : undefined;
-const repo = repoUrl;
+const status = statusFor(app, release);
+const table = shots as Record<string, { w: number; h: number }>;
+const shot = (name: string) => ({ src: url(`screenshots/${name}`), ...table[name] });
+
+// The page's rows: a screenshot, a claim, and what backs it up.
+const rows = [
+  {
+    shot: "notes-reading-wide.png",
+    alt: "The reading view of a note, with a code block and a picture",
+    title: "It is just Markdown.",
+    line: "Three ways to look at the same file.",
+    points: [
+      { icon: "cassette", text: "Live mode renders every line but the one you are on" },
+      { icon: "pager", text: "Source mode: the Markdown as written, in color" },
+      { icon: "eye", text: "A reading view with tables, code blocks and pictures" },
+    ],
+  },
+  {
+    shot: "notes-slash-wide.png",
+    alt: "The slash menu open in a note, in the light theme",
+    title: "Blocks, without the lock-in.",
+    line: "The editor does the typing. The file stays text.",
+    points: [
+      { icon: "burst", text: "A slash menu for headings, lists, todos, quotes and code blocks" },
+      { icon: "cursor", text: "Drag a line, a nested list or a whole code block by its handle" },
+      { icon: "bolt", text: "A formatting bar on selected text" },
+      { icon: "floppy", text: "Drop a file in: it is copied into the vault and linked" },
+    ],
+  },
+  {
+    shot: "notes-quick-open-wide.png",
+    alt: "Quick Open matching a note from a few letters",
+    title: "Linked both ways, found in a few letters.",
+    line: "Notes point at each other, and the app keeps the pointers right.",
+    points: [
+      { icon: "yinyang", text: "Bi-directional links, to a note or a heading, suggested as you type" },
+      { icon: "globe", text: "Backlinks listed in Peek" },
+      { icon: "squiggle", text: "Rename a note and the links to it follow" },
+      { icon: "hourglass", text: "Quick Open by title or folder; search by title, path, first line and tag" },
+    ],
+  },
+  {
+    shot: "notes-todos-board-wide.png",
+    alt: "The Todos page as a board, with To do, In progress, and Done columns",
+    title: "Todos that stay plain text.",
+    line: "Two optional modules. Turn on what you use.",
+    points: [
+      { icon: "checkbox", text: "Super todos: a due date, a priority and progress, written in the note" },
+      { icon: "die", text: "One Todos page for the vault, as a list or a kanban board" },
+      { icon: "tamagotchi", text: "Daily notes: one per day, named by its date, in a folder you pick" },
+    ],
+  },
+];
+
+// What a vault is, and is not.
+const facts = [
+  { icon: "alien", title: "No database", text: "A vault is any folder. Nothing is added to it: no index, no hidden settings." },
+  { icon: "lavalamp", title: "Properties are YAML", text: "Frontmatter shows as text, numbers, checkboxes, dates, lists, tags and links. Saving writes back only what changed." },
+  { icon: "flame", title: "Saves as you type", text: "A note changed by another program reloads. Keep several vaults and switch between them." },
+  { icon: "peace", title: "Trash, not delete", text: "Deleting a note moves it to the desktop's Trash." },
+];
+
+const looks = [
+  { shot: "notes-source-dark.png", alt: "Source mode in the pink scheme" },
+  { shot: "notes-source-wide.png", alt: "Source mode in the light theme" },
+  { shot: "notes-todos-list-wide.png", alt: "The Todos page as a list, in the light theme" },
+  { shot: "notes-preferences-wide.png", alt: "Preferences, Modules" },
+];
 ---
 
-<h1 class="app-title">
-  {app.icon && <img src={url(app.icon)} width="48" height="48" alt="" />}
-  {app.name}
-</h1>
-<StatusBadge app={app} release={release} />
-<p>
-  Markdown notes in plain folders. A vault is any folder of Markdown files, so there is
-  nothing to import and nothing locked in. Any other Markdown app can open the same notes. It is
-  written in Rust, draws with egui, and does not use GTK or Qt. Theme, desktop colors, icons,
-  fonts, and in-app windows are the same parts Rivet Files and Rivet FTP use.
-</p>
-<p>
-  {release?.prerelease && "Early alpha. "}
-  {release ? (
-    <>
-      The latest download is <a href={release.htmlUrl}>{release.version}</a>, published {release.dateLabel}.
-      {release.prerelease && " GitHub marks it as a pre-release."}
-    </>
-  ) : (
-    <>No release is published yet.</>
-  )}
-  {release?.prerelease && " It is usable, and still young: things may change or break. Try it on a copy of notes you have backups of."}
-</p>
+<PageBand>
+  <p class="app-kicker">
+    <img src={url(app.icon ?? "rivet-notes.svg")} width="40" height="40" alt="" />
+    <span class={`badge badge-${status}`}>{statusLabel[status]}</span>
+    {release && <span class="app-version">{release.version}, {release.dateLabel}</span>}
+  </p>
+  <h1>Rivet Notes</h1>
+  <p class="band-page-lead">Markdown notes in plain folders.</p>
+  <p>
+    A vault is any folder of Markdown files. Nothing to import, nothing locked in, and any other
+    Markdown app can open the same notes.
+  </p>
+  <div class="cta-actions">
+    <a class="btn btn-primary" href="#download">{release ? `Download ${release.version} →` : "Download →"}</a>
+    <a class="btn btn-secondary" href={url("docs/notes/")}>Docs</a>
+    <a class="btn btn-secondary" href={`${repoUrl}/tree/main/apps/rivet-notes`}>GitHub</a>
+  </div>
+  <a slot="art" class="app-hero-shot" href={shot("notes-live-wide.png").src}>
+    <img
+      src={shot("notes-live-wide.png").src}
+      alt="Rivet Notes in the pink scheme, live mode, with Peek open"
+      width={shot("notes-live-wide.png").w}
+      height={shot("notes-live-wide.png").h}
+      fetchpriority="high"
+      decoding="async"
+    />
+  </a>
+</PageBand>
 
+<section class="band band-apps app-rows" aria-label="What it does">
+  <ul class="showcase">
+    {
+      rows.map((row) => (
+        <li class="show-row">
+          <a class="show-shot-link" href={shot(row.shot).src}>
+            <img class="show-shot" src={shot(row.shot).src} alt={row.alt} width={shot(row.shot).w} height={shot(row.shot).h} decoding="async" loading="lazy" />
+          </a>
+          <div class="show-copy">
+            <h2 class="app-row-title">{row.title}</h2>
+            <span class="card-summary">{row.line}</span>
+            <ul class="show-points">
+              {row.points.map((point) => (
+                <li>
+                  <Throwback name={point.icon} />
+                  <span>{point.text}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </li>
+      ))
+    }
+  </ul>
+</section>
 
-<Shot
-  name="notes-live-wide.png"
-  alt="Rivet Notes in the pink scheme, live mode, with Peek open"
-  caption="Live mode, with Peek open. The line you are on stays Markdown."
-  eager
-/>
+<section class="band app-modes" aria-labelledby="vault-title">
+  <h2 id="vault-title">Your folder stays your folder.</h2>
+  <p class="app-band-lead">
+    The notes are files and the folders are folders. Point another editor, a sync tool or git at the
+    same place.
+  </p>
+  <ul class="app-facts">
+    {
+      facts.map((fact) => (
+        <li>
+          <Throwback name={fact.icon} />
+          <h3>{fact.title}</h3>
+          <p>{fact.text}</p>
+        </li>
+      ))
+    }
+  </ul>
+</section>
 
-<nav class="onpage" aria-label="On this page">
-  <a href="#vaults">Vaults</a>
-  <a href="#properties">Properties</a>
-  <a href="#browse">Folders and tags</a>
-  <a href="#links">Links</a>
-  <a href="#editing">Editing</a>
-  <a href="#modules">Modules</a>
-  <a href="#install">Install</a>
-</nav>
-<p>How each of these works, and the keys, are in the <a href={url("docs/notes/")}>Notes docs</a>.</p>
+<section class="band band-colors app-themes" aria-labelledby="looks-title">
+  <h2 id="looks-title">Light or dark, it follows the desktop.</h2>
+  <p class="app-band-lead">
+    Colors, fonts and the icon theme come from the desktop, the same way as the other Rivet apps.
+    Fonts, text size and line spacing for the notes are yours to set.
+  </p>
+  <ul class="app-grid app-grid-4">
+    {
+      looks.map((look) => (
+        <li>
+          <a href={shot(look.shot).src}>
+            <img src={shot(look.shot).src} alt={look.alt} width={shot(look.shot).w} height={shot(look.shot).h} decoding="async" loading="lazy" />
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</section>
 
-<h2 id="vaults">Vaults</h2>
-<p>
-  A vault is any folder. Its Markdown files are the notes, and its subfolders are their folders.
-  Nothing is added to the folder: no database, and no hidden settings. Keep several vaults and
-  switch between them.
-</p>
-<p>
-  Notes save as you type. A note changed by another program is reloaded. Deleting a note moves it
-  to the desktop's Trash.
-</p>
-
-<h2 id="properties">Properties</h2>
-<p>
-  The frontmatter at the top of a note is shown as properties: text, number, checkbox, date with a
-  calendar, list, tags, or link. The file stays plain YAML, and saving writes back only what
-  changed.
-</p>
-
-<h2 id="browse">Folders and tags</h2>
-<p>
-  Browse by folder, in a tree that folds, or by tag. The sidebar's panels can be tabs or stacked.
-  Search looks at titles, paths, the first line, and tags.
-</p>
-
-<h2 id="links">Links</h2>
-<p>
-  Link notes to each other, to a heading, or with your own shown text. Matches are suggested as
-  you type. A link to a note that is not there yet makes it. Backlinks are listed in Peek, and
-  renaming a note updates the links that point at it.
-</p>
-
-<h2 id="editing">Editing</h2>
-<p>
-  Two modes. Source mode shows the Markdown as written, colored. Live mode still writes Markdown,
-  and renders every line except the one you are on. A reading view shows the whole note rendered,
-  with tables, code blocks, and pictures.
-</p>
-<div class="pair">
-  <Shot
-    name="notes-source-dark.png"
-    alt="Source mode in the pink scheme, showing the Markdown as written"
-    caption="Source mode. The same note, as written."
-  />
-  <Shot
-    name="notes-source-wide.png"
-    alt="Source mode in the light theme, showing the Markdown as written"
-    caption="Source mode, in the light theme."
-  />
-</div>
-<Shot
-  name="notes-reading-wide.png"
-  alt="The reading view of a note, with a code block and a picture"
-  caption="Reading view. Links to other notes open in place."
-/>
-<p>
-  A slash menu adds blocks: headings, lists, todos, quotes, code blocks, dividers, links, and
-  today's date. A handle in the margin drags a line, a list item with everything nested under it,
-  or a whole code block. Selecting text brings up a small formatting bar.
-</p>
-<Shot
-  name="notes-slash-wide.png"
-  alt="The slash menu open in a note, in the light theme"
-  caption="The slash menu, in the light theme."
-/>
-<p>
-  Drop files onto a note and they are copied into the vault and linked. Pictures show in place.
-  Fonts, text size, and line spacing are yours to set, and the window follows the desktop's
-  colors, fonts, and icon theme, in light or dark.
-</p>
-
-<h2 id="modules">Modules</h2>
-<p>Optional parts you turn on.</p>
-<p>
-  Daily notes: a note for each day, named by its date, in a folder you pick.
-</p>
-<p>
-  Super todos: tasks with a due date, a priority, and progress, kept as plain text in the note. A
-  Todos page lists every one in the vault, as a filtered and sorted list or as a board with To do,
-  In progress, and Done columns.
-</p>
-<div class="pair">
-  <Shot
-    name="notes-todos-board-wide.png"
-    alt="The Todos page as a board, with To do, In progress, and Done columns"
-    caption="The Todos page as a board. Drag a card to change its progress."
-  />
-  <Shot
-    name="notes-todos-list-wide.png"
-    alt="The Todos page as a list in the light theme, grouped by when each task is due"
-    caption="The same page as a list, in the light theme, grouped by due date."
-  />
-</div>
-<Shot
-  name="notes-preferences-wide.png"
-  alt="Preferences, Modules, with optional modules listed"
-  caption="Preferences, Modules. Both modules are optional."
-/>
-
-<h2>Quick Open and Quick Actions</h2>
-<p>
-  Find a note from a few letters of its title or folder, or run any command or option by name.
-  They use the same panel as Rivet Files.
-</p>
-<Shot
-  name="notes-quick-open-wide.png"
-  alt="Quick Open matching a note from a few letters"
-  caption="Quick Open. A few letters of the title find the note."
-/>
-<p>
-  Peek is a panel about the open note: its file, size, word count, reading time, dates, and
-  properties.
-</p>
-
-<h2 id="install">Install</h2>
-<ReleaseBlock slug="notes" />
-{
-  archive && (
-    <>
-      <p>
-        Unpack the archive and run <code>install.sh</code>. That puts <code>rivet-notes</code> in
-        <code>~/.local/bin</code> and adds Rivet Notes to the app launcher.
-      </p>
-      <pre>
-        <code>{`tar xzf ${archive.name}\ncd ${archiveFolder(archive.name)}\n./install.sh`}</code>
-      </pre>
-    </>
-  )
-}
-<p>
-  The program is a portable x86_64 build, linked against glibc 2.31. The window needs
-  <a href={url("files/#libraries")}>the same libraries as Rivet Files</a>.
-</p>
-<h3>From source</h3>
-<p>
-  Rust 1.88 or newer. From the top of the repository,
-  <code>utilities/rivet-dev install notes</code> builds a release and adds the launcher entry. Or:
-</p>
-<pre><code>cargo build --release -p rivet-notes
-./target/release/rivet-notes
-./target/release/rivet-notes --install-desktop-entry</code></pre>
-
-<p>
-  The docs still list templates, and full-text search in the shared file views, as next. Search
-  today looks at titles, paths, the first line, and tags.
-</p>
-<p>
-  Longer notes: <a href={`${repo}/blob/main/docs/rivet-notes.md`}>docs/rivet-notes.md</a>,
-  <a href={`${repo}/blob/main/apps/rivet-notes/README.md`}>apps/rivet-notes</a>, and the
-  <a href={`${repo}/blob/main/apps/rivet-notes/CHANGELOG.md`}>changelog</a>.
-</p>
+<section class="band band-apps app-download" id="download" aria-labelledby="download-title">
+  <div class="app-download-copy">
+    <h2 id="download-title">Get Rivet Notes.</h2>
+    <p class="app-band-lead">
+      x86_64 builds for Ubuntu 22.04, Debian 12 and newer. The AppImage is one file; the archive installs
+      for your user, with no root.
+      {release?.prerelease && " This is a pre-release: try it on notes you have backups of."}
+    </p>
+    <ReleaseBlock slug="notes" />
+    <p class="app-download-more">
+      <a href={url("docs/getting-started/install/")}>Install guide</a>
+      <a href={url("docs/notes/#installing")}>What it needs, and building from source</a>
+      <a href={`${repoUrl}/blob/main/apps/rivet-notes/CHANGELOG.md`}>Changelog</a>
+    </p>
+  </div>
+  <div class="app-download-rivet" role="img" aria-label="Rivet, the mascot, with a note." set:html={notesArt} />
+</section>

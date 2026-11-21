@@ -160,3 +160,25 @@ rivet-notes tags [VAULT]     # list its tags
 ```
 
 More is in the [Notes README](https://github.com/rivetsoft/apps/blob/main/apps/rivet-notes/README.md).
+
+## Installing
+
+The [install guide](/docs/getting-started/install/) has the usual ways. Unpacking the archive and running `install.sh` puts `rivet-notes` in `~/.local/bin` and adds Rivet Notes to the app launcher.
+
+The program is a portable x86_64 build, linked against glibc 2.31. The window needs [the same libraries as Rivet Files](/docs/files/#installing).
+
+### From source
+
+Rust 1.88 or newer. From the top of the repository, `utilities/rivet-dev install notes` builds a release and adds the launcher entry. Or:
+
+```sh
+cargo build --release -p rivet-notes
+./target/release/rivet-notes
+./target/release/rivet-notes --install-desktop-entry
+```
+
+### What is next
+
+Templates, and full-text search. Search today looks at titles, paths, the first line, and tags.
+
+Longer notes are in [docs/rivet-notes.md](https://github.com/rivetsoft/apps/blob/main/docs/rivet-notes.md).
