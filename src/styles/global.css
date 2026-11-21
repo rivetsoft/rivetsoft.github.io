@@ -2075,7 +2075,12 @@ body:has(.band) .site-footer-inner {
   position: relative;
   overflow: hidden;
   --shadow-hard: #24121b;
-  background: #0084b8;
+  /* The blue stops short of the band's top and bottom, where the neighbours' colours take over.
+     A phone rounds the band's edge and the waves' edges separately, and a row of blue between
+     them would show as a line. */
+  background:
+    linear-gradient(#0084b8, #0084b8) center / 100% calc(100% - 8px) no-repeat,
+    linear-gradient(color-mix(in srgb, var(--accent-2) 8%, var(--bg)) 50%, var(--bg) 50%);
   color: #e9dee5;
   padding-top: 5.75rem;
   padding-bottom: 6rem;
@@ -2115,17 +2120,18 @@ body:has(.band) .site-footer-inner {
   left: 0;
   z-index: 3;
   width: 100%;
-  height: 2px;
+  height: 6px;
   pointer-events: none;
 }
 
+/* Each strip starts outside the band, so it reaches the edge however the edge is rounded. */
 .band-cta::before {
-  top: 0;
+  top: -2px;
   background: color-mix(in srgb, var(--accent-2) 8%, var(--bg));
 }
 
 .band-cta::after {
-  bottom: 0;
+  bottom: -2px;
   background: var(--bg);
 }
 
