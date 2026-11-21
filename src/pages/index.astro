@@ -38,6 +38,7 @@ import namedArt from "../assets/mascot/named.svg?raw";
 // Rivet in pixels, for the grid floor of the last band.
 import pixelArt from "../assets/mascot/rivet-pixel.svg?raw";
 // Rivet on his island, for the Rivet Welcome band.
+import Throwback from "../components/Throwback.astro";
 import islandArt from "../assets/mascot/island.svg?raw";
 ---
 
@@ -243,7 +244,21 @@ import islandArt from "../assets/mascot/island.svg?raw";
                     : `${release.version}, ${release.dateLabel}`}
                 </span>
               )}
-              <span class="card-summary">{app.summary}</span>
+              {app.homePoints ? (
+                <>
+                  <span class="card-summary">{app.line}</span>
+                  <ul class="show-points">
+                    {app.homePoints.map((point) => (
+                      <li>
+                        <Throwback name={point.icon} />
+                        <span>{point.text}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              ) : (
+                <span class="card-summary">{app.summary}</span>
+              )}
               <a class="show-more" href={url(`${app.slug}/`)} aria-label={`Go deeper into ${app.name}`}>
                 Go Deeper <svg class="show-arrow" viewBox="0 0 24 16" aria-hidden="true">
                   <path d="M1 8h20M14 1.5 21.5 8 14 14.5" />

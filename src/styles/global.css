@@ -2403,6 +2403,50 @@ body:has(.band) .site-footer-inner {
 }
 
 /* In the buttons' type. It lights up only when the pointer is on these words. */
+
+/* Each app's points on the home page, with 90s throwback pictures for bullets: each sits a
+   little crooked, on a hard shadow, like a sticker. */
+.show-points {
+  list-style: none;
+  display: grid;
+  gap: 0.7rem;
+  margin: 0.5rem 0 0.6rem;
+  padding: 0;
+}
+
+.show-points li {
+  display: grid;
+  grid-template-columns: 2.6rem 1fr;
+  gap: 0.8rem;
+  align-items: center;
+  margin: 0;
+  max-width: none;
+  font-weight: 500;
+}
+
+.throwback {
+  display: block;
+  width: 2.6rem;
+  height: 2.6rem;
+  overflow: visible;
+  transform: rotate(-7deg);
+  filter: drop-shadow(2.5px 3px 0 var(--throwback-shadow, #24121b));
+}
+
+.show-points li:nth-child(even) .throwback {
+  transform: rotate(6deg);
+}
+
+:root[data-theme="dark"] .throwback {
+  --throwback-shadow: rgba(0, 0, 0, 0.55);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .throwback {
+    --throwback-shadow: rgba(0, 0, 0, 0.55);
+  }
+}
+
 .show-more {
   margin-top: 0.35rem;
   padding-bottom: 0.1rem;

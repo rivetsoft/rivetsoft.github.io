@@ -29,6 +29,8 @@ export interface AppEntry {
   icon?: string;
   /** README path inside the rivet-apps repository. */
   readme?: string;
+  /** Three short points for the home page, each with the throwback picture that is its bullet. */
+  homePoints?: readonly { icon: string; text: string }[];
   /** Short facts for the generic page. */
   points?: readonly string[];
   /** Shell lines shown on the short page. */
@@ -100,6 +102,12 @@ export const apps: AppEntry[] = [
   },
   {
     slug: "files",
+    homePoints: [
+      { icon: "floppy", text: "Icons, list, compact and Miller columns" },
+      { icon: "eye", text: "Peek: previews for images, video and code" },
+      { icon: "pager", text: "Terminal mode: monospace, Nerd Font icons, boxed panels" },
+      { icon: "alien", text: "A file picker for the whole desktop, over xdg-desktop-portal" },
+    ],
     name: "Rivet Files",
     line: "A Linux file manager, with no GTK or Qt.",
     tagPrefixes: ["rivet-files-v", "v"],
@@ -114,6 +122,10 @@ export const apps: AppEntry[] = [
   },
   {
     slug: "ftp",
+    homePoints: [
+      { icon: "cd", text: "A classic two-pane experience" },
+      { icon: "eightball", text: "Bring your GUI connections into the terminal" },
+    ],
     name: "Rivet FTP",
     line: "Dual-pane SFTP, with a transfer queue.",
     tagPrefixes: ["rivet-ftp-v"],
@@ -129,6 +141,12 @@ export const apps: AppEntry[] = [
   },
   {
     slug: "notes",
+    homePoints: [
+      { icon: "cassette", text: "Live Markdown in plain folders" },
+      { icon: "yinyang", text: "Bi-directional links between notes" },
+      { icon: "tamagotchi", text: "Daily notes" },
+      { icon: "checkbox", text: "Todos as a list or a kanban board" },
+    ],
     name: "Rivet Notes",
     line: "Markdown notes in plain folders.",
     tagPrefixes: ["rivet-notes-v"],
@@ -144,6 +162,13 @@ export const apps: AppEntry[] = [
   },
   {
     slug: "edit",
+    homePoints: [
+      { icon: "bolt", text: "Tree-sitter and LSP" },
+      { icon: "lavalamp", text: "Built-in color schemes" },
+      { icon: "globe", text: "Full find and replace" },
+      { icon: "die", text: "VS Code-like default key bindings" },
+      { icon: "flame", text: "Vim key bindings, optional" },
+    ],
     name: "Rivet Edit",
     line: "A lightweight code editor for folders and files.",
     tagPrefixes: ["rivet-edit-v"],
@@ -164,6 +189,10 @@ export const apps: AppEntry[] = [
   },
   {
     slug: "terminal",
+    homePoints: [
+      { icon: "hourglass", text: "Alacritty, wrapped cutely in rivets" },
+      { icon: "squiggle", text: "Tabs, panes, detach and re-attach" },
+    ],
     name: "Rivet Terminal",
     line: "A terminal with tabs and split panes.",
     tagPrefixes: ["rivet-terminal-v"],
