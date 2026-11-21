@@ -11,6 +11,6 @@ It downloads the Linux archive, checks the published `.sha256`, and runs `instal
 
 The tray sits in the shell panel, or in any StatusNotifierItem tray.
 
-Install it from the [install page](/docs/getting-started/install/#get-started). The terminal commands and the paths are in the [Welcome README](https://github.com/rivetsoft/rivet-apps/blob/main/apps/rivet-welcome/README.md). Current downloads are on the [Welcome page](/welcome/).
+Install it from the [install page](/docs/getting-started/install/#get-started). The terminal commands and the paths are in the [Welcome README](https://github.com/rivetsoft/apps/blob/main/apps/rivet-welcome/README.md). Current downloads are on the [Welcome page](/welcome/).
 
 More coming soon.

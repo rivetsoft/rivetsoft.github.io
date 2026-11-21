@@ -36,6 +36,6 @@ A plugin adds an item to a panel and entries to the launcher. Notes, FTP, Edit a
 
 The shell paints with `rivet_kit::soft` into shared memory. There is no GPU path. It redraws when something on screen changed.
 
-There is no GitHub release yet. Build it from the [Shell README](https://github.com/rivetsoft/rivet-apps/blob/main/apps/rivet-shell/README.md). Startup snippets for niri, Hyprland, and Sway are there too.
+There is no GitHub release yet. Build it from the [Shell README](https://github.com/rivetsoft/apps/blob/main/apps/rivet-shell/README.md). Startup snippets for niri, Hyprland, and Sway are there too.
 
 More coming soon.

@@ -159,4 +159,4 @@ rivet-notes [VAULT]          # open a vault
 rivet-notes tags [VAULT]     # list its tags
 ```
 
-More is in the [Notes README](https://github.com/rivetsoft/rivet-apps/blob/main/apps/rivet-notes/README.md).
+More is in the [Notes README](https://github.com/rivetsoft/apps/blob/main/apps/rivet-notes/README.md).

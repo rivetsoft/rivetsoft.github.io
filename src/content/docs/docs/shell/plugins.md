@@ -172,7 +172,7 @@ Removing a plugin deletes its folder and keeps your settings for it.
 
 ## Sharing a plugin
 
-The list is [`plugins/registry.json`](https://github.com/rivetsoft/rivet-apps/blob/main/plugins/registry.json) in Rivet's repository. A
+The list is [`plugins/registry.json`](https://github.com/rivetsoft/apps/blob/main/plugins/registry.json) in Rivet's repository. A
 plugin is added to it once, by a pull request; after that you publish updates yourself.
 
 **1. A release file.** Keep a small JSON file at an `https` address that doesn't change, such as
@@ -237,23 +237,23 @@ Each is a shell line, run when its event happens.
 
 ## Examples
 
-[`data/plugins/disk`](https://github.com/rivetsoft/rivet-apps/tree/main/apps/rivet-shell/data/plugins/disk) (Disk Space) is a stream plugin in bash, about fifty lines: free space on
+[`data/plugins/disk`](https://github.com/rivetsoft/apps/tree/main/apps/rivet-shell/data/plugins/disk) (Disk Space) is a stream plugin in bash, about fifty lines: free space on
 the panel, turning orange and red as the disk fills; a menu of every disk, which opens the one
 clicked; one notification when it's nearly full; and a refresh when the screen is unlocked.
 Copy its folder into `~/.local/share/rivet-shell/plugins/` under another name to start your own.
 
-[`data/plugins/notes`](https://github.com/rivetsoft/rivet-apps/tree/main/apps/rivet-shell/data/plugins/notes) (Notes) is only a `plugin.conf`: its program is another app, Rivet Notes
+[`data/plugins/notes`](https://github.com/rivetsoft/apps/tree/main/apps/rivet-shell/data/plugins/notes) (Notes) is only a `plugin.conf`: its program is another app, Rivet Notes
 (`exec=rivet-notes shell-plugin`; a program beside the shell's own is found before the ones on
 `PATH`). It uses the rest of what's here: a setting for the vault, a menu with headings and
 tasks' boxes, a badge and a notification when something is due today, and a New Note entry in
 the launcher (and under `@notes`, every note by name). Its source is
-[`apps/rivet-notes/src/shell.rs`](https://github.com/rivetsoft/rivet-apps/blob/main/apps/rivet-notes/src/shell.rs).
+[`apps/rivet-notes/src/shell.rs`](https://github.com/rivetsoft/apps/blob/main/apps/rivet-notes/src/shell.rs).
 
-[`data/plugins/ftp`](https://github.com/rivetsoft/rivet-apps/tree/main/apps/rivet-shell/data/plugins/ftp) (FTP) is Rivet FTP's (`exec=rivet-ftp shell-plugin`,
-[`apps/rivet-ftp/src/shell.rs`](https://github.com/rivetsoft/rivet-apps/blob/main/apps/rivet-ftp/src/shell.rs)), about a hundred lines: the saved connections in the item's menu
+[`data/plugins/ftp`](https://github.com/rivetsoft/apps/tree/main/apps/rivet-shell/data/plugins/ftp) (FTP) is Rivet FTP's (`exec=rivet-ftp shell-plugin`,
+[`apps/rivet-ftp/src/shell.rs`](https://github.com/rivetsoft/apps/blob/main/apps/rivet-ftp/src/shell.rs)), about a hundred lines: the saved connections in the item's menu
 under their groups and in the launcher (`@ftp`), each opening a new Rivet FTP window connected
 to it.
 
-[`data/plugins/edit`](https://github.com/rivetsoft/rivet-apps/tree/main/apps/rivet-shell/data/plugins/edit) (Edit) is Rivet Edit's (`exec=rivet-edit shell-plugin`,
-[`apps/rivet-edit/src/shell.rs`](https://github.com/rivetsoft/rivet-apps/blob/main/apps/rivet-edit/src/shell.rs)): the five folders opened most recently in the item's menu and
+[`data/plugins/edit`](https://github.com/rivetsoft/apps/tree/main/apps/rivet-shell/data/plugins/edit) (Edit) is Rivet Edit's (`exec=rivet-edit shell-plugin`,
+[`apps/rivet-edit/src/shell.rs`](https://github.com/rivetsoft/apps/blob/main/apps/rivet-edit/src/shell.rs)): the five folders opened most recently in the item's menu and
 in the launcher (`@edit`), each opening in a new Rivet Edit window.

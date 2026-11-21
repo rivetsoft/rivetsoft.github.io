@@ -2,7 +2,7 @@ import { apps } from "./apps";
 import fallback from "./releases.fallback.json";
 import { selectReleases, type AppRelease, type RawRelease } from "./release-model";
 
-const API = "https://api.github.com/repos/rivetsoft/rivet-apps/releases?per_page=100";
+const API = "https://api.github.com/repos/rivetsoft/apps/releases?per_page=100";
 
 function releasesApi(): string {
   const env = (globalThis as { process?: { env?: Record<string, string | undefined> } }).process?.env;
@@ -47,7 +47,7 @@ async function fetchReleases(): Promise<RawRelease[]> {
     url = match?.[1];
     if (!url && data.length === 100) {
       const pageNumber = page + 2;
-      url = `https://api.github.com/repos/rivetsoft/rivet-apps/releases?per_page=100&page=${pageNumber}`;
+      url = `https://api.github.com/repos/rivetsoft/apps/releases?per_page=100&page=${pageNumber}`;
     }
   }
   return all;

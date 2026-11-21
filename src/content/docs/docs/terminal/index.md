@@ -7,7 +7,7 @@ Rivet Terminal has tabs and split panes. Layouts are Tall, Fat, Grid, Side by Si
 
 ![Rivet Terminal with three panes](/screenshots/rivet-terminal-wide.png) Shortcuts use `Ctrl+Shift`, so `Ctrl` plus a letter still reaches the program. The terminal widget is [alacritty_terminal](https://github.com/alacritty/alacritty).
 
-The current downloads are on the [Terminal page](/terminal/). The key table is in the [Terminal README](https://github.com/rivetsoft/rivet-apps/blob/main/apps/terminal/README.md). Build from the repo with:
+The current downloads are on the [Terminal page](/terminal/). The key table is in the [Terminal README](https://github.com/rivetsoft/apps/blob/main/apps/terminal/README.md). Build from the repo with:
 
 ```sh
 cargo build --release -p rivet-terminal

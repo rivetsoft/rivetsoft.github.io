@@ -52,7 +52,7 @@ Off until you turn them on in Preferences.
 | Ctrl+G | Go to Line. |
 | F12 | Go to Definition. |
 
-The full key table is in the [Edit README](https://github.com/rivetsoft/rivet-apps/blob/main/apps/rivet-edit/README.md).
+The full key table is in the [Edit README](https://github.com/rivetsoft/apps/blob/main/apps/rivet-edit/README.md).
 
 ## Build from source
 

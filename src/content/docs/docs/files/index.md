@@ -57,7 +57,7 @@ Types=image/*
 Requires=mogrify
 ```
 
-The full list of codes is in the [Files README](https://github.com/rivetsoft/rivet-apps/blob/main/apps/rivet-files/README.md).
+The full list of codes is in the [Files README](https://github.com/rivetsoft/apps/blob/main/apps/rivet-files/README.md).
 
 ## Layout
 

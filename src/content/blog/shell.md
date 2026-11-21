@@ -37,11 +37,11 @@ Settings has three ways to color the shell, and the Rivet apps follow them. Colo
 
 Files, Notes, Edit, Terminal, and FTP keep working without the shell. The dock is one way to start the ones you pin. Welcome is optional and already has a pre-release: it installs and updates apps from their GitHub releases, checks the sha256, and can sit in the shell's tray. The shell itself has no release, so Welcome cannot install it yet.
 
-Build it from the top of the [repository](https://github.com/rivetsoft/rivet-apps):
+Build it from the top of the [repository](https://github.com/rivetsoft/apps):
 
 ```sh
 cargo build --release -p rivet-shell
 ./target/release/rivet-shell
 ```
 
-More is on the [Shell page](/docs/shell/) and in the [Shell README](https://github.com/rivetsoft/rivet-apps/blob/main/apps/rivet-shell/README.md), including how to start it from niri, Hyprland, or Sway.
+More is on the [Shell page](/docs/shell/) and in the [Shell README](https://github.com/rivetsoft/apps/blob/main/apps/rivet-shell/README.md), including how to start it from niri, Hyprland, or Sway.

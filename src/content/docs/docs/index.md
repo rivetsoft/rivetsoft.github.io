@@ -7,7 +7,7 @@ Rivet is a small Linux desktop shell, and apps for files, notes, FTP, editing an
 
 The shell and the apps are written in Rust and drawn with [egui](https://github.com/emilk/egui). There is no GTK or Qt. They share menus, toolbars, Preferences, and the quick panel (`Ctrl+P`). Colors, fonts, and icons follow the desktop. The shell runs [matugen](https://github.com/InioX/matugen) on the wallpaper, and the apps follow those colors while they are open.
 
-The source is [ulinaaron/rivet-apps](https://github.com/rivetsoft/rivet-apps), under MIT or Apache-2.0.
+The source is [rivetsoft/apps](https://github.com/rivetsoft/apps), under MIT or Apache-2.0.
 
 ## Get started
 

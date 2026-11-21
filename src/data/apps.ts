@@ -39,7 +39,7 @@ export interface AppEntry {
   applicationCategory: string;
 }
 
-export const repoUrl = "https://github.com/rivetsoft/rivet-apps";
+export const repoUrl = "https://github.com/rivetsoft/apps";
 export const allReleasesUrl = `${repoUrl}/releases`;
 
 export const apps: AppEntry[] = [

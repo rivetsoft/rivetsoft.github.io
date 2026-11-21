@@ -145,4 +145,4 @@ These are also in the menus, and in Help, Keyboard Shortcuts.
 
 ## More
 
-The current downloads are on the [FTP page](/ftp/). More is in the [FTP README](https://github.com/rivetsoft/rivet-apps/blob/main/apps/rivet-ftp/README.md).
+The current downloads are on the [FTP page](/ftp/). More is in the [FTP README](https://github.com/rivetsoft/apps/blob/main/apps/rivet-ftp/README.md).
