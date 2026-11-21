@@ -13,7 +13,7 @@ interface Props {
 }
 
 const { title, description, current = "", jsonLd = [], ogType = "website" } = Astro.props;
-const documentTitle = current === "home" ? "Rivetsoft" : `${title} | Rivetsoft`;
+const documentTitle = current === "home" ? "Rivetsoft: a Linux desktop shell and apps in Rust" : `${title} | Rivetsoft`;
 ---
 
 <!doctype html>
