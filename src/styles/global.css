@@ -693,13 +693,11 @@ main.column:has(.band) {
 
 @media (prefers-reduced-motion: reduce) {
   .scheme-grid li,
-  .facts li,
   .show-shot {
     transition: none;
   }
 
   .scheme-grid li:hover,
-  .facts li:hover,
   .show-shot-link:hover .show-shot {
     transform: none;
   }
@@ -720,16 +718,6 @@ main.column:has(.band) {
 .facts li {
   margin: 0;
   max-width: none;
-  padding: 1.9rem 1.75rem 2.05rem;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-card);
-  background: var(--bg-raised);
-  transition: transform 180ms ease, box-shadow 180ms ease;
-}
-
-.facts li:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 18px 34px -22px rgba(0, 0, 0, 0.5);
 }
 
 .fact-icon {
