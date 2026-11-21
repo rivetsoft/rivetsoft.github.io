@@ -1,190 +1,92 @@
 ---
-import Shot from "../components/Shot.astro";
-import ReleaseBlock from "../components/ReleaseBlock.astro";
-import StatusBadge from "../components/StatusBadge.astro";
-import { appBySlug, repoUrl } from "../data/apps";
-import { archiveFolder, assetByKind } from "../data/release-model";
+import AppPage from "../components/AppPage.astro";
+import { repoUrl } from "../data/apps";
+import { shotPic } from "../data/pics";
 import { releaseFor } from "../data/releases";
 import { url } from "../paths";
+import art from "../assets/mascot/ftp.svg?raw";
 
-const app = appBySlug("ftp");
 const release = releaseFor("ftp");
-const archive = release ? assetByKind(release, "archive") : undefined;
-const repo = repoUrl;
 ---
 
-<h1 class="app-title">
-  {app.icon && <img src={url(app.icon)} width="48" height="48" alt="" />}
-  {app.name}
-</h1>
-<StatusBadge app={app} release={release} />
-<p>
-  A dual-pane file-transfer app. This computer on one side, the server on the other, and a
-  transfer queue. It is written in Rust, draws with egui, and does not use GTK or Qt. The window
-  is also the connection manager for the terminal: saved connections work from the command line
-  and from plain ssh.
-</p>
-<p>
-  {release?.prerelease && "Early alpha. "}
-  {release ? (
-    <>
-      The latest download is <a href={release.htmlUrl}>{release.version}</a>, published {release.dateLabel}.
-      {release.prerelease && " GitHub marks it as a pre-release."}
-    </>
-  ) : (
-    <>No release is published yet.</>
-  )}
-  {" "}This version speaks SFTP. FTP and FTPS addresses can be saved. Opening them is not built yet.
-  {release?.prerelease && " Things may still change or break. Try it on servers and files you have backups of."}
-</p>
-
-
-<nav class="onpage" aria-label="On this page">
-  <a href="#window">The window</a>
-  <a href="#transfers">Transfers</a>
-  <a href="#editing">Editing</a>
-  <a href="#ssh">SSH keys</a>
-  <a href="#connections">Saved connections</a>
-  <a href="#install">Install</a>
-</nav>
-<p>How to do each of these, the terminal commands, and the keys are in the <a href={url("docs/ftp/")}>FTP docs</a>.</p>
-
-<h2 id="window">The window</h2>
-<p>
-  Saved connections sit in groups in the sidebar. Tabs hold several servers at once. Each tab has
-  its own panes and queue, and a tab in the background keeps transferring. A quick-connect bar
-  takes an address without saving it.
-</p>
-<p>
-  Both panes browse on their own, with Rivet's stepped path bar and columns you can sort by name,
-  size, or date. The toolbar can be arranged, and the menu bar can be hidden. The window follows
-  the desktop's colors, fonts, and icon theme, in light or dark.
-</p>
-<Shot
-  name="ftp-connected-wide.png"
-  alt="Rivet FTP in the pink scheme, connected, with this computer and the server side by side"
-  caption="Connected, with finished transfers. The pictures use a demo server made of a local folder."
-  eager
+<AppPage
+  slug="ftp"
+  lead="A classic two-pane SFTP client."
+  text="This computer on one side, the server on the other, and a transfer queue underneath. Saved connections work from the terminal too. FTP and FTPS are not built yet."
+  hero={shotPic("ftp-connected-wide.png", "Rivet FTP in the pink scheme, connected, with this computer and the server side by side")}
+  rows={[
+    {
+      pic: shotPic("ftp-new-connection-wide.png", "The New Connection window, with SFTP selected"),
+      title: "Connections you keep.",
+      line: "Saved once. Used from the window and from the terminal.",
+      points: [
+        { icon: "cd", text: "Groups in the sidebar, and tabs for several servers at once" },
+        { icon: "bolt", text: "A quick-connect bar for an address you do not want to save" },
+        { icon: "eightball", text: "Bring your GUI connections into the terminal: ssh, scp, rsync and git by name" },
+        { icon: "floppy", text: "One plain text file. Passwords go in the desktop keyring, never the file" },
+      ],
+    },
+    {
+      pic: shotPic("ftp-replace-wide.png", "A dialog comparing two items that are already on the server"),
+      title: "Transfers that ask first.",
+      line: "Drag a file or a whole folder across.",
+      points: [
+        { icon: "burst", text: "A queue with progress, speed and time left. Retry what failed" },
+        { icon: "hourglass", text: "Dates and sizes compared before anything is replaced" },
+        { icon: "die", text: "Keep it, replace the older files, or replace all" },
+        { icon: "squiggle", text: "A tab in the background keeps transferring" },
+      ],
+    },
+    {
+      pic: shotPic("ftp-info-wide.png", "Info for a file on the server, with owner, size, and permission checkboxes"),
+      title: "Edit on the server.",
+      line: "Your editor, their file.",
+      points: [
+        { icon: "cursor", text: "Open a remote file in your own editor. Every save goes back" },
+        { icon: "sign", text: "It asks first if the server's copy changed in the meantime" },
+        { icon: "checkbox", text: "Owner, size and permissions, for one file or a whole folder" },
+        { icon: "eye", text: "Previews for pictures and text" },
+      ],
+    },
+    {
+      pic: shotPic("ftp-keys-wide.png", "Preferences, SSH Keys, in the light theme"),
+      title: "Your SSH, not a copy of it.",
+      line: "SFTP runs through the system's own sftp program.",
+      points: [
+        { icon: "alien", text: "Your keys, agent, ssh config and known hosts all apply" },
+        { icon: "tamagotchi", text: "Make a key, copy its public half, add it to a server" },
+        { icon: "yinyang", text: "Each connection picks its key. Private keys stay on your computer" },
+        { icon: "flame", text: "A new server is trusted on first use. A changed key is refused" },
+      ],
+    },
+  ]}
+  facts={{
+    title: "Still under construction.",
+    lead: "It is an alpha. These are on the list, and not in the app yet.",
+    items: [
+      { icon: "sign", title: "FTP and FTPS", text: "The addresses can be saved. Opening them is not built yet." },
+      { icon: "hourglass", title: "Pause and resume", text: "And a bandwidth limit." },
+      { icon: "burst", title: "Several transfers at once", text: "The queue runs one at a time today." },
+      { icon: "globe", title: "Folder sync", text: "And reconnecting after a drop." },
+    ],
+  }}
+  gallery={{
+    title: "Light or dark, it follows the desktop.",
+    lead: "Colors, fonts and the icon theme come from the desktop. The toolbar can be arranged and the menu bar hidden.",
+    items: [
+      { pic: shotPic("ftp-light-wide.png", "Rivet FTP in the light theme, with both panes showing the same site") },
+      { pic: shotPic("ftp-preferences-wide.png", "Preferences, Transfers: ask, replace, or skip when a file is already there") },
+    ],
+  }}
+  download={{
+    lead: `x86_64 builds for Ubuntu 22.04, Debian 12 and newer. They install for your user, with no root.${release?.prerelease ? " This is a pre-release: try it on servers and files you have backups of." : ""}`,
+    links: [
+      { href: url("docs/getting-started/install/"), label: "Install guide" },
+      { href: url("docs/ftp/#installing"), label: "What it needs, and building from source" },
+      { href: `${repoUrl}/blob/main/docs/rivet-ftp-parity.md`, label: "The feature checklist" },
+      { href: `${repoUrl}/blob/main/apps/rivet-ftp/CHANGELOG.md`, label: "Changelog" },
+    ],
+  }}
+  art={art}
+  artLabel="Rivet, the mascot, sending files to a server."
 />
-<Shot
-  name="ftp-light-wide.png"
-  alt="Rivet FTP in the light theme, with both panes showing the same site"
-  caption="The same window in the light theme."
-/>
-<Shot
-  name="ftp-new-connection-wide.png"
-  alt="The New Connection window, with SFTP selected"
-  caption="A new connection. It is saved for the window and for the terminal."
-/>
-
-<h2 id="transfers">Transfers</h2>
-<p>
-  Files and whole folders go into a queue, by drag and drop or with Upload and Download. A
-  download shows how much has moved, the speed, and the time left. A finished row shows the size,
-  the time, and the speed. A failed transfer can be retried.
-</p>
-<p>
-  When a file is already on the other side, the dates and sizes are compared before anything is
-  replaced, and you choose: keep it, replace the older files, or replace all of them. Pause and
-  resume, a bandwidth limit, several transfers at once, and folder sync are still on the list.
-</p>
-
-<div class="pair">
-  <Shot
-    name="ftp-replace-wide.png"
-    alt="A dialog comparing two items that are already on the server"
-    caption="Already on the server. Dates and sizes are compared before anything is replaced."
-  />
-  <Shot
-    name="ftp-preferences-wide.png"
-    alt="Preferences, Transfers: ask, replace, or skip when a file is already there"
-    caption="Preferences, Transfers. Ask, replace, or skip, and which editor opens a server file."
-  />
-</div>
-
-<h2 id="editing">Editing and file info</h2>
-<p>
-  Open a file on the server in your own editor. Rivet FTP downloads it to a private folder, opens
-  it, and sends each save back. If the server copy changed in the meantime, it asks before
-  replacing it.
-</p>
-<p>
-  Info shows size, date, owner, and permissions, and can change permissions for one file or
-  everything in a folder. New folder, rename, and delete work on the server, and delete asks
-  first. Pictures and text can be previewed.
-</p>
-<Shot
-  name="ftp-info-wide.png"
-  alt="Info for a file on the server, with owner, size, and permission checkboxes"
-  caption="Info and permissions for a file on the server."
-/>
-
-<h2 id="ssh">SSH keys</h2>
-<p>
-  SFTP goes through the system's own sftp program, so your keys, ssh agent, ssh config, and known
-  hosts all apply. A new server is trusted on first use. A changed server key is refused.
-</p>
-<p>
-  Preferences lists your SSH keys, makes new ones, copies a public key, and adds one to a server.
-  Each connection picks its key. Private keys never leave your computer.
-</p>
-<Shot
-  name="ftp-keys-wide.png"
-  alt="Preferences, SSH Keys, in the light theme"
-  caption="Preferences, SSH Keys, in the light theme. Add to Server sends the public half."
-/>
-
-<h2 id="connections">Saved connections</h2>
-<p>
-  A connection saved in the window also works from a terminal: log in over ssh, open the sftp
-  command line, or reach the server by name from ssh, scp, rsync, and git. Connections are kept
-  in one plain text file you can read and edit.
-</p>
-<p>
-  Passwords are never written into that file. If you ask the window to remember a password or a
-  key passphrase, it goes in the desktop keyring.
-</p>
-
-<h2 id="install">Install</h2>
-<ReleaseBlock slug="ftp" />
-{
-  archive && (
-    <>
-      <p>
-        Unpack the archive and run <code>install.sh</code>. That puts <code>rivet-ftp</code> in
-        <code>~/.local/bin</code> and adds Rivet FTP to the app launcher.
-        {!release?.assets.some((item) => item.kind === "appimage" || item.kind === "flatpak") &&
-          " There is no AppImage or Flatpak for this release."}
-      </p>
-      <pre>
-        <code>{`tar xzf ${archive.name}\ncd ${archiveFolder(archive.name)}\n./install.sh`}</code>
-      </pre>
-    </>
-  )
-}
-<p>
-  The program is a portable x86_64 build, linked against glibc 2.31. The window needs
-  <a href={url("docs/files/#installing")}>the same libraries as Rivet Files</a>.
-</p>
-<h3>From source</h3>
-<p>
-  Rust 1.88 or newer. From the top of the repository,
-  <code>utilities/rivet-dev install ftp</code> builds a release and adds the launcher entry. Or:
-</p>
-<pre><code>cargo build --release -p rivet-ftp
-./target/release/rivet-ftp
-./target/release/rivet-ftp open work-site
-./target/release/rivet-ftp --help
-./target/release/rivet-ftp --install-desktop-entry</code></pre>
-<p>
-  Still ahead, from the feature checklist: opening FTP and FTPS, pause and resume, more than one
-  transfer at a time, folder sync, reconnecting after a drop, and Rivet's icon and compact views
-  inside the panes. The checklist is
-  <a href={`${repo}/blob/main/docs/rivet-ftp-parity.md`}>docs/rivet-ftp-parity.md</a>.
-</p>
-
-<p>
-  Longer notes: <a href={`${repo}/blob/main/docs/rivet-ftp.md`}>docs/rivet-ftp.md</a>,
-  <a href={`${repo}/blob/main/apps/rivet-ftp/README.md`}>apps/rivet-ftp</a>, and the
-  <a href={`${repo}/blob/main/apps/rivet-ftp/CHANGELOG.md`}>changelog</a>.
-</p>

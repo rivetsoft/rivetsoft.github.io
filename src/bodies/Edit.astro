@@ -1,105 +1,78 @@
 ---
-import Shot from "../components/Shot.astro";
-import ReleaseBlock from "../components/ReleaseBlock.astro";
+import AppPage from "../components/AppPage.astro";
+import { repoUrl } from "../data/apps";
+import { shotPic } from "../data/pics";
 import { url } from "../paths";
+import art from "../assets/mascot/edit.svg?raw";
 ---
 
-<div class="shell-page edit-page">
-  <section class="band shell-intro">
-    <h1>
-      <img src={url("rivet-edit.svg")} width="72" height="72" alt="" />
-      Rivet Edit
-    </h1>
-    <p class="lede">
-      A small code editor for a folder, or for a few files on their own. It uses the same colors,
-      fonts, menus, Preferences, and quick panel as the other Rivet apps.
-    </p>
-    <p>
-      It is still young. Keep a copy of anything you care about. How to use it, the keys, and the
-      build are in the <a href={url("docs/edit/")}>Edit docs</a>.
-    </p>
-    <Shot
-      name="edit-editor-wide.png"
-      alt="Rivet Edit with the hello-rivet folder open, the file tree on the left, and main.rs in the editor"
-      caption="A folder open. The tree is on the left, the file in the middle."
-      eager
-    />
-  </section>
-
-  <section class="band edit-files" aria-labelledby="edit-files">
-    <h2 id="edit-files">A folder, or a file</h2>
-    <p>
-      Open a folder and its files sit in a tree, without the tool and build folders you never
-      open. Single files open too, each in its own tab. A file you are only looking at opens as a
-      preview, so tabs do not pile up.
-    </p>
-    <p>
-      Rust, Python, JavaScript, TypeScript, JSON, shell, C, Go, HTML, CSS, TOML, and YAML are
-      colored with tree-sitter. Other files use the same colors as Peek in Rivet Files. Those
-      colors follow the theme and the accent.
-    </p>
-  </section>
-
-  <section class="band edit-quick" aria-labelledby="edit-quick">
-    <h2 id="edit-quick">Find a file, or a command</h2>
-    <p>
-      Go to File finds a file from a few letters of its name or its path. The command list runs
-      anything by name. The same quick panel is in the other apps.
-    </p>
-    <div class="shell-grid">
-      <Shot
-        name="edit-go-to-file-wide.png"
-        alt="Go to File in Rivet Edit, with a short search and matching paths"
-        caption="Go to File."
-      />
-      <Shot
-        name="edit-commands-wide.png"
-        alt="The Rivet Edit command list"
-        caption="Commands."
-      />
-    </div>
-  </section>
-
-  <section class="band edit-look" aria-labelledby="edit-look">
-    <h2 id="edit-look">Desktop colors, or a code theme</h2>
-    <p>
-      By default the editor follows the app, which follows your desktop. Or pick one of 39 code
-      themes, including One Dark, Dracula, Catppuccin, Tokyo Night, Nord, Gruvbox, and Rosé Pine,
-      with a preview of each as you move through the list.
-    </p>
-    <div class="shell-grid">
-      <Shot
-        name="edit-preferences-wide.png"
-        alt="Rivet Edit Preferences on Appearance, set to follow the desktop colors, with the pink accent selected"
-        caption="Preferences, following the desktop."
-      />
-      <Shot
-        name="edit-light-wide.png"
-        alt="Rivet Edit in the light theme, with a JavaScript file open"
-        caption="The light theme."
-      />
-    </div>
-  </section>
-
-  <section class="band edit-git" aria-labelledby="edit-git">
-    <h2 id="edit-git">Git, find, and the rest</h2>
-    <p>
-      The sidebar has a Git tab. It shows the branch, a commit message, conflicts, staged changes,
-      and changes not staged yet. Changed files are colored in the tree, and the gutter marks what
-      changed since you staged. It runs your own git, so your config, hooks, and sign-in apply.
-    </p>
-    <p>
-      Find and replace work in the open file, and search can cover the whole folder. Suggestions
-      show up as you type. You can add another cursor, on the next copy of a word or on the line
-      above, and go to a definition. Vim keys are optional.
-    </p>
-    <p>
-      In Rivet Shell, the Edit plugin puts your five most recent folders on the panel and in the
-      launcher.
-    </p>
-  </section>
-
-  <section class="band edit-download">
-    <ReleaseBlock slug="edit" heading="h2" />
-  </section>
-</div>
+<AppPage
+  slug="edit"
+  lead="A lightweight code editor for folders and files."
+  text="Tree-sitter, LSP, Git and a quick panel, in the same look as the other Rivet apps. It is still young: keep a copy of anything you care about."
+  hero={shotPic("edit-editor-wide.png", "Rivet Edit with the hello-rivet folder open, the file tree on the left, and main.rs in the editor")}
+  rows={[
+    {
+      pic: shotPic("edit-go-to-file-wide.png", "Go to File in Rivet Edit, with a short search and matching paths"),
+      title: "Open a folder. Or one file.",
+      line: "No project to set up first.",
+      points: [
+        { icon: "floppy", text: "A folder's files in a tree, without the build folders you never open" },
+        { icon: "cursor", text: "Single files too, each in its own tab" },
+        { icon: "eye", text: "Preview tabs, so looking at a file does not pile tabs up" },
+        { icon: "bolt", text: "Go to File: a few letters of the name or the path" },
+      ],
+    },
+    {
+      pic: shotPic("edit-commands-wide.png", "The Rivet Edit command list"),
+      title: "Keys you already know.",
+      line: "And every command by name, on the same quick panel as the other apps.",
+      points: [
+        { icon: "die", text: "VS Code-like default key bindings" },
+        { icon: "flame", text: "Vim key bindings, optional" },
+        { icon: "burst", text: "Multiple cursors, on the next match or the line above" },
+        { icon: "globe", text: "Full find and replace, in the file or across the folder" },
+      ],
+    },
+    {
+      pic: shotPic("edit-light-wide.png", "Rivet Edit in the light theme, with a JavaScript file open"),
+      title: "Tree-sitter, LSP and Git.",
+      line: "The parts of an IDE that earn their place.",
+      points: [
+        { icon: "cassette", text: "Tree-sitter colors for Rust, Python, JavaScript, TypeScript, Go, C, shell, HTML, CSS, JSON, TOML and YAML" },
+        { icon: "alien", text: "LSP: suggestions as you type, and go to definition" },
+        { icon: "yinyang", text: "A Git tab: branch, staged, unstaged and conflicts, with marks in the gutter" },
+        { icon: "peace", text: "It runs your own git, so your config, hooks and sign-in apply" },
+      ],
+    },
+    {
+      pic: shotPic("edit-preferences-wide.png", "Rivet Edit Preferences on Appearance, set to follow the desktop colors, with the pink accent selected"),
+      title: "Built-in color schemes.",
+      line: "Follow the desktop, or pick a code theme.",
+      points: [
+        { icon: "lavalamp", text: "One Dark, Dracula, Catppuccin, Tokyo Night, Nord, Gruvbox, Rosé Pine and more" },
+        { icon: "tamagotchi", text: "Each one previews as you move through the list" },
+        { icon: "squiggle", text: "Rivet Terminal uses the same list" },
+      ],
+    },
+  ]}
+  facts={{
+    title: "One of the family.",
+    lead: "It shares its parts with the other apps, and joins the shell when the shell is there.",
+    items: [
+      { icon: "smiley", title: "The same look", text: "Colors, fonts, menus, Preferences and the quick panel are the ones Rivet Files uses." },
+      { icon: "pager", title: "In Rivet Shell", text: "The Edit plugin puts your five most recent folders on the panel and in the launcher." },
+      { icon: "hourglass", title: "Rust and egui", text: "No GTK, no Qt, no Electron." },
+    ],
+  }}
+  download={{
+    lead: "x86_64 builds for Ubuntu 22.04, Debian 12 and newer. They install for your user, with no root.",
+    links: [
+      { href: url("docs/getting-started/install/"), label: "Install guide" },
+      { href: url("docs/edit/"), label: "Keys, and building from source" },
+      { href: `${repoUrl}/blob/main/apps/rivet-edit/CHANGELOG.md`, label: "Changelog" },
+    ],
+  }}
+  art={art}
+  artLabel="Rivet, the mascot, at a code editor."
+/>

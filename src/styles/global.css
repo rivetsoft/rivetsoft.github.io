@@ -2942,3 +2942,29 @@ body:has(.band) .site-footer-inner {
     grid-template-columns: repeat(4, 1fr);
   }
 }
+
+/* A gallery or a list of facts with fewer than four in it. */
+@media (min-width: 620px) {
+  .app-grid-2,
+  .app-grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1100px) {
+  .app-grid-3,
+  .app-facts-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .app-facts-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Captions on the bright band stay ink, as its heading does. */
+.app-themes .app-grid h3,
+.app-themes .app-grid p,
+.app-themes .app-band-lead {
+  color: #24121b;
+}

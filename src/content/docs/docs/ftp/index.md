@@ -146,3 +146,25 @@ These are also in the menus, and in Help, Keyboard Shortcuts.
 ## More
 
 The current downloads are on the [FTP page](/ftp/). More is in the [FTP README](https://github.com/rivetsoft/apps/blob/main/apps/rivet-ftp/README.md).
+
+## Installing
+
+The [install guide](/docs/getting-started/install/) has the usual ways. Unpacking the archive and running `install.sh` puts `rivet-ftp` in `~/.local/bin` and adds Rivet FTP to the app launcher.
+
+The program is a portable x86_64 build, linked against glibc 2.31. The window needs [the same libraries as Rivet Files](/docs/files/#installing).
+
+### From source
+
+Rust 1.88 or newer. From the top of the repository, `utilities/rivet-dev install ftp` builds a release and adds the launcher entry. Or:
+
+```sh
+cargo build --release -p rivet-ftp
+./target/release/rivet-ftp
+./target/release/rivet-ftp open work-site
+./target/release/rivet-ftp --help
+./target/release/rivet-ftp --install-desktop-entry
+```
+
+### What is next
+
+Opening FTP and FTPS, pause and resume, more than one transfer at a time, folder sync, reconnecting after a drop, and Rivet's icon and compact views inside the panes. The checklist is [docs/rivet-ftp-parity.md](https://github.com/rivetsoft/apps/blob/main/docs/rivet-ftp-parity.md).

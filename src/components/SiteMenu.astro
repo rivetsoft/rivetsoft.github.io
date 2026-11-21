@@ -334,6 +334,13 @@ const listed = menuSlugs.map((slug) => {
     gap: 0.15rem;
   }
 
+  /* Rows fill the panel. Without this a row is only as wide as its words on a phone, so the
+     highlighted one stops short of the edge. */
+  .apps-panel li > a:not(.apps-install) {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
   .apps-panel a {
     display: flex;
     align-items: center;

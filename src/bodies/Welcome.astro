@@ -1,0 +1,35 @@
+---
+import AppPage from "../components/AppPage.astro";
+import { repoUrl } from "../data/apps";
+import { shotPic } from "../data/pics";
+import { url } from "../paths";
+import art from "../assets/mascot/welcome.svg?raw";
+---
+
+<AppPage
+  slug="welcome"
+  lead="Installs and updates the lot."
+  text="Optional. It installs Rivet Shell and the apps from their GitHub releases, and watches for new versions from a tray icon. Every app can still be installed from its own release."
+  hero={shotPic("welcome-wide.png", "Rivet Welcome with two updates and an install under way")}
+  facts={{
+    title: "One window for seven programs.",
+    lead: "Files, Notes, Edit, Terminal, FTP, Shell and Welcome itself, each with Install, Update, Open or Remove.",
+    items: [
+      { icon: "checkbox", title: "Checked before it runs", text: "It downloads the archive for this computer, checks the published sha256, and runs install.sh." },
+      { icon: "peace", title: "No password", text: "Programs go in ~/.local/bin, for your user only." },
+      { icon: "alien", title: "Packages left alone", text: "An app installed from the AUR, a distribution or /usr/local/bin is shown and not touched." },
+      { icon: "pager", title: "A tray icon", text: "It checks at sign-in and on a schedule, in Rivet Shell, KDE, waybar and other StatusNotifierItem trays." },
+    ],
+  }}
+  download={{
+    lead: "The AppImage is the usual way to start: one file that installs everything else.",
+    links: [
+      { href: url("docs/getting-started/install/#get-started"), label: "Install guide" },
+      { href: url("docs/welcome/"), label: "Docs" },
+      { href: `${repoUrl}/blob/main/apps/rivet-welcome/README.md`, label: "Commands and paths" },
+      { href: `${repoUrl}/blob/main/apps/rivet-welcome/CHANGELOG.md`, label: "Changelog" },
+    ],
+  }}
+  art={art}
+  artLabel="Rivet, the mascot, popping out of a parcel."
+/>

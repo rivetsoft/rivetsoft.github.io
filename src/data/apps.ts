@@ -20,7 +20,7 @@ export interface AppEntry {
   /** Set when this is an idea, not an app in the repository yet. */
   laterPhrase?: string;
   /** Which long page to render. Omit for the short generic page. */
-  template?: "files" | "ftp" | "notes" | "shell" | "edit";
+  template?: "files" | "ftp" | "notes" | "shell" | "edit" | "terminal" | "welcome";
   /** Home-card screenshot in public/screenshots. */
   cardShot?: string;
   cardAlt?: string;
@@ -76,6 +76,7 @@ export const apps: AppEntry[] = [
   },
   {
     slug: "welcome",
+    template: "welcome",
     name: "Rivet Welcome",
     line: "Installs and updates the shell and the apps.",
     tagPrefixes: ["rivet-welcome-v"],
@@ -189,6 +190,7 @@ export const apps: AppEntry[] = [
   },
   {
     slug: "terminal",
+    template: "terminal",
     homePoints: [
       { icon: "hourglass", text: "Alacritty, wrapped cutely in rivets" },
       { icon: "squiggle", text: "Tabs, panes, detach and re-attach" },

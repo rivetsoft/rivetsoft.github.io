@@ -1,0 +1,34 @@
+---
+import AppPage from "../components/AppPage.astro";
+import { repoUrl } from "../data/apps";
+import { shotPic } from "../data/pics";
+import { url } from "../paths";
+import art from "../assets/mascot/terminal.svg?raw";
+---
+
+<AppPage
+  slug="terminal"
+  lead="Alacritty, wrapped cutely in rivets."
+  text="A terminal with tabs and split panes, in the desktop's colors or any of Rivet Edit's themes. The emulation is alacritty_terminal; the window is Rivet's."
+  hero={shotPic("rivet-terminal-wide.png", "Rivet Terminal with three panes")}
+  facts={{
+    title: "Tabs, panes, detach and re-attach.",
+    lead: "Its own keys all use Ctrl+Shift, so plain Ctrl+letters reach your programs.",
+    items: [
+      { icon: "die", title: "Six layouts", text: "Tall, Fat, Grid, Side by Side, Stacked, or One at a Time. New tabs and panes start in the folder you are in." },
+      { icon: "squiggle", title: "Move between windows", text: "Drag a pane or a tab onto another window, or out into its own. What runs in it keeps running." },
+      { icon: "lavalamp", title: "Your colors", text: "The desktop's colors and accent, light or dark, or any code theme: One Dark, Dracula, Catppuccin, Gruvbox, Tokyo Night." },
+      { icon: "cassette", title: "A real terminal", text: "24-bit color, the alternate screen, mouse reporting, bracketed paste, wide characters, and a large scrollback with search." },
+    ],
+  }}
+  download={{
+    lead: "x86_64 builds for Ubuntu 22.04, Debian 12 and newer. They install for your user, with no root.",
+    links: [
+      { href: url("docs/getting-started/install/"), label: "Install guide" },
+      { href: url("docs/terminal/"), label: "Keys, and building from source" },
+      { href: `${repoUrl}/blob/main/apps/rivet-terminal/CHANGELOG.md`, label: "Changelog" },
+    ],
+  }}
+  art={art}
+  artLabel="Rivet, the mascot, at a terminal."
+/>

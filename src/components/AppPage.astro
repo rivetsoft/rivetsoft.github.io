@@ -1,0 +1,142 @@
+---
+// An app's marketing page: a blue band for the pitch, rows of screenshot and claim, then optional
+// bands for facts, a gallery and the download. Each app's body fills it with its own words.
+import PageBand from "./PageBand.astro";
+import ReleaseBlock from "./ReleaseBlock.astro";
+import Throwback from "./Throwback.astro";
+import { appBySlug, repoUrl, statusFor, statusLabel } from "../data/apps";
+import { releaseFor } from "../data/releases";
+import { url } from "../paths";
+
+export interface Pic {
+  src: string;
+  w: number;
+  h: number;
+  alt: string;
+  /** The full-size picture the thumbnail opens, when it is not `src`. */
+  full?: string;
+}
+
+interface Point {
+  icon: string;
+  text: string;
+}
+
+interface Props {
+  slug: string;
+  lead: string;
+  text: string;
+  hero: Pic;
+  rows?: { pic: Pic; title: string; line: string; points: Point[] }[];
+  facts?: { title: string; lead: string; items: { icon: string; title: string; text: string }[] };
+  gallery?: { title: string; lead: string; items: { pic: Pic; name?: string; text?: string }[] };
+  download: { lead: string; links: { href: string; label: string }[]; small?: string };
+  /** The mascot scene beside the downloads, as SVG text, and what it shows. */
+  art: string;
+  artLabel: string;
+}
+
+const { slug, lead, text, hero, rows = [], facts, gallery, download, art, artLabel } = Astro.props;
+const app = appBySlug(slug);
+const release = releaseFor(slug);
+const status = statusFor(app, release);
+const folder = app.readme ? app.readme.replace(/\/README\.md$/, "") : "";
+---
+
+<PageBand>
+  <p class="app-kicker">
+    {app.icon && <img src={url(app.icon)} width="40" height="40" alt="" />}
+    <span class={`badge badge-${status}`}>{statusLabel[status]}</span>
+    {release && <span class="app-version">{release.version}, {release.dateLabel}</span>}
+  </p>
+  <h1>{app.name}</h1>
+  <p class="band-page-lead">{lead}</p>
+  <p>{text}</p>
+  <div class="cta-actions">
+    <a class="btn btn-primary" href="#download">{release ? `Download ${release.version} →` : "Get It →"}</a>
+    <a class="btn btn-secondary" href={url(`docs/${slug}/`)}>Docs</a>
+    <a class="btn btn-secondary" href={`${repoUrl}/tree/main/${folder}`}>GitHub</a>
+  </div>
+  <a slot="art" class="app-hero-shot" href={hero.full ?? hero.src}>
+    <img src={hero.src} alt={hero.alt} width={hero.w} height={hero.h} fetchpriority="high" decoding="async" />
+  </a>
+</PageBand>
+
+{
+  rows.length > 0 && (
+    <section class="band band-apps app-rows" aria-label="What it does">
+      <ul class="showcase">
+        {rows.map((row) => (
+          <li class="show-row">
+            <a class="show-shot-link" href={row.pic.full ?? row.pic.src}>
+              <img class="show-shot" src={row.pic.src} alt={row.pic.alt} width={row.pic.w} height={row.pic.h} decoding="async" loading="lazy" />
+            </a>
+            <div class="show-copy">
+              <h2 class="app-row-title">{row.title}</h2>
+              <span class="card-summary">{row.line}</span>
+              <ul class="show-points">
+                {row.points.map((point) => (
+                  <li>
+                    <Throwback name={point.icon} />
+                    <span>{point.text}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}
+
+{
+  facts && (
+    <section class="band app-modes" aria-labelledby="facts-title">
+      <h2 id="facts-title">{facts.title}</h2>
+      <p class="app-band-lead">{facts.lead}</p>
+      <ul class={`app-facts app-facts-${Math.min(facts.items.length, 4)}`}>
+        {facts.items.map((fact) => (
+          <li>
+            <Throwback name={fact.icon} />
+            <h3>{fact.title}</h3>
+            <p>{fact.text}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}
+
+{
+  gallery && (
+    <section class="band band-colors app-themes" aria-labelledby="gallery-title">
+      <h2 id="gallery-title">{gallery.title}</h2>
+      <p class="app-band-lead">{gallery.lead}</p>
+      <ul class={`app-grid app-grid-${Math.min(gallery.items.length, 4)}`}>
+        {gallery.items.map((item) => (
+          <li>
+            <a href={item.pic.full ?? item.pic.src}>
+              <img src={item.pic.src} alt={item.pic.alt} width={item.pic.w} height={item.pic.h} decoding="async" loading="lazy" />
+            </a>
+            {item.name && <h3>{item.name}</h3>}
+            {item.text && <p>{item.text}</p>}
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}
+
+<section class="band band-apps app-download" id="download" aria-labelledby="download-title">
+  <div class="app-download-copy">
+    <h2 id="download-title">Get {app.name}.</h2>
+    <p class="app-band-lead">{download.lead}</p>
+    <ReleaseBlock slug={slug} />
+    <p class="app-download-more">
+      {download.links.map((link) => <a href={link.href}>{link.label}</a>)}
+    </p>
+    {download.small && <p class="app-download-small">{download.small}</p>}
+  </div>
+  <div class="app-download-rivet" role="img" aria-label={artLabel} set:html={art} />
+</section>

@@ -1,13 +1,14 @@
 ---
-import { Image } from "astro:assets";
+import { getImage } from "astro:assets";
+import type { ImageMetadata } from "astro";
+import AppPage, { type Pic } from "../components/AppPage.astro";
+import { repoUrl } from "../data/apps";
 import { url } from "../paths";
-import desktop from "../assets/shell/desktop.jpg";
-import launcher from "../assets/shell/launcher.jpg";
-import commands from "../assets/shell/commands.jpg";
+import art from "../assets/mascot/shell.svg?raw";
+import desktop from "../assets/hero/hero-desktop.jpg";
+import sunset from "../assets/shell/desktop.jpg";
 import commandsNotes from "../assets/shell/commands-notes.jpg";
-import commandsFtp from "../assets/shell/commands-ftp.jpg";
 import notesMenu from "../assets/shell/notes-menu.jpg";
-import ftpMenu from "../assets/shell/ftp-menu.jpg";
 import quickSettings from "../assets/shell/quick-settings.jpg";
 import settingsAppearance from "../assets/shell/settings-appearance.jpg";
 import settingsPanels from "../assets/shell/settings-panels.jpg";
@@ -15,139 +16,83 @@ import settingsPlugins from "../assets/shell/settings-plugins.jpg";
 import settingsLauncher from "../assets/shell/settings-launcher.jpg";
 import settingsWidgets from "../assets/shell/settings-widgets.jpg";
 
-const wide = [720, 1100, 1440, 1920];
-const half = [640, 960, 1280, 1600];
+// The shell's pictures are photographs of a whole desktop: sized down for the page, with the
+// original behind the link.
+async function pic(image: ImageMetadata, alt: string, width = 1440): Promise<Pic> {
+  const small = await getImage({ src: image, width, format: "webp" });
+  const full = await getImage({ src: image, format: "webp" });
+  const w = Math.min(width, image.width);
+  return { src: small.src, w, h: Math.round((image.height * w) / image.width), alt, full: full.src };
+}
 ---
 
-<div class="shell-page">
-  <section class="band shell-intro">
-    <h1>
-      <img src={url("rivet-shell.svg")} width="72" height="72" alt="" />
-      Rivet Shell
-    </h1>
-    <p class="lede">
-      A Wayland desktop: a panel, a dock, widgets, and the wallpaper. There is no release yet, so you
-      build it from source. Rough edges are expected.
-    </p>
-    <p>
-      How to build it, and the commands, are in the <a href={url("docs/shell/")}>shell docs</a>.
-    </p>
-    <figure class="shell-shot">
-      <Image
-        src={desktop}
-        alt="Rivet Shell with a floating top panel, a clock and system readings, and a dock, over a sunset wallpaper"
-        widths={wide}
-        sizes="(min-width: 800px) 72vw, 100vw"
-      />
-      <figcaption>The desktop. The panel floats at the top.</figcaption>
-    </figure>
-  </section>
-
-  <section class="band shell-settings" aria-labelledby="shell-settings">
-    <h2 id="shell-settings">Settings</h2>
-    <p>
-      The settings window has pages for Wallpaper, Appearance, Panels, Dock, Widgets, Launcher,
-      Notifications, Displays, Idle &amp; Lock, Plugins, and About.
-    </p>
-    <div class="shell-grid">
-      <figure class="shell-shot">
-        <Image src={settingsAppearance} alt="Rivet Shell settings, Appearance page, with style, accent, and color use" widths={half} sizes="(min-width: 800px) 42vw, 100vw" />
-        <figcaption>Appearance.</figcaption>
-      </figure>
-      <figure class="shell-shot">
-        <Image src={settingsPanels} alt="Rivet Shell settings, Panels page, with a floating top panel and its items" widths={half} sizes="(min-width: 800px) 42vw, 100vw" />
-        <figcaption>Panels.</figcaption>
-      </figure>
-      <figure class="shell-shot">
-        <Image src={settingsWidgets} alt="Rivet Shell settings, Widgets page, with the clock and system readings" widths={half} sizes="(min-width: 800px) 42vw, 100vw" />
-        <figcaption>Widgets. A clock, and processor, memory, and battery.</figcaption>
-      </figure>
-      <figure class="shell-shot">
-        <Image src={settingsLauncher} alt="Rivet Shell settings, Launcher page, with grid layout and size" widths={half} sizes="(min-width: 800px) 42vw, 100vw" />
-        <figcaption>Launcher.</figcaption>
-      </figure>
-      <figure class="shell-shot">
-        <Image src={settingsPlugins} alt="Rivet Shell settings, Plugins page, with the official Notes and FTP plugins" widths={half} sizes="(min-width: 800px) 42vw, 100vw" />
-        <figcaption>Plugins. Notes and FTP are official plugins.</figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <section class="band shell-panel" aria-labelledby="shell-panel">
-    <h2 id="shell-panel">Panel</h2>
-    <p>
-      The panel can float at the top. You choose the items: launcher, workspaces, window title,
-      clock, media, system, volume, brightness, network, Bluetooth, battery, dock, tray,
-      notifications, quick settings, and power. A plugin can add its own item.
-    </p>
-    <figure class="shell-shot">
-      <Image
-        src={quickSettings}
-        alt="Rivet Shell quick settings: volume, brightness, toggles, and what is playing"
-        widths={wide}
-        sizes="(min-width: 800px) 72vw, 100vw"
-      />
-      <figcaption>Quick settings, opened from the panel.</figcaption>
-    </figure>
-  </section>
-
-  <section class="band shell-notes" aria-labelledby="shell-notes">
-    <h2 id="shell-notes">Notes</h2>
-    <p>
-      Plugins add items to the panel and entries to the launcher; the <a href={url("plugins/")}>Plugins page</a>
-      lists them all. Rivet Notes has an official shell plugin. Its panel item lists tasks and the latest notes, and
-      a badge when a task is due. Choosing one opens Notes. It is a panel item, not a desktop widget.
-      The launcher can start a new note, and <code>@notes</code> finds one by name.
-    </p>
-    <div class="shell-grid">
-      <figure class="shell-shot">
-        <Image src={notesMenu} alt="The Notes panel item: tasks with a due badge, and the latest notes" widths={half} sizes="(min-width: 800px) 42vw, 100vw" />
-        <figcaption>The Notes item on the panel.</figcaption>
-      </figure>
-      <figure class="shell-shot">
-        <Image src={commandsNotes} alt="The launcher after @notes, listing notes and New Note" widths={half} sizes="(min-width: 800px) 42vw, 100vw" />
-        <figcaption>@notes in the launcher, including New Note.</figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <section class="band shell-ftp" aria-labelledby="shell-ftp">
-    <h2 id="shell-ftp">FTP</h2>
-    <p>
-      The FTP plugin puts saved connections on the panel, in groups. Choosing one opens Rivet FTP
-      already connected to that server. It is a panel item, not a desktop widget.
-      <code>@ftp</code> finds a connection in the launcher.
-    </p>
-    <div class="shell-grid">
-      <figure class="shell-shot">
-        <Image src={ftpMenu} alt="The FTP panel item listing saved connections in groups" widths={half} sizes="(min-width: 800px) 42vw, 100vw" />
-        <figcaption>Saved connections on the panel.</figcaption>
-      </figure>
-      <figure class="shell-shot">
-        <Image src={commandsFtp} alt="The launcher after @ftp, listing saved SFTP connections" widths={half} sizes="(min-width: 800px) 42vw, 100vw" />
-        <figcaption>@ftp in the launcher.</figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <section class="band shell-launch" aria-labelledby="shell-launch">
-    <h2 id="shell-launch">Launcher</h2>
-    <p>
-      The launcher opens in the middle of the screen. <code>@</code> runs a command, such as
-      <code>@notes</code> or <code>@ftp</code>.
-    </p>
-    <div class="shell-grid">
-      <figure class="shell-shot">
-        <Image src={launcher} alt="The Rivet Shell launcher with app icons and an empty search field" widths={half} sizes="(min-width: 800px) 42vw, 100vw" />
-        <figcaption>The launcher.</figcaption>
-      </figure>
-      <figure class="shell-shot">
-        <Image src={commands} alt="The launcher search starting with @ and offering Notes" widths={half} sizes="(min-width: 800px) 42vw, 100vw" />
-        <figcaption>Typing @.</figcaption>
-      </figure>
-    </div>
-    <p>
-      Rivet Edit has a plugin too: your five most recent folders on the panel and in the launcher.
-    </p>
-  </section>
-</div>
+<AppPage
+  slug="shell"
+  lead="A Wayland desktop shell."
+  text="Panels, a dock, a launcher, quick settings, notifications, widgets and the wallpaper. For compositors with layer-shell: niri, Hyprland, Sway and others, not GNOME. There is no release yet, so you build it from source."
+  hero={await pic(desktop, "Rivet Shell with a floating top panel, a clock and system readings, and a dock, over a wallpaper of Rivet at dusk")}
+  rows={[
+    {
+      pic: await pic(quickSettings, "Rivet Shell quick settings: volume, brightness, toggles, and what is playing"),
+      title: "A panel you arrange.",
+      line: "Top or bottom, floating or edge to edge.",
+      points: [
+        { icon: "die", text: "Workspaces, window title, clock, media, tray, notifications and power" },
+        { icon: "bolt", text: "Volume, brightness, network, Bluetooth and battery" },
+        { icon: "burst", text: "Quick settings, opened from the panel" },
+        { icon: "floppy", text: "A dock of pinned apps, then open ones" },
+      ],
+    },
+    {
+      pic: await pic(commandsNotes, "The launcher after @notes, listing notes and New Note"),
+      title: "A launcher with commands.",
+      line: "It opens in the middle of the screen and searches installed apps.",
+      points: [
+        { icon: "cursor", text: "@ runs a command, such as @notes or @ftp" },
+        { icon: "squiggle", text: "The same fuzzy matching as the apps' quick panel" },
+        { icon: "eye", text: "A grid or a list, at the size you set" },
+      ],
+    },
+    {
+      pic: await pic(notesMenu, "The Notes panel item: tasks with a due badge, and the latest notes"),
+      title: "Plugins from the apps.",
+      line: "An app joins the shell through a plugin. Other people's plugins do the same.",
+      points: [
+        { icon: "checkbox", text: "Notes: tasks and the latest notes on the panel, with a badge when one is due" },
+        { icon: "cd", text: "FTP: saved connections on the panel, opened already connected" },
+        { icon: "cassette", text: "Edit: your five most recent folders" },
+        { icon: "alien", text: "A plugin can add a panel item, a menu and launcher entries" },
+      ],
+    },
+    {
+      pic: await pic(sunset, "Rivet Shell over a sunset wallpaper, in colors made from it"),
+      title: "It wears your wallpaper.",
+      line: "Wallpaper on every screen, and colors made from it.",
+      points: [
+        { icon: "lavalamp", text: "matugen colors the desktop from the picture you choose" },
+        { icon: "yinyang", text: "The Rivet apps follow those colors while they are open" },
+        { icon: "hourglass", text: "It paints with its own software renderer, and only on a change. No GPU" },
+      ],
+    },
+  ]}
+  gallery={{
+    title: "Settings for all of it.",
+    lead: "Pages for Wallpaper, Appearance, Panels, Dock, Widgets, Launcher, Notifications, Displays, Idle & Lock, Plugins and About.",
+    items: [
+      { pic: await pic(settingsAppearance, "Rivet Shell settings, Appearance page, with style, accent, and color use", 960), name: "Appearance" },
+      { pic: await pic(settingsPanels, "Rivet Shell settings, Panels page, with a floating top panel and its items", 960), name: "Panels" },
+      { pic: await pic(settingsWidgets, "Rivet Shell settings, Widgets page, with the clock and system readings", 960), name: "Widgets" },
+      { pic: await pic(settingsPlugins, "Rivet Shell settings, Plugins page, with the official Notes and FTP plugins", 960), name: "Plugins" },
+    ],
+  }}
+  download={{
+    lead: "It builds from source with Rust 1.88 or newer. Rough edges are expected.",
+    links: [
+      { href: url("docs/shell/"), label: "How to build and run it" },
+      { href: url("plugins/"), label: "Plugins" },
+      { href: `${repoUrl}/blob/main/apps/rivet-shell/CHANGELOG.md`, label: "Changelog" },
+    ],
+  }}
+  art={art}
+  artLabel="Rivet, the mascot, on a desktop."
+/>
