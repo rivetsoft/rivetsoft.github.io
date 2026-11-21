@@ -35,6 +35,8 @@ import namedArt from "../assets/mascot/named.svg?raw";
 import pixelArt from "../assets/mascot/rivet-pixel.svg?raw";
 // Rivet on his island, for the Rivet Welcome band.
 import Throwback from "../components/Throwback.astro";
+// Rivet in the maker's note, owning up to how it was all made.
+import vibesArt from "../assets/mascot/vibes.svg?raw";
 import islandArt from "../assets/mascot/island.svg?raw";
 ---
 
@@ -460,6 +462,25 @@ import islandArt from "../assets/mascot/island.svg?raw";
     </svg>
   </section>
 
+  {/* The maker's note: Rivet's version of events, then the real one. */}
+  <section class="band band-bio reveal" aria-labelledby="bio-title">
+    <div class="bio-copy">
+      <h2 id="bio-title">
+        Proudly vibe-coded with sloppy <Throwback name="heart" /><span class="vh">love</span>.
+      </h2>
+      <p>
+        For real though, this project is just for fun. I've been building software for 25+ years. Take
+        that for whatever it's worth. Like any software, use at your own risk. Or don't. Rivet certainly doesn't care.
+      </p>
+    </div>
+    <div
+      class="bio-rivet"
+      role="img"
+      aria-label="Rivet, the mascot, stands beside a pile of old monitors, looks away and says: An idiot told a bunch of computers what to do, and they did it. He probably didn't read the code. I certainly didn't, I'm a rivet."
+      set:html={vibesArt}
+    />
+  </section>
+
   <script is:inline>
     (function () {
       var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -620,8 +641,4 @@ import islandArt from "../assets/mascot/island.svg?raw";
       );
     })();
   </script>
-  <p slot="footer-aside" class="vibe-foot">
-    <span class="vibe-foot-title">Vibe-coded with sloppy love</span>
-    Yes, Rivetsoft is vibe-coded. Every line still gets reviewed by a developer with 25+ years in tech.
-  </p>
 </Base>

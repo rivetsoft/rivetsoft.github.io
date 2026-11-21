@@ -1461,30 +1461,47 @@ body:has(.band) .site-footer-inner {
   font-size: 0.82rem;
 }
 
-.vibe-foot {
+/* The maker's note, last on the home page: the title and a few honest lines beside Rivet's
+   version of events. */
+.band-bio {
+  display: grid;
+  gap: 2.5rem;
+  align-items: center;
+  padding-top: 4.5rem;
+  padding-bottom: 4.5rem;
+}
+
+.band-bio h2 {
+  font-size: clamp(2.15rem, 4.4vw, 3.2rem);
+  margin: 0 0 1rem;
+}
+
+.band-bio h2 .throwback {
+  display: inline-block;
+  width: 0.95em;
+  height: 0.95em;
+  margin-left: 0.08em;
+  vertical-align: -0.12em;
+  filter: drop-shadow(0.06em 0.07em 0 var(--throwback-shadow, #24121b));
+}
+
+.bio-copy p {
+  max-width: 34rem;
   margin: 0;
-  max-width: 22rem;
-  color: var(--muted);
-  font-size: 0.82rem;
-  line-height: 1.55;
-  text-align: right;
+  font-size: 1.1rem;
 }
 
-.vibe-foot-title {
+.bio-rivet svg {
   display: block;
-  margin-bottom: 0.2rem;
-  color: var(--fg);
-  font-weight: 620;
+  width: 100%;
+  height: auto;
+  overflow: visible;
 }
 
-@media (max-width: 700px) {
-  body:has(.band) .site-footer-inner {
-    flex-direction: column;
-  }
-
-  .vibe-foot {
-    max-width: none;
-    text-align: left;
+@media (min-width: 800px) {
+  .band-bio {
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 3.5rem;
   }
 }
 
