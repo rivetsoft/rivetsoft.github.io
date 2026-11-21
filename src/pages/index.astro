@@ -493,6 +493,29 @@ import islandArt from "../assets/mascot/island.svg?raw";
         }
         document.documentElement.classList.add("motion");
       }
+      var shots = document.querySelectorAll(".show-shot");
+      if (shots.length && !reduce) {
+        var shotsQueued = false;
+        function paintShots() {
+          shotsQueued = false;
+          var vh = window.innerHeight || 1;
+          for (var s = 0; s < shots.length; s++) {
+            var b = shots[s].getBoundingClientRect();
+            if (b.bottom < -vh || b.top > vh * 2) continue;
+            var off = Math.abs(b.top + b.height / 2 - vh * 0.5) / (vh * 0.55);
+            shots[s].style.setProperty("--tilt", Math.min(1, off).toFixed(3));
+          }
+        }
+        function queueShots() {
+          if (!shotsQueued) {
+            shotsQueued = true;
+            requestAnimationFrame(paintShots);
+          }
+        }
+        window.addEventListener("scroll", queueShots, { passive: true });
+        window.addEventListener("resize", queueShots, { passive: true });
+        paintShots();
+      }
       var brut = document.querySelector(".brut");
       if (brut && !reduce && !coarse) {
         brut.addEventListener(

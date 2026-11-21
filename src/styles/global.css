@@ -2328,6 +2328,7 @@ body:has(.band) .site-footer-inner {
 
 .show-shot-link {
   display: block;
+  perspective: 1400px;
 }
 
 .show-copy .card-name {
@@ -2343,11 +2344,19 @@ body:has(.band) .site-footer-inner {
   border: 1px solid var(--line);
   background: var(--code);
   box-shadow: var(--shadow);
+  transform: translateY(var(--lift, 0px)) rotateX(calc(var(--tilt, 0) * 4deg))
+    rotateY(calc(var(--tilt, 0) * var(--lean, 9deg)));
   transition: transform 180ms ease;
 }
 
+/* Each window leans toward its own text, as the hero's do, and the page's script sets --tilt
+   from how far it is from the middle of the screen, so it straightens as it scrolls into place. */
+.show-row:nth-child(even) .show-shot {
+  --lean: -9deg;
+}
+
 .show-shot-link:hover .show-shot {
-  transform: translateY(-4px);
+  --lift: -4px;
 }
 
 /* The apps' windows are the same dark plum as the page, so on dark they get a light edge and a
