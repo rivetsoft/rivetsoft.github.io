@@ -67,6 +67,18 @@ export default defineConfig({
             { label: "Plugins and hooks", link: "/docs/shell/plugins/" },
           ],
         },
+        {
+          label: "Softcore",
+          items: [
+            { label: "Softcore", link: "/docs/softcore/" },
+            { label: "Settings", link: "/docs/softcore/settings/" },
+            { label: "Keys and chords", link: "/docs/softcore/keys/" },
+            { label: "Windows and workspaces", link: "/docs/softcore/layout/" },
+            { label: "Rules", link: "/docs/softcore/rules/" },
+            { label: "Talking to it", link: "/docs/softcore/msg/" },
+            { label: "What isn't built yet", link: "/docs/softcore/status/" },
+          ],
+        },
         { label: "Welcome", items: [{ label: "Rivet Welcome", link: "/docs/welcome/" }] },
         { label: "Files", items: [{ label: "Rivet Files", link: "/docs/files/" }] },
         { label: "FTP", items: [{ label: "Rivet FTP", link: "/docs/ftp/" }] },

@@ -14,7 +14,9 @@ const app = appBySlug(slug);
 const release = releaseFor(slug);
 const Heading = heading;
 const notes = release ? splitRenderedNotes(renderMarkdown(release.notes)) : { lead: "", rest: "" };
-const readmeUrl = app.readme ? `${repoUrl}/blob/main/${app.readme}` : repoUrl;
+const codeUrl = app.repo ?? repoUrl;
+const readmeUrl = app.repo ?? (app.readme ? `${repoUrl}/blob/main/${app.readme}` : repoUrl);
+const releasesUrl = allReleasesUrl;
 ---
 
 <section class="release" aria-label={release ? `${app.name} ${release.version}` : `${app.name} download`}>
@@ -79,11 +81,13 @@ const readmeUrl = app.readme ? `${repoUrl}/blob/main/${app.readme}` : repoUrl;
           )}
         </p>
         <ul class="release-links">
+          {!app.repo && (
+            <li>
+              <a href={releasesUrl}>All releases</a>
+            </li>
+          )}
           <li>
-            <a href={allReleasesUrl}>All releases</a>
-          </li>
-          <li>
-            <a href={repoUrl}>Repository</a>
+            <a href={codeUrl}>Repository</a>
           </li>
         </ul>
       </>

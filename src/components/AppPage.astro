@@ -41,6 +41,7 @@ const app = appBySlug(slug);
 const release = releaseFor(slug);
 const status = statusFor(app, release);
 const folder = app.readme ? app.readme.replace(/\/README\.md$/, "") : "";
+const codeUrl = app.repo ?? `${repoUrl}/tree/main/${folder}`;
 ---
 
 <PageBand>
@@ -55,7 +56,7 @@ const folder = app.readme ? app.readme.replace(/\/README\.md$/, "") : "";
   <div class="cta-actions">
     <a class="btn btn-primary" href="#download">{release ? `Download ${release.version} →` : "Get It →"}</a>
     <a class="btn btn-secondary" href={url(`docs/${slug}/`)}>Docs</a>
-    <a class="btn btn-secondary" href={`${repoUrl}/tree/main/${folder}`}>GitHub</a>
+    <a class="btn btn-secondary" href={codeUrl}>GitHub</a>
   </div>
   <a slot="art" class="app-hero-shot" href={hero.full ?? hero.src}>
     <img src={hero.src} alt={hero.alt} width={hero.w} height={hero.h} fetchpriority="high" decoding="async" />

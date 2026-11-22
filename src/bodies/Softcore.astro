@@ -1,0 +1,103 @@
+---
+import { getImage } from "astro:assets";
+import type { ImageMetadata } from "astro";
+import AppPage, { type Pic } from "../components/AppPage.astro";
+import { url } from "../paths";
+import art from "../assets/mascot/softcore.svg?raw";
+import strip from "../assets/softcore/strip.jpg";
+import tabs from "../assets/softcore/tabs.jpg";
+import overview from "../assets/softcore/overview.jpg";
+import chords from "../assets/softcore/chords.jpg";
+import picker from "../assets/softcore/picker.jpg";
+import keys from "../assets/softcore/keys.jpg";
+import vertical from "../assets/softcore/vertical.jpg";
+
+// Softcore's pictures are of a whole 1920x1080 display: sized down for the page, with the
+// original behind the link.
+async function pic(image: ImageMetadata, alt: string, width = 1440): Promise<Pic> {
+  const small = await getImage({ src: image, width, format: "webp" });
+  const full = await getImage({ src: image, format: "webp" });
+  const w = Math.min(width, image.width);
+  return { src: small.src, w, h: Math.round((image.height * w) / image.width), alt, full: full.src };
+}
+---
+
+<AppPage
+  slug="softcore"
+  lead="A scrolling-tiling Wayland compositor."
+  text="Windows sit in columns on a strip that runs off both sides of the screen. In Rust on smithay, for the Rivet desktop. It works the way niri does, and is written from scratch. It is early: it runs in a window and headless, and has not been run on real displays yet."
+  hero={await pic(strip, "Softcore with Rivet Files, Rivet Terminal over Rivet Notes, and Rivet Edit in three columns, the outer two cut off by the edges of the screen")}
+  rows={[
+    {
+      pic: await pic(tabs, "A column in Softcore shown as tabs, with a strip across its top"),
+      title: "Columns on a strip.",
+      line: "The screen is a view onto the strip, and the strip scrolls.",
+      points: [
+        { icon: "die", text: "A stack of workspaces per display, with an empty one always last" },
+        { icon: "cassette", text: "Tabs: a column's windows, one showing, on Mod+W" },
+        { icon: "burst", text: "Floating windows, and scratchpads with names and keys of their own" },
+        { icon: "squiggle", text: "scroll=vertical turns the strip a quarter turn, per display or per workspace" },
+      ],
+    },
+    {
+      pic: await pic(overview, "The Softcore overview, with two workspaces drawn at half size over the wallpaper"),
+      title: "The overview.",
+      line: "Every workspace of each display at once, on Mod+O.",
+      points: [
+        { icon: "eye", text: "Half size by default. overview_zoom sets it" },
+        { icon: "cursor", text: "Click a window for the focus, or a workspace to bring it into view" },
+        { icon: "bolt", text: "Bindings keep working, so columns move between workspaces from here" },
+        { icon: "pager", text: "overview-state and the event stream report it, as niri's do" },
+      ],
+    },
+    {
+      pic: await pic(chords, "A chord in Softcore: after Mod+G, a panel lists Terminal, Files, Edit, Notes and Internet with their keys"),
+      title: "Bindings, and chords.",
+      line: "Actions are named as niri names them.",
+      points: [
+        { icon: "tamagotchi", text: "Chords: Mod+G, T. A panel lists what can come next" },
+        { icon: "globe", text: "Mod+Shift+/ shows every binding" },
+        { icon: "checkbox", text: "title=\"…\" names a binding in the panels. An empty binding removes a default" },
+        { icon: "flame", text: "chord_vim adds H, J, K and L to the chord panel" },
+      ],
+    },
+    {
+      pic: await pic(picker, "Softcore's screen sharing picker, with a card for the display and for each window"),
+      title: "Screen sharing it draws itself.",
+      line: "xdg-desktop-portal asks Softcore, and Softcore shows the picker. Not yet tried from a browser.",
+      points: [
+        { icon: "alien", text: "A card for each display and window, with a live picture" },
+        { icon: "sign", text: "Drawn by the compositor: no program can cover it, imitate it or answer it" },
+        { icon: "hourglass", text: "A PipeWire stream that follows a window off screen and through a resize" },
+        { icon: "floppy", text: "grim and other capture tools work, through ext-image-copy-capture" },
+      ],
+    },
+  ]}
+  facts={{
+    title: "Made for Rivet.",
+    lead: "It builds on the shared crates of rivetsoft/apps, and anything it draws goes through them.",
+    items: [
+      { icon: "yinyang", title: "Rivet's colors", text: "The focused border is the accent. Borders and panels recolor with the desktop, live." },
+      { icon: "smiley", title: "Rivet Shell on top", text: "Panels, dock and launcher are layer-shell surfaces. The shell's workspaces, window title, dock and Displays page work under it." },
+      { icon: "lavalamp", title: "One settings file", text: "key=value lines with typed values, read again on save. softcore settings set changes one line and keeps your comments." },
+      { icon: "peace", title: "Rules", text: "Per window, shell surface, workspace and scratchpad: floating, opacity, blur, which display, which workspace." },
+    ],
+  }}
+  gallery={{
+    title: "More of it.",
+    lead: "Both pictures are from a headless Softcore, with Rivet Shell and the Rivet apps running in it.",
+    items: [
+      { pic: await pic(keys, "The Softcore keys panel, listing every binding in two columns", 960), name: "Every binding", text: "Mod+Shift+/, in the Rivet look." },
+      { pic: await pic(vertical, "A Softcore workspace scrolling up and down, with Rivet Edit above Rivet Terminal", 960), name: "scroll=vertical", text: "Rows one under the other, each as wide as the screen." },
+    ],
+  }}
+  download={{
+    lead: "It builds from source and opens in a window of the desktop you are on. It needs libseat, libinput, libudev, libgbm, libxkbcommon and EGL, with their headers.",
+    links: [
+      { href: url("docs/softcore/"), label: "Build and run it" },
+      { href: url("docs/softcore/status/"), label: "What isn't built yet" },
+    ],
+  }}
+  art={art}
+  artLabel="Rivet, the mascot, beside a strip of windows that runs off both sides."
+/>

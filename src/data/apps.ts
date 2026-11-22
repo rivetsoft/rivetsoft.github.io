@@ -20,7 +20,7 @@ export interface AppEntry {
   /** Set when this is an idea, not an app in the repository yet. */
   laterPhrase?: string;
   /** Which long page to render. Omit for the short generic page. */
-  template?: "files" | "ftp" | "notes" | "shell" | "edit" | "terminal" | "welcome";
+  template?: "files" | "ftp" | "notes" | "shell" | "softcore" | "edit" | "terminal" | "welcome";
   /** Home-card screenshot in public/screenshots. */
   cardShot?: string;
   cardAlt?: string;
@@ -29,6 +29,8 @@ export interface AppEntry {
   icon?: string;
   /** README path inside the rivet-apps repository. */
   readme?: string;
+  /** A repository of its own, when it is not part of rivetsoft/apps. */
+  repo?: string;
   /** Three short points for the home page, each with the throwback picture that is its bullet. */
   homePoints?: readonly { icon: string; text: string }[];
   /** Short facts for the generic page. */
@@ -43,6 +45,8 @@ export interface AppEntry {
 
 export const repoUrl = "https://github.com/rivetsoft/apps";
 export const allReleasesUrl = `${repoUrl}/releases`;
+/** Softcore's repository. It moves to github.com/rivetsoft/softcore: change it here. */
+export const softcoreRepoUrl = "https://github.com/ulinaaron/softcore";
 
 export const apps: AppEntry[] = [
   {
@@ -73,6 +77,28 @@ export const apps: AppEntry[] = [
 ./target/release/rivet-shell
 ./target/release/rivet-shell settings
 ./target/release/rivet-shell --install-desktop-entry`,
+  },
+  {
+    slug: "softcore",
+    template: "softcore",
+    name: "Softcore",
+    line: "A scrolling-tiling Wayland compositor.",
+    tagPrefixes: [],
+    nav: true,
+    applicationCategory: "DesktopApplication",
+    cardShot: "softcore-wide.jpg",
+    cardAlt: "Softcore with three columns of windows on a strip that runs off both sides of the screen, under Rivet Shell's panel",
+    cardCaption: "Softcore, with the strip running off both sides.",
+    icon: "softcore.svg",
+    repo: softcoreRepoUrl,
+    homePoints: [
+      { icon: "squiggle", text: "Scrolling-tiling: columns on a strip, as niri does it" },
+      { icon: "cassette", text: "In Rust on smithay, written from scratch" },
+      { icon: "floppy", text: "One key=value settings file, read again on save" },
+      { icon: "yinyang", text: "Borders and panels in the Rivet colors, followed live" },
+    ],
+    summary:
+      "A scrolling-tiling Wayland compositor for the Rivet desktop, in Rust on smithay. Columns on a strip, workspaces per display, tabs, an overview, rules and chords. Early: no release yet.",
   },
   {
     slug: "welcome",
