@@ -24,75 +24,67 @@ async function pic(image: ImageMetadata, alt: string, width = 1440): Promise<Pic
 
 <AppPage
   slug="softcore"
-  lead="A scrolling-tiling Wayland compositor."
-  text="Windows sit in columns on a strip that runs off both sides of the screen. Softcore is written from scratch in Rust on smithay, for the Rivet desktop, and works the way niri does. It is early. It runs in a window and headless, and has not been run on real displays yet."
+  lead="A scrolling Wayland compositor that feels oh so good."
+  text="Keep scrolling, side-to-side, or up and down. Softcore has your fix. Built in Rust with Smithay. All the modern niceties you'd come to expect. Giving you just enough to see. No matter if your windows are big or small. All size windows welcome here. We don't judge."
   hero={await pic(strip, "Softcore with Rivet Files, Rivet Terminal over Rivet Notes, and Rivet Edit in three columns, the outer two cut off by the edges of the screen")}
   rows={[
     {
       pic: await pic(tabs, "A column in Softcore shown as tabs, with a strip across its top"),
-      title: "Columns on a strip.",
-      line: "The screen is a view onto the strip, and the strip scrolls.",
+      title: "Zip across the plane",
+      line: "Fit all the windows you want to scroll through",
       points: [
-        { icon: "die", text: "A stack of workspaces per display, with an empty one always last" },
-        { icon: "cassette", text: "A column can show its windows as tabs, one at a time" },
-        { icon: "burst", text: "Floating windows, and scratchpads with names and keys of their own" },
-        { icon: "squiggle", text: "scroll=vertical runs the strip up and down, per display or per workspace" },
+        { icon: "die", text: "Workspaces are assigned per display" },
+        { icon: "cassette", text: "Supports tab stacked windows" },
+        { icon: "burst", text: "Whatever floats your boat or scratchpads. Yeah float them windows, bay bay." },
+        { icon: "squiggle", text: "You wanna scroll up and down? Get down with your bad self." },
       ],
     },
     {
       pic: await pic(overview, "The Softcore overview, with two workspaces drawn at half size over the wallpaper"),
-      title: "The overview.",
-      line: "Every workspace of each display at once.",
-      points: [
-        { icon: "eye", text: "Half size by default. overview_zoom sets it" },
-        { icon: "cursor", text: "Click a window to focus it, or a workspace to bring it into view" },
-        { icon: "bolt", text: "Bindings keep working in it, so a column can move to another workspace from there" },
-        { icon: "pager", text: "overview-state and the event stream report it, as niri's do" },
-      ],
+      title: "See it all at a glance",
+      line: "All workspaces all the time, all at once.",
+      points: [],
     },
     {
       pic: await pic(chords, "A chord in Softcore: after Mod+G, a panel lists Terminal, Files, Edit, Notes and Internet with their keys"),
-      title: "Bindings, and chords.",
-      line: "Actions are named as niri names them.",
+      title: "Push all the right buttons",
+      line: "Bind anything to anything. If you know niri's actions, you already know ours.",
       points: [
-        { icon: "tamagotchi", text: "Chords, such as Mod+G then T. A panel lists the keys that can come next" },
-        { icon: "globe", text: "A panel that lists every binding" },
-        { icon: "checkbox", text: "title=\"…\" names a binding in the panels. An empty binding removes a default" },
-        { icon: "flame", text: "chord_vim adds H, J, K and L to the chord panel" },
+        { icon: "tamagotchi", text: "Chords: hit one key, then another. A panel tells you what comes next. No pressure." },
+        { icon: "globe", text: "Forgot a binding? There's a panel for that too." },
+        { icon: "flame", text: "Vim people, we see you. H, J, K and L work in the chord panel." },
       ],
     },
     {
       pic: await pic(picker, "Softcore's screen sharing picker, with a card for the display and for each window"),
-      title: "A screen sharing picker it draws itself.",
-      line: "xdg-desktop-portal asks Softcore, and Softcore shows the picker. It has not been tried from a browser yet.",
+      title: "Put on a show",
+      line: "Screen sharing is built in. Pick a window or a display and go.",
       points: [
-        { icon: "alien", text: "A card for each display and window, with a live picture" },
-        { icon: "sign", text: "The compositor draws it, so no program can cover it, imitate it or answer it" },
-        { icon: "hourglass", text: "A PipeWire stream that follows a window off screen and through a resize" },
-        { icon: "floppy", text: "grim and other capture tools work, through ext-image-copy-capture" },
+        { icon: "alien", text: "Every display and window gets a card with a live preview" },
+        { icon: "hourglass", text: "Share a window and the stream sticks with it, even off screen" },
       ],
     },
   ]}
   facts={{
     title: "Made for Rivet.",
-    lead: "It builds on the shared crates of rivetsoft/apps, and anything it draws goes through them.",
+    lead: "Softcore and Rivet Shell were made for each other.",
     items: [
-      { icon: "yinyang", title: "Rivet's colors", text: "The focused border is the accent. Borders and panels recolor with the desktop, live." },
-      { icon: "smiley", title: "Rivet Shell on top", text: "Panels, dock and launcher are layer-shell surfaces. The shell's workspaces, window title, dock and Displays page work under it." },
-      { icon: "lavalamp", title: "One settings file", text: "key=value lines with typed values, read again on save. softcore settings set changes one line and keeps your comments." },
-      { icon: "peace", title: "Rules", text: "Per window, shell surface, workspace and scratchpad: floating, opacity, blur, which display, which workspace." },
+      { icon: "yinyang", title: "Dressed to match", text: "Borders and panels wear the desktop's colors, and change when the desktop does." },
+      { icon: "smiley", title: "Rivet Shell on top", text: "Panels, dock and launcher sit right on top. Workspaces, window titles and displays all work." },
+      { icon: "lavalamp", title: "One settings file", text: "Plain key=value lines. Save it and Softcore reads it again." },
+      { icon: "peace", title: "House rules", text: "Tell any window where to go, whether to float, and how see-through to be." },
     ],
   }}
   gallery={{
-    title: "More of it.",
+    title: "Show a little more.",
     lead: "Both pictures are from a headless Softcore, with Rivet Shell and the Rivet apps running in it.",
     items: [
-      { pic: await pic(keys, "The Softcore keys panel, listing every binding in two columns", 960), name: "Every binding", text: "The keys panel, in the Rivet look." },
-      { pic: await pic(vertical, "A Softcore workspace scrolling up and down, with Rivet Edit above Rivet Terminal", 960), name: "scroll=vertical", text: "Rows one under the other, each as wide as the screen." },
+      { pic: await pic(keys, "The Softcore keys panel, listing every binding in two columns", 960), name: "Every binding", text: "All of them, on one panel." },
+      { pic: await pic(vertical, "A Softcore workspace scrolling up and down, with Rivet Edit above Rivet Terminal", 960), name: "Up and down", text: "Rows one under the other, each as wide as the screen." },
     ],
   }}
   download={{
-    lead: "It builds from source and opens in a window of the desktop you are on. It needs libseat, libinput, libudev, libgbm, libxkbcommon and EGL, with their headers.",
+    lead: "Softcore is early. There's no release yet, so you build it from source and it opens in a window on the desktop you already have. It hasn't been on real displays yet. Be gentle.",
     links: [
       { href: url("docs/softcore/"), label: "Build and run it" },
       { href: url("docs/softcore/status/"), label: "What isn't built yet" },

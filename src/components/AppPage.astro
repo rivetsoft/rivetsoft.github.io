@@ -75,14 +75,16 @@ const codeUrl = app.repo ?? `${repoUrl}/tree/main/${folder}`;
             <div class="show-copy">
               <h2 class="app-row-title">{row.title}</h2>
               <span class="card-summary">{row.line}</span>
-              <ul class="show-points">
-                {row.points.map((point) => (
-                  <li>
-                    <Throwback name={point.icon} />
-                    <span>{point.text}</span>
-                  </li>
-                ))}
-              </ul>
+              {row.points.length > 0 && (
+                <ul class="show-points">
+                  {row.points.map((point) => (
+                    <li>
+                      <Throwback name={point.icon} />
+                      <span>{point.text}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           </li>
         ))}
