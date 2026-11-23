@@ -14,8 +14,8 @@
   <!-- the box -->
   <rect x="12" y="22" width="104" height="96" rx="18" fill="url(#front)"/>
   <path d="M12 40a18 18 0 0 1 18-18h68a18 18 0 0 1 18 18a18 12 0 0 0-18-12H30a18 12 0 0 0-18 12z" fill="#ffffff" fill-opacity="0.22"/>
-  <!-- the code symbol -->
-  <g fill="none" stroke="#ffffff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M46 50L26 70l20 20M82 50l20 20-20 20M72 44L56 96"/>
-  </g>
+  <!-- lines of code, with the cursor on the second -->
+  <g fill="#ffffff"><rect x="30" y="46" width="34" height="9" rx="4.5"/><rect x="70" y="46" width="20" height="9" rx="4.5" fill-opacity="0.55"/>
+<rect x="42" y="65" width="26" height="9" rx="4.5" fill-opacity="0.55"/><rect x="74" y="60" width="7" height="19" rx="3.5"/>
+<rect x="42" y="84" width="40" height="9" rx="4.5" fill-opacity="0.8"/><rect x="88" y="84" width="10" height="9" rx="4.5" fill-opacity="0.55"/></g>
 </svg>
