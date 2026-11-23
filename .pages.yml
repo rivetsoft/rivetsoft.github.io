@@ -1,0 +1,150 @@
+# Pages CMS (https://pagescms.org): what can be edited in the browser, and where it is saved.
+# The blog and the docs are here. The home page and the app pages are Astro files
+# (src/pages, src/bodies, src/data/apps.ts) and are edited in the code.
+
+media:
+  # Pictures in the text of a post or a doc. The first source is the one the editors use
+  # unless a field names another.
+  - name: screenshots
+    label: Screenshots
+    input: public/screenshots
+    output: /screenshots
+    categories: [image]
+    rename: false
+  # Pictures Astro sizes itself, such as a post's cover. The output is the path from a post
+  # in src/content/blog to src/assets, which is what the cover field has to hold.
+  - name: assets
+    label: Assets
+    input: src/assets
+    output: ../../assets
+    categories: [image]
+    rename: false
+
+content:
+  - name: blog
+    label: Blog
+    type: collection
+    path: src/content/blog
+    format: yaml-frontmatter
+    # The file's name is the post's address: shell.md is /blog/shell/.
+    filename:
+      template: "{primary}.md"
+      field: true
+    view:
+      fields: [title, date, author]
+      primary: title
+      sort: [date, title]
+      default:
+        sort: date
+        order: desc
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: description
+        label: Description
+        description: One or two sentences, shown under the title, in the blog's list and in search results.
+        type: text
+        required: true
+      - name: date
+        label: Date
+        type: date
+        required: true
+        options:
+          format: yyyy-MM-dd
+      - name: author
+        label: Author
+        type: string
+        required: true
+        default: Aaron Mazade
+      - name: cover
+        label: Cover
+        description: Optional. A picture from src/assets, shown across the top of the post.
+        type: image
+        options:
+          media: assets
+      - name: coverAlt
+        label: Cover description
+        description: What the cover shows, for people who cannot see it.
+        type: string
+      - name: body
+        label: Body
+        type: rich-text
+        options:
+          format: markdown
+          media: screenshots
+
+  - name: docs
+    label: Docs
+    type: collection
+    path: src/content/docs/docs
+    format: yaml-frontmatter
+    subfolders: true
+    # A new page also needs a line in the sidebar, in astro.config.mjs.
+    filename:
+      template: "{primary}.md"
+      field: true
+    view:
+      layout: tree
+      fields: [title, description]
+      primary: title
+      sort: [title]
+      search: [title, description]
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: description
+        label: Description
+        description: One sentence, used by search engines and link previews.
+        type: text
+        required: true
+      # Markdown source and not the rich-text editor: the docs are full of tables, code
+      # blocks and asides, which the rich-text editor rewrites.
+      - name: body
+        label: Body
+        type: code
+        options:
+          format: markdown
+
+  # The two docs pages written in MDX, which the Docs collection above does not list.
+  - name: docs-mdx
+    label: Docs (MDX)
+    type: group
+    items:
+      - name: docs-install
+        label: Install
+        type: file
+        path: src/content/docs/docs/getting-started/install.mdx
+        format: yaml-frontmatter
+        fields: &mdx_fields
+          - name: title
+            label: Title
+            type: string
+            required: true
+          - name: description
+            label: Description
+            description: One sentence, used by search engines and link previews.
+            type: text
+            required: true
+          - name: body
+            label: Body
+            type: code
+            options:
+              format: mdx
+      - name: docs-on-your-own
+        label: Shell or standalone
+        type: file
+        path: src/content/docs/docs/getting-started/on-your-own.mdx
+        format: yaml-frontmatter
+        fields: *mdx_fields
+
+settings:
+  commit:
+    templates:
+      create: "Add {path} from Pages CMS."
+      update: "Edit {path} from Pages CMS."
+      delete: "Remove {path} from Pages CMS."
+      rename: "Rename {oldPath} to {newPath} from Pages CMS."
