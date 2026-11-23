@@ -94,7 +94,6 @@ export const apps: AppEntry[] = [
     homePoints: [
       { icon: "squiggle", text: "Scroll side to side, or up and down" },
       { icon: "cassette", text: "Tabs, floats and scratchpads" },
-      { icon: "floppy", text: "Dressed to match Rivet Shell" },
       { icon: "yinyang", text: "Built in Rust with Smithay" },
     ],
     summary:
