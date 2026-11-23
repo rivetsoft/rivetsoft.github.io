@@ -92,13 +92,13 @@ export const apps: AppEntry[] = [
     icon: "softcore.svg",
     repo: softcoreRepoUrl,
     homePoints: [
-      { icon: "squiggle", text: "Scrolling-tiling: columns on a strip, as niri does it" },
+      { icon: "squiggle", text: "Columns on a strip that scrolls, as niri does it" },
       { icon: "cassette", text: "In Rust on smithay, written from scratch" },
       { icon: "floppy", text: "One key=value settings file, read again on save" },
       { icon: "yinyang", text: "Borders and panels in the Rivet colors, followed live" },
     ],
     summary:
-      "A scrolling-tiling Wayland compositor for the Rivet desktop, in Rust on smithay. Columns on a strip, workspaces per display, tabs, an overview, rules and chords. Early: no release yet.",
+      "A scrolling-tiling Wayland compositor for the Rivet desktop, in Rust on smithay. Columns on a strip, workspaces per display, tabs, an overview, rules and chords. It is early, with no release yet.",
   },
   {
     slug: "welcome",
