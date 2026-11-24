@@ -1079,49 +1079,36 @@ p {
   vertical-align: middle;
 }
 
+/* Badges are little stickers, like the site's cards: a flat color, an ink outline and a hard
+   shadow, the same ink text in either theme. */
 .badge {
   display: inline-flex;
   align-items: center;
   min-height: 1.6rem;
   padding: 0.1rem 0.55rem;
-  border-radius: 999px;
+  border: 1px solid #24121b;
+  border-radius: 0;
+  box-shadow: 2px 2px 0 var(--shadow-hard);
+  color: #24121b;
   font-size: 0.78rem;
   font-weight: 620;
   line-height: 1;
 }
 
 .badge-released {
-  color: #0d6a3c;
-  background: #e7f6ee;
+  background: #3ecf9a;
 }
 
-.badge-alpha,
-:root[data-theme="dark"] .badge-alpha {
-  color: #24121b;
+.badge-alpha {
   background: #fff270;
 }
 
-.badge-someday,
 .badge-unreleased {
-  color: var(--secondary);
-  background: var(--chip);
+  background: #e07aab;
 }
 
-:root[data-theme="dark"] .badge-released {
-  color: #b6f0cf;
-  background: #143224;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .badge-released {
-    color: #b6f0cf;
-    background: #143224;
-  }
-
-  :root:not([data-theme="light"]) .badge-alpha {
-    color: #24121b;
-    background: #fff270;
-  }
+.badge-someday {
+  background: #e9dee5;
 }
 
 .status-row {
