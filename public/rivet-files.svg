@@ -1,44 +1,27 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
-  <!-- Pink-scheme recreation. apps/rivet-files/data/rivet-files.svg in rivet-apps is still purple. -->
+  <!-- Rivet Files: the pink folder with the rivet through it -->
   <defs>
-    <linearGradient id="front" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#eb65a6"/>
-      <stop offset="1" stop-color="#d53f8c"/>
-    </linearGradient>
-    <linearGradient id="back" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#a33a6e"/>
-      <stop offset="1" stop-color="#6e2448"/>
-    </linearGradient>
-    <!-- domed rivet head: bright top-left, soft pink shade bottom-right -->
-    <radialGradient id="dome" cx="0.38" cy="0.32" r="0.75">
-      <stop offset="0" stop-color="#ffffff"/>
-      <stop offset="0.6" stop-color="#fdeef5"/>
-      <stop offset="1" stop-color="#f0b7d0"/>
-    </radialGradient>
-    <linearGradient id="shank" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#ffffff"/>
-      <stop offset="1" stop-color="#f0b7d0"/>
-    </linearGradient>
+    <!-- a halftone screen, like old print, laid over the pieces at the back -->
+    <pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <circle cx="3" cy="3" r="1.3" fill="#24121b" fill-opacity="0.35"/>
+    </pattern>
   </defs>
+  <!-- the hard shadow, offset down and right like the website's cards -->
+  <g transform="translate(5 5)" fill="#24121b" stroke="#24121b" stroke-width="4" stroke-linejoin="round">
+    <path d="M12 28a8 8 0 0 1 8-8h28l8 8h44a8 8 0 0 1 8 8v24H12z"/><rect x="12" y="40" width="96" height="68" rx="8"/>
+  </g>
+  <g stroke="#24121b" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M12 28a8 8 0 0 1 8-8h28l8 8h44a8 8 0 0 1 8 8v24H12z" fill="#992f64"/>
+    <path d="M12 28a8 8 0 0 1 8-8h28l8 8h44a8 8 0 0 1 8 8v24H12z" fill="url(#dots)" stroke="none"/>
 
-  <!-- folder back and tab -->
-  <path d="M12 30a10 10 0 0 1 10-10h28.5a8 8 0 0 1 5.7 2.4L63 29.5h43a10 10 0 0 1 10 10V56H12z" fill="url(#back)"/>
-  <!-- folder front -->
-  <rect x="12" y="40" width="104" height="72" rx="12" fill="url(#front)"/>
-  <rect x="12" y="40" width="104" height="6" rx="3" fill="#ffffff" fill-opacity="0.22"/>
-
-  <!-- the rivet, tilted: shank going down-left into the folder, domed head up-right -->
-  <g transform="rotate(-40 64 76)">
-    <!-- soft shadow on the folder -->
-    <ellipse cx="68" cy="103" rx="16" ry="4" fill="#4a1834" fill-opacity="0.3"/>
-    <!-- long, slim shank with a chamfered tip -->
-    <path d="M59 72h10v30.5l-1.5 2.5h-7l-1.5-2.5z" fill="url(#shank)"/>
-    <path d="M66 74v28" stroke="#e7b0cc" stroke-width="2" stroke-linecap="round"/>
-    <!-- underside of the head (a flat washer face) -->
-    <ellipse cx="64" cy="72" rx="20" ry="4.2" fill="#e7b0cc"/>
-    <!-- low, wide dome -->
-    <path d="M44 72a20 9.5 0 0 1 40 0z" fill="url(#dome)"/>
-    <!-- highlight -->
-    <ellipse cx="57" cy="67" rx="6" ry="2.2" fill="#ffffff" fill-opacity="0.95" transform="rotate(-10 57 67)"/>
+    <rect x="12" y="40" width="96" height="68" rx="8" fill="#d53f8c"/>
+    <path d="M18 47h84" stroke="#e07aab" stroke-width="4"/>
+    <g transform="rotate(-28 60 74)">
+      <path d="M54 72h12v26l-6 6l-6-6z" fill="#e9dee5"/>
+      <path d="M38 74a22 17 0 0 1 44 0z" fill="#ffffff"/>
+      <path d="M36 74h48" stroke-width="5"/>
+      <path d="M46 66a12 9 0 0 1 9-7" stroke="#f4b7d2" stroke-width="4" fill="none"/>
+    </g>
+    <path d="M96 13Q96 22 105 22Q96 22 96 31Q96 22 87 22Q96 22 96 13z" fill="#fff270" stroke-width="3"/>
   </g>
 </svg>
