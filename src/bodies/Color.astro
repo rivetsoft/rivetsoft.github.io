@@ -1,0 +1,35 @@
+---
+import AppPage from "../components/AppPage.astro";
+import { repoUrl } from "../data/apps";
+import { shotPic } from "../data/pics";
+import { url } from "../paths";
+import art from "../assets/mascot/rivet-pixel.svg?raw";
+---
+
+<AppPage
+  slug="color"
+  lead="Any color on the screen, one click away."
+  text="Pick a color from anywhere on the screen and it's copied, in hex, RGB, HSL or OKLCH. Then see its shades, the colors that go with it, and how readable it is."
+  hero={shotPic("rivet-color-wide.png", "Rivet Color with a picked color, its shades and harmonies")}
+  facts={{
+    title: "Pick it, copy it, keep it.",
+    lead: "The screen holds still while you pick, with a loupe beside the pointer.",
+    items: [
+      { icon: "eye", title: "A loupe", text: "The pixels around the pointer, enlarged, with the color's code under them. Zoom in, or move one pixel at a time." },
+      { icon: "lavalamp", title: "What goes with it", text: "Tints and shades, and complementary, analogous, triadic, split complementary and square harmonies." },
+      { icon: "checkbox", title: "Contrast", text: "How readable the color is as text on white and on black, with its WCAG grade." },
+      { icon: "floppy", title: "History and palettes", text: "Every color you pick is kept. Palettes are GIMP palette files, so GIMP, Inkscape and Krita open them too." },
+      { icon: "squiggle", title: "On the panel", text: "In Rivet Shell, the color picked last sits on the panel, and the launcher finds your colors." },
+    ],
+  }}
+  download={{
+    lead: "x86_64 builds for Ubuntu 22.04, Debian 12 and newer. They install for your user, with no root.",
+    links: [
+      { href: url("docs/getting-started/install/"), label: "Install guide" },
+      { href: url("docs/color/"), label: "Picking, the panel, and building from source" },
+      { href: `${repoUrl}/blob/main/apps/rivet-color/CHANGELOG.md`, label: "Changelog" },
+    ],
+  }}
+  art={art}
+  artLabel="Rivet, the mascot, in pixels."
+/>

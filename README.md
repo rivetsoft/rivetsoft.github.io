@@ -6,7 +6,7 @@ The built site is served at [https://rivetsoft.github.io/](https://rivetsoft.git
 
 Versions and downloads are read from the [GitHub Releases](https://github.com/rivetsoft/apps/releases) of `rivetsoft/apps` when the site is built. Drafts are skipped. The newest release for each app is kept, including pre-releases. If the API is unreachable, the build uses `src/data/releases.fallback.json` and still succeeds.
 
-Rivet Files, Rivet FTP, Rivet Notes, Rivet Edit, Rivet Terminal, Rivet Shell, and Rivet Welcome are on the site. The home page leads with the shell, then Welcome as the installer. Facts come from the public repository. Screenshots are copied from `docs/screenshots`. The Notes, FTP, Edit, and Terminal pictures are recompressed RGB copies of those files.
+Rivet Files, Rivet FTP, Rivet Notes, Rivet Edit, Rivet Terminal, Rivet Color, Rivet Shell, and Rivet Welcome are on the site. The home page leads with the shell, then Welcome as the installer. Facts come from the public repository. Screenshots are copied from `docs/screenshots`. The Notes, FTP, Edit, and Terminal pictures are recompressed RGB copies of those files.
 
 The Plugins page lists Rivet Shell's plugins. The official ones are the folders of `apps/rivet-shell/data/plugins` in `rivetsoft/apps`, read when the site is built; `src/data/plugins.ts` keeps a saved copy for when GitHub is unreachable. The shared ones are read from [`plugins/registry.json`](https://github.com/rivetsoft/apps/blob/main/plugins/registry.json) in `rivetsoft/apps` when the site is built, so a listing merged there shows on the next build. Each shared plugin's version comes from its author's release file, read at the same time. If the list is unreachable, the build uses `src/data/plugins.fallback.json`.
 

@@ -20,7 +20,7 @@ export interface AppEntry {
   /** Set when this is an idea, not an app in the repository yet. */
   laterPhrase?: string;
   /** Which long page to render. Omit for the short generic page. */
-  template?: "files" | "ftp" | "notes" | "shell" | "softcore" | "edit" | "terminal" | "welcome";
+  template?: "files" | "ftp" | "notes" | "shell" | "softcore" | "edit" | "terminal" | "welcome" | "color";
   /** Home-card screenshot in public/screenshots. */
   cardShot?: string;
   cardAlt?: string;
@@ -237,6 +237,32 @@ export const apps: AppEntry[] = [
 ./target/release/rivet-terminal
 ./target/release/rivet-terminal -d ~/projects
 ./target/release/rivet-terminal --install-desktop-entry`,
+  },
+  {
+    slug: "color",
+    template: "color",
+    homePoints: [
+      { icon: "eye", text: "A loupe over the held-still screen" },
+      { icon: "lavalamp", text: "Shades, harmonies and contrast" },
+      { icon: "floppy", text: "Palettes GIMP, Inkscape and Krita open" },
+    ],
+    name: "Rivet Color",
+    line: "A color picker, with shades, harmonies and palettes.",
+    tagPrefixes: ["rivet-color-v"],
+    nav: true,
+    navLabel: "Color",
+    applicationCategory: "DesignApplication",
+    cardShot: "rivet-color-wide.png",
+    cardAlt: "Rivet Color with a picked color, its shades and harmonies",
+    cardCaption: "Rivet Color with a picked color.",
+    icon: "rivet-color.svg",
+    readme: "apps/rivet-color/README.md",
+    summary:
+      "A color picker: pick a color from anywhere on the screen with a loupe, and it's copied in hex, RGB, HSL or OKLCH. Its shades, harmonies and contrast, a history, and palettes kept as GIMP palette files.",
+    source: `cargo build --release -p rivet-color
+./target/release/rivet-color
+./target/release/rivet-color pick
+./target/release/rivet-color --install-desktop-entry`,
   },
 ];
 

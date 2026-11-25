@@ -36,6 +36,7 @@ describe("tag mapping", () => {
     assert.equal(matchSlug("rivet-terminal-v0.1.0", tagApps), "terminal");
     assert.equal(matchSlug("rivet-shell-v0.1.0", tagApps), "shell");
     assert.equal(matchSlug("rivet-welcome-v0.1.0", tagApps), "welcome");
+    assert.equal(matchSlug("rivet-color-v0.1.0", tagApps), "color");
     assert.equal(matchSlug("not-a-release", tagApps), undefined);
   });
 });
