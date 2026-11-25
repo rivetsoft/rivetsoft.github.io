@@ -11,6 +11,7 @@ import SoftcoreBody from "../bodies/Softcore.astro";
 import EditBody from "../bodies/Edit.astro";
 import TerminalBody from "../bodies/Terminal.astro";
 import WelcomeBody from "../bodies/Welcome.astro";
+import ColorBody from "../bodies/Color.astro";
 import { apps, repoUrl, type AppEntry } from "../data/apps";
 import { releaseFor } from "../data/releases";
 import { url } from "../paths";
@@ -46,6 +47,7 @@ const bodies = {
   edit: EditBody,
   terminal: TerminalBody,
   welcome: WelcomeBody,
+  color: ColorBody,
 } as const;
 const Body = app.template ? bodies[app.template] : null;
 const readmeUrl = app.readme ? `${repoUrl}/blob/main/${app.readme}` : repoUrl;

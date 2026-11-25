@@ -85,6 +85,7 @@ export default defineConfig({
         { label: "Notes", items: [{ label: "Rivet Notes", link: "/docs/notes/" }] },
         { label: "Edit", items: [{ label: "Rivet Edit", link: "/docs/edit/" }] },
         { label: "Terminal", items: [{ label: "Rivet Terminal", link: "/docs/terminal/" }] },
+        { label: "Color", items: [{ label: "Rivet Color", link: "/docs/color/" }] },
       ],
     }),
     sitemap(),

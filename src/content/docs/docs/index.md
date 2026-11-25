@@ -17,6 +17,6 @@ Download the Welcome AppImage, make it executable, and run it. Welcome then inst
 
 - **Rivet Shell** is the Wayland desktop: panel, dock, launcher, widgets, wallpaper.
 - **Rivet Welcome** installs and updates the shell and the apps from GitHub releases.
-- **Rivet Files**, **FTP**, **Notes**, **Edit**, **Terminal**, **Snip**, **Vice**, **Calendar**, and **Color** are the apps, and **rivetfetch** is a system summary for the terminal.
+- **Rivet Files**, **FTP**, **Notes**, **Edit**, **Terminal**, **Color**, **Snip**, **Vice**, and **Calendar** are the apps, and **Rivet Fetch** (`rivetfetch`) is a system summary for the terminal.
 
 More coming soon.

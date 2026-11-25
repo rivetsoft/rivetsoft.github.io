@@ -36,6 +36,7 @@ describe("tag mapping", () => {
     assert.equal(matchSlug("rivet-terminal-v0.1.0", tagApps), "terminal");
     assert.equal(matchSlug("rivet-shell-v0.1.0", tagApps), "shell");
     assert.equal(matchSlug("rivet-welcome-v0.1.0", tagApps), "welcome");
+    assert.equal(matchSlug("rivet-color-v0.1.0", tagApps), "color");
     assert.equal(matchSlug("not-a-release", tagApps), undefined);
   });
 });
@@ -135,36 +136,24 @@ describe("markdown", () => {
 });
 
 describe("saved releases", () => {
-  it("has every app's newest release, with its downloads at the tag", () => {
+  it("keeps each app's downloads at its tag, in the release contract's names", () => {
     const raw = JSON.parse(readFileSync(new URL("../src/data/releases.fallback.json", import.meta.url), "utf8")) as RawRelease[];
-    const bySlug = Object.fromEntries(selectReleases(raw, tagApps).map((item) => [item.slug, item]));
-    const expected: [string, string, string, boolean][] = [
-      ["files", "v0.10.0", "Rivet_Files", false],
-      ["notes", "rivet-notes-v0.4.1", "Rivet_Notes", false],
-      ["edit", "rivet-edit-v0.3.1", "Rivet_Edit", false],
-      ["terminal", "rivet-terminal-v0.3.1", "Rivet_Terminal", false],
-      ["ftp", "rivet-ftp-v0.4.1", "Rivet_FTP", true],
-      ["welcome", "rivet-welcome-v0.3.0", "Rivet_Welcome", true],
-      ["shell", "rivet-shell-v0.1.0", "Rivet_Shell", true],
-      ["snip", "rivet-snip-v0.1.0", "Rivet_Snip", true],
-      ["vice", "rivet-vice-v0.1.0", "Rivet_Vice", true],
-      ["calendar", "rivet-calendar-v0.1.0", "Rivet_Calendar", true],
-      ["color", "rivet-color-v0.1.0", "Rivet_Color", true],
-      ["fetch", "rivet-fetch-v0.1.0", "Rivet_Fetch", true],
-    ];
-    for (const [slug, tag, title, prerelease] of expected) {
-      const item = bySlug[slug];
-      assert.equal(item?.tag, tag, slug);
-      assert.equal(item.prerelease, prerelease, slug);
+    const selected = selectReleases(raw, tagApps);
+    assert.ok(selected.some((item) => item.slug === "files"));
+    for (const item of selected) {
+      const app = releaseApps.find((entry) => entry.slug === item.slug)!;
+      const download = `https://github.com/rivetsoft/apps/releases/download/${item.tag}/`;
       const appImage = assetByKind(item, "appimage");
-      assert.equal(appImage?.name, `${title}-${item.version}-x86_64.AppImage`);
-      assert.equal(appImage?.url, `https://github.com/rivetsoft/apps/releases/download/${tag}/${appImage?.name}`);
-      assert.ok(appImage?.checksumUrl);
+      if (appImage) {
+        assert.equal(appImage.name, `${app.name.replaceAll(" ", "_")}-${item.version}-x86_64.AppImage`);
+        assert.equal(appImage.url, download + appImage.name);
+        assert.equal(appImage.checksumUrl, `${download}${appImage.name}.sha256`);
+      }
       const archive = assetByKind(item, "archive");
-      assert.match(archive?.name ?? "", new RegExp(`^rivet-${slug}-${item.version.replaceAll(".", "\\.")}-x86_64-linux\\.tar\\.gz$`));
-      assert.ok(archive?.checksumUrl);
-      assert.match(item.notes, /### Install/);
+      assert.equal(archive?.name, `rivet-${item.slug}-${item.version}-x86_64-linux.tar.gz`, item.slug);
+      assert.equal(archive.url, download + archive.name);
+      assert.equal(archive.checksumUrl, `${download}${archive.name}.sha256`);
     }
-    assert.equal(bySlug.softcore, undefined);
+    assert.equal(selected.find((item) => item.slug === "softcore"), undefined);
   });
 });

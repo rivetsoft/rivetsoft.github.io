@@ -27,6 +27,7 @@ const official = (id: string, name: string, description: string): PluginEntry =>
 const savedOfficial: PluginEntry[] = [
   official("disk", "Disk Space", "Free space on your disk; click for every disk, and open one"),
   official("edit", "Edit", "Your five most recent folders on the panel and in the launcher (@edit)"),
+  official("color", "Color", "Pick a color from the screen; recent colors on the panel and in the launcher (@color)"),
   official("ftp", "FTP", "Your saved connections on the panel and in the launcher (@ftp)"),
   official("notes", "Notes", "Open tasks and latest notes on the panel; find or make notes in the launcher (@notes)"),
 ];

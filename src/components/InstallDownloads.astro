@@ -60,6 +60,7 @@ const waiting = rows.filter((row) => !row.asset);
                 It installs the command <code>{row.program}</code>.
               </>
             )}
+            {kind === "archive" && row.app.slug === "shell" && <> It puts Rivet Shell Settings in the launcher.</>}
             {kind === "archive" && row.app.slug === "files" && (
               <>
                 {" "}

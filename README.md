@@ -8,7 +8,7 @@ Versions and downloads are read from the [GitHub Releases](https://github.com/ri
 
 `npm run releases:snapshot` replaces `releases.fallback.json` with the published releases on GitHub (it uses `GITHUB_TOKEN`, `GH_TOKEN` or `gh auth token` when there is one). `RIVET_RELEASES_API` points the build and the script at another address, for example an unreachable one to try the saved copy.
 
-Rivet Files, Rivet FTP, Rivet Notes, Rivet Edit, Rivet Terminal, Rivet Shell, Rivet Welcome, Rivet Snip, Rivet Vice, Rivet Calendar, and rivetfetch are on the site. Rivet Color's releases are read too, for the install guide, until it has a page. The home page leads with the shell, then Welcome as the installer. Facts come from the public repository. Screenshots are copied from `docs/screenshots`. The Notes, FTP, Edit, and Terminal pictures are recompressed RGB copies of those files.
+Rivet Files, Rivet FTP, Rivet Notes, Rivet Edit, Rivet Terminal, Rivet Color, Rivet Shell, Rivet Welcome, Rivet Snip, Rivet Vice, Rivet Calendar, and Rivet Fetch are on the site. The home page leads with the shell, then Welcome as the installer. Facts come from the public repository. Screenshots are copied from `docs/screenshots`. The Notes, FTP, Edit, and Terminal pictures are recompressed RGB copies of those files.
 
 The Plugins page lists Rivet Shell's plugins. The official ones are the folders of `apps/rivet-shell/data/plugins` in `rivetsoft/apps`, read when the site is built; `src/data/plugins.ts` keeps a saved copy for when GitHub is unreachable. The shared ones are read from [`plugins/registry.json`](https://github.com/rivetsoft/apps/blob/main/plugins/registry.json) in `rivetsoft/apps` when the site is built, so a listing merged there shows on the next build. Each shared plugin's version comes from its author's release file, read at the same time. If the list is unreachable, the build uses `src/data/plugins.fallback.json`.
 
@@ -47,20 +47,22 @@ App entries live in `src/data/apps.ts`. A new app needs a `tagPrefixes` entry, f
 
 The site rebuilds on every push to `main`, from Actions' Run workflow button, from a `repository_dispatch` of type `rivet-release`, and hourly. The build sends `GITHUB_TOKEN` to the GitHub API when Actions provides it.
 
+Put screenshots in `public/screenshots/`, add their width and height to `src/data/shots.json`, and use the `Shot` component. If you do not have a picture, do not draw a fake window. Say "Screenshot coming".
+
 ## Releasing: what the site needs
 
-A release in `rivetsoft/apps` needs nothing changed here when it follows the usual shape:
-
-- The tag is `vX.Y.Z` for Rivet Files and `rivet-<app>-vX.Y.Z` for every other app, matching a `tagPrefixes` entry in `src/data/apps.ts`. The pre-release flag sets the badge: Released or Alpha.
-- The assets are `<dist>-X.Y.Z-x86_64-linux.tar.gz` (the portable build with `install.sh`, which Rivet Welcome installs) and `<Title_With_Underscores>-X.Y.Z-x86_64.AppImage`, each with a `.sha256`. "Source code" links are GitHub's archives at the tag.
-- The body is the changelog section, then an `### Install` block. It shows as the release notes.
-
-Drafts are invisible to the build, so publish the release first, then rebuild the site:
+Releases are made in `rivetsoft/apps`. `utilities/rivet-dev ship APP` pushes the tag, and a workflow builds the release as a draft. `utilities/rivet-dev live APP` publishes it and rebuilds this site with:
 
 ```sh
 gh workflow run deploy.yml -R rivetsoft/rivetsoft.github.io
 ```
 
-The hourly build picks it up anyway. Then run `npm run releases:snapshot` and commit the result, so the saved copy is current. A first release of a new app also needs its entry in `src/data/apps.ts`; an app with releases but no page yet goes in `pagelessApps` there, so the install guide still lists it.
+The hourly build is the backstop. Drafts are invisible to the build, so the site changes only once a release is published; until then it shows the previous release, or "No release yet", never a link to a missing file.
 
-Put screenshots in `public/screenshots/`, add their width and height to `src/data/shots.json`, and use the `Shot` component. If you do not have a picture, do not draw a fake window. Say "Screenshot coming".
+Nothing here needs changing for a release that keeps the usual shape:
+
+- The tag is `vX.Y.Z` for Rivet Files and `rivet-<app>-vX.Y.Z` for every other app, matching a `tagPrefixes` entry in `src/data/apps.ts`. The pre-release flag sets the badge: Released or Alpha.
+- The assets are `<dist>-X.Y.Z-x86_64-linux.tar.gz` (the portable build with `install.sh`, which Rivet Welcome installs) and `<Title_With_Underscores>-X.Y.Z-x86_64.AppImage`, each with a `.sha256`. "Source code" links are GitHub's archives at the tag.
+- The body is the changelog section, then an `### Install` block. It shows as the release notes.
+
+Afterwards, run `npm run releases:snapshot` and commit the result, so the saved copy is current. A new app needs its entry in `src/data/apps.ts` (see Add an app) before its first release shows.
