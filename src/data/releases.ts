@@ -73,9 +73,7 @@ export const catalog: ReleaseCatalog = await (async () => {
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
     console.warn(`[releases] using saved release info (${message})`);
-    const now = Date.now();
-    const published = (fallback as RawRelease[]).filter((release) => !(Date.parse(release.published_at ?? "") > now));
-    return catalogFrom(published, "fallback");
+    return catalogFrom(fallback as RawRelease[], "fallback");
   }
 })();
 

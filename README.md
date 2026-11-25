@@ -4,7 +4,7 @@ A small static site for [Rivetsoft](https://github.com/rivetsoft/apps), Aaron Ma
 
 The built site is served at [https://rivetsoft.github.io/](https://rivetsoft.github.io/). Astro's `base` is `/`.
 
-Versions and downloads are read from the [GitHub Releases](https://github.com/rivetsoft/apps/releases) of `rivetsoft/apps` when the site is built. Drafts are skipped. The newest release for each app is kept, including pre-releases. Every app page's download block, the badges, and the install guide's links and commands come from that data; no page names a version. If the API is unreachable, the build uses `src/data/releases.fallback.json` and still succeeds. Saved releases dated in the future are left out, so a copy prepared before a release cannot link to files that are not up yet.
+Versions and downloads are read from the [GitHub Releases](https://github.com/rivetsoft/apps/releases) of `rivetsoft/apps` when the site is built. Drafts are skipped. The newest release for each app is kept, including pre-releases. Every app page's download block, the badges, and the install guide's links and commands come from that data; no page names a version. If the API is unreachable, the build uses `src/data/releases.fallback.json` and still succeeds. It holds only published releases, so it never links to a file that is not up.
 
 `npm run releases:snapshot` replaces `releases.fallback.json` with the published releases on GitHub (it uses `GITHUB_TOKEN`, `GH_TOKEN` or `gh auth token` when there is one). `RIVET_RELEASES_API` points the build and the script at another address, for example an unreachable one to try the saved copy.
 
@@ -65,4 +65,4 @@ Nothing here needs changing for a release that keeps the usual shape:
 - The assets are `<dist>-X.Y.Z-x86_64-linux.tar.gz` (the portable build with `install.sh`, which Rivet Welcome installs) and `<Title_With_Underscores>-X.Y.Z-x86_64.AppImage`, each with a `.sha256`. "Source code" links are GitHub's archives at the tag.
 - The body is the changelog section, then an `### Install` block. It shows as the release notes.
 
-Afterwards, run `npm run releases:snapshot` and commit the result, so the saved copy is current. A new app needs its entry in `src/data/apps.ts` (see Add an app) before its first release shows.
+After `rivet-dev live`, run `npm run releases:snapshot` and commit the result, so the saved copy is current. Never add a release to it by hand before it is published. A new app needs its entry in `src/data/apps.ts` (see Add an app) before its first release shows.
