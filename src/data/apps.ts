@@ -274,6 +274,9 @@ export const apps: AppEntry[] = [
     tagPrefixes: ["rivet-snip-v"],
     nav: false,
     applicationCategory: "GraphicsApplication",
+    cardShot: "rivet-snip-wide.png",
+    cardAlt: "Rivet Snip with a screenshot marked up with an arrow, a box, numbered steps and blur",
+    cardCaption: "Rivet Snip with a marked-up screenshot.",
     icon: "rivet-snip.svg",
     readme: "apps/rivet-snip/README.md",
     summary:
@@ -292,6 +295,9 @@ export const apps: AppEntry[] = [
     tagPrefixes: ["rivet-vice-v"],
     nav: false,
     applicationCategory: "UtilitiesApplication",
+    cardShot: "rivet-vice-wide.png",
+    cardAlt: "Rivet Vice inside a tar.gz archive, with two photos selected to extract",
+    cardCaption: "Rivet Vice, with two photos chosen to take out.",
     icon: "rivet-vice.svg",
     readme: "apps/rivet-vice/README.md",
     summary:
@@ -310,6 +316,9 @@ export const apps: AppEntry[] = [
     tagPrefixes: ["rivet-calendar-v"],
     nav: false,
     applicationCategory: "ProductivityApplication",
+    cardShot: "rivet-calendar-wide.png",
+    cardAlt: "Rivet Calendar's month view, with work, family, personal and holiday calendars",
+    cardCaption: "Rivet Calendar's month view.",
     icon: "rivet-calendar.svg",
     readme: "apps/rivet-calendar/README.md",
     summary:
@@ -330,6 +339,9 @@ export const apps: AppEntry[] = [
     program: "rivetfetch",
     nav: false,
     applicationCategory: "UtilitiesApplication",
+    cardShot: "rivet-fetch-wide.png",
+    cardAlt: "rivetfetch in Rivet Terminal: the mascot beside the computer's OS, kernel, CPU, memory and Rivet apps",
+    cardCaption: "rivetfetch in Rivet Terminal.",
     readme: "apps/rivet-fetch/README.md",
     summary:
       "A system summary in the terminal, beside Rivet the mascot, in the desktop's accent: OS, host, kernel, uptime, packages, shell, window manager, CPU, GPU and memory.",

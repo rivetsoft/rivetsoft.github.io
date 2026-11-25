@@ -177,7 +177,7 @@
   "rivet-color-wide.png": {
     "w": 1280,
     "h": 800,
-    "bytes": 66871
+    "bytes": 68937
   },
   "shell-wide.jpg": {
     "w": 2880,
@@ -223,5 +223,25 @@
     "w": 1100,
     "h": 700,
     "bytes": 18927
+  },
+  "rivet-vice-wide.png": {
+    "w": 1280,
+    "h": 800,
+    "bytes": 28356
+  },
+  "rivet-calendar-wide.png": {
+    "w": 1280,
+    "h": 800,
+    "bytes": 61593
+  },
+  "rivet-fetch-wide.png": {
+    "w": 1280,
+    "h": 800,
+    "bytes": 47513
+  },
+  "rivet-snip-wide.png": {
+    "w": 1280,
+    "h": 800,
+    "bytes": 28512
   }
 }
