@@ -9,6 +9,8 @@ export interface AppEntry {
    * "v" matches only a bare tag such as v0.6.0, not rivet-notes-v0.1.0.
    */
   tagPrefixes: readonly string[];
+  /** The command it installs, when it is not rivet-{slug}. */
+  program?: string;
   /** Included in the header. */
   nav: boolean;
   /** Short header label. Defaults to the name. */
@@ -117,7 +119,7 @@ export const apps: AppEntry[] = [
     summary:
       "Optional. Installs and updates Rivet Shell and the apps from their GitHub releases, and looks for new versions from a tray icon. Every app can still be installed from its own release.",
     points: [
-      "Lists Files, Notes, Edit, Terminal, FTP, Shell and Welcome, with Install, Update, Open or Remove. A later app with a rivet-something-v tag and a Linux archive shows up too.",
+      "Lists every Rivet app, with Install, Update, Open or Remove. A later app with a rivet-something-v tag and a Linux archive shows up too.",
       "Downloads the archive for this computer, checks the published sha256, and runs install.sh. The program goes in ~/.local/bin. No password.",
       "An app installed by a package (AUR, a distribution, a build in /usr/local/bin) is shown and left alone.",
       "A tray icon checks at sign-in and on a schedule. It works with Rivet Shell, KDE, waybar and other StatusNotifierItem trays.",
@@ -137,6 +139,7 @@ export const apps: AppEntry[] = [
     name: "Rivet Files",
     line: "A Linux file manager, with no GTK or Qt.",
     tagPrefixes: ["rivet-files-v", "v"],
+    program: "rivet",
     nav: true,
     navLabel: "Files",
     template: "files",
@@ -238,7 +241,94 @@ export const apps: AppEntry[] = [
 ./target/release/rivet-terminal -d ~/projects
 ./target/release/rivet-terminal --install-desktop-entry`,
   },
+  {
+    slug: "snip",
+    name: "Rivet Snip",
+    line: "Clip and mark up a screenshot.",
+    tagPrefixes: ["rivet-snip-v"],
+    nav: false,
+    applicationCategory: "GraphicsApplication",
+    icon: "rivet-snip.svg",
+    readme: "apps/rivet-snip/README.md",
+    summary:
+      "Clip and mark up a screenshot, then copy or save it: crop, arrows, boxes, text, numbered steps, and blur for what shouldn't be read.",
+    points: [
+      "Crop, then draw arrows, lines, boxes, ovals and freehand, highlight, type text and place numbered steps.",
+      "Blur what shouldn't be read. The saved picture has squares of averaged color there, not a cover that could be lifted off.",
+      "Marks can be moved, recolored and removed after they are drawn, with Undo and Redo.",
+      "A compositor can hand it the picture it took. On any other desktop it takes the picture itself.",
+    ],
+  },
+  {
+    slug: "vice",
+    name: "Rivet Vice",
+    line: "An archive manager.",
+    tagPrefixes: ["rivet-vice-v"],
+    nav: false,
+    applicationCategory: "UtilitiesApplication",
+    icon: "rivet-vice.svg",
+    readme: "apps/rivet-vice/README.md",
+    summary:
+      "An archive manager: open an archive and walk through it folder by folder, take out all of it or some, and make new ones.",
+    points: [
+      "Zip, tar of every kind, 7z and more, using the archive tools the computer already has.",
+      "Extract All into a folder you choose, or Extract Selected for only some rows. Nothing already there is written over.",
+      "Make a zip, tar.gz, tar.xz, tar.zst or 7z from a folder, or from files dropped on the window.",
+      "Rivet Files opens an archive in it from the right-click menu.",
+    ],
+  },
+  {
+    slug: "calendar",
+    name: "Rivet Calendar",
+    line: "A calendar in plain .ics folders.",
+    tagPrefixes: ["rivet-calendar-v"],
+    nav: false,
+    applicationCategory: "ProductivityApplication",
+    icon: "rivet-calendar.svg",
+    readme: "apps/rivet-calendar/README.md",
+    summary:
+      "A calendar kept in plain .ics folders, by month, week, day or as a list, with CalDAV, Google and Microsoft accounts and feeds to subscribe to.",
+    points: [
+      "Make, change and delete events, whole-day and repeating ones too, and change one occurrence or all of them.",
+      "Plain folders that vdirsyncer and khal share.",
+      "CalDAV (Nextcloud, Fastmail, iCloud, Radicale), Google and Microsoft accounts, synced both ways.",
+      "Subscribe to a feed such as holidays or a webcal:// link.",
+      "With Rivet Shell's Calendar plugin, the panel's calendar marks the days with events.",
+    ],
+  },
+  {
+    slug: "fetch",
+    name: "rivetfetch",
+    line: "This computer at a glance in the terminal, beside the mascot.",
+    tagPrefixes: ["rivet-fetch-v"],
+    program: "rivetfetch",
+    nav: false,
+    applicationCategory: "UtilitiesApplication",
+    readme: "apps/rivet-fetch/README.md",
+    summary:
+      "A system summary in the terminal, beside Rivet the mascot, in the desktop's accent: OS, host, kernel, uptime, packages, shell, window manager, CPU, GPU and memory.",
+    points: [
+      "Screens, theme, disk, battery and the Rivet apps installed are there to add.",
+      "Choose what to show and in what order, and the picture beside it: the mascot, none, or a fastfetch logo file.",
+      "Every module runs at once, in about 30 ms.",
+    ],
+  },
 ];
+
+/**
+ * Apps whose releases the site reads but that have no page here yet. Each one's downloads
+ * still show in the install guide. Move an app into `apps` when it gets a page.
+ */
+export const pagelessApps: readonly Pick<AppEntry, "slug" | "name" | "tagPrefixes" | "program">[] = [
+  { slug: "color", name: "Rivet Color", tagPrefixes: ["rivet-color-v"] },
+];
+
+/** Every app with releases, in the order the install guide lists them. */
+export const releaseApps = [...apps.filter((app) => app.tagPrefixes.length > 0), ...pagelessApps];
+
+export function programFor(app: { slug: string; program?: string }): string {
+  return app.program ?? `rivet-${app.slug}`;
+}
 
 export const navApps = apps.filter((app) => app.nav);
 

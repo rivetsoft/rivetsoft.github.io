@@ -6,7 +6,8 @@
     "dev": "astro dev --host 0.0.0.0 --port 43123",
     "build": "astro build",
     "test": "node --experimental-strip-types --test test/release-model.test.ts test/plugin-model.test.ts",
-    "preview": "astro preview --host 0.0.0.0 --port 43123"
+    "preview": "astro preview --host 0.0.0.0 --port 43123",
+    "releases:snapshot": "node scripts/releases-snapshot.mjs"
   },
   "dependencies": {
     "@astrojs/rss": "4.0.12",

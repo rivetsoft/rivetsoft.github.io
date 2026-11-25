@@ -140,7 +140,7 @@ function assetKind(name: string): AssetKind | "checksum" {
 function assetLabel(kind: AssetKind, name: string): string {
   if (kind === "appimage") return "AppImage";
   if (kind === "flatpak") return "Flatpak";
-  if (kind === "archive") return name.toLowerCase().endsWith(".tar.gz") || name.toLowerCase().endsWith(".tgz") ? "tar.gz" : "Archive";
+  if (kind === "archive") return "Portable build (tar.gz)";
   const ext = name.includes(".") ? name.split(".").pop() : "";
   return ext || "File";
 }
@@ -223,6 +223,15 @@ export function selectReleases(raw: readonly RawRelease[], apps: readonly TagApp
 
 export function assetByKind(release: AppRelease, kind: AssetKind): ReleaseAsset | undefined {
   return release.assets.find((asset) => asset.kind === kind);
+}
+
+/** GitHub's automatic archives of the repository at a release's tag. */
+export function sourceArchives(repoUrl: string, tag: string): { label: string; url: string }[] {
+  const ref = encodeURIComponent(tag);
+  return [
+    { label: "Source code (tar.gz)", url: `${repoUrl}/archive/refs/tags/${ref}.tar.gz` },
+    { label: "Source code (zip)", url: `${repoUrl}/archive/refs/tags/${ref}.zip` },
+  ];
 }
 
 function escapeHtml(value: string): string {

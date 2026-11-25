@@ -3,6 +3,7 @@ import { getImage } from "astro:assets";
 import type { ImageMetadata } from "astro";
 import AppPage, { type Pic } from "../components/AppPage.astro";
 import { repoUrl } from "../data/apps";
+import { releaseFor } from "../data/releases";
 import { url } from "../paths";
 import art from "../assets/mascot/shell.svg?raw";
 import desktop from "../assets/hero/hero-desktop.jpg";
@@ -15,6 +16,8 @@ import settingsPanels from "../assets/shell/settings-panels.jpg";
 import settingsPlugins from "../assets/shell/settings-plugins.jpg";
 import settingsLauncher from "../assets/shell/settings-launcher.jpg";
 import settingsWidgets from "../assets/shell/settings-widgets.jpg";
+
+const release = releaseFor("shell");
 
 // The shell's pictures are photographs of a whole desktop: sized down for the page, with the
 // original behind the link.
@@ -29,7 +32,7 @@ async function pic(image: ImageMetadata, alt: string, width = 1440): Promise<Pic
 <AppPage
   slug="shell"
   lead="A Wayland desktop shell."
-  text="Panels, a dock, a launcher, quick settings, notifications, widgets and the wallpaper. For compositors with layer-shell: niri, Hyprland, Sway and others, not GNOME. There is no release yet, so you build it from source."
+  text={`Panels, a dock, a launcher, quick settings, notifications, widgets and the wallpaper. For compositors with layer-shell: niri, Hyprland, Sway and others, not GNOME.${release ? "" : " There is no release yet, so you build it from source."}`}
   hero={await pic(desktop, "Rivet Shell with a floating top panel, a clock and system readings, and a dock, over a wallpaper of Rivet at dusk")}
   rows={[
     {
@@ -86,7 +89,9 @@ async function pic(image: ImageMetadata, alt: string, width = 1440): Promise<Pic
     ],
   }}
   download={{
-    lead: "It builds from source with Rust 1.88 or newer. Rough edges are expected.",
+    lead: release
+      ? "Early, so rough edges are expected. It also builds from source with Rust 1.88 or newer."
+      : "It builds from source with Rust 1.88 or newer. Rough edges are expected.",
     links: [
       { href: url("docs/shell/"), label: "How to build and run it" },
       { href: url("plugins/"), label: "Plugins" },

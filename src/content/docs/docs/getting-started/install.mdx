@@ -1,30 +1,38 @@
 ---
 title: Install
-description: Get started with the Welcome AppImage. It installs the Rivet apps.
+description: Install the Rivet apps with Rivet Welcome, an AppImage, or the portable build.
 ---
 
 import { Aside, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
+import InstallDownloads from '../../../../components/InstallDownloads.astro';
+import { releaseApps } from '../../../../data/apps';
+import { releaseFor } from '../../../../data/releases';
 
-The usual way in is the Welcome AppImage. Download it, make it executable, and run it. From the window that opens, install the apps you want.
+export const welcome = releaseFor('welcome');
 
-<Aside type="caution" title="Pre-release">
-Welcome 0.1.0 is a pre-release. It installs Files, Notes, Edit, Terminal, and FTP from their GitHub releases.
-</Aside>
+There are three ways to install a Rivet app, and every app has all three:
+
+- **Rivet Welcome** installs and updates the apps for you. This is the usual way.
+- **An AppImage** is one file you run. Nothing is installed.
+- **The portable build** is an archive with `install.sh`, which installs the app for your user. It is the same file Welcome installs.
+
+The apps are {releaseApps.map((app) => app.name).join(', ')}. Each release also has GitHub's archive of the source code at its tag.
+
+{welcome?.prerelease && (
+  <Aside type="caution" title="Pre-release">
+    Welcome {welcome.version} is a pre-release.
+  </Aside>
+)}
 
 ## Get started
 
 <Steps>
 
-1. Download [Rivet_Welcome-0.1.0-x86_64.AppImage](https://github.com/rivetsoft/apps/releases/download/rivet-welcome-v0.1.0/Rivet_Welcome-0.1.0-x86_64.AppImage).
+1. Download the Welcome AppImage, make it executable, and run it.
 
-2. Make it executable and run it.
+   <InstallDownloads kind="appimage" slug="welcome" />
 
-   ```sh
-   chmod +x Rivet_Welcome-0.1.0-x86_64.AppImage
-   ./Rivet_Welcome-0.1.0-x86_64.AppImage
-   ```
-
-3. In Welcome, install the apps. They land in `~/.local/bin` and in your launcher. Welcome does not ask for a password.
+2. In Welcome, install the apps. They land in `~/.local/bin` and in your launcher. Welcome does not ask for a password.
 
 </Steps>
 
@@ -32,10 +40,10 @@ What Welcome does after that is on the [Welcome page](/docs/welcome/). The termi
 
 ## Alternative methods
 
-Each app also has its own release. The archive runs `install.sh`. An AppImage is one file you run directly.
+Each app also has its own release, with an AppImage and a portable build.
 
-<Aside type="note" title="Libraries for the archive">
-The AppImage already includes the keyboard libraries. The archive build needs them on a minimal system. A full desktop usually has them. The builds are linked against glibc 2.31, so Ubuntu 22.04 and Debian 12 are fine. `install.sh` does not ask for a password.
+<Aside type="note" title="Libraries for the portable build">
+The AppImage already includes the keyboard libraries. The portable build needs them on a minimal system. A full desktop usually has them. The builds are linked against glibc 2.31, so Ubuntu 22.04 and Debian 12 are fine. `install.sh` does not ask for a password.
 </Aside>
 
 <Tabs syncKey="distro">
@@ -61,131 +69,20 @@ The AppImage already includes the keyboard libraries. The archive build needs th
   </TabItem>
 </Tabs>
 
-### Archive
-
-<Tabs syncKey="app">
-  <TabItem label="Files">
-    [rivet-files-0.8.0-x86_64-linux.tar.gz](https://github.com/rivetsoft/apps/releases/download/v0.8.0/rivet-files-0.8.0-x86_64-linux.tar.gz)
-
-    ```sh
-    tar xzf rivet-files-0.8.0-x86_64-linux.tar.gz
-    cd rivet-files-0.8.0-x86_64-linux
-    ./install.sh
-    ```
-
-    `./install.sh --default` makes Rivet Files the default file manager. Other downloads, including a Flatpak when the release has one, are on the [Files page](/files/).
-  </TabItem>
-  <TabItem label="Notes">
-    [rivet-notes-0.3.0-x86_64-linux.tar.gz](https://github.com/rivetsoft/apps/releases/download/rivet-notes-v0.3.0/rivet-notes-0.3.0-x86_64-linux.tar.gz)
-
-    ```sh
-    tar xzf rivet-notes-0.3.0-x86_64-linux.tar.gz
-    cd rivet-notes-0.3.0-x86_64-linux
-    ./install.sh
-    ```
-
-    Other downloads are on the [Notes page](/notes/).
-  </TabItem>
-  <TabItem label="Edit">
-    [rivet-edit-0.2.0-x86_64-linux.tar.gz](https://github.com/rivetsoft/apps/releases/download/rivet-edit-v0.2.0/rivet-edit-0.2.0-x86_64-linux.tar.gz)
-
-    ```sh
-    tar xzf rivet-edit-0.2.0-x86_64-linux.tar.gz
-    cd rivet-edit-0.2.0-x86_64-linux
-    ./install.sh
-    ```
-
-    Other downloads are on the [Edit page](/edit/).
-  </TabItem>
-  <TabItem label="Terminal">
-    [rivet-terminal-0.2.0-x86_64-linux.tar.gz](https://github.com/rivetsoft/apps/releases/download/rivet-terminal-v0.2.0/rivet-terminal-0.2.0-x86_64-linux.tar.gz)
-
-    ```sh
-    tar xzf rivet-terminal-0.2.0-x86_64-linux.tar.gz
-    cd rivet-terminal-0.2.0-x86_64-linux
-    ./install.sh
-    ```
-
-    Other downloads are on the [Terminal page](/terminal/).
-  </TabItem>
-  <TabItem label="FTP">
-    [rivet-ftp-0.3.0-x86_64-linux.tar.gz](https://github.com/rivetsoft/apps/releases/download/rivet-ftp-v0.3.0/rivet-ftp-0.3.0-x86_64-linux.tar.gz)
-
-    ```sh
-    tar xzf rivet-ftp-0.3.0-x86_64-linux.tar.gz
-    cd rivet-ftp-0.3.0-x86_64-linux
-    ./install.sh
-    ```
-
-    FTP 0.3.0 is a pre-release. Other downloads are on the [FTP page](/ftp/).
-  </TabItem>
-</Tabs>
-
-The launcher commands are `rivet`, `rivet-notes`, `rivet-edit`, `rivet-terminal`, and `rivet-ftp`.
-
 ### AppImage for one app
 
-<Tabs syncKey="app">
-  <TabItem label="Files">
-    [Rivet_Files-0.8.0-x86_64.AppImage](https://github.com/rivetsoft/apps/releases/download/v0.8.0/Rivet_Files-0.8.0-x86_64.AppImage)
-
-    ```sh
-    chmod +x Rivet_Files-0.8.0-x86_64.AppImage
-    ./Rivet_Files-0.8.0-x86_64.AppImage
-    ```
-  </TabItem>
-  <TabItem label="Notes">
-    [Rivet_Notes-0.3.0-x86_64.AppImage](https://github.com/rivetsoft/apps/releases/download/rivet-notes-v0.3.0/Rivet_Notes-0.3.0-x86_64.AppImage)
-
-    ```sh
-    chmod +x Rivet_Notes-0.3.0-x86_64.AppImage
-    ./Rivet_Notes-0.3.0-x86_64.AppImage
-    ```
-  </TabItem>
-  <TabItem label="Edit">
-    [Rivet_Edit-0.2.0-x86_64.AppImage](https://github.com/rivetsoft/apps/releases/download/rivet-edit-v0.2.0/Rivet_Edit-0.2.0-x86_64.AppImage)
-
-    ```sh
-    chmod +x Rivet_Edit-0.2.0-x86_64.AppImage
-    ./Rivet_Edit-0.2.0-x86_64.AppImage
-    ```
-  </TabItem>
-  <TabItem label="Terminal">
-    [Rivet_Terminal-0.2.0-x86_64.AppImage](https://github.com/rivetsoft/apps/releases/download/rivet-terminal-v0.2.0/Rivet_Terminal-0.2.0-x86_64.AppImage)
-
-    ```sh
-    chmod +x Rivet_Terminal-0.2.0-x86_64.AppImage
-    ./Rivet_Terminal-0.2.0-x86_64.AppImage
-    ```
-  </TabItem>
-  <TabItem label="FTP">
-    [Rivet_FTP-0.3.0-x86_64.AppImage](https://github.com/rivetsoft/apps/releases/download/rivet-ftp-v0.3.0/Rivet_FTP-0.3.0-x86_64.AppImage)
-
-    ```sh
-    chmod +x Rivet_FTP-0.3.0-x86_64.AppImage
-    ./Rivet_FTP-0.3.0-x86_64.AppImage
-    ```
-  </TabItem>
-</Tabs>
+<InstallDownloads kind="appimage" />
 
 In the app, Preferences, System, Add Rivet to the app launcher puts that AppImage in your menus.
 
-You can also install Welcome from the archive, the same way as the other apps:
+### Portable build
 
-```sh
-tar xzf rivet-welcome-0.1.0-x86_64-linux.tar.gz
-cd rivet-welcome-0.1.0-x86_64-linux
-./install.sh
-```
+<InstallDownloads kind="archive" />
 
-[rivet-welcome-0.1.0-x86_64-linux.tar.gz](https://github.com/rivetsoft/apps/releases/download/rivet-welcome-v0.1.0/rivet-welcome-0.1.0-x86_64-linux.tar.gz)
+## Updating
 
-### Shell
+Welcome checks for new versions from its tray icon and updates the apps it installed. For an AppImage, download the new one and run it in place of the old. For the portable build, run the new release's `install.sh` the same way; it replaces the old version.
 
-Rivet Shell has no release yet. From a checkout of the repository:
+## From source
 
-```sh
-cargo build --release -p rivet-shell
-```
-
-The run commands, and which compositors it supports, are on the [Shell page](/docs/shell/).
+Every app builds from a checkout of [rivetsoft/apps](https://github.com/rivetsoft/apps) with `cargo build --release -p` and the app's package name. The [README](https://github.com/rivetsoft/apps#readme) has the details.

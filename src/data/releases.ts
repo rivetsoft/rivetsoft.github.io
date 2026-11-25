@@ -1,4 +1,4 @@
-import { apps } from "./apps";
+import { releaseApps } from "./apps";
 import fallback from "./releases.fallback.json";
 import { selectReleases, type AppRelease, type RawRelease } from "./release-model";
 
@@ -54,7 +54,7 @@ async function fetchReleases(): Promise<RawRelease[]> {
 }
 
 function catalogFrom(raw: readonly RawRelease[], source: ReleaseCatalog["source"]): ReleaseCatalog {
-  const selected = selectReleases(raw, apps);
+  const selected = selectReleases(raw, releaseApps);
   return {
     source,
     bySlug: Object.fromEntries(selected.map((release) => [release.slug, release])),
@@ -73,7 +73,9 @@ export const catalog: ReleaseCatalog = await (async () => {
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
     console.warn(`[releases] using saved release info (${message})`);
-    return catalogFrom(fallback as RawRelease[], "fallback");
+    const now = Date.now();
+    const published = (fallback as RawRelease[]).filter((release) => !(Date.parse(release.published_at ?? "") > now));
+    return catalogFrom(published, "fallback");
   }
 })();
 
