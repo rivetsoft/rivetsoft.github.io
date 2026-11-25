@@ -296,8 +296,8 @@ export const apps: AppEntry[] = [
     nav: false,
     applicationCategory: "UtilitiesApplication",
     cardShot: "rivet-vice-wide.png",
-    cardAlt: "Rivet Vice inside a tar.gz archive, with two photos selected to extract",
-    cardCaption: "Rivet Vice, with two photos chosen to take out.",
+    cardAlt: "Rivet Vice inside a trip archive, with folders of photos, maps and notes and a dozen files",
+    cardCaption: "Rivet Vice, looking inside an archive.",
     icon: "rivet-vice.svg",
     readme: "apps/rivet-vice/README.md",
     summary:
