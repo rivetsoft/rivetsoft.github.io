@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { describe, it } from "node:test";
-import { apps } from "../src/data/apps.ts";
+import { releaseApps } from "../src/data/apps.ts";
 import {
   assetByKind,
   compareVersions,
@@ -12,7 +12,7 @@ import {
   type RawRelease,
 } from "../src/data/release-model.ts";
 
-const tagApps = apps.map((app) => ({ slug: app.slug, tagPrefixes: app.tagPrefixes }));
+const tagApps = releaseApps.map((app) => ({ slug: app.slug, tagPrefixes: app.tagPrefixes }));
 
 function release(partial: RawRelease): RawRelease {
   return {
@@ -36,6 +36,7 @@ describe("tag mapping", () => {
     assert.equal(matchSlug("rivet-terminal-v0.1.0", tagApps), "terminal");
     assert.equal(matchSlug("rivet-shell-v0.1.0", tagApps), "shell");
     assert.equal(matchSlug("rivet-welcome-v0.1.0", tagApps), "welcome");
+    assert.equal(matchSlug("rivet-color-v0.1.0", tagApps), "color");
     assert.equal(matchSlug("not-a-release", tagApps), undefined);
   });
 });
@@ -101,7 +102,7 @@ describe("assets", () => {
     );
     assert.deepEqual(
       files.assets.map((asset) => asset.label),
-      ["AppImage", "tar.gz", "Flatpak", "txt"],
+      ["AppImage", "Portable build (tar.gz)", "Flatpak", "txt"],
     );
     const appImage = assetByKind(files, "appimage");
     assert.equal(appImage?.checksumUrl, "https://example.test/app.sha256");
@@ -135,23 +136,24 @@ describe("markdown", () => {
 });
 
 describe("saved releases", () => {
-  it("picks the current Files, Notes, and FTP releases", () => {
+  it("keeps each app's downloads at its tag, in the release contract's names", () => {
     const raw = JSON.parse(readFileSync(new URL("../src/data/releases.fallback.json", import.meta.url), "utf8")) as RawRelease[];
     const selected = selectReleases(raw, tagApps);
-    const bySlug = Object.fromEntries(selected.map((item) => [item.slug, item]));
-    assert.equal(bySlug.files.tag, "v0.8.0");
-    assert.equal(bySlug.files.prerelease, false);
-    assert.equal(assetByKind(bySlug.files, "appimage")?.name, "Rivet_Files-0.8.0-x86_64.AppImage");
-    assert.equal(bySlug.notes.tag, "rivet-notes-v0.3.0");
-    assert.equal(bySlug.notes.prerelease, false);
-    assert.equal(bySlug.ftp.tag, "rivet-ftp-v0.3.0");
-    assert.equal(bySlug.ftp.prerelease, true);
-    assert.equal(bySlug.edit.tag, "rivet-edit-v0.2.0");
-    assert.equal(bySlug.edit.prerelease, false);
-    assert.equal(bySlug.terminal.tag, "rivet-terminal-v0.2.0");
-    assert.equal(bySlug.terminal.prerelease, false);
-    assert.equal(bySlug.welcome.tag, "rivet-welcome-v0.1.0");
-    assert.equal(bySlug.welcome.prerelease, true);
-    assert.equal(bySlug.shell, undefined);
+    assert.ok(selected.some((item) => item.slug === "files"));
+    for (const item of selected) {
+      const app = releaseApps.find((entry) => entry.slug === item.slug)!;
+      const download = `https://github.com/rivetsoft/apps/releases/download/${item.tag}/`;
+      const appImage = assetByKind(item, "appimage");
+      if (appImage) {
+        assert.equal(appImage.name, `${app.name.replaceAll(" ", "_")}-${item.version}-x86_64.AppImage`);
+        assert.equal(appImage.url, download + appImage.name);
+        assert.equal(appImage.checksumUrl, `${download}${appImage.name}.sha256`);
+      }
+      const archive = assetByKind(item, "archive");
+      assert.equal(archive?.name, `rivet-${item.slug}-${item.version}-x86_64-linux.tar.gz`, item.slug);
+      assert.equal(archive.url, download + archive.name);
+      assert.equal(archive.checksumUrl, `${download}${archive.name}.sha256`);
+    }
+    assert.equal(selected.find((item) => item.slug === "softcore"), undefined);
   });
 });

@@ -7,7 +7,7 @@ interface Props {
 }
 
 const { current = "" } = Astro.props;
-const menuSlugs = ["shell", "softcore", "files", "notes", "edit", "terminal", "ftp"] as const;
+const menuSlugs = ["shell", "softcore", "files", "notes", "edit", "terminal", "ftp", "color"] as const;
 const listed = menuSlugs.map((slug) => {
   const app = apps.find((entry) => entry.slug === slug);
   if (!app) throw new Error(`Missing nav app ${slug}`);

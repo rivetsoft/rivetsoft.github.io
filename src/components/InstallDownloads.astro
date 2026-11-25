@@ -1,0 +1,90 @@
+---
+// The install guide's per-app downloads, from the release data. An app with no release, or a
+// release without this kind of file, gets a sentence instead of a link.
+import { Code, TabItem, Tabs } from "@astrojs/starlight/components";
+import { allReleasesUrl, apps, programFor, releaseApps } from "../data/apps";
+import { assetByKind, archiveFolder } from "../data/release-model";
+import { releaseFor } from "../data/releases";
+import { url } from "../paths";
+
+interface Props {
+  kind: "archive" | "appimage";
+  /** One app as plain steps, without tabs. */
+  slug?: string;
+}
+
+const { kind, slug } = Astro.props;
+const chosen = slug ? releaseApps.filter((app) => app.slug === slug) : releaseApps;
+const rows = chosen.map((app) => {
+  const release = releaseFor(app.slug);
+  const asset = release ? assetByKind(release, kind) : undefined;
+  const commands =
+    asset && kind === "archive"
+      ? `tar xzf ${asset.name}\ncd ${archiveFolder(asset.name)}\n./install.sh`
+      : asset
+        ? `chmod +x ${asset.name}\n./${asset.name}`
+        : "";
+  const page = apps.some((entry) => entry.slug === app.slug) ? url(`${app.slug}/`) : undefined;
+  const tab = app.name.replace(/^Rivet /, "");
+  return { app, release, asset, commands, page, tab, program: programFor(app) };
+});
+const ready = rows.filter((row) => row.asset);
+const waiting = rows.filter((row) => !row.asset);
+---
+
+{
+  slug ? (
+    ready.map((row) => (
+      <>
+        <p>
+          Download <a href={row.asset!.url}>{row.asset!.name}</a>
+          {row.release!.prerelease ? ` (${row.release!.version}, a pre-release)` : ` (${row.release!.version})`}.
+        </p>
+        <Code code={row.commands} lang="sh" />
+      </>
+    ))
+  ) : (
+    <Tabs syncKey="app">
+      {ready.map((row) => (
+        <TabItem label={row.tab}>
+          <p>
+            <a href={row.asset!.url}>{row.asset!.name}</a>
+          </p>
+          <Code code={row.commands} lang="sh" />
+          <p>
+            {row.app.name} {row.release!.version}
+            {row.release!.prerelease ? " is a pre-release." : "."}
+            {kind === "archive" && (
+              <>
+                {" "}
+                It installs the command <code>{row.program}</code>.
+              </>
+            )}
+            {kind === "archive" && row.app.slug === "shell" && <> It puts Rivet Shell Settings in the launcher.</>}
+            {kind === "archive" && row.app.slug === "files" && (
+              <>
+                {" "}
+                <code>./install.sh --default</code> makes it the default file manager.
+              </>
+            )}
+            {row.page && (
+              <>
+                {" "}
+                Other downloads are on the <a href={row.page}>{row.tab} page</a>.
+              </>
+            )}
+          </p>
+        </TabItem>
+      ))}
+    </Tabs>
+  )
+}
+{
+  waiting.length > 0 && (
+    <p>
+      {slug ? "This download is not published yet" : `Not published as ${kind === "archive" ? "a portable build" : "an AppImage"} yet`}
+      {slug ? "" : `: ${waiting.map((row) => row.app.name).join(", ")}`}. Look on{" "}
+      <a href={allReleasesUrl}>the releases page</a>, or build from source.
+    </p>
+  )
+}

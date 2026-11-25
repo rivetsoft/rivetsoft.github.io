@@ -1,6 +1,6 @@
 ---
 import { allReleasesUrl, appBySlug, repoUrl } from "../data/apps";
-import { formatBytes, renderMarkdown, splitRenderedNotes } from "../data/release-model";
+import { formatBytes, renderMarkdown, sourceArchives, splitRenderedNotes } from "../data/release-model";
 import { catalog, releaseFor } from "../data/releases";
 
 interface Props {
@@ -52,6 +52,13 @@ const releasesUrl = allReleasesUrl;
         ) : (
           <p>No downloads are attached to this release yet.</p>
         )}
+        {release.assets.length > 0 && (
+          <p class="download-note">
+            The AppImage is one file you run. The portable build is an archive with <code>install.sh</code>, which
+            installs for your user; Rivet Welcome installs the same one. Source code is GitHub's archive of the
+            repository at <code>{release.tag}</code>.
+          </p>
+        )}
         {notes.lead && <div class="notes-body" set:html={notes.lead} />}
         {notes.rest && (
           <details class="notes">
@@ -63,6 +70,12 @@ const releasesUrl = allReleasesUrl;
           <li>
             <a href={release.htmlUrl}>Release page</a>
           </li>
+          {!app.repo &&
+            sourceArchives(repoUrl, release.tag).map((source) => (
+              <li>
+                <a href={source.url}>{source.label}</a>
+              </li>
+            ))}
           <li>
             <a href={allReleasesUrl}>All releases</a>
           </li>
