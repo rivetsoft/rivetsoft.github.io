@@ -1,5 +1,5 @@
 ---
-import { allReleasesUrl, appBySlug, repoUrl } from "../data/apps";
+import { appBySlug, repoUrl } from "../data/apps";
 import { formatBytes, renderMarkdown, sourceArchives, splitRenderedNotes } from "../data/release-model";
 import { catalog, releaseFor } from "../data/releases";
 
@@ -16,7 +16,7 @@ const Heading = heading;
 const notes = release ? splitRenderedNotes(renderMarkdown(release.notes)) : { lead: "", rest: "" };
 const codeUrl = app.repo ?? repoUrl;
 const readmeUrl = app.repo ?? (app.readme ? `${repoUrl}/blob/main/${app.readme}` : repoUrl);
-const releasesUrl = allReleasesUrl;
+const releasesUrl = `${codeUrl}/releases`;
 ---
 
 <section class="release" aria-label={release ? `${app.name} ${release.version}` : `${app.name} download`}>
@@ -29,7 +29,7 @@ const releasesUrl = allReleasesUrl;
           {release.prerelease && <span class="badge badge-alpha">Alpha</span>}
         </p>
         {release.prerelease && <p>GitHub marks this as a pre-release.</p>}
-        {catalog.source === "fallback" && (
+        {catalog.fallbackSlugs.includes(slug) && (
           <p class="notice">GitHub was unreachable when this page was built, so this is the last saved release info.</p>
         )}
         {release.assets.length > 0 ? (
@@ -52,7 +52,14 @@ const releasesUrl = allReleasesUrl;
         ) : (
           <p>No downloads are attached to this release yet.</p>
         )}
-        {release.assets.length > 0 && (
+        {release.assets.length > 0 && app.repo && (
+          <p class="download-note">
+            The portable build is an archive with <code>install.sh</code>, which asks for your password and installs
+            {" "}{app.name} for everyone on the computer. Source code is GitHub's archive of the repository at{" "}
+            <code>{release.tag}</code>.
+          </p>
+        )}
+        {release.assets.length > 0 && !app.repo && (
           <p class="download-note">
             The AppImage is one file you run. The portable build is an archive with <code>install.sh</code>, which
             installs for your user; Rivet Welcome installs the same one. Source code is GitHub's archive of the
@@ -70,14 +77,13 @@ const releasesUrl = allReleasesUrl;
           <li>
             <a href={release.htmlUrl}>Release page</a>
           </li>
-          {!app.repo &&
-            sourceArchives(repoUrl, release.tag).map((source) => (
-              <li>
-                <a href={source.url}>{source.label}</a>
-              </li>
-            ))}
+          {sourceArchives(codeUrl, release.tag).map((source) => (
+            <li>
+              <a href={source.url}>{source.label}</a>
+            </li>
+          ))}
           <li>
-            <a href={allReleasesUrl}>All releases</a>
+            <a href={releasesUrl}>All releases</a>
           </li>
         </ul>
       </>
@@ -94,11 +100,9 @@ const releasesUrl = allReleasesUrl;
           )}
         </p>
         <ul class="release-links">
-          {!app.repo && (
-            <li>
-              <a href={releasesUrl}>All releases</a>
-            </li>
-          )}
+          <li>
+            <a href={releasesUrl}>All releases</a>
+          </li>
           <li>
             <a href={codeUrl}>Repository</a>
           </li>

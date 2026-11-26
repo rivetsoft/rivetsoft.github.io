@@ -2,7 +2,7 @@
 // The install guide's per-app downloads, from the release data. An app with no release, or a
 // release without this kind of file, gets a sentence instead of a link.
 import { Code, TabItem, Tabs } from "@astrojs/starlight/components";
-import { allReleasesUrl, apps, programFor, releaseApps } from "../data/apps";
+import { allReleasesUrl, apps, ownRepoApps, programFor, releaseApps } from "../data/apps";
 import { assetByKind, archiveFolder } from "../data/release-model";
 import { releaseFor } from "../data/releases";
 import { url } from "../paths";
@@ -14,7 +14,9 @@ interface Props {
 }
 
 const { kind, slug } = Astro.props;
-const chosen = slug ? releaseApps.filter((app) => app.slug === slug) : releaseApps;
+const chosen = slug ? [...releaseApps, ...ownRepoApps].filter((app) => app.slug === slug) : releaseApps;
+// An app with a repository of its own has its own releases page.
+const releasesUrl = slug && chosen[0]?.repo ? `${chosen[0].repo}/releases` : allReleasesUrl;
 const rows = chosen.map((app) => {
   const release = releaseFor(app.slug);
   const asset = release ? assetByKind(release, kind) : undefined;
@@ -84,7 +86,7 @@ const waiting = rows.filter((row) => !row.asset);
     <p>
       {slug ? "This download is not published yet" : `Not published as ${kind === "archive" ? "a portable build" : "an AppImage"} yet`}
       {slug ? "" : `: ${waiting.map((row) => row.app.name).join(", ")}`}. Look on{" "}
-      <a href={allReleasesUrl}>the releases page</a>, or build from source.
+      <a href={releasesUrl}>the releases page</a>, or build from source.
     </p>
   )
 }

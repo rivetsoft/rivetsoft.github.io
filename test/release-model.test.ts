@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { describe, it } from "node:test";
-import { releaseApps } from "../src/data/apps.ts";
+import { ownRepoApps, releaseApps, repoPath } from "../src/data/apps.ts";
 import {
   assetByKind,
   compareVersions,
@@ -155,5 +155,36 @@ describe("saved releases", () => {
       assert.equal(archive.checksumUrl, `${download}${archive.name}.sha256`);
     }
     assert.equal(selected.find((item) => item.slug === "softcore"), undefined);
+  });
+});
+
+describe("apps with a repository of their own", () => {
+  it("reads Softcore's releases from rivetsoft/softcore and keeps it out of the apps' install guide", () => {
+    assert.equal(releaseApps.find((app) => app.slug === "softcore"), undefined);
+    const softcore = ownRepoApps.find((app) => app.slug === "softcore")!;
+    assert.equal(repoPath(softcore.repo!), "rivetsoft/softcore");
+    const download = "https://github.com/rivetsoft/softcore/releases/download/softcore-v0.1.0/";
+    const [selected] = selectReleases(
+      [
+        release({
+          tag_name: "softcore-v0.1.0",
+          prerelease: true,
+          html_url: "https://github.com/rivetsoft/softcore/releases/tag/softcore-v0.1.0",
+          assets: [
+            { name: "softcore-0.1.0-x86_64-linux.tar.gz", size: 9, browser_download_url: download + "softcore-0.1.0-x86_64-linux.tar.gz" },
+            { name: "softcore-0.1.0-x86_64-linux.tar.gz.sha256", size: 1, browser_download_url: download + "softcore-0.1.0-x86_64-linux.tar.gz.sha256" },
+          ],
+        }),
+        release({ tag_name: "softcore-v0.2.0", draft: true }),
+      ],
+      [softcore],
+    );
+    assert.equal(selected.slug, "softcore");
+    assert.equal(selected.version, "0.1.0");
+    assert.equal(selected.prerelease, true);
+    const archive = assetByKind(selected, "archive");
+    assert.equal(archive?.name, "softcore-0.1.0-x86_64-linux.tar.gz");
+    assert.equal(archive?.checksumUrl, download + "softcore-0.1.0-x86_64-linux.tar.gz.sha256");
+    assert.equal(assetByKind(selected, "appimage"), undefined);
   });
 });
