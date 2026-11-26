@@ -133,7 +133,14 @@ It copies the program to `~/.local/bin/rivet`, writes `~/.local/share/applicatio
 
 ### Flatpak
 
-A `.flatpak` bundle is attached to a GitHub release once CI has built it. It is not on Flathub yet. The manifest and the steps are in [packaging/README.md](https://github.com/rivetsoft/apps/blob/main/apps/rivet-files/packaging/README.md). The app id is `io.github.ulinaaron.rivet-files`.
+A `.flatpak` bundle is attached to a GitHub release once CI has built it. It is not on Flathub yet. The manifest and the steps are in [packaging/README.md](https://github.com/rivetsoft/apps/blob/main/apps/rivet-files/packaging/README.md). The app id is `io.github.rivetsoft.rivet-files`.
+
+Bundles up to 0.10.0 used `io.github.ulinaaron.rivet-files`. To move to the new id, install the new bundle and remove the old app. Your settings, bookmarks and Trash stay where they are, because Rivet keeps them in your home folder rather than the Flatpak's own folder.
+
+```sh
+flatpak install --user rivet-files.flatpak
+flatpak uninstall --user --delete-data io.github.ulinaaron.rivet-files
+```
 
 Inside the sandbox, home, other disks, Trash, and the theme files in `~/.config` are the real ones. The host's `/usr` and `/etc` are under Host system files (`/run/host`). Open With a specific program, and Open in Terminal, cannot start host programs. Unmount can fail. The file picker is not available.
 
