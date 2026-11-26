@@ -1,6 +1,6 @@
 ---
-import shots from "../data/shots.json";
-import { url } from "../paths";
+import Screenshot from "./Screenshot.astro";
+import { screenshot, shotSizes } from "../data/shots";
 
 interface Props {
   name: string;
@@ -10,25 +10,12 @@ interface Props {
 }
 
 const { name, alt, caption, eager = false } = Astro.props;
-const table = shots as Record<string, { w: number; h: number }>;
-const meta = table[name];
-if (!meta) {
-  throw new Error(`Missing screenshot ${name}`);
-}
-const src = url(`screenshots/${name}`);
+const img = screenshot(name);
 ---
 
 <figure class="shot">
-  <a href={src}>
-    <img
-      src={src}
-      alt={alt}
-      width={meta.w}
-      height={meta.h}
-      loading={eager ? "eager" : "lazy"}
-      decoding="async"
-      fetchpriority={eager ? "high" : undefined}
-    />
+  <a href={img.src}>
+    <Screenshot img={img} alt={alt} sizes={shotSizes.page} eager={eager} />
     <span class="vh">Open full size.</span>
   </a>
   <figcaption>{caption}</figcaption>

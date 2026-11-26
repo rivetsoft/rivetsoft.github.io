@@ -1758,12 +1758,23 @@ body:has(.band) .site-footer-inner {
   initial-value: #d53f8c;
 }
 
+/* The ring turns as one box, and a browser counts the corners of a turning box as page: on a
+   phone that made the page wider than the screen. Clipped a little way out, the balls, their
+   bob and their glow still show in full, and the page keeps its width. */
 .accent-stage {
   container-type: inline-size;
   position: relative;
   width: 100%;
   aspect-ratio: 1;
   margin: 0;
+  overflow: clip;
+  overflow-clip-margin: 2.5rem;
+}
+
+@media (max-width: 799px) {
+  .accent-stage {
+    overflow-clip-margin: 1.75rem;
+  }
 }
 
 .accent-ring {
@@ -2533,17 +2544,63 @@ body:has(.band) .site-footer-inner {
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
+/* Sections fade in as they reach the screen. On a wide screen with motion allowed, they also
+   rise a little as they do. */
+html.motion .reveal:not(.is-in) {
+  opacity: 0;
+}
+
+html.motion .reveal.is-in {
+  opacity: 1;
+  transition: opacity 0.55s ease;
+}
+
+@media (min-width: 800px) and (prefers-reduced-motion: no-preference) {
   html.motion .reveal:not(.is-in) {
-    opacity: 0;
     transform: translateY(16px);
   }
 
   html.motion .reveal.is-in {
-    opacity: 1;
     transform: none;
     transition: opacity 0.55s ease, transform 0.55s ease;
   }
+}
+
+/* No motion on a phone or for anyone who asks for less of it: nothing moves with the scroll or
+   the pointer. The windows keep their resting lean or lie flat, and what animates in place (the
+   accent ring, the colors, hovers and taps) stays. */
+@media (max-width: 799px), (prefers-reduced-motion: reduce) {
+  .show-shot {
+    transform: translateY(var(--lift, 0px));
+  }
+
+  .hero-layer {
+    transform: translateZ(var(--nz, 0px)) rotateX(var(--rx)) rotateY(var(--ry));
+    will-change: auto;
+  }
+
+  .accent-ring .rivet-float,
+  .brut-back,
+  .brut-front {
+    transform: none;
+  }
+}
+
+/* A phone redraws a blurred backdrop on every frame of a scroll, so there the header is solid
+   and cards go without the blur. */
+@media (max-width: 799px) {
+  .mast {
+    background: var(--bg);
+    backdrop-filter: none;
+  }
+
+  .card {
+    backdrop-filter: none;
+  }
+}
+
+picture {
+  display: contents;
 }
 
 /* The Plugins page: a filter, then one card per plugin. */
@@ -2682,6 +2739,13 @@ body:has(.band) .site-footer-inner {
   border: 3px solid #24121b;
   box-shadow: 12px 12px 0 #24121b;
   transform: rotate(1.2deg);
+}
+
+/* On a phone the picture reaches the edge of the screen, so it leaves room for its shadow. */
+@media (max-width: 799px) {
+  .band-page-art .app-hero-shot img {
+    width: calc(100% - 14px);
+  }
 }
 
 @media (min-width: 800px) {

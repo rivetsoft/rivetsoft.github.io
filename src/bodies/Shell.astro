@@ -19,13 +19,11 @@ import settingsWidgets from "../assets/shell/settings-widgets.jpg";
 
 const release = releaseFor("shell");
 
-// The shell's pictures are photographs of a whole desktop: sized down for the page, with the
-// original behind the link.
-async function pic(image: ImageMetadata, alt: string, width = 1440): Promise<Pic> {
-  const small = await getImage({ src: image, width, format: "webp" });
+// The shell's pictures are photographs of a whole desktop: the page shows them sized to the
+// screen, and the link opens a full-size WebP.
+async function pic(image: ImageMetadata, alt: string): Promise<Pic> {
   const full = await getImage({ src: image, format: "webp" });
-  const w = Math.min(width, image.width);
-  return { src: small.src, w, h: Math.round((image.height * w) / image.width), alt, full: full.src };
+  return { img: image, alt, full: full.src };
 }
 ---
 
@@ -82,10 +80,10 @@ async function pic(image: ImageMetadata, alt: string, width = 1440): Promise<Pic
     title: "Settings for all of it.",
     lead: "Pages for Wallpaper, Appearance, Panels, Dock, Widgets, Launcher, Notifications, Displays, Idle & Lock, Plugins and About.",
     items: [
-      { pic: await pic(settingsAppearance, "Rivet Shell settings, Appearance page, with style, accent, and color use", 960), name: "Appearance" },
-      { pic: await pic(settingsPanels, "Rivet Shell settings, Panels page, with a floating top panel and its items", 960), name: "Panels" },
-      { pic: await pic(settingsWidgets, "Rivet Shell settings, Widgets page, with the clock and system readings", 960), name: "Widgets" },
-      { pic: await pic(settingsPlugins, "Rivet Shell settings, Plugins page, with the official Notes and FTP plugins", 960), name: "Plugins" },
+      { pic: await pic(settingsAppearance, "Rivet Shell settings, Appearance page, with style, accent, and color use"), name: "Appearance" },
+      { pic: await pic(settingsPanels, "Rivet Shell settings, Panels page, with a floating top panel and its items"), name: "Panels" },
+      { pic: await pic(settingsWidgets, "Rivet Shell settings, Widgets page, with the clock and system readings"), name: "Widgets" },
+      { pic: await pic(settingsPlugins, "Rivet Shell settings, Plugins page, with the official Notes and FTP plugins"), name: "Plugins" },
     ],
   }}
   download={{

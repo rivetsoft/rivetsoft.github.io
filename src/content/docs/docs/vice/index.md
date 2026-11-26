@@ -5,7 +5,7 @@ description: An archive manager. Look inside an archive, take out all or some of
 
 Rivet Vice opens an archive and shows what is in it, folder by folder. Take out all of it or only some, or make a new one.
 
-![Rivet Vice inside a trip archive, with folders of photos, maps and notes](/screenshots/rivet-vice-wide.png)
+![Rivet Vice inside a trip archive, with folders of photos, maps and notes](../../../../assets/screenshots/rivet-vice-wide.png)
 
 ## Opening
 

@@ -72,7 +72,7 @@ const fieldSvg = [...field.map((m) => ({ y: m.y, svg: mushroom(m) })), ...grass.
   // Rivet follows the pointer a little, and the mushroom behind him a little less, the way the
   // home page's two pictures do. Not on touch screens, and not when motion is turned down.
   (function () {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || window.matchMedia("(pointer: coarse)").matches) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce), (max-width: 799px), (pointer: coarse)").matches) return;
     var art = document.querySelector(".band-page-art");
     var back = art && art.querySelector(".mascot-back");
     var front = art && art.querySelector(".mascot-front");

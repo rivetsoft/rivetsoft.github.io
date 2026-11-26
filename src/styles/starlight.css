@@ -97,6 +97,14 @@ header.header {
   box-shadow: 0 12px 28px -12px rgba(0, 0, 0, 0.72);
 }
 
+/* A phone redraws a blurred backdrop on every frame of a scroll, so there the header is solid. */
+@media (max-width: 799px) {
+  header.header {
+    background: var(--bg);
+    backdrop-filter: none;
+  }
+}
+
 header.header .apps-panel a,
 header.header .apps-panel .apps-name {
   color: var(--fg);

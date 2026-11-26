@@ -31,6 +31,13 @@ jobs:
           cache: npm
       - name: Install
         run: npm ci
+      # The screenshots' AVIF and WebP copies take minutes to make; keep them between builds.
+      - name: Cache optimized images
+        uses: actions/cache@v4
+        with:
+          path: node_modules/.astro
+          key: astro-images-${{ hashFiles('src/assets/**', 'package-lock.json') }}
+          restore-keys: astro-images-
       - name: Test
         run: npm test
       - name: Build

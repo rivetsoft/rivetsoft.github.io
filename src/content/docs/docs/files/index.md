@@ -7,7 +7,7 @@ Rivet Files is a file manager in the same family as Dolphin, Nemo, Thunar, and C
 
 The current downloads are on the [Files page](/files/). [Installing](#installing), below, has what each one needs.
 
-![Icon view of Home in the pink scheme](/screenshots/icons-wide.png)
+![Icon view of Home in the pink scheme](../../../../assets/screenshots/icons-wide.png)
 
 ## Getting around
 
@@ -18,20 +18,20 @@ The current downloads are on the [Files page](/files/). [Installing](#installing
 - **Filter a folder.** Start typing, or press Ctrl+F. Enter searches the subfolders too.
 - **Filters.** Ctrl+Shift+F limits a folder by type, name, or date: everywhere, for this folder, or for this folder and below. They are kept in `~/.config/rivet/filters`.
 
-![A filter hiding some of the folder](/screenshots/filters-wide.png)
+![A filter hiding some of the folder](../../../../assets/screenshots/filters-wide.png)
 
 ## Previews
 
 - **Peek.** F11 opens a side panel with a large preview, video playback, colored code, and file details. Drag the grip under the preview to change its height.
 - **Preview.** Space shows the selection in the whole window. Left and Right step through the folder's pictures, videos, and text. Return opens the file.
 
-![Peek showing a picture](/screenshots/peek-picture-wide.png)
+![Peek showing a picture](../../../../assets/screenshots/peek-picture-wide.png)
 
 ## Rename many files
 
 Select several files and press F2. Bulk Rename can insert text, dates, or numbers, remove or replace text, and change case. Every new name is previewed before anything is renamed.
 
-![Bulk rename, with a preview of the new names](/screenshots/bulk-rename-wide.png)
+![Bulk rename, with a preview of the new names](../../../../assets/screenshots/bulk-rename-wide.png)
 
 ## Be other apps' Open and Save window
 
@@ -68,7 +68,7 @@ The full list of codes is in the [Files README](https://github.com/rivetsoft/app
 - **Terminal mode:** F7. Monospace text, Nerd Font icons, and panels drawn as boxes. It uses the monospace font from Preferences, Appearance, Typography, and any installed Nerd Font.
 - **Modules:** Preferences, Modules turns off Bulk Rename, Convert and Resize, or custom actions.
 
-![Preferences, Appearance](/screenshots/preferences-wide.png)
+![Preferences, Appearance](../../../../assets/screenshots/preferences-wide.png)
 
 ## Keys
 

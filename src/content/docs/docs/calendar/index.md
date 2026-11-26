@@ -5,7 +5,7 @@ description: A calendar in plain .ics folders, with CalDAV, Google and Microsoft
 
 Rivet Calendar shows your days as a month, a week, a day or a list. Events are kept in plain `.ics` folders that vdirsyncer and khal share.
 
-![Rivet Calendar's month view, with four calendars](/screenshots/rivet-calendar-wide.png)
+![Rivet Calendar's month view, with four calendars](../../../../assets/screenshots/rivet-calendar-wide.png)
 
 ## Events
 

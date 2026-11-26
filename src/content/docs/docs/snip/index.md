@@ -5,7 +5,7 @@ description: Clip and mark up a screenshot, then copy or save it.
 
 Rivet Snip clips and marks up screenshots: crop, arrows, boxes, text, numbered steps, a highlighter and blur, then copy or save.
 
-![Rivet Snip with a marked-up screenshot](/screenshots/rivet-snip-wide.png)
+![Rivet Snip with a marked-up screenshot](../../../../assets/screenshots/rivet-snip-wide.png)
 
 ## Marking up
 
