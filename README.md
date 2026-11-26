@@ -47,7 +47,7 @@ App entries live in `src/data/apps.ts`. A new app needs a `tagPrefixes` entry, f
 
 The site rebuilds on every push to `main`, from Actions' Run workflow button, from a `repository_dispatch` of type `rivet-release`, and hourly. The build sends `GITHUB_TOKEN` to the GitHub API when Actions provides it.
 
-Put screenshots in `public/screenshots/`, add their width and height to `src/data/shots.json`, and use the `Shot` component. If you do not have a picture, do not draw a fake window. Say "Screenshot coming".
+Put screenshots in `src/assets/screenshots/` and show them with the `Screenshot` component (or `Shot`, for a figure with a caption). The build makes AVIF and WebP copies in a few widths, so a phone loads one about as wide as its screen; the link around a picture opens the original. In the docs, link a picture by its relative path, such as `../../../../assets/screenshots/icons-wide.png`. If you do not have a picture, do not draw a fake window. Say "Screenshot coming".
 
 ## Releasing: what the site needs
 

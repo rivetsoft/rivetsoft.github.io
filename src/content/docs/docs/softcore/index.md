@@ -5,7 +5,7 @@ description: A scrolling-tiling Wayland compositor for the Rivet desktop. Build 
 
 Softcore is a scrolling-tiling Wayland compositor, in Rust on [smithay](https://github.com/Smithay/smithay). Windows sit in columns on a strip that runs off both sides of the screen. Each display has its own stack of workspaces, with an empty one always last.
 
-![Softcore with three columns of windows on a strip that runs off both sides of the screen](/screenshots/softcore-wide.jpg)
+![Softcore with three columns of windows on a strip that runs off both sides of the screen](../../../../assets/screenshots/softcore-wide.jpg)
 
 It works the way [niri](https://github.com/YaLTeR/niri) does and is written from scratch. niri's behaviour was studied from the outside: what it advertises to clients, and what `niri msg` says. None of its code is in Softcore.
 

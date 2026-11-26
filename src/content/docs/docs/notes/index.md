@@ -5,7 +5,7 @@ description: How vaults, properties, links, editing, daily notes and todos work 
 
 Rivet Notes keeps Markdown in plain folders. The current downloads are on the [Notes page](/notes/).
 
-![Rivet Notes in live mode, in the pink scheme](/screenshots/notes-live-wide.png)
+![Rivet Notes in live mode, in the pink scheme](../../../../assets/screenshots/notes-live-wide.png)
 
 ## Vaults
 
@@ -58,17 +58,17 @@ There are two modes. Switch with the button left of the eye at the top right, or
 - **Source mode** shows the Markdown as written, colored.
 - **Live mode** still writes Markdown. Every line except the one you are on is rendered, and a heading takes its size as soon as its `#` marks are typed.
 
-![Source mode in the pink scheme](/screenshots/notes-source-dark.png)
+![Source mode in the pink scheme](../../../../assets/screenshots/notes-source-dark.png)
 
 The **reading view** (the eye, or Ctrl+Space) works in either mode. It renders headings, bold and italic, lists and tasks, quotes, code blocks with a Copy button, tables, rules, links, tags, and pictures stored beside the note. Esc or Ctrl+Space closes it. Arrow keys, Page Up and Page Down, Space, Home, and End scroll. Links to other notes open in place, and Backspace goes back.
 
-![The reading view of a note](/screenshots/notes-reading-wide.png)
+![The reading view of a note](../../../../assets/screenshots/notes-reading-wide.png)
 
 ### The slash menu
 
 Type `/` at the start of a line, or after a space, for a menu of blocks: headings 1 to 3, bulleted and numbered lists, a todo, a super todo when that module is on, a quote, a code block, a divider, a link to a note, or today's date. Keep typing to filter. Up and Down choose, Enter or Tab adds it, and Esc hides the menu. Used mid-line, a line block starts a new line.
 
-![The slash menu open in a note](/screenshots/notes-slash-wide.png)
+![The slash menu open in a note](../../../../assets/screenshots/notes-slash-wide.png)
 
 ### Moving lines
 
@@ -102,7 +102,7 @@ Preferences, Editor sets three fonts (Interface, Editor, and Monospace), the edi
 
 Optional, and turned on in Preferences, Modules.
 
-![Preferences, Modules](/screenshots/notes-preferences-wide.png)
+![Preferences, Modules](../../../../assets/screenshots/notes-preferences-wide.png)
 
 ### Daily notes
 
@@ -124,13 +124,13 @@ The check box button, File, Todos, or Quick Actions opens it. It lists every sup
 - Click a row to open its note.
 - The board has To do, In progress, and Done columns. Drag a card to another column to change its progress.
 
-![The Todos page as a board](/screenshots/notes-todos-board-wide.png)
+![The Todos page as a board](../../../../assets/screenshots/notes-todos-board-wide.png)
 
 ## Quick Open and Quick Actions
 
 Ctrl+P finds a note from part of its title or folder. Letters in order are enough. With nothing typed, it lists the most recently edited notes. Shift+Ctrl+P runs a command or option by name.
 
-![Quick Open matching a note from a few letters](/screenshots/notes-quick-open-wide.png)
+![Quick Open matching a note from a few letters](../../../../assets/screenshots/notes-quick-open-wide.png)
 
 ## Peek
 

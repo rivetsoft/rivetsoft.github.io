@@ -23,7 +23,7 @@ export interface AppEntry {
   laterPhrase?: string;
   /** Which long page to render. Omit for the short generic page. */
   template?: "files" | "ftp" | "notes" | "shell" | "softcore" | "edit" | "terminal" | "welcome" | "color";
-  /** Home-card screenshot in public/screenshots. */
+  /** Home-card screenshot in src/assets/screenshots. */
   cardShot?: string;
   cardAlt?: string;
   cardCaption?: string;

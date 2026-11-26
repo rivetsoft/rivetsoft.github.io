@@ -3,17 +3,18 @@
 // bands for facts, a gallery and the download. Each app's body fills it with its own words.
 import PageBand from "./PageBand.astro";
 import ReleaseBlock from "./ReleaseBlock.astro";
+import Screenshot from "./Screenshot.astro";
 import Throwback from "./Throwback.astro";
+import type { ImageMetadata } from "astro";
 import { appBySlug, repoUrl, statusFor, statusLabel } from "../data/apps";
 import { releaseFor } from "../data/releases";
+import { shotSizes } from "../data/shots";
 import { url } from "../paths";
 
 export interface Pic {
-  src: string;
-  w: number;
-  h: number;
+  img: ImageMetadata;
   alt: string;
-  /** The full-size picture the thumbnail opens, when it is not `src`. */
+  /** The full-size picture the link opens, when it is not the original file. */
   full?: string;
 }
 
@@ -58,8 +59,8 @@ const codeUrl = app.repo ?? `${repoUrl}/tree/main/${folder}`;
     <a class="btn btn-secondary" href={url(`docs/${slug}/`)}>Docs</a>
     <a class="btn btn-secondary" href={codeUrl}>GitHub</a>
   </div>
-  <a slot="art" class="app-hero-shot" href={hero.full ?? hero.src}>
-    <img src={hero.src} alt={hero.alt} width={hero.w} height={hero.h} fetchpriority="high" decoding="async" />
+  <a slot="art" class="app-hero-shot" href={hero.full ?? hero.img.src}>
+    <Screenshot img={hero.img} alt={hero.alt} sizes={shotSizes.hero} eager />
   </a>
 </PageBand>
 
@@ -69,8 +70,8 @@ const codeUrl = app.repo ?? `${repoUrl}/tree/main/${folder}`;
       <ul class="showcase">
         {rows.map((row) => (
           <li class="show-row">
-            <a class="show-shot-link" href={row.pic.full ?? row.pic.src}>
-              <img class="show-shot" src={row.pic.src} alt={row.pic.alt} width={row.pic.w} height={row.pic.h} decoding="async" loading="lazy" />
+            <a class="show-shot-link" href={row.pic.full ?? row.pic.img.src}>
+              <Screenshot class="show-shot" img={row.pic.img} alt={row.pic.alt} sizes={shotSizes.row} />
             </a>
             <div class="show-copy">
               <h2 class="app-row-title">{row.title}</h2>
@@ -119,8 +120,8 @@ const codeUrl = app.repo ?? `${repoUrl}/tree/main/${folder}`;
       <ul class={`app-grid app-grid-${Math.min(gallery.items.length, 4)}`}>
         {gallery.items.map((item) => (
           <li>
-            <a href={item.pic.full ?? item.pic.src}>
-              <img src={item.pic.src} alt={item.pic.alt} width={item.pic.w} height={item.pic.h} decoding="async" loading="lazy" />
+            <a href={item.pic.full ?? item.pic.img.src}>
+              <Screenshot img={item.pic.img} alt={item.pic.alt} sizes={gallery.items.length > 2 ? shotSizes.grid : shotSizes.pair} />
             </a>
             {item.name && <h3>{item.name}</h3>}
             {item.text && <p>{item.text}</p>}

@@ -5,7 +5,7 @@ description: How to open folders and files, find things, use Git, and the keys i
 
 Rivet Edit is a lightweight editor for folders and files. The current downloads are on the [Edit page](/edit/).
 
-![Rivet Edit with a Rust project open](/screenshots/edit-editor-wide.png)
+![Rivet Edit with a Rust project open](../../../../assets/screenshots/edit-editor-wide.png)
 
 ## Open a folder or a file
 
@@ -20,9 +20,9 @@ One click in the tree, or Go to File, opens a preview: the tab title is in itali
 - **Go to Line:** Ctrl+G.
 - **Go to Definition:** F12.
 
-![Go to File](/screenshots/edit-go-to-file-wide.png)
+![Go to File](../../../../assets/screenshots/edit-go-to-file-wide.png)
 
-![The command list](/screenshots/edit-commands-wide.png)
+![The command list](../../../../assets/screenshots/edit-commands-wide.png)
 
 Find and replace work in the open file, and search can cover the whole folder.
 
@@ -30,9 +30,9 @@ Find and replace work in the open file, and search can cover the whole folder.
 
 By default the editor follows the app, which follows your desktop. Preferences can turn that off. Color Theme, in the command list, switches the code to one of 39 themes; moving through the list previews each one.
 
-![Preferences](/screenshots/edit-preferences-wide.png)
+![Preferences](../../../../assets/screenshots/edit-preferences-wide.png)
 
-![Rivet Edit in the light theme](/screenshots/edit-light-wide.png)
+![Rivet Edit in the light theme](../../../../assets/screenshots/edit-light-wide.png)
 
 ## Git
 

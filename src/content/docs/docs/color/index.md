@@ -5,7 +5,7 @@ description: A color picker, with shades, harmonies, contrast and palettes.
 
 Rivet Color picks a color from anywhere on the screen and copies it in the format you chose last: hex, RGB, HSL or OKLCH.
 
-![Rivet Color with a picked color, its shades and harmonies](/screenshots/rivet-color-wide.png)
+![Rivet Color with a picked color, its shades and harmonies](../../../../assets/screenshots/rivet-color-wide.png)
 
 ## Picking
 

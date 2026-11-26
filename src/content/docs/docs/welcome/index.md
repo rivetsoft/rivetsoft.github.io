@@ -5,7 +5,7 @@ description: An optional installer and updater for the Rivet shell and apps.
 
 Welcome installs and updates the apps. The usual way to start is its AppImage.
 
-![Rivet Welcome, with updates and an install under way](/screenshots/welcome-wide.png)
+![Rivet Welcome, with updates and an install under way](../../../../assets/screenshots/welcome-wide.png)
 
 It downloads the Linux archive, checks the published `.sha256`, and runs `install.sh` into `~/.local/bin`. It does not ask for a password. Installs from the AUR, a distro package, or `/usr/local/bin` are shown and left alone.
 

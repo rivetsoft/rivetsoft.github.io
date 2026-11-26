@@ -3,24 +3,19 @@ import { Image } from "astro:assets";
 import Base from "../layouts/Base.astro";
 import ReleaseBlock from "../components/ReleaseBlock.astro";
 import StatusBadge from "../components/StatusBadge.astro";
-import shots from "../data/shots.json";
 import { apps, byReleaseStatus, repoUrl, statusFor, statusLabel } from "../data/apps";
 import { catalog, releaseFor } from "../data/releases";
+import { screenshot, shotSizes } from "../data/shots";
+import Screenshot from "../components/Screenshot.astro";
 import { url } from "../paths";
 import { breadcrumb, siteRoot, websiteAndPerson } from "../seo";
 import heroDesktop from "../assets/hero/hero-desktop.jpg";
 import heroFiles from "../assets/hero/hero-files.png";
 
-const table = shots as Record<string, { w: number; h: number }>;
 const rows = apps.map((app) => {
   const release = releaseFor(app.slug);
-  return { app, release, status: statusFor(app, release) };
+  return { app, release, status: statusFor(app, release), shot: app.cardShot ? screenshot(app.cardShot) : undefined };
 });
-for (const { app } of rows) {
-  if (app.cardShot && !table[app.cardShot]) {
-    throw new Error(`Missing screenshot ${app.cardShot}`);
-  }
-}
 
 const welcome = rows.find((row) => row.app.spotlight === "welcome");
 const appRows = byReleaseStatus(rows.filter((row) => !row.app.spotlight));
@@ -199,19 +194,11 @@ import islandArt from "../assets/mascot/island.svg?raw";
     </div>
     <ul class="showcase">
       {
-        appRows.map(({ app, release, status }) => (
+        appRows.map(({ app, release, status, shot }) => (
           <li class="show-row">
-            {app.cardShot && table[app.cardShot] && (
+            {shot && (
               <a class="show-shot-link" href={url(`${app.slug}/`)}>
-                <img
-                  class="show-shot"
-                  src={url(`screenshots/${app.cardShot}`)}
-                  alt={app.cardAlt ?? `${app.name} screenshot`}
-                  width={table[app.cardShot].w}
-                  height={table[app.cardShot].h}
-                  decoding="async"
-                  loading="lazy"
-                />
+                <Screenshot class="show-shot" img={shot} alt={app.cardAlt ?? `${app.name} screenshot`} sizes={shotSizes.row} />
               </a>
             )}
             <div class="show-copy">
@@ -289,19 +276,19 @@ import islandArt from "../assets/mascot/island.svg?raw";
     <div class="colors-side">
     <ul class="scheme-grid">
       <li>
-        <img src={url("screenshots/theme-rose-wide.png")} alt="Rivet Files in the rose theme, on a light pink page" width={table["theme-rose-wide.png"].w} height={table["theme-rose-wide.png"].h} />
+        <Screenshot img={screenshot("theme-rose-wide.png")} alt="Rivet Files in the rose theme, on a light pink page" sizes={shotSizes.swatch} />
         <span>Rose</span>
       </li>
       <li>
-        <img src={url("screenshots/theme-ember-wide.png")} alt="The same Files window in the ember accent" width={table["theme-ember-wide.png"].w} height={table["theme-ember-wide.png"].h} />
+        <Screenshot img={screenshot("theme-ember-wide.png")} alt="The same Files window in the ember accent" sizes={shotSizes.swatch} />
         <span>Ember</span>
       </li>
       <li>
-        <img src={url("screenshots/theme-moss-wide.png")} alt="The same Files window in the moss accent" width={table["theme-moss-wide.png"].w} height={table["theme-moss-wide.png"].h} />
+        <Screenshot img={screenshot("theme-moss-wide.png")} alt="The same Files window in the moss accent" sizes={shotSizes.swatch} />
         <span>Moss</span>
       </li>
       <li>
-        <img src={url("screenshots/theme-violet-wide.png")} alt="The same Files window in the violet accent" width={table["theme-violet-wide.png"].w} height={table["theme-violet-wide.png"].h} />
+        <Screenshot img={screenshot("theme-violet-wide.png")} alt="The same Files window in the violet accent" sizes={shotSizes.swatch} />
         <span>Violet</span>
       </li>
     </ul>
@@ -483,37 +470,35 @@ import islandArt from "../assets/mascot/island.svg?raw";
 
   <script is:inline>
     (function () {
-      var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      // Motion (things that move with the scroll or the pointer) is for wide screens with motion
+      // allowed. It is checked on every event, so turning a tablet or resizing a window follows.
+      var still = window.matchMedia("(prefers-reduced-motion: reduce), (max-width: 799px)");
       var coarse = window.matchMedia("(pointer: coarse)").matches;
-      if (!reduce) {
-        var nodes = document.querySelectorAll(".reveal");
-        function shown(el) {
-          var r = el.getBoundingClientRect();
-          return r.top < (window.innerHeight || 0) * 0.92 && r.bottom > 0;
-        }
-        if ("IntersectionObserver" in window) {
-          var io = new IntersectionObserver(
-            function (entries) {
-              for (var i = 0; i < entries.length; i++) {
-                if (entries[i].isIntersecting) {
-                  entries[i].target.classList.add("is-in");
-                  io.unobserve(entries[i].target);
-                }
+      var nodes = document.querySelectorAll(".reveal");
+      function shown(el) {
+        var r = el.getBoundingClientRect();
+        return r.top < (window.innerHeight || 0) * 0.92 && r.bottom > 0;
+      }
+      if ("IntersectionObserver" in window) {
+        var io = new IntersectionObserver(
+          function (entries) {
+            for (var i = 0; i < entries.length; i++) {
+              if (entries[i].isIntersecting) {
+                entries[i].target.classList.add("is-in");
+                io.unobserve(entries[i].target);
               }
-            },
-            { rootMargin: "0px 0px -8% 0px", threshold: 0.08 }
-          );
-          for (var j = 0; j < nodes.length; j++) {
-            if (shown(nodes[j])) nodes[j].classList.add("is-in");
-            else io.observe(nodes[j]);
-          }
-        } else {
-          for (var k = 0; k < nodes.length; k++) nodes[k].classList.add("is-in");
+            }
+          },
+          { rootMargin: "0px 0px -8% 0px", threshold: 0.08 }
+        );
+        for (var j = 0; j < nodes.length; j++) {
+          if (shown(nodes[j])) nodes[j].classList.add("is-in");
+          else io.observe(nodes[j]);
         }
         document.documentElement.classList.add("motion");
       }
       var shots = document.querySelectorAll(".show-shot");
-      if (shots.length && !reduce) {
+      if (shots.length) {
         var shotsQueued = false;
         function paintShots() {
           shotsQueued = false;
@@ -526,20 +511,21 @@ import islandArt from "../assets/mascot/island.svg?raw";
           }
         }
         function queueShots() {
-          if (!shotsQueued) {
+          if (!shotsQueued && !still.matches) {
             shotsQueued = true;
             requestAnimationFrame(paintShots);
           }
         }
         window.addEventListener("scroll", queueShots, { passive: true });
         window.addEventListener("resize", queueShots, { passive: true });
-        paintShots();
+        queueShots();
       }
       var brut = document.querySelector(".brut");
-      if (brut && !reduce && !coarse) {
+      if (brut && !coarse) {
         brut.addEventListener(
           "pointermove",
           function (e) {
+            if (still.matches) return;
             var box = brut.getBoundingClientRect();
             if (!box.width) return;
             var x = (e.clientX - (box.left + box.width / 2)) / box.width;
@@ -551,7 +537,7 @@ import islandArt from "../assets/mascot/island.svg?raw";
         );
       }
       var ring = document.querySelector(".accent-ring");
-      if (ring && !reduce) {
+      if (ring) {
         var balls = ring.querySelectorAll("li");
         var rx = 0;
         var ry = 0;
@@ -568,7 +554,7 @@ import islandArt from "../assets/mascot/island.svg?raw";
           }
         }
         function queueRing() {
-          if (!ringQueued) {
+          if (!ringQueued && !still.matches) {
             ringQueued = true;
             requestAnimationFrame(paintRing);
           }
@@ -589,6 +575,7 @@ import islandArt from "../assets/mascot/island.svg?raw";
         window.addEventListener(
           "scroll",
           function () {
+            if (still.matches) return;
             var box = ring.getBoundingClientRect();
             var vh = window.innerHeight || 1;
             rsy = Math.max(-1, Math.min(1, (vh * 0.45 - (box.top + box.height / 2)) / vh));
@@ -597,7 +584,7 @@ import islandArt from "../assets/mascot/island.svg?raw";
           { passive: true }
         );
       }
-      if (reduce || coarse) return;
+      if (coarse) return;
       var stage = document.querySelector(".hero-stage");
       if (!stage) return;
       var back = stage.querySelector(".hero-layer-back");
@@ -614,7 +601,7 @@ import islandArt from "../assets/mascot/island.svg?raw";
         front.style.setProperty("--ny", (py * 9 + sy * 14).toFixed(2) + "px");
       }
       function queue() {
-        if (!queued) {
+        if (!queued && !still.matches) {
           queued = true;
           requestAnimationFrame(paint);
         }

@@ -5,13 +5,13 @@ description: How to connect, move and edit files, use SSH keys and saved connect
 
 Rivet FTP is a dual-pane SFTP client with a transfer queue. Saved connections are also there for `ssh`. FTP and FTPS are not built.
 
-![Rivet FTP connected, in the pink scheme](/screenshots/ftp-connected-wide.png)
+![Rivet FTP connected, in the pink scheme](../../../../assets/screenshots/ftp-connected-wide.png)
 
 ## Connect
 
 The quick-connect bar takes `user@server` or `sftp://user@server:port/folder`. `user@server` alone means SFTP. To keep a connection, use New Connection (Ctrl+N); it shows in the sidebar, where connections sit in groups that fold.
 
-![The New Connection window](/screenshots/ftp-new-connection-wide.png)
+![The New Connection window](../../../../assets/screenshots/ftp-new-connection-wide.png)
 
 Passwords are never written into the connections file. If you ask the window to remember a password or a key passphrase, it goes in the desktop keyring.
 
@@ -21,7 +21,7 @@ Drag between the panes, double-click a file to send it across, or use Upload (Ct
 
 When a file is already on the other side, the dates and sizes are compared first. You can keep the copy already there, replace the older files, or replace all of them. Preferences, Transfers sets that choice to ask, replace, or skip, and whether a double-click sends the file or only selects it.
 
-![A dialog comparing two items that are already on the server](/screenshots/ftp-replace-wide.png)
+![A dialog comparing two items that are already on the server](../../../../assets/screenshots/ftp-replace-wide.png)
 
 ## Edit a file on the server
 
@@ -33,7 +33,7 @@ The files open for editing are listed above the transfers. Stop ends it and dele
 
 Info shows a file's size, date, owner, and permissions, and changes the permissions (chmod), for one file or for everything in a folder.
 
-![Info for a file on the server](/screenshots/ftp-info-wide.png)
+![Info for a file on the server](../../../../assets/screenshots/ftp-info-wide.png)
 
 ## SSH keys
 
@@ -47,7 +47,7 @@ Preferences, SSH Keys lists the keys in `~/.ssh`. From there you can:
 
 Each connection's settings pick its key. With no key chosen, ssh tries the agent and its usual keys. A key with a passphrase needs to be in your ssh agent (`ssh-add`) before connecting. Private keys stay in `~/.ssh`.
 
-![Preferences, SSH Keys](/screenshots/ftp-keys-wide.png)
+![Preferences, SSH Keys](../../../../assets/screenshots/ftp-keys-wide.png)
 
 ## Saved connections in a terminal
 

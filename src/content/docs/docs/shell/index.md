@@ -5,7 +5,7 @@ description: A Wayland desktop shell with a panel, dock, launcher, and wallpaper
 
 Rivet Shell is a Wayland shell. It draws a panel (you can have more than one), quick settings, notifications, an on-screen display, a dock, a launcher, widgets, and the wallpaper.
 
-![Rivet Shell: the panel, widgets and dock over a wallpaper](/screenshots/shell-wide.jpg)
+![Rivet Shell: the panel, widgets and dock over a wallpaper](../../../../assets/screenshots/shell-wide.jpg)
 
 The launcher also evaluates a sum. Widgets include a clock, CPU, memory, and battery. Notifications stay out of the way when mako or dunst is already running.
 

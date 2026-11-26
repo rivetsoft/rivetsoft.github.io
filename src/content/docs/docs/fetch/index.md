@@ -5,7 +5,7 @@ description: rivetfetch shows this computer at a glance in the terminal, beside 
 
 `rivetfetch` shows this computer at a glance in the terminal, beside Rivet the mascot, in the desktop's accent.
 
-![rivetfetch in Rivet Terminal, beside the mascot](/screenshots/rivet-fetch-wide.png)
+![rivetfetch in Rivet Terminal, beside the mascot](../../../../assets/screenshots/rivet-fetch-wide.png)
 
 The mascot is drawn from his pixel art, two pixels to a character cell. It needs a terminal with color; plain output leaves him out. Every module runs at once, so it takes about 30 ms.
 

@@ -12,13 +12,11 @@ import picker from "../assets/softcore/picker.jpg";
 import keys from "../assets/softcore/keys.jpg";
 import vertical from "../assets/softcore/vertical.jpg";
 
-// Softcore's pictures are of a whole 1920x1080 display: sized down for the page, with the
-// original behind the link.
-async function pic(image: ImageMetadata, alt: string, width = 1440): Promise<Pic> {
-  const small = await getImage({ src: image, width, format: "webp" });
+// Softcore's pictures are of a whole 1920x1080 display: the page shows them sized to the screen,
+// and the link opens a full-size WebP.
+async function pic(image: ImageMetadata, alt: string): Promise<Pic> {
   const full = await getImage({ src: image, format: "webp" });
-  const w = Math.min(width, image.width);
-  return { src: small.src, w, h: Math.round((image.height * w) / image.width), alt, full: full.src };
+  return { img: image, alt, full: full.src };
 }
 ---
 
@@ -79,8 +77,8 @@ async function pic(image: ImageMetadata, alt: string, width = 1440): Promise<Pic
     title: "Show a little more.",
     lead: "Both pictures are from a headless Softcore, with Rivet Shell and the Rivet apps running in it.",
     items: [
-      { pic: await pic(keys, "The Softcore keys panel, listing every binding in two columns", 960), name: "Every binding", text: "All of them, on one panel." },
-      { pic: await pic(vertical, "A Softcore workspace scrolling up and down, with Rivet Edit above Rivet Terminal", 960), name: "Up and down", text: "Rows one under the other, each as wide as the screen." },
+      { pic: await pic(keys, "The Softcore keys panel, listing every binding in two columns"), name: "Every binding", text: "All of them, on one panel." },
+      { pic: await pic(vertical, "A Softcore workspace scrolling up and down, with Rivet Edit above Rivet Terminal"), name: "Up and down", text: "Rows one under the other, each as wide as the screen." },
     ],
   }}
   download={{

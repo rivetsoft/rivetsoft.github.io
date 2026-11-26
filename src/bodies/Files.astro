@@ -1,11 +1,12 @@
 ---
 import PageBand from "../components/PageBand.astro";
 import ReleaseBlock from "../components/ReleaseBlock.astro";
+import Screenshot from "../components/Screenshot.astro";
 import Throwback from "../components/Throwback.astro";
-import shots from "../data/shots.json";
 import { appBySlug, repoUrl, statusFor, statusLabel } from "../data/apps";
 import { assetByKind, formatBytes } from "../data/release-model";
 import { releaseFor } from "../data/releases";
+import { screenshot, shotSizes } from "../data/shots";
 import { url } from "../paths";
 // Rivet among the papers of an open folder, beside the downloads.
 import filesArt from "../assets/mascot/files.svg?raw";
@@ -13,8 +14,6 @@ import filesArt from "../assets/mascot/files.svg?raw";
 const app = appBySlug("files");
 const release = releaseFor("files");
 const status = statusFor(app, release);
-const table = shots as Record<string, { w: number; h: number }>;
-const shot = (name: string) => ({ src: url(`screenshots/${name}`), ...table[name] });
 
 // The page's rows: a screenshot, a claim, and what backs it up.
 const rows = [
@@ -121,15 +120,8 @@ const numbers = [
     <a class="btn btn-secondary" href={url("docs/files/")}>Docs</a>
     <a class="btn btn-secondary" href={`${repoUrl}/tree/main/apps/rivet-files`}>GitHub</a>
   </div>
-  <a slot="art" class="app-hero-shot" href={shot("icons-wide.png").src}>
-    <img
-      src={shot("icons-wide.png").src}
-      alt="Rivet Files in the pink scheme, icon view of Home"
-      width={shot("icons-wide.png").w}
-      height={shot("icons-wide.png").h}
-      fetchpriority="high"
-      decoding="async"
-    />
+  <a slot="art" class="app-hero-shot" href={screenshot("icons-wide.png").src}>
+    <Screenshot img={screenshot("icons-wide.png")} alt="Rivet Files in the pink scheme, icon view of Home" sizes={shotSizes.hero} eager />
   </a>
 </PageBand>
 
@@ -138,8 +130,8 @@ const numbers = [
     {
       rows.map((row) => (
         <li class="show-row">
-          <a class="show-shot-link" href={shot(row.shot).src}>
-            <img class="show-shot" src={shot(row.shot).src} alt={row.alt} width={shot(row.shot).w} height={shot(row.shot).h} decoding="async" loading="lazy" />
+          <a class="show-shot-link" href={screenshot(row.shot).src}>
+            <Screenshot class="show-shot" img={screenshot(row.shot)} alt={row.alt} sizes={shotSizes.row} />
           </a>
           <div class="show-copy">
             <h2 class="app-row-title">{row.title}</h2>
@@ -169,8 +161,8 @@ const numbers = [
     {
       modes.map((mode) => (
         <li>
-          <a href={shot(mode.shot).src}>
-            <img src={shot(mode.shot).src} alt={mode.alt} width={shot(mode.shot).w} height={shot(mode.shot).h} decoding="async" loading="lazy" />
+          <a href={screenshot(mode.shot).src}>
+            <Screenshot img={screenshot(mode.shot)} alt={mode.alt} sizes={shotSizes.grid} />
           </a>
           <h3>{mode.name}</h3>
           <p>{mode.text}</p>
@@ -190,8 +182,8 @@ const numbers = [
     {
       themes.map((theme) => (
         <li>
-          <a href={shot(theme.shot).src}>
-            <img src={shot(theme.shot).src} alt={`Rivet Files in the ${theme.name} colors`} width={shot(theme.shot).w} height={shot(theme.shot).h} decoding="async" loading="lazy" />
+          <a href={screenshot(theme.shot).src}>
+            <Screenshot img={screenshot(theme.shot)} alt={`Rivet Files in the ${theme.name} colors`} sizes={shotSizes.grid} />
           </a>
         </li>
       ))
