@@ -47,8 +47,8 @@ export interface AppEntry {
 
 export const repoUrl = "https://github.com/rivetsoft/apps";
 export const allReleasesUrl = `${repoUrl}/releases`;
-/** Softcore's repository. It moves to github.com/rivetsoft/softcore: change it here. */
-export const softcoreRepoUrl = "https://github.com/ulinaaron/softcore";
+/** Softcore's repository, where its releases are too. */
+export const softcoreRepoUrl = "https://github.com/rivetsoft/softcore";
 
 export const apps: AppEntry[] = [
   {
@@ -85,7 +85,8 @@ export const apps: AppEntry[] = [
     template: "softcore",
     name: "Softcore",
     line: "A scrolling Wayland compositor that feels oh so good.",
-    tagPrefixes: [],
+    tagPrefixes: ["softcore-v"],
+    program: "softcore",
     nav: true,
     applicationCategory: "DesktopApplication",
     cardShot: "softcore-wide.jpg",
@@ -99,7 +100,7 @@ export const apps: AppEntry[] = [
       { icon: "yinyang", text: "Built in Rust with Smithay" },
     ],
     summary:
-      "A scrolling Wayland compositor for the Rivet desktop, built in Rust with Smithay. Scroll side to side or up and down, with workspaces per display, tabs, floating windows, an overview and chords. It is early, with no release yet.",
+      "A scrolling Wayland compositor for the Rivet desktop, built in Rust with Smithay. Scroll side to side or up and down, with workspaces per display, tabs, floating windows, an overview and chords. It is early, and its releases are pre-releases.",
   },
   {
     slug: "welcome",
@@ -354,8 +355,16 @@ export const apps: AppEntry[] = [
 ];
 
 
-/** Every app with releases, in the order the install guide lists them. */
-export const releaseApps = apps.filter((app) => app.tagPrefixes.length > 0);
+/** Every app released from rivetsoft/apps, in the order the install guide lists them. */
+export const releaseApps = apps.filter((app) => app.tagPrefixes.length > 0 && !app.repo);
+
+/** Apps released from a repository of their own (Softcore), each read from its own releases. */
+export const ownRepoApps = apps.filter((app) => app.tagPrefixes.length > 0 && app.repo);
+
+/** "owner/name" of a github.com repository URL. */
+export function repoPath(url: string): string {
+  return new URL(url).pathname.replace(/^\/|\/$/g, "");
+}
 
 export function programFor(app: { slug: string; program?: string }): string {
   return app.program ?? `rivet-${app.slug}`;

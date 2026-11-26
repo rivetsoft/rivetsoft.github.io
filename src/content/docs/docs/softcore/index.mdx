@@ -1,22 +1,33 @@
 ---
 title: Softcore
-description: A scrolling-tiling Wayland compositor for the Rivet desktop. Build it, run it, and the first keys.
+description: A scrolling-tiling Wayland compositor for the Rivet desktop. Install it, run it, and the first keys.
 ---
+
+import InstallDownloads from '../../../../components/InstallDownloads.astro';
 
 Softcore is a scrolling-tiling Wayland compositor, in Rust on [smithay](https://github.com/Smithay/smithay). Windows sit in columns on a strip that runs off both sides of the screen. Each display has its own stack of workspaces, with an empty one always last.
 
 ![Softcore with three columns of windows on a strip that runs off both sides of the screen](../../../../assets/screenshots/softcore-wide.jpg)
 
-It works the way [niri](https://github.com/YaLTeR/niri) does and is written from scratch. niri's behaviour was studied from the outside: what it advertises to clients, and what `niri msg` says. None of its code is in Softcore.
+It works the way [niri](https://github.com/YaLTeR/niri) does and is written from scratch. niri's behavior was studied from the outside: what it advertises to clients, and what `niri msg` says. None of its code is in Softcore.
 
 Softcore is early. It runs in a window of another desktop and with no screen at all, and both are checked. Running on displays of its own is written and compiles, but has not been run on hardware yet. [What isn't built yet](/docs/softcore/status/) has the list.
 
+## Install
+
+Each release has a portable build for x86_64. Its `install.sh` asks for your password, installs Softcore for everyone on the computer, and adds it to the login screen's list of sessions. Log out and choose Softcore there. Releases are pre-releases for now.
+
+<InstallDownloads kind="archive" slug="softcore" />
+
+`./install.sh --uninstall` takes it all away again. The portable build needs glibc 2.35 or newer (Ubuntu 22.04, Debian 12 and later) and the libraries a Wayland desktop usually has: libseat, libinput, libgbm, EGL, libxkbcommon and PipeWire.
+
 ## Build
 
-There is no release. Build it from the [repository](https://github.com/ulinaaron/softcore). It needs the usual compositor libraries with their headers: libseat, libinput, libudev, libgbm, libxkbcommon and EGL.
+Build it from the [repository](https://github.com/rivetsoft/softcore). It needs Rust 1.88 or newer and the usual compositor libraries with their headers: libseat, libinput, libudev, libgbm, libxkbcommon, EGL, PipeWire and libdisplay-info.
 
 ```sh
-cargo build --release
+./install.sh            # builds Softcore, then installs it for everyone
+cargo build --release   # or only build it, to run it from target/release
 ```
 
 The shared Rivet crates (`rivet-look`, `rivet-kit`, `rivet-xdg`) are pinned to a commit of [rivetsoft/apps](https://github.com/rivetsoft/apps) in `Cargo.toml`. To build against a checkout of the apps repository, copy `.cargo/config.toml.example` to `.cargo/config.toml` and set the path.
@@ -38,11 +49,11 @@ Softcore prints `WAYLAND_DISPLAY` and `SOFTCORE_SOCKET` in its first lines, and 
 
 In a window, Mod is Alt, so the desktop outside keeps Super. On displays of its own, Mod is Super.
 
-To try a new build inside a running Softcore, start it from a terminal there and press `Mod+Shift+Escape` on its window. The inner one then gets every key, the outer one's bindings included, and its border turns the opposite colour. The same keys give them back. `mod=super` in the inner one's settings (`SOFTCORE_CONFIG=FILE`) makes it answer to the keys it will have on displays of its own.
+To try a new build inside a running Softcore, start it from a terminal there and press `Mod+Shift+Escape` on its window. The inner one then gets every key, the outer one's bindings included, and its border turns the opposite color. The same keys give them back. `mod=super` in the inner one's settings (`SOFTCORE_CONFIG=FILE`) makes it answer to the keys it will have on displays of its own.
 
 ### As a session
 
-Three files from `data/` in the repository make Softcore a session a login manager can start, and let apps reach its screen sharing. A package would install them.
+`install.sh` puts these files in place, through `softcore install --system`. They make Softcore a session a login manager can start, and let apps reach its screen sharing. `softcore install` without `--system` writes the portal's files under your home instead.
 
 | File | Where |
 | --- | --- |
@@ -79,8 +90,8 @@ spawn=rivet-shell
 
 Softcore takes its look from the same place as the apps:
 
-- The border of the focused window is the Rivet accent, followed live. A new wallpaper or another palette in Rivet Shell recolours the borders and panels at once.
-- The other borders, the colour behind everything and the corner radius come from the same theme.
+- The border of the focused window is the Rivet accent, followed live. A new wallpaper or another palette in Rivet Shell recolors the borders and panels at once.
+- The other borders, the color behind everything and the corner radius come from the same theme.
 - Softcore's own panels (the keys, the question before leaving, the note about settings that couldn't be read) are egui in that theme, painted by `rivet-kit`'s software renderer.
 
 The shell's Displays page and window look settings write into `rivet-shell.settings`, next to Softcore's settings file. [Settings](/docs/softcore/settings/#displays) covers that file.
