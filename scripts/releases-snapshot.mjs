@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 // Saves the published releases of rivetsoft/apps to src/data/releases.fallback.json, and those of
 // the apps with a repository of their own (Softcore) to src/data/releases.own-repos.fallback.json:
-// the copies the build uses when the GitHub API is unreachable. Drafts are left out, as on the site.
+// the copies the build uses when the GitHub API is unreachable. Drafts are left out, as on the site,
+// and so are the rolling edge builds (tags ending in -edge), which the site never lists and which
+// change every night.
 //
 //   npm run releases:snapshot
 //
@@ -35,7 +37,7 @@ async function published(first) {
     next = (response.headers.get("link") ?? "").match(/<([^>]+)>;\s*rel="next"/)?.[1];
   }
   return releases
-    .filter((release) => !release.draft && release.published_at)
+    .filter((release) => !release.draft && release.published_at && !release.tag_name.endsWith("-edge"))
     .map((release) => ({
       tag_name: release.tag_name,
       name: release.name,

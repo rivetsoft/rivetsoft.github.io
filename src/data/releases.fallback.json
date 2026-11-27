@@ -1,5 +1,151 @@
 [
   {
+    "tag_name": "rivet-fetch-v0.1.1",
+    "name": "Rivet Fetch 0.1.1",
+    "draft": false,
+    "prerelease": true,
+    "published_at": "2026-11-27T15:18:44Z",
+    "html_url": "https://github.com/rivetsoft/apps/releases/tag/rivet-fetch-v0.1.1",
+    "body": "![rivetfetch in Rivet Terminal, beside the mascot](https://raw.githubusercontent.com/rivetsoft/apps/rivet-fetch-v0.1.1/docs/screenshots/rivet-fetch-wide.png)\n\n\n- A `rivet-memory` module shows the memory each running Rivet app uses, largest first.\n\n\n### Install\n\nRivet Fetch is an early alpha: keep backups of what you use it with.\n\n**AppImage (one file, nothing to install):** download `Rivet_Fetch-0.1.1-x86_64.AppImage`, then\n\n```sh\nchmod +x Rivet_Fetch-0.1.1-x86_64.AppImage\n./Rivet_Fetch-0.1.1-x86_64.AppImage\n```\n\n**Archive:** download `rivet-fetch-0.1.1-x86_64-linux.tar.gz`, then:\n\n```sh\ntar xzf rivet-fetch-0.1.1-x86_64-linux.tar.gz\ncd rivet-fetch-0.1.1-x86_64-linux\n./install.sh          # rivetfetch in ~/.local/bin, and Rivet Fetch in your app launcher\n```\n\nPortable x86_64 build, linked against glibc 2.31. Or build from source: `cargo build --release -p rivet-fetch`.\n",
+    "assets": [
+      {
+        "name": "rivet-fetch-0.1.1-x86_64-linux.tar.gz",
+        "size": 408377,
+        "browser_download_url": "https://github.com/rivetsoft/apps/releases/download/rivet-fetch-v0.1.1/rivet-fetch-0.1.1-x86_64-linux.tar.gz",
+        "state": "uploaded"
+      },
+      {
+        "name": "rivet-fetch-0.1.1-x86_64-linux.tar.gz.sha256",
+        "size": 104,
+        "browser_download_url": "https://github.com/rivetsoft/apps/releases/download/rivet-fetch-v0.1.1/rivet-fetch-0.1.1-x86_64-linux.tar.gz.sha256",
+        "state": "uploaded"
+      },
+      {
+        "name": "Rivet_Fetch-0.1.1-x86_64.AppImage",
+        "size": 1513976,
+        "browser_download_url": "https://github.com/rivetsoft/apps/releases/download/rivet-fetch-v0.1.1/Rivet_Fetch-0.1.1-x86_64.AppImage",
+        "state": "uploaded"
+      },
+      {
+        "name": "Rivet_Fetch-0.1.1-x86_64.AppImage.sha256",
+        "size": 100,
+        "browser_download_url": "https://github.com/rivetsoft/apps/releases/download/rivet-fetch-v0.1.1/Rivet_Fetch-0.1.1-x86_64.AppImage.sha256",
+        "state": "uploaded"
+      }
+    ]
+  },
+  {
+    "tag_name": "rivet-shell-v0.1.2",
+    "name": "Rivet Shell 0.1.2",
+    "draft": false,
+    "prerelease": true,
+    "published_at": "2026-11-27T15:18:41Z",
+    "html_url": "https://github.com/rivetsoft/apps/releases/tag/rivet-shell-v0.1.2",
+    "body": "![Rivet Shell: the panel, widgets and dock over a wallpaper](https://raw.githubusercontent.com/rivetsoft/apps/rivet-shell-v0.1.2/docs/screenshots/shell-wide.jpg)\n\n\n- **A sub panel's handle is easy to hit**: the whole space from the panel above it to just past\n  the handle opens the sub panel, resting there opens it after a fifth of a second every time,\n  and clicking the handle opens it at once. With animations turned off in your desktop's\n  settings, panels and docks appear and go without sliding.\n- **Less memory**: after a long session of changing wallpapers and opening popups, Rivet Shell holds\n  about 46 MB instead of 108 MB, and it starts at 45 MB instead of 64 MB. Every panel and popup\n  shares one copy of the interface font.\n\n\n### Install\n\nRivet Shell is an early alpha: keep backups of what you use it with.\n\n**AppImage (one file, nothing to install):** download `Rivet_Shell-0.1.2-x86_64.AppImage`, then\n\n```sh\nchmod +x Rivet_Shell-0.1.2-x86_64.AppImage\n./Rivet_Shell-0.1.2-x86_64.AppImage\n```\n\n**Archive:** download `rivet-shell-0.1.2-x86_64-linux.tar.gz`, then:\n\n```sh\ntar xzf rivet-shell-0.1.2-x86_64-linux.tar.gz\ncd rivet-shell-0.1.2-x86_64-linux\n./install.sh          # rivet-shell in ~/.local/bin, and Rivet Shell in your app launcher\n```\n\nPortable x86_64 build, linked against glibc 2.33. Or build from source: `cargo build --release -p rivet-shell`.\n",
+    "assets": [
+      {
+        "name": "rivet-shell-0.1.2-x86_64-linux.tar.gz",
+        "size": 8555113,
+        "browser_download_url": "https://github.com/rivetsoft/apps/releases/download/rivet-shell-v0.1.2/rivet-shell-0.1.2-x86_64-linux.tar.gz",
+        "state": "uploaded"
+      },
+      {
+        "name": "rivet-shell-0.1.2-x86_64-linux.tar.gz.sha256",
+        "size": 104,
+        "browser_download_url": "https://github.com/rivetsoft/apps/releases/download/rivet-shell-v0.1.2/rivet-shell-0.1.2-x86_64-linux.tar.gz.sha256",
+        "state": "uploaded"
+      },
+      {
+        "name": "Rivet_Shell-0.1.2-x86_64.AppImage",
+        "size": 8997368,
+        "browser_download_url": "https://github.com/rivetsoft/apps/releases/download/rivet-shell-v0.1.2/Rivet_Shell-0.1.2-x86_64.AppImage",
+        "state": "uploaded"
+      },
+      {
+        "name": "Rivet_Shell-0.1.2-x86_64.AppImage.sha256",
+        "size": 100,
+        "browser_download_url": "https://github.com/rivetsoft/apps/releases/download/rivet-shell-v0.1.2/Rivet_Shell-0.1.2-x86_64.AppImage.sha256",
+        "state": "uploaded"
+      }
+    ]
+  },
+  {
+    "tag_name": "rivet-terminal-v0.3.3",
+    "name": "Rivet Terminal 0.3.3",
+    "draft": false,
+    "prerelease": false,
+    "published_at": "2026-11-27T15:18:39Z",
+    "html_url": "https://github.com/rivetsoft/apps/releases/tag/rivet-terminal-v0.3.3",
+    "body": "![Rivet Terminal with three panes](https://raw.githubusercontent.com/rivetsoft/apps/rivet-terminal-v0.3.3/docs/screenshots/rivet-terminal-wide.png)\n\n\n- Memory freed by a closed window or pane goes back to the system once all of them have closed,\n  and again whenever Rivet Terminal sits idle with memory to spare.\n\n\n### Install\n\n**AppImage (one file, nothing to install):** download `Rivet_Terminal-0.3.3-x86_64.AppImage`, then\n\n```sh\nchmod +x Rivet_Terminal-0.3.3-x86_64.AppImage\n./Rivet_Terminal-0.3.3-x86_64.AppImage\n```\n\n**Archive:** download `rivet-terminal-0.3.3-x86_64-linux.tar.gz`, then:\n\n```sh\ntar xzf rivet-terminal-0.3.3-x86_64-linux.tar.gz\ncd rivet-terminal-0.3.3-x86_64-linux\n./install.sh          # rivet-terminal in ~/.local/bin, and Rivet Terminal in your app launcher\n```\n\nPortable x86_64 build, linked against glibc 2.31. Or build from source: `cargo build --release -p rivet-terminal`.\n",
+    "assets": [
+      {
+        "name": "rivet-terminal-0.3.3-x86_64-linux.tar.gz",
+        "size": 5181132,
+        "browser_download_url": "https://github.com/rivetsoft/apps/releases/download/rivet-terminal-v0.3.3/rivet-terminal-0.3.3-x86_64-linux.tar.gz",
+        "state": "uploaded"
+      },
+      {
+        "name": "rivet-terminal-0.3.3-x86_64-linux.tar.gz.sha256",
+        "size": 107,
+        "browser_download_url": "https://github.com/rivetsoft/apps/releases/download/rivet-terminal-v0.3.3/rivet-terminal-0.3.3-x86_64-linux.tar.gz.sha256",
+        "state": "uploaded"
+      },
+      {
+        "name": "Rivet_Terminal-0.3.3-x86_64.AppImage",
+        "size": 5896696,
+        "browser_download_url": "https://github.com/rivetsoft/apps/releases/download/rivet-terminal-v0.3.3/Rivet_Terminal-0.3.3-x86_64.AppImage",
+        "state": "uploaded"
+      },
+      {
+        "name": "Rivet_Terminal-0.3.3-x86_64.AppImage.sha256",
+        "size": 103,
+        "browser_download_url": "https://github.com/rivetsoft/apps/releases/download/rivet-terminal-v0.3.3/Rivet_Terminal-0.3.3-x86_64.AppImage.sha256",
+        "state": "uploaded"
+      }
+    ]
+  },
+  {
+    "tag_name": "v0.11.1",
+    "name": "Rivet Files 0.11.1",
+    "draft": false,
+    "prerelease": false,
+    "published_at": "2026-11-27T15:18:37Z",
+    "html_url": "https://github.com/rivetsoft/apps/releases/tag/v0.11.1",
+    "body": "![Rivet Files showing a home folder](https://raw.githubusercontent.com/rivetsoft/apps/v0.11.1/docs/screenshots/icons-wide.png)\n\n\n- **Thumbnails take less memory**: they're kept at the size they're shown, so a folder of 3,000\n  photos keeps every thumbnail ready at the default zoom and scrolls back without loading them\n  again. Rivet Files gives the memory back to the system when you leave the folder or it sits\n  idle; after a long session in a folder of photos it holds about 120 MB instead of 180 MB.\n\n\n### Install\n\n**AppImage (one file, nothing to install):** download `Rivet_Files-0.11.1-x86_64.AppImage`, then\n\n```sh\nchmod +x Rivet_Files-0.11.1-x86_64.AppImage\n./Rivet_Files-0.11.1-x86_64.AppImage\n```\n\nInside Rivet, Preferences → System → *Add Rivet to the app launcher* puts it in your menus.\n\n**Archive:** download `rivet-files-0.11.1-x86_64-linux.tar.gz`, then:\n\n```sh\ntar xzf rivet-files-0.11.1-x86_64-linux.tar.gz\ncd rivet-files-0.11.1-x86_64-linux\n./install.sh          # adds Rivet to your app launcher (add --default to make it the default file manager)\n```\n\nPortable x86_64 build, linked against glibc 2.31 rather than the build machine's libc.\nThe program's highest GLIBC symbol is 2.30. Counting the keyboard libraries bundled in the AppImage, the artifacts need glibc 2.33 or newer, which Ubuntu 22.04 and Debian 12 both have.\nOlder systems can build from source: `cargo build --release`.\n",
+    "assets": [
+      {
+        "name": "rivet-files-0.11.1-x86_64-linux.tar.gz",
+        "size": 7357945,
+        "browser_download_url": "https://github.com/rivetsoft/apps/releases/download/v0.11.1/rivet-files-0.11.1-x86_64-linux.tar.gz",
+        "state": "uploaded"
+      },
+      {
+        "name": "rivet-files-0.11.1-x86_64-linux.tar.gz.sha256",
+        "size": 105,
+        "browser_download_url": "https://github.com/rivetsoft/apps/releases/download/v0.11.1/rivet-files-0.11.1-x86_64-linux.tar.gz.sha256",
+        "state": "uploaded"
+      },
+      {
+        "name": "rivet-files.flatpak",
+        "size": 6439336,
+        "browser_download_url": "https://github.com/rivetsoft/apps/releases/download/v0.11.1/rivet-files.flatpak",
+        "state": "uploaded"
+      },
+      {
+        "name": "Rivet_Files-0.11.1-x86_64.AppImage",
+        "size": 7875064,
+        "browser_download_url": "https://github.com/rivetsoft/apps/releases/download/v0.11.1/Rivet_Files-0.11.1-x86_64.AppImage",
+        "state": "uploaded"
+      },
+      {
+        "name": "Rivet_Files-0.11.1-x86_64.AppImage.sha256",
+        "size": 101,
+        "browser_download_url": "https://github.com/rivetsoft/apps/releases/download/v0.11.1/Rivet_Files-0.11.1-x86_64.AppImage.sha256",
+        "state": "uploaded"
+      }
+    ]
+  },
+  {
     "tag_name": "rivet-welcome-v0.4.0",
     "name": "Rivet Welcome 0.4.0",
     "draft": false,
