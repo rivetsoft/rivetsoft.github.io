@@ -44,6 +44,7 @@ bind.Mod+Shift+P=title="" spawn some-script
 | `Mod+Ctrl+Shift+F` | Full screen as the program sees it, in its place |
 | `Mod+V` | Float the window, or put it back |
 | `Mod+Shift+V` | Between floating windows and columns |
+| `Mod+Ctrl+V` | This workspace floats its windows, or puts them back in columns (built from source and the release after 0.1.0) |
 | `Mod+S` | Show the scratchpad, or put it away |
 | `Mod+Shift+S` | Put the window away in the scratchpad |
 | `Mod+O` | The overview |

@@ -26,8 +26,9 @@ rule.notes=title="* - Notes" width=30% border=off shadow=off
 | `scratchpad=NAME` | Opens put away in that scratchpad. |
 | `opacity=0.9` | How solid it is, with the focus or without. Without this, `inactive_opacity` applies. |
 | `border=off`, `shadow=off`, `blur=off` | Drawn without one. |
+| `title-bar=on`, `title-bar=off` | Has [Softcore's title bar](/docs/softcore/layout/#title-bars), or doesn't, whatever `title_bars` says. Built from source and in the release after 0.1.0. |
 
-When several lines fit a window, each word is taken from the last line that has it. The words about where and how it opens are used once, as the window opens. `opacity`, `border`, `shadow` and `blur` follow the window, so a title that changes can change how it looks.
+When several lines fit a window, each word is taken from the last line that has it. The words about where and how it opens are used once, as the window opens. `opacity`, `border`, `shadow`, `blur` and `title-bar` follow the window, so a title that changes can change how it looks.
 
 The name after `rule.` is only there so the line can be found and changed. Patterns are `*` only: there are no regular expressions.
 
@@ -46,13 +47,14 @@ The words are `opacity`, `blur` (on, or off even where the surface asked for it)
 
 ```
 workspace.chat=output=DP-2 scroll=vertical
-workspace.mail=
+workspace.mail=layout=floating
 ```
 
 A named workspace is always there, empty or not, first in its display's stack in the order the lines stand.
 
 - `output=` says which display it is made on, and goes back to when that display returns.
 - `scroll=` says which way it scrolls.
+- `layout=` says whether its windows sit in columns or float (see [Floating workspaces](/docs/softcore/layout/#floating-workspaces)). Built from source and in the release after 0.1.0.
 - A display with nothing on it yet starts on its first named workspace.
 
 Anywhere a workspace is given by number it can be given by name: `focus-workspace chat`, `move-column-to-workspace mail`, `workspace=chat` in a rule. A name is found on whichever display it is, and going to it takes the focus there. `softcore msg workspaces` and ext-workspace give the name.
