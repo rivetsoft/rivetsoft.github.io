@@ -1,11 +1,11 @@
 ---
 title: What isn't built yet
-description: What in Softcore is checked, what is written but not run on hardware, and what is missing.
+description: What in Softcore is in daily use on real hardware, what is checked by tests, what isn't checked yet, and what is missing.
 ---
 
 Softcore is early. This page is the honest list.
 
-## Checked
+## Checked by tests
 
 - Running in a window of another desktop, and headless with a display in memory.
 - The layout's rules and slides, the settings file both ways, and the bindings, by `cargo test --workspace`.
@@ -13,12 +13,20 @@ Softcore is early. This page is the honest list.
 - Pointer lock and keeping the pointer inside a window.
 - Each part of screen sharing on its own: the D-Bus service called by hand, the picker, and the stream read by GStreamer.
 
-## Written, not run on hardware
+## Tested on real hardware
 
-- **Real displays.** The TTY backend (DRM, libinput, libseat, TTY switching) is written from smithay's own examples and compiles. Nobody has started it on hardware yet. Expect to fix things there first. It draws with one GPU.
-- **Real keyboards and mice.** libinput devices, and with them touchpad settings, wait for the first run on hardware. The wheel, and menus that close on a click outside, are written but not checked.
-- **Fingers, pens and input methods.** Three- and four-finger swipes, touch, tablets and input methods have not met a real device. A touchscreen or tablet is taken to belong to the laptop's own display, or the first one, and can't be given another.
-- **Screen sharing from a real app.** A browser going through xdg-desktop-portal needs a Softcore session and the portal files installed, and has not been tried.
+Softcore has been its author's everyday desktop since the start, on a real machine.
+
+- **Real displays.** Started from a TTY and from a display manager's login screen, drawing with one GPU.
+- **Real keyboards and mice.** Typing, bindings, the pointer, the wheel and clicks, all through libinput.
+- **Screen sharing from a real app.** An app asks through xdg-desktop-portal, the picker opens, and the stream reaches it.
+
+## Not yet checked
+
+- **Touchscreens, pens and tablets.** None has met a real device. A touchscreen or tablet is taken to belong to the laptop's own display, or the first one, and can't be given another.
+- **Three- and four-finger gestures.** Written, not yet confirmed on a touchpad.
+- **Input methods.** Written, not yet tried with a real one.
+- **More than one GPU.** Softcore draws with one, and a machine with two hasn't been tried.
 
 ## Not built
 
