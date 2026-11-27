@@ -1,6 +1,6 @@
 ---
 title: Talking to it
-description: softcore msg, the socket, screen sharing, and the Wayland protocols Softcore gives clients.
+description: softcore msg, the socket, screen sharing, what apps get through the desktop portal, and the Wayland protocols Softcore gives clients.
 ---
 
 `softcore msg` asks a running Softcore. The answers have the fields `niri msg` gives, which is how Rivet Shell works with both.
@@ -47,6 +47,48 @@ Programs that capture the screen directly (`grim`, and screenshots from a shell)
 For apps to reach the portal, `softcore.portal` and `softcore-portals.conf` need installing. [Softcore](/docs/softcore/#as-a-session) says where. On displays of its own, Softcore runs `softcore portal` itself. In a window, `--portal` does.
 
 Frames are copied through memory. That works everywhere, and costs more than it should on a 4K display.
+
+## What apps that aren't Rivet's get
+
+In Softcore built from the source code, and in the release after 0.1.0, `softcore portal` answers more of xdg-desktop-portal's questions, so GTK, libadwaita, Qt, Firefox, Chromium and Electron apps fit in without settings of their own.
+
+- **Dark or light, the accent and the contrast.** They come from where Rivet's apps take theirs: Softcore's `theme` setting (with `system`, the desktop's GTK settings), and the desktop's colors when they are followed, else the `accent` setting. Running apps change with them.
+- **Screenshots.** An app that lets you choose gets Softcore's own chooser: drag out an area, click a window, or press Enter for the whole display. One that asks for the screen at once gets the focused display, after you have allowed that app once. The picture is saved with your other screenshots.
+- **Picking a color.** The screen stays as it is until you click, and the app gets the color under the pointer.
+- **Keeping the screen awake** for a video or a call in a window that isn't in front, and keeping the computer from suspending.
+- **Shortcuts that work in any window**, such as push to talk. Each gets the keys its app suggests unless something already uses them; Softcore's bindings come first. `bind.Ctrl+Alt+M=app-shortcut org.example.App mute` gives keys to one that has none.
+- **Setting the wallpaper**, through Rivet Shell, after you allow the app.
+
+```sh
+softcore msg pick-screenshot ~/shot.png        # the chooser; prints the file once it is saved
+softcore msg pick-screenshot --now ~/shot.png  # the focused display, at once
+softcore msg pick-color                        # prints the color clicked, as [r, g, b]
+softcore msg inhibit-idle                      # keeps the screen awake until Ctrl+C
+```
+
+### Which backend answers what
+
+Every interface is named in `softcore-portals.conf`, so none falls to whatever backend happens to be installed.
+
+| Interface | Answered by | Why |
+| --- | --- | --- |
+| ScreenCast | Softcore | Only the compositor sees the screen; its own picker. |
+| Screenshot (and PickColor) | Softcore | Its own chooser, drawn over everything. |
+| Settings | Softcore, then GTK | Dark or light, the accent and the contrast are Rivet's; GTK's come after for fonts and GNOME's own keys. |
+| Inhibit | Softcore | Idle is Softcore's to hold off; suspending is logind's. |
+| GlobalShortcuts | Softcore | Keys are Softcore's before any window's. |
+| Wallpaper | Softcore, through Rivet Shell | The wallpaper is Rivet Shell's. |
+| FileChooser | Rivet Files, then GTK | Files is the Open and Save window when installed. |
+| AppChooser | GTK | Rivet has no "Open with" window of its own yet. |
+| Notification | GTK | It passes notifications on to the desktop's notification service, which is Rivet Shell's. |
+| Access, Account, Email, Print, DynamicLauncher | GTK | Dialogs Rivet has no window of its own for. Access is the "Allow this app to…?" question the other portals ask. |
+| Secret | GNOME Keyring, else oo7 | The keyring the system has; Rivet's apps keep their secrets in the same one. |
+| Background | none | Running apps in the background without a window isn't tracked yet; sandboxed apps asking are told no. |
+| Lockdown | none | No locked-down settings; everything is allowed. |
+| RemoteDesktop, Clipboard, InputCapture | none | Remote control and sharing input aren't built. |
+| Usb | none | Not built. |
+
+To change one, copy `softcore-portals.conf` to `~/.config/xdg-desktop-portal/` and edit the line; xdg-desktop-portal reads yours first.
 
 ## What clients get
 

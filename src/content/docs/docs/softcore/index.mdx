@@ -41,7 +41,7 @@ softcore --spawn foot   # run something once started
 softcore --size 1600x900 --headless
 ```
 
-`--tty` and `--winit` choose the backend by hand. `--portal` also runs the screen-sharing service, which is always on when Softcore has displays of its own.
+`--tty` and `--winit` choose the backend by hand. `--portal` also runs Softcore's portal service (screen sharing, screenshots, dark or light, and [more](/docs/softcore/msg/#what-apps-that-arent-rivets-get)), which is always on when Softcore has displays of its own.
 
 Softcore prints `WAYLAND_DISPLAY` and `SOFTCORE_SOCKET` in its first lines, and sets both for everything it starts. It puts itself on the `PATH` of what it starts, so `softcore msg` is found wherever Softcore was started from.
 
