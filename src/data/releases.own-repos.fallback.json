@@ -1,3 +1,27 @@
 {
-  "rivetsoft/softcore": []
+  "rivetsoft/softcore": [
+    {
+      "tag_name": "softcore-v0.1.0",
+      "name": "Softcore 0.1.0",
+      "draft": false,
+      "prerelease": true,
+      "published_at": "2026-11-27T14:41:39Z",
+      "html_url": "https://github.com/rivetsoft/softcore/releases/tag/softcore-v0.1.0",
+      "body": "![Softcore with Rivet Files, Rivet Terminal over Rivet Notes, and Rivet Edit in three columns, the outer two cut off by the edges of the screen](https://raw.githubusercontent.com/rivetsoft/softcore/softcore-v0.1.0/docs/screenshots/strip.jpg)\n\n\nThe first release, an early one: Softcore has run on its author's computer and nowhere else\nyet, so keep another session to log in to.\n\n- **Softcore, a scrolling Wayland compositor for the Rivet desktop.** Windows sit in columns\n  on a strip that runs off both sides of the screen, and you scroll through them. Opening a\n  window never shrinks the others.\n- **Columns of any width**, holding one window or several. Mod+R steps through the widths,\n  Mod+F makes a column as wide as the screen, and a window can be made shorter or taller in its\n  column.\n- **Workspaces per display**, with an empty one always last. Unplug a display and its\n  workspaces move to another, then go back when it returns.\n- **Up and down too**: a workspace can scroll vertically, which suits a tall display.\n- **Tabs, floating windows and scratchpads.** A column can show its windows as tabs, any\n  window can float, and named scratchpads come and go on a key. A floating window goes to\n  another display on the same keys as a column, or by dragging it there.\n- **The overview** shows every workspace of each display at once. Click a window or a\n  workspace to go there.\n- **Bindings for anything**, in one settings file of plain `key=value` lines that Softcore\n  reads again when you save it. If you know niri's actions and `niri msg`, you know\n  Softcore's.\n- **Chords**: press one key, then another. A panel shows what can come next, and H, J, K and L\n  work in it. Mod+Shift+/ shows every binding.\n- **Rules** tell a window which workspace to open on, whether to float, and how see-through to\n  be.\n- **Screen sharing is built in.** The picker shows a card with a live preview for each display\n  and window, and a shared window stays shared even when it is scrolled off screen.\n- **Screenshots**: Print or Mod+S, then drag out an area, click a window or take the whole\n  screen. The picture is saved and copied, and E opens it in Rivet Snip.\n- **Dressed like the Rivet desktop**: borders and Softcore's own panels use the desktop's\n  colors and change when the wallpaper does. Rivet Shell knows its workspaces, windows and\n  displays, and any panel or dock made for layer-shell compositors works too.\n- **Panels that overlap work as they look**: where a panel only takes clicks in part of itself,\n  the pointer reaches the panel beneath it everywhere else, so a handle drawn there can be\n  pointed at and clicked.\n- **Also**: blur behind see-through windows and panels, shadows, animations, touchpad\n  gestures, X11 programs through Xwayland, a lock screen, and `softcore msg` with an event\n  stream for scripts.\n- **Install for everyone** from the release download or from source with `install.sh`, which\n  also adds Softcore to the login screen's list of sessions. `./install.sh --uninstall` takes\n  it away again.\n\n### Install\n\nDownload `softcore-0.1.0-x86_64-linux.tar.gz`, then:\n\n```sh\ntar xzf softcore-0.1.0-x86_64-linux.tar.gz\ncd softcore-0.1.0-x86_64-linux\n./install.sh               # asks for your password, then installs Softcore for everyone\n./install.sh --uninstall   # takes it all away again\n```\n\nLog out, and choose Softcore in the login screen's list of sessions.\n\nIt needs the libraries a Wayland desktop usually has: libseat, libinput, libgbm, EGL,\nlibxkbcommon and PipeWire. The program is built for x86_64 and glibc 2.39 or newer (Ubuntu\n24.04, Fedora 40, Debian 13 and later). Or build it from the source code: `./install.sh` there\nbuilds it first.\n",
+      "assets": [
+        {
+          "name": "softcore-0.1.0-x86_64-linux.tar.gz",
+          "size": 6858911,
+          "browser_download_url": "https://github.com/rivetsoft/softcore/releases/download/softcore-v0.1.0/softcore-0.1.0-x86_64-linux.tar.gz",
+          "state": "uploaded"
+        },
+        {
+          "name": "softcore-0.1.0-x86_64-linux.tar.gz.sha256",
+          "size": 101,
+          "browser_download_url": "https://github.com/rivetsoft/softcore/releases/download/softcore-v0.1.0/softcore-0.1.0-x86_64-linux.tar.gz.sha256",
+          "state": "uploaded"
+        }
+      ]
+    }
+  ]
 }
