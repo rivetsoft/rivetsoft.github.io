@@ -1,6 +1,7 @@
 ---
 // The docs' Apps overview: every app the site lists, in the home page's groups, each with its
 // icon, what it is, and links to its docs and its page. The desktop and Welcome have their own docs.
+// A coming soon app has neither yet, so it shows a badge in their place.
 import { appCategories, apps } from "../data/apps";
 import { url } from "../paths";
 
@@ -22,10 +23,14 @@ const groups = appCategories
               <div>
                 <h3>{app.name}</h3>
                 <p>{app.line}</p>
-                <p class="apps-overview-links">
-                  <a href={url(`docs/${app.slug}/`)}>Docs<span class="sr-only"> for {app.name}</span></a>
-                  <a href={url(`${app.slug}/`)}>App page<span class="sr-only"> for {app.name}</span></a>
-                </p>
+                {app.comingSoon ? (
+                  <p class="apps-overview-soon">Coming soon</p>
+                ) : (
+                  <p class="apps-overview-links">
+                    <a href={url(`docs/${app.slug}/`)}>Docs<span class="sr-only"> for {app.name}</span></a>
+                    <a href={url(`${app.slug}/`)}>App page<span class="sr-only"> for {app.name}</span></a>
+                  </p>
+                )}
               </div>
             </li>
           );
@@ -80,6 +85,19 @@ const groups = appCategories
   .apps-overview p {
     margin: 0.25rem 0 0;
     line-height: 1.5;
+  }
+
+  .apps-overview-soon {
+    display: inline-block;
+    margin-top: 0.5rem;
+    padding: 0.15rem 0.45rem;
+    border: 1px solid #24121b;
+    background: #8fd5ee;
+    box-shadow: 2px 2px 0 var(--shadow-hard);
+    color: #24121b;
+    font-size: 0.78rem;
+    font-weight: 620;
+    line-height: 1.2;
   }
 
   .apps-overview-links {

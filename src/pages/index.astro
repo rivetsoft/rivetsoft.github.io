@@ -18,8 +18,11 @@ const rows = apps.map((app) => {
   return { app, release, status: statusFor(app, release), shot: app.cardShot ? screenshot(app.cardShot) : undefined };
 });
 
-const welcome = rows.find((row) => row.app.spotlight === "welcome");
+const welcome = rows.find((row) => row.app.slug === "welcome");
+// Coming soon apps beside Welcome (rivetctl) and under the desktop pair (Rivet Greeter).
+const welcomeSoon = rows.filter((row) => row.app.spotlight === "welcome" && row.app.comingSoon);
 const desktopRows = rows.filter((row) => row.app.spotlight === "desktop");
+const desktopSoon = desktopRows.filter((row) => row.app.comingSoon);
 const desktopRow = (slug: string) => desktopRows.find((row) => row.app.slug === slug);
 const shellRow = desktopRow("shell");
 const softcoreRow = desktopRow("softcore");
@@ -235,6 +238,17 @@ import islandArt from "../assets/mascot/island.svg?raw";
         )
       }
     </ul>
+    {
+      desktopSoon.length > 0 && (
+        <ul class="app-cards desktop-soon">
+          {desktopSoon.map(({ app, release }) => (
+            <li>
+              <AppCard app={app} release={release} heading="h3" />
+            </li>
+          ))}
+        </ul>
+      )
+    }
     <ul class="desktop-ways">
       <li>
         <h3>Together</h3>
@@ -434,6 +448,17 @@ import islandArt from "../assets/mascot/island.svg?raw";
               alone.
             </p>
             <ReleaseBlock slug="welcome" heading="h3" />
+            {
+              welcomeSoon.length > 0 && (
+                <ul class="app-cards welcome-soon">
+                  {welcomeSoon.map(({ app, release }) => (
+                    <li>
+                      <AppCard app={app} release={release} heading="h3" />
+                    </li>
+                  ))}
+                </ul>
+              )
+            }
           </div>
           {/* Rivet on his island stands where the screenshot was: the home page has plenty of
               those, and the app's own page still shows it. */}

@@ -1,7 +1,8 @@
 ---
 // An app on the home page: its icon, name, status, points and More link, then a row of
 // screenshots. Each screenshot links to the full picture, and the page's script opens it large
-// in place instead. The desktop cards also lead with a big screenshot.
+// in place instead. The desktop cards also lead with a big screenshot. A coming soon app has no
+// page, release or links yet, so its card is the name, the badge, the points and the pictures.
 import { getImage } from "astro:assets";
 import Screenshot from "./Screenshot.astro";
 import Throwback from "./Throwback.astro";
@@ -27,9 +28,10 @@ interface Props {
 
 const { app, release, heading: Heading, role, lead = false, note, links = [] } = Astro.props;
 const status = statusFor(app, release);
+const soon = status === "soon";
 const page = url(`${app.slug}/`);
 const icon = app.icon ?? app.homeIcon;
-const version = release && (release.prerelease ? `${release.version} pre-release, ${release.dateLabel}` : `${release.version}, ${release.dateLabel}`);
+const version = !soon && release && (release.prerelease ? `${release.version} pre-release, ${release.dateLabel}` : `${release.version}, ${release.dateLabel}`);
 const thumbs = await Promise.all(
   (app.homeShots ?? []).map(async (shot) => {
     const img = assetShot(shot.file);
@@ -39,9 +41,9 @@ const thumbs = await Promise.all(
 );
 ---
 
-<article class:list={["app-card", { "app-card-lead": lead }]}>
+<article class:list={["app-card", { "app-card-lead": lead && !soon, "app-card-soon": soon }]}>
   {
-    lead && app.cardShot && (
+    lead && !soon && app.cardShot && (
       <a class="app-card-hero" href={page}>
         <Screenshot img={screenshot(app.cardShot)} alt={app.cardAlt ?? `${app.name} screenshot`} sizes={shotSizes.pair} />
       </a>
@@ -50,7 +52,7 @@ const thumbs = await Promise.all(
   <div class="app-card-body">
     {icon && <img class="app-card-icon" src={url(icon)} width="80" height="80" alt="" loading="lazy" />}
     {role && <p class="app-card-role">{role}</p>}
-    <Heading class="app-card-name"><a href={page}>{app.name}</a></Heading>
+    <Heading class="app-card-name">{soon ? app.name : <a href={page}>{app.name}</a>}</Heading>
     <p class="app-card-status">
       <span class={`badge badge-${status}`}>{statusLabel[status]}</span>
       {version && <span class="card-version">{version}</span>}
@@ -69,6 +71,7 @@ const thumbs = await Promise.all(
       )
     }
     {note && <p class="app-card-note">{note}</p>}
+    {!soon && (
     <p class="app-card-actions">
       <a class="show-more" href={page}>
         More<span class="vh"> about {app.name}</span> <svg class="show-arrow" viewBox="0 0 24 16" aria-hidden="true">
@@ -84,6 +87,7 @@ const thumbs = await Promise.all(
         ))
       }
     </p>
+    )}
     {
       thumbs.length > 0 && (
         <ul class="thumbs" aria-label={`${app.name} screenshots`}>

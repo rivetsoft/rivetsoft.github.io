@@ -6,8 +6,8 @@ import starlight from "@astrojs/starlight";
 import { apps } from "./src/data/apps.ts";
 
 // The docs sidebar's Apps section: every app the site lists that has a docs page, by name. The
-// shell and Softcore have the Desktop section, and Welcome is with Getting started.
-const notInApps = new Set(["shell", "softcore", "welcome"]);
+// shell and Softcore have the Desktop section, and Welcome and rivetctl are with Getting started.
+const notInApps = new Set(["shell", "softcore", "welcome", "rivetctl"]);
 const appDocs = apps
   .filter((app) => !notInApps.has(app.slug))
   .filter((app) => existsSync(new URL(`./src/content/docs/docs/${app.slug}/`, import.meta.url)))

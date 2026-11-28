@@ -12,13 +12,13 @@ import EditBody from "../bodies/Edit.astro";
 import TerminalBody from "../bodies/Terminal.astro";
 import WelcomeBody from "../bodies/Welcome.astro";
 import ColorBody from "../bodies/Color.astro";
-import { apps, repoUrl, type AppEntry } from "../data/apps";
+import { pageApps, repoUrl, type AppEntry } from "../data/apps";
 import { releaseFor } from "../data/releases";
 import { url } from "../paths";
 import { breadcrumb, siteRoot, softwareApplication } from "../seo";
 
 export function getStaticPaths() {
-  return apps.map((app) => ({
+  return pageApps.map((app) => ({
     params: { slug: app.slug },
     props: { app },
   }));
