@@ -43,7 +43,7 @@
   --sl-color-hairline-light: rgba(233, 222, 229, 0.14);
   --sl-color-hairline: rgba(233, 222, 229, 0.22);
   --sl-color-hairline-shade: #4a3140;
-  --shadow-hard: #fff;
+  --shadow-hard: #000;
 }
 
 :root[data-theme="light"] {
@@ -157,7 +157,7 @@ header.header button[data-open-modal] {
   color: #e9dee5;
   border: 1px solid rgba(233, 222, 229, 0.45);
   border-radius: var(--radius-card);
-  box-shadow: 3px 3px 0 #e9dee5;
+  box-shadow: 3px 3px 0 var(--shadow-hard);
   font-weight: 500;
 }
 
