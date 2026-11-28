@@ -70,6 +70,7 @@ export default defineConfig({
             { label: "Shell or standalone", link: "/docs/getting-started/on-your-own/" },
             { label: "How colors work", link: "/docs/colors/" },
             { label: "Rivet Welcome", link: "/docs/welcome/" },
+            { label: "rivetctl", link: "/docs/rivetctl/" },
           ],
         },
         {
