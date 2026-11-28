@@ -1653,43 +1653,65 @@ body:has(.band) .site-footer-inner {
   padding: 0;
 }
 
-.desktop-card {
+.desktop-pair > li,
+.app-cards > li {
   display: flex;
-  flex-direction: column;
   min-width: 0;
   max-width: none;
   margin: 0;
+}
+
+/* An app on the home page: a sticker of a card, with the big icon, the name, the points and More,
+   then a row of screenshots that open large. */
+.app-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
   border: 2px solid #24121b;
   background: var(--bg-raised);
   box-shadow: 6px 6px 0 var(--shadow-hard);
 }
 
-.desktop-shot-link {
+.app-card-hero {
   display: block;
   border-bottom: 2px solid #24121b;
   background: var(--code);
 }
 
-.desktop-shot {
+.app-card-hero img {
   display: block;
   width: 100%;
   height: auto;
 }
 
-.desktop-copy {
+.app-card-body {
   display: flex;
+  flex: 1;
   flex-direction: column;
   align-items: flex-start;
   gap: 0.55rem;
-  padding: 1.25rem 1.25rem 1.4rem;
+  padding: 1.25rem 1.25rem 1.35rem;
 }
 
-.desktop-copy p {
+.app-card-body p {
   margin: 0;
   max-width: none;
 }
 
-.desktop-role {
+.app-card-icon {
+  display: block;
+  width: 5rem;
+  height: 5rem;
+  margin-bottom: 0.2rem;
+}
+
+.app-card-lead .app-card-icon {
+  width: 4rem;
+  height: 4rem;
+}
+
+.app-card-role {
   font-family: "Space Mono", ui-monospace, monospace;
   font-size: 0.8rem;
   font-weight: 700;
@@ -1698,54 +1720,166 @@ body:has(.band) .site-footer-inner {
   color: var(--muted);
 }
 
-.desktop-name {
+.app-card-name {
   margin: 0;
-  font-size: clamp(1.55rem, 2.5vw, 2.15rem);
+  font-size: clamp(1.45rem, 2.2vw, 1.9rem);
 }
 
-.desktop-name .card-name {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
+.app-card-name a {
   color: inherit;
   text-decoration: none;
 }
 
-.desktop-name .card-icon {
-  width: 3rem;
-  height: 3rem;
+.app-card-name a:hover {
+  text-decoration: underline;
 }
 
-.desktop-status {
+.app-card-status {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 0.4rem 0.75rem;
 }
 
-.desktop-note {
+.app-card .show-points {
+  margin: 0.3rem 0 0.2rem;
+}
+
+.app-card-note {
   padding: 0.6rem 0.75rem;
   border-left: 4px solid #fff270;
   background: var(--code);
   font-size: 0.92rem;
 }
 
-.desktop-links {
+/* More and the screenshots sit at the foot of the card, so cards in a row line up at the bottom. */
+.app-card-body .app-card-actions {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
   gap: 0.6rem 1.4rem;
-  margin-top: 0.35rem;
+  margin-top: auto;
+  padding-top: 0.35rem;
 }
 
-.desktop-links a:not(.show-more) {
+.app-card-actions .show-more {
+  margin-top: 0;
+}
+
+.app-card-link {
   font-family: "Space Mono", ui-monospace, monospace;
   font-size: 0.85rem;
   font-weight: 700;
 }
 
-.desktop-links .show-more {
-  margin-top: 0;
+.thumbs {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.55rem;
+  width: 100%;
+  margin: 0.7rem 0 0;
+  padding: 0;
+}
+
+.thumbs li {
+  margin: 0;
+  max-width: none;
+}
+
+.thumb {
+  display: block;
+  border: 2px solid #24121b;
+  background: var(--code);
+  box-shadow: 2px 2px 0 var(--shadow-hard);
+}
+
+.thumb img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: top left;
+}
+
+.thumb:hover {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0 var(--shadow-hard);
+}
+
+.app-cards {
+  list-style: none;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.75rem;
+  margin: 1.6rem 0 0;
+  padding: 0;
+}
+
+@media (min-width: 700px) {
+  .app-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1100px) {
+  .app-cards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2rem;
+  }
+}
+
+/* The large screenshot, over the dimmed page. */
+.lightbox {
+  width: min(96vw, 1400px);
+  max-width: none;
+  max-height: 96vh;
+  padding: 0;
+  border: 2px solid #24121b;
+  background: var(--bg);
+  color: var(--fg);
+  box-shadow: 8px 8px 0 #24121b;
+}
+
+.lightbox::backdrop {
+  background: rgba(36, 18, 27, 0.82);
+}
+
+.lightbox figure {
+  margin: 0;
+}
+
+.lightbox img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: calc(96vh - 7.5rem);
+  object-fit: contain;
+  background: #24121b;
+}
+
+.lightbox figcaption {
+  padding: 0.75rem 1rem 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.lightbox-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.75rem 1rem 1rem;
+}
+
+.lightbox-count {
+  font-family: "Space Mono", ui-monospace, monospace;
+  font-size: 0.85rem;
+}
+
+.lightbox-close {
+  margin-left: auto;
 }
 
 .desktop-ways {

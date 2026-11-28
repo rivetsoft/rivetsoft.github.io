@@ -15,7 +15,19 @@ export const shotSizes = {
   pair: `${phone}, (min-width: 620px) 46vw, 92vw`,
   swatch: "(min-width: 800px) 17rem, 45vw",
   page: `${phone}, (min-width: 1100px) 68rem, 92vw`,
+  thumb: "(min-width: 1100px) 8rem, (min-width: 700px) 14vw, 30vw",
 };
+
+// The home page's thumbnails come from the app screenshots and the shell's and Softcore's photographs.
+const homeFiles = import.meta.glob<{ default: ImageMetadata }>("../assets/{screenshots,shell,softcore}/*.{png,jpg}", { eager: true });
+const byAssetPath = new Map(Object.entries(homeFiles).map(([path, mod]) => [path.replace("../assets/", ""), mod.default]));
+
+/** A picture by its path inside src/assets, such as "shell/launcher.jpg". */
+export function assetShot(path: string): ImageMetadata {
+  const image = byAssetPath.get(path);
+  if (!image) throw new Error(`Missing picture ${path}`);
+  return image;
+}
 
 /** A screenshot from src/assets/screenshots, by file name. */
 export function screenshot(name: string): ImageMetadata {

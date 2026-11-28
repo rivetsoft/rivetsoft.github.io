@@ -3,10 +3,11 @@ import { Image } from "astro:assets";
 import Base from "../layouts/Base.astro";
 import ReleaseBlock from "../components/ReleaseBlock.astro";
 import StatusBadge from "../components/StatusBadge.astro";
-import { appCategories, apps, byReleaseStatus, repoUrl, statusFor, statusLabel } from "../data/apps";
+import { appCategories, apps, byReleaseStatus, repoUrl, statusFor } from "../data/apps";
 import { catalog, releaseFor } from "../data/releases";
 import { screenshot, shotSizes } from "../data/shots";
 import Screenshot from "../components/Screenshot.astro";
+import AppCard from "../components/AppCard.astro";
 import { url } from "../paths";
 import { breadcrumb, siteRoot, websiteAndPerson } from "../seo";
 import heroDesktop from "../assets/hero/hero-desktop.jpg";
@@ -30,8 +31,6 @@ const appGroups = appCategories
   }))
   .filter((group) => group.rows.length > 0);
 const appCount = appGroups.reduce((sum, group) => sum + group.rows.length, 0);
-const versionLine = (release: { version: string; prerelease: boolean; dateLabel: string }) =>
-  release.prerelease ? `${release.version} pre-release, ${release.dateLabel}` : `${release.version}, ${release.dateLabel}`;
 const heroAlt = "Rivet Shell over a wallpaper of Rivet at dusk, with a Rivet Files window in front";
 
 const description =
@@ -192,7 +191,8 @@ import islandArt from "../assets/mascot/island.svg?raw";
   </svg>
   </div>
 
-  {/* The desktop: Rivet Shell and Softcore, side by side, ahead of the apps. */}
+  {/* The desktop: Rivet Shell and Softcore, side by side, ahead of the apps. Same cards as the
+      apps, each led by a big screenshot of the whole screen. */}
   <section class="band band-desktop reveal" aria-labelledby="desktop-title">
     <div class="desktop-head">
       <h2 id="desktop-title">Desktop</h2>
@@ -209,53 +209,27 @@ import islandArt from "../assets/mascot/island.svg?raw";
         ].map(
           ({ row, role, docs }) =>
             row && (
-              <li class="desktop-card">
-                {row.shot && (
-                  <a class="desktop-shot-link" href={url(`${row.app.slug}/`)}>
-                    <Screenshot class="desktop-shot" img={row.shot} alt={row.app.cardAlt ?? `${row.app.name} screenshot`} sizes={shotSizes.pair} />
-                  </a>
-                )}
-                <div class="desktop-copy">
-                  <p class="desktop-role">{role}</p>
-                  <h3 class="desktop-name">
-                    <a class="card-name" href={url(`${row.app.slug}/`)}>
-                      {row.app.icon && <img class="card-icon" src={url(row.app.icon)} width="32" height="32" alt="" />}
-                      {row.app.name}
-                    </a>
-                  </h3>
-                  <p class="desktop-status">
-                    <span class={`badge badge-${row.status}`}>{statusLabel[row.status]}</span>
-                    {row.release && <span class="card-version">{versionLine(row.release)}</span>}
-                  </p>
-                  <p class="card-summary">{row.app.line}</p>
-                  {row.app.homePoints && (
-                    <ul class="show-points">
-                      {row.app.homePoints.map((point) => (
-                        <li>
-                          <Throwback name={point.icon} />
-                          <span>{point.text}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                  {row.app.slug === "softcore" && (
-                    <p class="desktop-note">An early pre-release that has run on one computer so far, so keep another session to log in to.</p>
-                  )}
-                  <p class="desktop-links">
-                    <a class="show-more" href={url(`${row.app.slug}/`)}>
-                      Go Deeper<span class="vh"> into {row.app.name}</span> <svg class="show-arrow" viewBox="0 0 24 16" aria-hidden="true">
-                        <path d="M1 8h20M14 1.5 21.5 8 14 14.5" />
-                      </svg>
-                    </a>
-                    <a href={url(docs)}>Docs<span class="vh"> for {row.app.name}</span></a>
-                    {row.release && (
-                      <a href={url(`${row.app.slug}/#download`)}>
-                        {row.release.prerelease ? `Download the ${row.release.version} pre-release` : `Download ${row.release.version}`}
-                        <span class="vh"> of {row.app.name}</span>
-                      </a>
-                    )}
-                  </p>
-                </div>
+              <li>
+                <AppCard
+                  app={row.app}
+                  release={row.release}
+                  heading="h3"
+                  role={role}
+                  lead
+                  note={row.app.slug === "softcore" ? "An early pre-release that has run on one computer so far, so keep another session to log in to." : undefined}
+                  links={[
+                    { href: url(docs), label: "Docs", vh: `for ${row.app.name}` },
+                    ...(row.release
+                      ? [
+                          {
+                            href: url(`${row.app.slug}/#download`),
+                            label: row.release.prerelease ? `Download the ${row.release.version} pre-release` : `Download ${row.release.version}`,
+                            vh: `of ${row.app.name}`,
+                          },
+                        ]
+                      : []),
+                  ]}
+                />
               </li>
             )
         )
@@ -311,57 +285,33 @@ import islandArt from "../assets/mascot/island.svg?raw";
           <h3 class="app-group-title" id={`apps-${group.id}-title`}>
             {group.label} <span class="app-group-count">{group.rows.length === 1 ? "1 app" : `${group.rows.length} apps`}</span>
           </h3>
-          <ul class="showcase">
-            {
-            group.rows.map(({ app, release, status, shot }) => (
-              <li class="show-row">
-                {shot && (
-                  <a class="show-shot-link" href={url(`${app.slug}/`)}>
-                    <Screenshot class="show-shot" img={shot} alt={app.cardAlt ?? `${app.name} screenshot`} sizes={shotSizes.row} />
-                  </a>
-                )}
-                <div class="show-copy">
-                  <span class={`badge badge-${status}`}>{statusLabel[status]}</span>
-                  <a class="card-name" href={url(`${app.slug}/`)}>
-                    {app.icon && (
-                      <img class="card-icon" src={url(app.icon)} width="32" height="32" alt="" />
-                    )}
-                    {app.name}
-                  </a>
-                  {release && (
-                    <span class="card-version">
-                      {versionLine(release)}
-                    </span>
-                  )}
-                  {app.homePoints ? (
-                    <>
-                      <span class="card-summary">{app.line}</span>
-                      <ul class="show-points">
-                        {app.homePoints.map((point) => (
-                          <li>
-                            <Throwback name={point.icon} />
-                            <span>{point.text}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </>
-                  ) : (
-                    <span class="card-summary">{app.summary}</span>
-                  )}
-                  <a class="show-more" href={url(`${app.slug}/`)} aria-label={`Go deeper into ${app.name}`}>
-                    Go Deeper <svg class="show-arrow" viewBox="0 0 24 16" aria-hidden="true">
-                      <path d="M1 8h20M14 1.5 21.5 8 14 14.5" />
-                    </svg>
-                  </a>
-                </div>
+          <ul class="app-cards">
+            {group.rows.map(({ app, release }) => (
+              <li>
+                <AppCard app={app} release={release} heading="h4" />
               </li>
-            ))
-            }
+            ))}
           </ul>
         </section>
       ))
     }
   </section>
+
+  {/* One window for every app's screenshots: a thumbnail opens it, Escape or Close shuts it, and
+      the arrow keys step through that app's pictures. */}
+  <dialog class="lightbox" aria-labelledby="lightbox-title" data-lightbox>
+    <h2 class="vh" id="lightbox-title">Screenshot</h2>
+    <figure>
+      <img alt="" data-lightbox-img />
+      <figcaption data-lightbox-caption></figcaption>
+    </figure>
+    <div class="lightbox-bar">
+      <button type="button" class="chip" data-lightbox-prev>Previous</button>
+      <span class="lightbox-count" data-lightbox-count></span>
+      <button type="button" class="chip" data-lightbox-next>Next</button>
+      <button type="button" class="chip lightbox-close" data-lightbox-close>Close</button>
+    </div>
+  </dialog>
 
   <script is:inline>
     (function () {
@@ -384,7 +334,7 @@ import islandArt from "../assets/mascot/island.svg?raw";
         for (var n = 0; n < groups.length; n++) {
           var hide = id !== "all" && groups[n].getAttribute("data-category") !== id;
           groups[n].hidden = hide;
-          if (!hide) count += groups[n].querySelectorAll(".show-row").length;
+          if (!hide) count += groups[n].querySelectorAll(".app-card").length;
         }
         if (announce && status) {
           var apps = count === 1 ? "1 app" : count + " apps";
@@ -404,6 +354,61 @@ import islandArt from "../assets/mascot/island.svg?raw";
       });
       show(new URLSearchParams(window.location.search).get("type") || "all", false);
       bar.hidden = false;
+    })();
+  </script>
+
+  <script is:inline>
+    (function () {
+      var box = document.querySelector("[data-lightbox]");
+      if (!box || typeof box.showModal !== "function") return;
+      var img = box.querySelector("[data-lightbox-img]");
+      var caption = box.querySelector("[data-lightbox-caption]");
+      var count = box.querySelector("[data-lightbox-count]");
+      var prev = box.querySelector("[data-lightbox-prev]");
+      var next = box.querySelector("[data-lightbox-next]");
+      var set = [];
+      var at = 0;
+      var opener = null;
+      function paint() {
+        var link = set[at];
+        img.src = link.getAttribute("data-full");
+        img.alt = link.getAttribute("data-alt") || "";
+        caption.textContent = link.getAttribute("data-alt") || "";
+        count.textContent = set.length > 1 ? at + 1 + " of " + set.length : "";
+        prev.hidden = next.hidden = set.length < 2;
+      }
+      function step(by) {
+        if (set.length < 2) return;
+        at = (at + by + set.length) % set.length;
+        paint();
+      }
+      document.addEventListener("click", function (e) {
+        var link = e.target.closest && e.target.closest("a.thumb");
+        if (!link || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+        e.preventDefault();
+        var list = link.closest(".thumbs");
+        set = list ? Array.prototype.slice.call(list.querySelectorAll("a.thumb")) : [link];
+        at = Math.max(0, set.indexOf(link));
+        opener = link;
+        paint();
+        box.showModal();
+        box.querySelector("[data-lightbox-close]").focus();
+      });
+      prev.addEventListener("click", function () { step(-1); });
+      next.addEventListener("click", function () { step(1); });
+      box.querySelector("[data-lightbox-close]").addEventListener("click", function () { box.close(); });
+      box.addEventListener("keydown", function (e) {
+        if (e.key === "ArrowLeft") step(-1);
+        else if (e.key === "ArrowRight") step(1);
+      });
+      // A click on the dimmed page around the picture closes it, as Escape does.
+      box.addEventListener("click", function (e) {
+        if (e.target === box) box.close();
+      });
+      box.addEventListener("close", function () {
+        img.removeAttribute("src");
+        if (opener) opener.focus();
+      });
     })();
   </script>
 
@@ -661,29 +666,6 @@ import islandArt from "../assets/mascot/island.svg?raw";
           else io.observe(nodes[j]);
         }
         document.documentElement.classList.add("motion");
-      }
-      var shots = document.querySelectorAll(".show-shot");
-      if (shots.length) {
-        var shotsQueued = false;
-        function paintShots() {
-          shotsQueued = false;
-          var vh = window.innerHeight || 1;
-          for (var s = 0; s < shots.length; s++) {
-            var b = shots[s].getBoundingClientRect();
-            if (b.bottom < -vh || b.top > vh * 2) continue;
-            var off = Math.abs(b.top + b.height / 2 - vh * 0.5) / (vh * 0.55);
-            shots[s].style.setProperty("--tilt", Math.min(1, off).toFixed(3));
-          }
-        }
-        function queueShots() {
-          if (!shotsQueued && !still.matches) {
-            shotsQueued = true;
-            requestAnimationFrame(paintShots);
-          }
-        }
-        window.addEventListener("scroll", queueShots, { passive: true });
-        window.addEventListener("resize", queueShots, { passive: true });
-        queueShots();
       }
       var brut = document.querySelector(".brut");
       if (brut && !coarse) {
