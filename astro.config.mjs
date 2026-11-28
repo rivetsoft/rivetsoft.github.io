@@ -1,7 +1,18 @@
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 import starlight from "@astrojs/starlight";
+
+import { apps } from "./src/data/apps.ts";
+
+// The docs sidebar's Apps section: every app the site lists that has a docs page, by name. The
+// shell and Softcore have the Desktop section, and Welcome is with Getting started.
+const notInApps = new Set(["shell", "softcore", "welcome"]);
+const appDocs = apps
+  .filter((app) => !notInApps.has(app.slug))
+  .filter((app) => existsSync(new URL(`./src/content/docs/docs/${app.slug}/`, import.meta.url)))
+  .map((app) => ({ label: app.name, link: `/docs/${app.slug}/` }))
+  .sort((a, b) => a.label.localeCompare(b.label));
 
 function codeTheme(name) {
   return JSON.parse(readFileSync(new URL(`./src/styles/${name}`, import.meta.url), "utf8"));
@@ -58,39 +69,35 @@ export default defineConfig({
             { label: "Install", link: "/docs/getting-started/install/" },
             { label: "Shell or standalone", link: "/docs/getting-started/on-your-own/" },
             { label: "How colors work", link: "/docs/colors/" },
+            { label: "Rivet Welcome", link: "/docs/welcome/" },
           ],
         },
         {
-          label: "Shell",
+          label: "Desktop",
           items: [
-            { label: "Rivet Shell", link: "/docs/shell/" },
-            { label: "Plugins and hooks", link: "/docs/shell/plugins/" },
-            { label: "Clipboard history", link: "/docs/shell/clipboard/" },
+            {
+              label: "Rivet Shell",
+              items: [
+                { label: "Overview", link: "/docs/shell/" },
+                { label: "Plugins and hooks", link: "/docs/shell/plugins/" },
+                { label: "Clipboard history", link: "/docs/shell/clipboard/" },
+              ],
+            },
+            {
+              label: "Softcore",
+              items: [
+                { label: "Overview", link: "/docs/softcore/" },
+                { label: "Settings", link: "/docs/softcore/settings/" },
+                { label: "Keys and chords", link: "/docs/softcore/keys/" },
+                { label: "Windows and workspaces", link: "/docs/softcore/layout/" },
+                { label: "Rules", link: "/docs/softcore/rules/" },
+                { label: "Talking to it", link: "/docs/softcore/msg/" },
+                { label: "What isn't built yet", link: "/docs/softcore/status/" },
+              ],
+            },
           ],
         },
-        {
-          label: "Softcore",
-          items: [
-            { label: "Softcore", link: "/docs/softcore/" },
-            { label: "Settings", link: "/docs/softcore/settings/" },
-            { label: "Keys and chords", link: "/docs/softcore/keys/" },
-            { label: "Windows and workspaces", link: "/docs/softcore/layout/" },
-            { label: "Rules", link: "/docs/softcore/rules/" },
-            { label: "Talking to it", link: "/docs/softcore/msg/" },
-            { label: "What isn't built yet", link: "/docs/softcore/status/" },
-          ],
-        },
-        { label: "Welcome", items: [{ label: "Rivet Welcome", link: "/docs/welcome/" }] },
-        { label: "Files", items: [{ label: "Rivet Files", link: "/docs/files/" }] },
-        { label: "FTP", items: [{ label: "Rivet FTP", link: "/docs/ftp/" }] },
-        { label: "Notes", items: [{ label: "Rivet Notes", link: "/docs/notes/" }] },
-        { label: "Edit", items: [{ label: "Rivet Edit", link: "/docs/edit/" }] },
-        { label: "Terminal", items: [{ label: "Rivet Terminal", link: "/docs/terminal/" }] },
-        { label: "Color", items: [{ label: "Rivet Color", link: "/docs/color/" }] },
-        { label: "Snip", items: [{ label: "Rivet Snip", link: "/docs/snip/" }] },
-        { label: "Vice", items: [{ label: "Rivet Vice", link: "/docs/vice/" }] },
-        { label: "Calendar", items: [{ label: "Rivet Calendar", link: "/docs/calendar/" }] },
-        { label: "Fetch", items: [{ label: "Rivet Fetch", link: "/docs/fetch/" }] },
+        { label: "Apps", items: appDocs },
       ],
     }),
     sitemap(),

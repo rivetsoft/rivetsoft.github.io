@@ -38,12 +38,13 @@ jobs:
           path: node_modules/.astro
           key: astro-images-${{ hashFiles('src/assets/**', 'package-lock.json') }}
           restore-keys: astro-images-
-      - name: Test
-        run: npm test
       - name: Build
         run: npm run build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # After the build, so the link check has the built pages to read.
+      - name: Test
+        run: npm test
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
