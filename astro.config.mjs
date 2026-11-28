@@ -83,6 +83,7 @@ export default defineConfig({
                 { label: "Clipboard history", link: "/docs/shell/clipboard/" },
               ],
             },
+            { label: "Rivet Greeter", link: "/docs/greeter/" },
             {
               label: "Softcore",
               items: [
