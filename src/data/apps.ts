@@ -2,10 +2,10 @@ export type AppStatus = "released" | "alpha" | "unreleased" | "someday";
 
 /** The home page's Apps section, one group per kind of app, in this order. The filter there has a chip for each. */
 export const appCategories = [
-  { id: "files", label: "Files and documents" },
-  { id: "development", label: "Development" },
-  { id: "media", label: "Graphics and media" },
-  { id: "organize", label: "Organize" },
+  { id: "files", label: "Paper pushers" },
+  { id: "development", label: "Hack the planet" },
+  { id: "media", label: "Eye candy" },
+  { id: "organize", label: "Dear diary" },
 ] as const;
 
 export type AppCategory = (typeof appCategories)[number]["id"];
