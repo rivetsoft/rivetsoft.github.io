@@ -39,7 +39,7 @@ export interface AppEntry {
   cardCaption?: string;
   /** Icon in public/, used on the app page. */
   icon?: string;
-  /** Icon in public/ for the home page card only, when the app page shows none (Fetch's packaging icon). */
+  /** Icon in public/ for the home page and the docs' Apps overview, when the app page shows none (Fetch's packaging icon). */
   homeIcon?: string;
   /**
    * The home page card's row of screenshots, which open large. Paths are inside src/assets

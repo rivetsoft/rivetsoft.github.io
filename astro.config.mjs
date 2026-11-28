@@ -97,7 +97,7 @@ export default defineConfig({
             },
           ],
         },
-        { label: "Apps", items: appDocs },
+        { label: "Apps", items: [{ label: "Overview", link: "/docs/apps/" }, ...appDocs] },
       ],
     }),
     sitemap(),
