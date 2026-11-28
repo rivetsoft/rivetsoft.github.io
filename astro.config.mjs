@@ -65,6 +65,7 @@ export default defineConfig({
           items: [
             { label: "Rivet Shell", link: "/docs/shell/" },
             { label: "Plugins and hooks", link: "/docs/shell/plugins/" },
+            { label: "Clipboard history", link: "/docs/shell/clipboard/" },
           ],
         },
         {
