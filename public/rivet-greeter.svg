@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- Rivet Greeter: a padlock to sign in with, its shackle open and a keyhole in its face -->
+  <!-- the hard shadow, offset down and right like the website's cards -->
+  <g transform="translate(5 5)" fill="none" stroke="#24121b" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M38 56V38a24 24 0 0 1 46-9" stroke-width="16"/>
+    <rect x="18" y="54" width="86" height="58" rx="10" fill="#24121b"/>
+  </g>
+  <g stroke="#24121b" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M38 56V38a24 24 0 0 1 46-9" fill="none" stroke-width="16"/>
+    <path d="M38 56V38a24 24 0 0 1 46-9" fill="none" stroke="#0084b8" stroke-width="8"/>
+    <rect x="18" y="54" width="86" height="58" rx="10" fill="#fff270"/>
+    <path d="M25 63h72" stroke="#fffbd0" stroke-width="4"/>
+    <circle cx="61" cy="78" r="9" fill="#d53f8c"/>
+    <path d="M61 85v12" stroke-width="8"/>
+    <path d="M61 85v11" stroke="#d53f8c" stroke-width="3"/>
+  </g>
+</svg>

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- Rivet Long Shot: a framed picture of hills under a sun, with a loupe zooming in on its corner -->
+  <!-- the hard shadow, offset down and right like the website's cards -->
+  <g transform="translate(5 5)" fill="#24121b" stroke="#24121b" stroke-width="4" stroke-linejoin="round">
+    <rect x="8" y="18" width="98" height="80" rx="10"/>
+    <circle cx="90" cy="88" r="22"/>
+  </g>
+  <g stroke="#24121b" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
+    <rect x="8" y="18" width="98" height="80" rx="10" fill="#0084b8"/>
+    <rect x="18" y="28" width="78" height="60" rx="3" fill="#fff270"/>
+    <circle cx="74" cy="46" r="8" fill="#d53f8c"/>
+    <path d="M18 76 40 52 56 68 66 60 96 84V88H18Z" fill="#40a3ca"/>
+    <path d="M104 102 116 114" stroke-width="12"/>
+    <circle cx="90" cy="88" r="20" fill="#ffffff" fill-opacity="0.92"/>
+    <path d="M90 79v18M81 88h18" fill="none" stroke="#d53f8c" stroke-width="6"/>
+  </g>
+</svg>

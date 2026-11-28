@@ -1064,6 +1064,10 @@ p {
   background: #e9dee5;
 }
 
+.badge-soon {
+  background: #8fd5ee;
+}
+
 .status-row {
   margin-top: 0.2rem;
 }
@@ -1781,6 +1785,23 @@ body:has(.band) .site-footer-inner {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 2rem;
   }
+}
+
+/* Coming soon cards under the desktop pair line up with its columns; the one beside Welcome
+   fills its column. */
+.app-cards.desktop-soon {
+  margin-top: 2rem;
+}
+
+@media (min-width: 700px) {
+  .app-cards.desktop-soon {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.app-cards.welcome-soon {
+  grid-template-columns: minmax(0, 1fr);
+  margin-top: 2rem;
 }
 
 /* The large screenshot, over the dimmed page. */
