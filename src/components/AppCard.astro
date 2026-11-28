@@ -1,0 +1,102 @@
+---
+// An app on the home page: its icon, name, status, points and More link, then a row of
+// screenshots. Each screenshot links to the full picture, and the page's script opens it large
+// in place instead. The desktop cards also lead with a big screenshot.
+import { getImage } from "astro:assets";
+import Screenshot from "./Screenshot.astro";
+import Throwback from "./Throwback.astro";
+import { statusFor, statusLabel, type AppEntry } from "../data/apps";
+import type { AppRelease } from "../data/release-model";
+import { assetShot, screenshot, shotSizes } from "../data/shots";
+import { url } from "../paths";
+
+interface Props {
+  app: AppEntry;
+  release?: AppRelease;
+  /** Heading level for the name: h3 in the Desktop section, h4 inside an Apps group. */
+  heading: "h3" | "h4";
+  /** A line above the name, such as "The shell". */
+  role?: string;
+  /** Lead with the card screenshot, full width. */
+  lead?: boolean;
+  /** Extra words under the points. */
+  note?: string;
+  /** Extra links after More. */
+  links?: { href: string; label: string; vh?: string }[];
+}
+
+const { app, release, heading: Heading, role, lead = false, note, links = [] } = Astro.props;
+const status = statusFor(app, release);
+const page = url(`${app.slug}/`);
+const icon = app.icon ?? app.homeIcon;
+const version = release && (release.prerelease ? `${release.version} pre-release, ${release.dateLabel}` : `${release.version}, ${release.dateLabel}`);
+const thumbs = await Promise.all(
+  (app.homeShots ?? []).map(async (shot) => {
+    const img = assetShot(shot.file);
+    const full = await getImage({ src: img, format: "webp" });
+    return { img, alt: shot.alt, full: full.src };
+  }),
+);
+---
+
+<article class:list={["app-card", { "app-card-lead": lead }]}>
+  {
+    lead && app.cardShot && (
+      <a class="app-card-hero" href={page}>
+        <Screenshot img={screenshot(app.cardShot)} alt={app.cardAlt ?? `${app.name} screenshot`} sizes={shotSizes.pair} />
+      </a>
+    )
+  }
+  <div class="app-card-body">
+    {icon && <img class="app-card-icon" src={url(icon)} width="80" height="80" alt="" loading="lazy" />}
+    {role && <p class="app-card-role">{role}</p>}
+    <Heading class="app-card-name"><a href={page}>{app.name}</a></Heading>
+    <p class="app-card-status">
+      <span class={`badge badge-${status}`}>{statusLabel[status]}</span>
+      {version && <span class="card-version">{version}</span>}
+    </p>
+    <p class="app-card-line">{app.line}</p>
+    {
+      app.homePoints && (
+        <ul class="show-points">
+          {app.homePoints.map((point) => (
+            <li>
+              <Throwback name={point.icon} />
+              <span>{point.text}</span>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+    {note && <p class="app-card-note">{note}</p>}
+    <p class="app-card-actions">
+      <a class="show-more" href={page}>
+        More<span class="vh"> about {app.name}</span> <svg class="show-arrow" viewBox="0 0 24 16" aria-hidden="true">
+          <path d="M1 8h20M14 1.5 21.5 8 14 14.5" />
+        </svg>
+      </a>
+      {
+        links.map((link) => (
+          <a class="app-card-link" href={link.href}>
+            {link.label}
+            {link.vh && <span class="vh"> {link.vh}</span>}
+          </a>
+        ))
+      }
+    </p>
+    {
+      thumbs.length > 0 && (
+        <ul class="thumbs" aria-label={`${app.name} screenshots`}>
+          {thumbs.map((thumb, index) => (
+            <li>
+              <a class="thumb" href={thumb.full} data-full={thumb.full} data-alt={thumb.alt}>
+                <Screenshot img={thumb.img} alt={thumb.alt} sizes={shotSizes.thumb} />
+                <span class="vh">, open large, {index + 1} of {thumbs.length}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </div>
+</article>

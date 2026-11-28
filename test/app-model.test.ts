@@ -4,13 +4,22 @@ import test from "node:test";
 import { allApps, appCategories, apps, navApps, ownRepoApps, releaseApps } from "../src/data/apps.ts";
 
 const categoryIds = new Set<string>(appCategories.map((category) => category.id));
-const ownSections = new Set(["shell", "softcore", "welcome"]);
 
-test("every app outside the desktop and Welcome is in a known group", () => {
+test("every app outside the desktop and Welcome is in a known Apps group", () => {
   for (const app of allApps) {
-    if (ownSections.has(app.slug)) continue;
+    if (app.spotlight) {
+      assert.equal(app.category, undefined, `${app.slug} has a spotlight and a category`);
+      continue;
+    }
     assert.ok(app.category && categoryIds.has(app.category), `${app.slug} needs a category from appCategories`);
   }
+});
+
+test("the desktop section holds Rivet Shell and Softcore", () => {
+  assert.deepEqual(
+    apps.filter((app) => app.spotlight === "desktop").map((app) => app.slug),
+    ["shell", "softcore"],
+  );
 });
 
 test("held apps stay off the site, its menus and the install guide", () => {

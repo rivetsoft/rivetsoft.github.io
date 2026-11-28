@@ -1,11 +1,14 @@
 export type AppStatus = "released" | "alpha" | "unreleased" | "someday";
 
-/** The home page's Apps section, one group per kind of app, in this order. The filter there has a chip for each. */
+/**
+ * The home page's Apps section, one group per kind of app, in this order. The filter there has a
+ * chip for each, and the group's heading wears its throwback picture.
+ */
 export const appCategories = [
-  { id: "files", label: "Files and documents" },
-  { id: "development", label: "Development" },
-  { id: "media", label: "Graphics and media" },
-  { id: "organize", label: "Organize" },
+  { id: "files", label: "Files and documents", icon: "floppy" },
+  { id: "development", label: "Development", icon: "pager" },
+  { id: "media", label: "Graphics and media", icon: "lavalamp" },
+  { id: "organize", label: "Organize", icon: "checkbox" },
 ] as const;
 
 export type AppCategory = (typeof appCategories)[number]["id"];
@@ -41,6 +44,11 @@ export interface AppEntry {
   icon?: string;
   /** Icon in public/ for the home page and the docs' Apps overview, when the app page shows none (Fetch's packaging icon). */
   homeIcon?: string;
+  /**
+   * The home page card's row of screenshots, which open large. Paths are inside src/assets
+   * (screenshots/, shell/ or softcore/). Three at most; the first is the one people see first.
+   */
+  homeShots?: readonly { file: string; alt: string }[];
   /** README path inside the rivet-apps repository. */
   readme?: string;
   /** A repository of its own, when it is not part of rivetsoft/apps. */
@@ -51,8 +59,8 @@ export interface AppEntry {
   points?: readonly string[];
   /** Shell lines shown on the short page. */
   source?: string;
-  /** Home page placement. Other apps stay in the grid. */
-  spotlight?: "shell" | "welcome";
+  /** Home page placement: the Desktop section (shell and compositor) or the Welcome band. Other apps go in the Apps section. */
+  spotlight?: "desktop" | "welcome";
   /** The Apps section group. Every app without a spotlight needs one. */
   category?: AppCategory;
   /**
@@ -73,12 +81,17 @@ export const softcoreRepoUrl = "https://github.com/rivetsoft/softcore";
 export const allApps: AppEntry[] = [
   {
     slug: "shell",
+    homeShots: [
+      { file: "shell/launcher.jpg", alt: "The Rivet Shell launcher open over a sunset wallpaper, with the Rivet apps in a grid" },
+      { file: "shell/quick-settings.jpg", alt: "Rivet Shell quick settings: volume, brightness, toggles, and what is playing" },
+      { file: "shell/settings-appearance.jpg", alt: "Rivet Shell settings, Appearance page, with style, accent, and color use" },
+    ],
     name: "Rivet Shell",
     line: "A Wayland desktop shell: panel, dock, launcher and wallpaper.",
     tagPrefixes: ["rivet-shell-v"],
     nav: true,
     navLabel: "Shell",
-    spotlight: "shell",
+    spotlight: "desktop",
     template: "shell",
     applicationCategory: "DesktopApplication",
     cardShot: "shell-wide.jpg",
@@ -86,6 +99,11 @@ export const allApps: AppEntry[] = [
     cardCaption: "Rivet Shell: the panel, widgets and dock over the wallpaper.",
     icon: "rivet-shell.svg",
     readme: "apps/rivet-shell/README.md",
+    homePoints: [
+      { icon: "lavalamp", text: "Colors the desktop from your wallpaper" },
+      { icon: "globe", text: "Runs on niri, Hyprland and Sway too" },
+      { icon: "cassette", text: "Plugins put apps on the panel and in the launcher" },
+    ],
     summary:
       "A Wayland desktop shell: panel, dock, launcher, quick settings, notifications, widgets and wallpaper. It colors the desktop from the wallpaper with matugen. Needs a layer-shell compositor (niri, Hyprland, Sway and others, not GNOME).",
     points: [
@@ -102,12 +120,18 @@ export const allApps: AppEntry[] = [
   },
   {
     slug: "softcore",
+    homeShots: [
+      { file: "softcore/overview.jpg", alt: "The Softcore overview, with two workspaces drawn at half size over the wallpaper" },
+      { file: "softcore/tabs.jpg", alt: "A column in Softcore shown as tabs, with a strip across its top" },
+      { file: "softcore/chords.jpg", alt: "A chord in Softcore: after Mod+G, a panel lists Terminal, Files, Edit, Notes and Internet with their keys" },
+    ],
     template: "softcore",
     name: "Softcore",
     line: "A scrolling Wayland compositor that feels oh so good.",
     tagPrefixes: ["softcore-v"],
     program: "softcore",
     nav: true,
+    spotlight: "desktop",
     applicationCategory: "DesktopApplication",
     cardShot: "softcore-wide.jpg",
     cardAlt: "Softcore with three columns of windows on a strip that runs off both sides of the screen, under Rivet Shell's panel",
@@ -151,6 +175,11 @@ export const allApps: AppEntry[] = [
   },
   {
     slug: "files",
+    homeShots: [
+      { file: "screenshots/icons-wide.png", alt: "Rivet Files in the pink scheme, icon view of Home" },
+      { file: "screenshots/peek-code-wide.png", alt: "The Peek panel showing highlighted Rust code" },
+      { file: "screenshots/columns-wide.png", alt: "Rivet Files in Miller columns view" },
+    ],
     category: "files",
     homePoints: [
       { icon: "floppy", text: "Icons, list, compact and Miller columns" },
@@ -173,6 +202,11 @@ export const allApps: AppEntry[] = [
   },
   {
     slug: "ftp",
+    homeShots: [
+      { file: "screenshots/ftp-connected-wide.png", alt: "Rivet FTP in the pink scheme, connected, with this computer and the server side by side" },
+      { file: "screenshots/ftp-new-connection-wide.png", alt: "The New Connection window, with SFTP selected" },
+      { file: "screenshots/ftp-light-wide.png", alt: "Rivet FTP in the light theme, with both panes showing the same site" },
+    ],
     category: "development",
     homePoints: [
       { icon: "cd", text: "A classic two-pane experience" },
@@ -193,6 +227,11 @@ export const allApps: AppEntry[] = [
   },
   {
     slug: "notes",
+    homeShots: [
+      { file: "screenshots/notes-live-wide.png", alt: "Rivet Notes in the pink scheme, live mode, with Peek open" },
+      { file: "screenshots/notes-todos-board-wide.png", alt: "The Todos page as a board, with To do, In progress, and Done columns" },
+      { file: "screenshots/notes-quick-open-wide.png", alt: "Quick Open matching a note from a few letters" },
+    ],
     category: "organize",
     homePoints: [
       { icon: "cassette", text: "Live Markdown in plain folders" },
@@ -215,6 +254,11 @@ export const allApps: AppEntry[] = [
   },
   {
     slug: "edit",
+    homeShots: [
+      { file: "screenshots/edit-editor-wide.png", alt: "Rivet Edit with the hello-rivet folder open, the file tree on the left, and main.rs in the editor" },
+      { file: "screenshots/edit-go-to-file-wide.png", alt: "Go to File in Rivet Edit, with a short search and matching paths" },
+      { file: "screenshots/edit-light-wide.png", alt: "Rivet Edit in the light theme, with a JavaScript file open" },
+    ],
     category: "development",
     homePoints: [
       { icon: "bolt", text: "Tree-sitter and LSP" },
@@ -243,6 +287,9 @@ export const allApps: AppEntry[] = [
   },
   {
     slug: "terminal",
+    homeShots: [
+      { file: "screenshots/rivet-terminal-wide.png", alt: "Rivet Terminal with three panes" },
+    ],
     category: "development",
     template: "terminal",
     homePoints: [
@@ -269,6 +316,9 @@ export const allApps: AppEntry[] = [
   },
   {
     slug: "color",
+    homeShots: [
+      { file: "screenshots/rivet-color-wide.png", alt: "Rivet Color with a picked color, its shades and harmonies" },
+    ],
     category: "media",
     template: "color",
     homePoints: [
@@ -296,6 +346,14 @@ export const allApps: AppEntry[] = [
   },
   {
     slug: "snip",
+    homeShots: [
+      { file: "screenshots/rivet-snip-wide.png", alt: "Rivet Snip with a screenshot marked up with an arrow, a box, numbered steps and blur" },
+    ],
+    homePoints: [
+      { icon: "squiggle", text: "Arrows, boxes, text and numbered steps" },
+      { icon: "eye", text: "Blur that can't be lifted off" },
+      { icon: "cursor", text: "Takes the screenshot itself on any desktop" },
+    ],
     category: "media",
     name: "Rivet Snip",
     line: "Clip and mark up a screenshot.",
@@ -318,6 +376,14 @@ export const allApps: AppEntry[] = [
   },
   {
     slug: "vice",
+    homeShots: [
+      { file: "screenshots/rivet-vice-wide.png", alt: "Rivet Vice inside a trip archive, with folders of photos, maps and notes and a dozen files" },
+    ],
+    homePoints: [
+      { icon: "cd", text: "Zip, tar, 7z and more" },
+      { icon: "floppy", text: "Extract all of it, or only some" },
+      { icon: "cassette", text: "Opens from Rivet Files' right-click menu" },
+    ],
     category: "files",
     name: "Rivet Vice",
     line: "An archive manager.",
@@ -340,6 +406,14 @@ export const allApps: AppEntry[] = [
   },
   {
     slug: "calendar",
+    homeShots: [
+      { file: "screenshots/rivet-calendar-wide.png", alt: "Rivet Calendar's month view, with work, family, personal and holiday calendars" },
+    ],
+    homePoints: [
+      { icon: "die", text: "Month, week, day or a list" },
+      { icon: "globe", text: "CalDAV, Google and Microsoft accounts" },
+      { icon: "tamagotchi", text: "Plain folders that khal and vdirsyncer share" },
+    ],
     category: "organize",
     name: "Rivet Calendar",
     line: "A calendar in plain .ics folders.",
@@ -363,8 +437,16 @@ export const allApps: AppEntry[] = [
   },
   {
     slug: "fetch",
-    category: "development",
+    homeShots: [
+      { file: "screenshots/rivet-fetch-wide.png", alt: "rivetfetch in Rivet Terminal: the mascot beside the computer's OS, kernel, CPU, memory and Rivet apps" },
+    ],
+    homePoints: [
+      { icon: "pager", text: "OS, CPU, GPU, memory and more" },
+      { icon: "smiley", text: "Choose what shows, and in what order" },
+      { icon: "bolt", text: "Every module at once, in about 30 ms" },
+    ],
     homeIcon: "rivet-fetch.svg",
+    category: "development",
     name: "Rivet Fetch",
     line: "rivetfetch: this computer at a glance in the terminal, beside the mascot.",
     tagPrefixes: ["rivet-fetch-v"],
