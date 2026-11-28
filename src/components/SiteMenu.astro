@@ -1,5 +1,9 @@
 ---
-import { apps, repoUrl } from "../data/apps";
+// The site's header menu, on the site and in the docs: Apps (a mega menu of every app by group,
+// with Rivet Welcome to install them), Desktop (Rivet Shell, its plugins, and Softcore), Docs and
+// Blog. Without JavaScript, Apps and Desktop are plain links to their home page sections. On a
+// phone, the menus open in place as sections of the Menu sheet.
+import { appCategories, apps, appBySlug, repoUrl } from "../data/apps";
 import { url } from "../paths";
 
 interface Props {
@@ -7,12 +11,15 @@ interface Props {
 }
 
 const { current = "" } = Astro.props;
-const menuSlugs = ["shell", "softcore", "files", "notes", "edit", "terminal", "ftp", "color"] as const;
-const listed = menuSlugs.map((slug) => {
-  const app = apps.find((entry) => entry.slug === slug);
-  if (!app) throw new Error(`Missing nav app ${slug}`);
-  return app;
-});
+const groups = appCategories
+  .map((category) => ({ ...category, apps: apps.filter((app) => app.category === category.id) }))
+  .filter((group) => group.apps.length > 0);
+const welcome = appBySlug("welcome");
+const shell = appBySlug("shell");
+const softcore = appBySlug("softcore");
+const inApps = groups.some((group) => group.apps.some((app) => app.slug === current)) || current === "welcome";
+const inDesktop = ["shell", "softcore", "plugins"].includes(current);
+const here = (slug: string) => (current === slug ? "page" : undefined);
 ---
 
 <div class="site-menu">
@@ -20,52 +27,92 @@ const listed = menuSlugs.map((slug) => {
     <img src={url("rivet-mark.svg")} width="28" height="30" alt="" />
     Rivetsoft
   </a>
-  <button
-    type="button"
-    class="menu-toggle"
-    id="menu-toggle"
-    aria-expanded="false"
-    aria-controls="site-nav"
-  >
+  <button type="button" class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="site-nav">
     Menu
   </button>
   <nav id="site-nav" class="site-nav" aria-label="Pages">
-    <div class="apps" id="apps">
-      <button
-        type="button"
-        class="apps-toggle"
-        id="apps-toggle"
-        aria-expanded="false"
-        aria-haspopup="true"
-        aria-controls="apps-menu"
-      >
-        Apps
+    <div class="menu-item" data-menu>
+      <a class="menu-top" href={url("#apps-title")} aria-current={inApps ? "true" : undefined} data-menu-link>Apps</a>
+      <button type="button" class="menu-top" aria-expanded="false" aria-controls="menu-apps" data-menu-button hidden aria-current={inApps ? "true" : undefined}>
+        Apps <svg class="menu-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 6 6.5 11 1.5" /></svg>
       </button>
-      <ul class="apps-panel" id="apps-menu">
-        {
-          listed.map((app) => (
-            <li>
-              <a href={url(`${app.slug}/`)} aria-current={current === app.slug ? "page" : undefined}>
-                {app.icon && <img src={url(app.icon)} width="32" height="32" alt="" />}
-                <span>
-                  <span class="apps-name">{app.name}</span>
-                  <span class="apps-line">{app.line}</span>
-                </span>
-              </a>
-            </li>
-          ))
-        }
-        <li>
-          <a class="apps-install" href={url("docs/getting-started/install/")}>
-            Install With Welcome App
-            <span aria-hidden="true">→</span>
-          </a>
-        </li>
-      </ul>
+      <div class="menu-panel menu-panel-apps" id="menu-apps" data-menu-panel hidden>
+        <div class="mega" style={`--cols: ${groups.length}`}>
+          {
+            groups.map((group) => (
+              <section class="mega-col" aria-labelledby={`menu-${group.id}`}>
+                <h2 class="mega-head" id={`menu-${group.id}`}>{group.label}</h2>
+                <ul>
+                  {group.apps.map((app) => {
+                    const icon = app.icon ?? app.homeIcon;
+                    return (
+                      <li>
+                        <a class="mega-app" href={url(`${app.slug}/`)} aria-current={here(app.slug)}>
+                          {icon ? <img src={url(icon)} width="32" height="32" alt="" /> : <span class="mega-blank" />}
+                          <span>
+                            <span class="mega-name">{app.name}</span>
+                            <span class="mega-line">{app.line}</span>
+                          </span>
+                        </a>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </section>
+            ))
+          }
+          <section class="mega-col mega-welcome" aria-labelledby="menu-welcome">
+            <h2 class="mega-head" id="menu-welcome">Install them all</h2>
+            {welcome.icon && <img class="mega-welcome-icon" src={url(welcome.icon)} width="48" height="48" alt="" />}
+            <p class="mega-name">{welcome.name}</p>
+            <p class="mega-line">{welcome.line}</p>
+            <a class="mega-btn" href={url("docs/getting-started/install/#get-started")}>Install With Welcome</a>
+            <a class="mega-more" href={url("welcome/")} aria-current={here("welcome")}>About Rivet Welcome</a>
+          </section>
+        </div>
+        <p class="mega-foot">
+          <a href={url("#apps-title")}>Every app on the home page</a>
+          <a href={url("docs/apps/")}>Apps in the docs</a>
+        </p>
+      </div>
     </div>
-    <a href={url("plugins/")} aria-current={current === "plugins" ? "page" : undefined}>Plugins</a>
-    <a href={url("docs/")} aria-current={current === "docs" ? "page" : undefined}>Docs</a>
-    <a href={url("blog/")} aria-current={current === "blog" ? "page" : undefined}>Blog</a>
+    <div class="menu-item" data-menu>
+      <a class="menu-top" href={url("#desktop-title")} aria-current={inDesktop ? "true" : undefined} data-menu-link>Desktop</a>
+      <button type="button" class="menu-top" aria-expanded="false" aria-controls="menu-desktop" data-menu-button hidden aria-current={inDesktop ? "true" : undefined}>
+        Desktop <svg class="menu-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 6 6.5 11 1.5" /></svg>
+      </button>
+      <div class="menu-panel menu-panel-desktop" id="menu-desktop" data-menu-panel hidden>
+        <div class="desk">
+          {
+            [
+              { app: shell, role: "The shell", extra: true },
+              { app: softcore, role: "The compositor", extra: false },
+            ].map(({ app, role, extra }) => (
+              <section class="desk-col" aria-labelledby={`menu-${app.slug}`}>
+                <p class="mega-head">{role}</p>
+                <a class="mega-app desk-app" href={url(`${app.slug}/`)} aria-current={here(app.slug)}>
+                  {app.icon && <img src={url(app.icon)} width="48" height="48" alt="" />}
+                  <span>
+                    <span class="mega-name" id={`menu-${app.slug}`}>{app.name}</span>
+                    <span class="mega-line">{app.line}</span>
+                  </span>
+                </a>
+                <ul class="desk-links">
+                  <li><a href={url(`docs/${app.slug}/`)}>{app.name} docs</a></li>
+                  {extra && (
+                    <li>
+                      <a href={url("plugins/")} aria-current={here("plugins")}>Plugins for Rivet Shell</a>
+                    </li>
+                  )}
+                </ul>
+              </section>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+    <a href={url("docs/")} aria-current={here("docs")}>Docs</a>
+    <a href={url("blog/")} aria-current={here("blog")}>Blog</a>
     <a class="repo" href={repoUrl} aria-label="GitHub repository" title="GitHub repository">
       <svg viewBox="0 0 16 16" width="20" height="20" aria-hidden="true">
         <path
@@ -98,61 +145,101 @@ const listed = menuSlugs.map((slug) => {
   (function () {
     var nav = document.getElementById("site-nav");
     var menuBtn = document.getElementById("menu-toggle");
-    var apps = document.getElementById("apps");
-    var appsBtn = document.getElementById("apps-toggle");
     var themeBtn = document.getElementById("theme");
-
-    function setOpen(el, btn, open) {
-      if (!el || !btn) return;
-      el.classList.toggle("is-open", open);
-      btn.setAttribute("aria-expanded", open ? "true" : "false");
-    }
+    var wide = window.matchMedia("(min-width: 960px) and (hover: hover)");
+    var items = Array.prototype.slice.call(document.querySelectorAll("[data-menu]"));
+    var timers = new Map();
 
     if (menuBtn && nav) {
       menuBtn.addEventListener("click", function () {
-        setOpen(nav, menuBtn, !nav.classList.contains("is-open"));
+        var open = !nav.classList.contains("is-open");
+        nav.classList.toggle("is-open", open);
+        menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
       });
-    }
-    function appsOpen() {
-      if (!apps) return false;
-      return apps.classList.contains("is-open") || apps.matches(":hover") || apps.matches(":focus-within");
     }
 
-    function syncApps() {
-      if (!apps || !appsBtn) return;
-      appsBtn.setAttribute("aria-expanded", appsOpen() ? "true" : "false");
+    function parts(item) {
+      return { button: item.querySelector("[data-menu-button]"), panel: item.querySelector("[data-menu-panel]") };
+    }
+    function setOpen(item, open) {
+      var p = parts(item);
+      p.panel.hidden = !open;
+      p.button.setAttribute("aria-expanded", open ? "true" : "false");
+      item.classList.toggle("is-open", open);
+    }
+    function closeAll(except) {
+      items.forEach(function (item) {
+        if (item !== except) setOpen(item, false);
+      });
+    }
+    function later(item, fn, ms) {
+      clearTimeout(timers.get(item));
+      timers.set(item, setTimeout(fn, ms));
+    }
+    function links(item) {
+      return Array.prototype.slice.call(parts(item).panel.querySelectorAll("a"));
     }
 
-    if (appsBtn && apps) {
-      appsBtn.addEventListener("click", function () {
-        var open = apps.classList.contains("is-open");
-        setOpen(apps, appsBtn, !open);
-        if (open) appsBtn.blur();
-        syncApps();
+    // With the script, Apps and Desktop become buttons that open their menus; without it they stay links.
+    items.forEach(function (item) {
+      var p = parts(item);
+      item.querySelector("[data-menu-link]").hidden = true;
+      p.button.hidden = false;
+      p.button.addEventListener("click", function () {
+        var open = p.panel.hidden;
+        closeAll(item);
+        setOpen(item, open);
       });
-      apps.addEventListener("mouseenter", syncApps);
-      apps.addEventListener("mouseleave", syncApps);
-      apps.addEventListener("focusin", syncApps);
-      apps.addEventListener("focusout", function () {
-        window.setTimeout(syncApps, 0);
+      p.button.addEventListener("keydown", function (event) {
+        if (event.key !== "ArrowDown") return;
+        event.preventDefault();
+        closeAll(item);
+        setOpen(item, true);
+        links(item)[0].focus();
       });
-    }
+      p.panel.addEventListener("keydown", function (event) {
+        if (event.key !== "ArrowDown" && event.key !== "ArrowUp") return;
+        var list = links(item);
+        var at = list.indexOf(document.activeElement);
+        if (at < 0) return;
+        event.preventDefault();
+        var next = event.key === "ArrowDown" ? Math.min(list.length - 1, at + 1) : at - 1;
+        if (next < 0) p.button.focus();
+        else list[next].focus();
+      });
+      item.addEventListener("focusout", function (event) {
+        if (wide.matches && !item.contains(event.relatedTarget)) setOpen(item, false);
+      });
+      // On a wide screen with a mouse, a menu opens when the pointer rests on it a moment, and
+      // closes a moment after it leaves, so crossing the gap to the panel doesn't shut it.
+      item.addEventListener("mouseenter", function () {
+        if (!wide.matches) return;
+        later(item, function () {
+          closeAll(item);
+          setOpen(item, true);
+        }, 120);
+      });
+      item.addEventListener("mouseleave", function () {
+        if (!wide.matches) return;
+        later(item, function () {
+          if (!item.contains(document.activeElement)) setOpen(item, false);
+        }, 250);
+      });
+    });
+
     document.addEventListener("click", function (event) {
-      var target = event.target;
-      if (apps && appsBtn && !apps.contains(target)) {
-        setOpen(apps, appsBtn, false);
-        if (apps.contains(document.activeElement)) document.activeElement.blur();
-        syncApps();
-      }
+      items.forEach(function (item) {
+        if (!item.contains(event.target)) setOpen(item, false);
+      });
     });
     document.addEventListener("keydown", function (event) {
       if (event.key !== "Escape") return;
-      if (apps && appsBtn) {
-        setOpen(apps, appsBtn, false);
-        if (apps.contains(document.activeElement)) document.activeElement.blur();
-        syncApps();
-      }
-      if (nav && menuBtn) setOpen(nav, menuBtn, false);
+      items.forEach(function (item) {
+        if (item.classList.contains("is-open")) {
+          setOpen(item, false);
+          if (item.contains(document.activeElement)) parts(item).button.focus();
+        }
+      });
     });
 
     if (!themeBtn) return;
@@ -183,7 +270,12 @@ const listed = menuSlugs.map((slug) => {
 </script>
 
 <style>
+  [hidden] {
+    display: none !important;
+  }
+
   .site-menu {
+    position: relative;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -211,7 +303,7 @@ const listed = menuSlugs.map((slug) => {
   }
 
   .menu-toggle,
-  .apps-toggle,
+  .menu-top,
   .theme,
   .site-nav > a {
     appearance: none;
@@ -230,8 +322,9 @@ const listed = menuSlugs.map((slug) => {
 
   .site-nav > a:hover,
   .site-nav > a:focus-visible,
-  .apps-toggle:hover,
-  .apps-toggle:focus-visible,
+  .menu-top:hover,
+  .menu-top:focus-visible,
+  .menu-item.is-open > .menu-top,
   .menu-toggle:hover,
   .theme:hover {
     color: var(--accent);
@@ -239,7 +332,8 @@ const listed = menuSlugs.map((slug) => {
     box-shadow: none;
   }
 
-  .site-nav > a[aria-current="page"] {
+  .site-nav > a[aria-current="page"],
+  .menu-top[aria-current] {
     color: var(--accent);
     text-decoration: underline;
     text-underline-offset: 0.22em;
@@ -298,11 +392,24 @@ const listed = menuSlugs.map((slug) => {
   }
 
   .site-nav > a,
-  .apps-toggle {
+  .menu-top {
     text-decoration: none;
     display: inline-flex;
     align-items: center;
+    gap: 0.35rem;
     padding: 0 0.55rem;
+  }
+
+  .menu-caret {
+    width: 0.7rem;
+    height: 0.5rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+  }
+
+  .menu-item.is-open .menu-caret {
+    transform: rotate(180deg);
   }
 
   .repo {
@@ -311,109 +418,191 @@ const listed = menuSlugs.map((slug) => {
     padding-inline: 0;
   }
 
-  .apps {
-    position: relative;
-  }
-
-  .apps-panel {
-    display: none;
-    list-style: none;
-    margin: 0;
-    padding: 0.35rem;
+  /* The panels: a sheet with an ink outline and a hard shadow, like the site's stickers. */
+  .menu-panel {
+    margin: 0.25rem 0 0.5rem;
+    padding: 0.9rem;
+    border: 2px solid #24121b;
     background: var(--bg);
     color: var(--fg);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-card);
-    box-shadow: var(--shadow);
+    box-shadow: 5px 5px 0 var(--shadow-hard);
   }
 
-  .apps:hover > .apps-panel,
-  .apps:focus-within > .apps-panel,
-  .apps.is-open > .apps-panel {
+  .menu-panel ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .menu-panel li {
+    margin: 0;
+  }
+
+  .mega,
+  .desk {
     display: grid;
-    gap: 0.15rem;
+    gap: 1.1rem;
   }
 
-  /* Rows fill the panel. Without this a row is only as wide as its words on a phone, so the
-     highlighted one stops short of the edge. */
-  .apps-panel li > a:not(.apps-install) {
-    width: 100%;
-    box-sizing: border-box;
+  .mega-col,
+  .desk-col {
+    min-width: 0;
   }
 
-  .apps-panel a {
-    display: flex;
-    align-items: center;
-    gap: 0.7rem;
-    padding: 0.45rem 0.55rem;
-    border-radius: var(--radius-card);
+  .mega-head {
+    margin: 0 0 0.4rem;
+    padding: 0 0.45rem;
+    font-family: "Space Mono", ui-monospace, monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .menu-panel a {
     color: var(--fg);
-    text-decoration: none;
-    min-height: 44px;
   }
 
-  .apps-panel a:hover:not(.apps-install),
-  .apps-panel a:focus:not(.apps-install),
-  .apps-panel a:focus-visible:not(.apps-install),
-  .apps-panel a[aria-current="page"]:not(.apps-install) {
+  .mega-app {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    padding: 0.45rem;
+    min-height: 44px;
+    box-sizing: border-box;
+    text-decoration: none;
+  }
+
+  .mega-app img,
+  .mega-blank {
+    flex: none;
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .desk-app img {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .mega-name,
+  .mega-line {
+    display: block;
+  }
+
+  .mega-name {
+    font-weight: 700;
+    color: var(--fg);
+  }
+
+  .mega-line {
+    margin-top: 0.1rem;
+    font-size: 0.86rem;
+    line-height: 1.35;
+    color: var(--muted);
+  }
+
+  .menu-panel .mega-app:hover,
+  .menu-panel .mega-app:focus-visible,
+  .menu-panel .mega-app[aria-current="page"] {
     background: #0084b8;
     color: #e9dee5;
   }
 
-  .apps-panel a:hover .apps-name,
-  .apps-panel a:hover .apps-line,
-  .apps-panel a:focus .apps-name,
-  .apps-panel a:focus .apps-line,
-  .apps-panel a:focus-visible .apps-name,
-  .apps-panel a:focus-visible .apps-line,
-  .apps-panel a[aria-current="page"] .apps-name,
-  .apps-panel a[aria-current="page"] .apps-line {
+  .menu-panel .mega-app:hover .mega-name,
+  .menu-panel .mega-app:hover .mega-line,
+  .menu-panel .mega-app:focus-visible .mega-name,
+  .menu-panel .mega-app:focus-visible .mega-line,
+  .menu-panel .mega-app[aria-current="page"] .mega-name,
+  .menu-panel .mega-app[aria-current="page"] .mega-line {
     color: #e9dee5;
   }
 
-  .apps-install {
-    width: calc(100% + 0.7rem);
-    box-sizing: border-box;
-    justify-content: space-between;
-    margin: 0.45rem -0.35rem -0.35rem;
-    padding: 0.55rem 0.85rem;
-    border-radius: 0;
+  /* Rivet Welcome's column is a yellow sticker: the one place to install everything. */
+  .mega-welcome {
+    align-self: start;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+    padding: 0.85rem;
     border: 2px solid #24121b;
     background: #fff270;
     color: #24121b;
-    font-family: "Space Mono", ui-monospace, monospace;
-    font-weight: 700;
-    box-shadow: none;
+    box-shadow: 3px 3px 0 #24121b;
   }
 
-  .apps-install:hover,
-  .apps-install:focus,
-  .apps-install:focus-visible {
-    background: #fff270;
+  .mega-welcome .mega-head,
+  .mega-welcome .mega-name,
+  .mega-welcome .mega-line {
+    padding: 0;
+    margin: 0;
     color: #24121b;
-    transform: none;
-    box-shadow: none;
   }
 
-  .apps-panel img {
-    width: 2rem;
-    height: 2rem;
-    flex: none;
+  .mega-welcome-icon {
+    width: 3rem;
+    height: 3rem;
   }
 
-  .apps-name,
-  .apps-line {
-    display: block;
+  .menu-panel .mega-btn {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    margin-top: 0.4rem;
+    padding: 0.4rem 0.8rem;
+    border: 2px solid #24121b;
+    background: #3ecf9a;
+    color: #24121b;
+    box-shadow: 3px 3px 0 #24121b;
+    font: 700 0.85rem/1.2 "Space Mono", ui-monospace, monospace;
+    text-decoration: none;
   }
 
-  .apps-name {
-    font-weight: 640;
-    color: var(--fg);
+  .menu-panel .mega-btn:hover {
+    color: #24121b;
+    background: #3ecf9a;
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 #24121b;
   }
 
-  .apps-line {
-    color: var(--muted);
+  .menu-panel .mega-more {
+    color: #24121b;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  .mega-foot {
+    max-width: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.5rem;
+    margin: 0.9rem 0 0;
+    padding: 0.75rem 0.45rem 0;
+    border-top: 2px solid var(--line);
+    font-family: "Space Mono", ui-monospace, monospace;
+    font-size: 0.85rem;
+    font-weight: 700;
+  }
+
+  .desk-links {
+    display: grid;
+    gap: 0.1rem;
+    margin-top: 0.3rem !important;
+    padding-left: 4.1rem !important;
+  }
+
+  .desk-links a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 36px;
     font-size: 0.92rem;
+    font-weight: 600;
+  }
+
+  .menu-panel .desk-links a[aria-current="page"] {
+    color: var(--accent);
   }
 
   @media (min-width: 960px) {
@@ -430,24 +619,31 @@ const listed = menuSlugs.map((slug) => {
       padding-bottom: 0;
     }
 
-    .apps:hover > .apps-panel,
-    .apps:focus-within > .apps-panel,
-    .apps.is-open > .apps-panel {
+    /* On a wide screen a panel hangs under the header, at the right, over the page. */
+    .menu-panel {
       position: absolute;
-      top: 100%;
+      top: calc(100% - 0.35rem);
       right: 0;
-      left: auto;
-      width: min(22rem, calc(100vw - 1.5rem));
       z-index: 6;
+      margin: 0;
+      padding: 1.1rem;
+      box-sizing: border-box;
     }
 
-    .apps-panel::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 100%;
-      height: 0.45rem;
+    .menu-panel-apps {
+      width: min(76rem, 100%);
+    }
+
+    .mega {
+      grid-template-columns: repeat(var(--cols), minmax(0, 1fr)) minmax(14.5rem, 1fr);
+    }
+
+    .menu-panel-desktop {
+      width: min(40rem, 100%);
+    }
+
+    .desk {
+      grid-template-columns: 1fr 1fr;
     }
   }
 </style>

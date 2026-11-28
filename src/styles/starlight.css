@@ -105,53 +105,6 @@ header.header {
   }
 }
 
-header.header .apps-panel a,
-header.header .apps-panel .apps-name {
-  color: var(--fg);
-}
-
-header.header .apps-panel .apps-line {
-  color: var(--muted);
-}
-
-header.header .apps-panel a:hover:not(.apps-install),
-header.header .apps-panel a:focus:not(.apps-install),
-header.header .apps-panel a:focus-visible:not(.apps-install),
-header.header .apps-panel a[aria-current="page"]:not(.apps-install) {
-  color: #e9dee5;
-  background: #0084b8;
-}
-
-header.header .apps-panel a.apps-install,
-header.header .apps-panel a.apps-install:hover,
-header.header .apps-panel a.apps-install:focus,
-header.header .apps-panel a.apps-install:focus-visible {
-  width: calc(100% + 0.7rem);
-  box-sizing: border-box;
-  justify-content: space-between;
-  margin: 0.45rem -0.35rem -0.35rem;
-  padding: 0.55rem 0.85rem;
-  border-radius: 0;
-  border: 2px solid #24121b;
-  background: #fff270;
-  color: #24121b;
-  font-family: "Space Mono", ui-monospace, monospace;
-  font-weight: 700;
-  box-shadow: none;
-  transform: none;
-}
-
-header.header .apps-panel a:hover .apps-name,
-header.header .apps-panel a:hover .apps-line,
-header.header .apps-panel a:focus .apps-name,
-header.header .apps-panel a:focus .apps-line,
-header.header .apps-panel a:focus-visible .apps-name,
-header.header .apps-panel a:focus-visible .apps-line,
-header.header .apps-panel a[aria-current="page"] .apps-name,
-header.header .apps-panel a[aria-current="page"] .apps-line {
-  color: #e9dee5;
-}
-
 header.header button[data-open-modal] {
   background: #3a2430;
   color: #e9dee5;
