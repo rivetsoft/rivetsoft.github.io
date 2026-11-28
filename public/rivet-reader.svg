@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- Rivet Reader: two pages fanned, the front one with a folded corner and a line found -->
+  <defs>
+    <!-- a halftone screen, like old print, laid over the page at the back -->
+    <pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <circle cx="3" cy="3" r="1.3" fill="#24121b" fill-opacity="0.35"/>
+    </pattern>
+  </defs>
+  <!-- the hard shadow, offset down and right like the website's cards -->
+  <g transform="translate(5 5)" fill="#24121b" stroke="#24121b" stroke-width="4" stroke-linejoin="round">
+    <rect x="16" y="22" width="62" height="84" rx="5" transform="rotate(-9 47 64)"/>
+    <path d="M42 18h40l20 20v68a4 4 0 0 1-4 4H42a4 4 0 0 1-4-4V22a4 4 0 0 1 4-4z"/>
+  </g>
+  <g stroke="#24121b" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
+    <g transform="rotate(-9 47 64)">
+      <rect x="16" y="22" width="62" height="84" rx="5" fill="#d53f8c"/>
+      <rect x="16" y="22" width="62" height="84" rx="5" fill="url(#dots)"/>
+    </g>
+    <path d="M42 18h40l20 20v68a4 4 0 0 1-4 4H42a4 4 0 0 1-4-4V22a4 4 0 0 1 4-4z" fill="#fbf4f7"/>
+    <path d="M82 18v16a4 4 0 0 0 4 4h16z" fill="#0084b8"/>
+    <rect x="46" y="64" width="48" height="12" rx="2" fill="#fff270" stroke="none"/>
+    <path d="M50 34h22M50 48h40M50 70h36M50 84h40M50 98h26" stroke="#0084b8" stroke-width="5"/>
+  </g>
+</svg>

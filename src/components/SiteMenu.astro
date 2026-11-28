@@ -1,7 +1,8 @@
 ---
 // The site's header menu, on the site and in the docs: Apps (a mega menu of every app by group,
 // with Rivet Welcome to install them), Desktop (Rivet Shell, its plugins, and Softcore), Docs and
-// Blog. Without JavaScript, Apps and Desktop are plain links to their home page sections. On a
+// Blog. Coming soon apps are listed with a badge and no link, since they have no page yet.
+// Without JavaScript, Apps and Desktop are plain links to their home page sections. On a
 // phone, the menus open in place as sections of the Menu sheet.
 import { appCategories, apps, appBySlug, repoUrl } from "../data/apps";
 import { url } from "../paths";
@@ -17,6 +18,8 @@ const groups = appCategories
 const welcome = appBySlug("welcome");
 const shell = appBySlug("shell");
 const softcore = appBySlug("softcore");
+const desktopSoon = apps.filter((app) => app.spotlight === "desktop" && app.comingSoon);
+const welcomeSoon = apps.filter((app) => app.spotlight === "welcome" && app.comingSoon);
 const inApps = groups.some((group) => group.apps.some((app) => app.slug === current)) || current === "welcome";
 const inDesktop = ["shell", "softcore", "plugins"].includes(current);
 const here = (slug: string) => (current === slug ? "page" : undefined);
@@ -45,15 +48,25 @@ const here = (slug: string) => (current === slug ? "page" : undefined);
                 <ul>
                   {group.apps.map((app) => {
                     const icon = app.icon ?? app.homeIcon;
+                    const inner = (
+                      <>
+                        {icon ? <img src={url(icon)} width="32" height="32" alt="" /> : <span class="mega-blank" />}
+                        <span>
+                          <span class="mega-name">{app.name}</span>
+                          {app.comingSoon && <span class="badge badge-soon mega-soon">Coming soon</span>}
+                          <span class="mega-line">{app.line}</span>
+                        </span>
+                      </>
+                    );
                     return (
                       <li>
-                        <a class="mega-app" href={url(`${app.slug}/`)} aria-current={here(app.slug)}>
-                          {icon ? <img src={url(icon)} width="32" height="32" alt="" /> : <span class="mega-blank" />}
-                          <span>
-                            <span class="mega-name">{app.name}</span>
-                            <span class="mega-line">{app.line}</span>
-                          </span>
-                        </a>
+                        {app.comingSoon ? (
+                          <div class="mega-app is-soon">{inner}</div>
+                        ) : (
+                          <a class="mega-app" href={url(`${app.slug}/`)} aria-current={here(app.slug)}>
+                            {inner}
+                          </a>
+                        )}
                       </li>
                     );
                   })}
@@ -68,6 +81,16 @@ const here = (slug: string) => (current === slug ? "page" : undefined);
             <p class="mega-line">{welcome.line}</p>
             <a class="mega-btn" href={url("docs/getting-started/install/#get-started")}>Install</a>
             <a class="mega-more" href={url("welcome/")} aria-current={here("welcome")}>About Rivet Welcome</a>
+            {welcomeSoon.map((app) => (
+              <div class="mega-app is-soon mega-beside">
+                {app.icon && <img src={url(app.icon)} width="32" height="32" alt="" />}
+                <span>
+                  <span class="mega-name">{app.name}</span>
+                  <span class="badge badge-soon mega-soon">Coming soon</span>
+                  <span class="mega-line">{app.line}</span>
+                </span>
+              </div>
+            ))}
           </section>
         </div>
         <p class="mega-foot">
@@ -108,6 +131,19 @@ const here = (slug: string) => (current === slug ? "page" : undefined);
               </section>
             ))
           }
+          {desktopSoon.map((app) => (
+            <section class="desk-col" aria-labelledby={`menu-${app.slug}`}>
+              <p class="mega-head">The login screen</p>
+              <div class="mega-app desk-app is-soon">
+                {app.icon && <img src={url(app.icon)} width="48" height="48" alt="" />}
+                <span>
+                  <span class="mega-name" id={`menu-${app.slug}`}>{app.name}</span>
+                  <span class="badge badge-soon mega-soon">Coming soon</span>
+                  <span class="mega-line">{app.line}</span>
+                </span>
+              </div>
+            </section>
+          ))}
         </div>
       </div>
     </div>
@@ -517,6 +553,28 @@ const here = (slug: string) => (current === slug ? "page" : undefined);
   .menu-panel .mega-app[aria-current="page"] .mega-name,
   .menu-panel .mega-app[aria-current="page"] .mega-line {
     color: #e9dee5;
+  }
+
+  /* A coming soon app: no page to go to yet, so no hover, and a small sticker of a badge. The
+     docs load this menu without the site's badge styles, so it carries its own. */
+  .mega-soon {
+    display: inline-block;
+    margin: 0.2rem 0 0.1rem;
+    padding: 0.15rem 0.4rem;
+    border: 1px solid #24121b;
+    background: #8fd5ee;
+    box-shadow: 2px 2px 0 var(--shadow-hard, #24121b);
+    color: #24121b;
+    font-size: 0.72rem;
+    font-weight: 620;
+    line-height: 1.1;
+  }
+
+  .mega-beside {
+    align-self: stretch;
+    margin-top: 0.5rem;
+    padding: 0.6rem 0 0;
+    border-top: 2px dashed #24121b;
   }
 
   /* Rivet Welcome's column is a yellow sticker: the one place to install everything. */

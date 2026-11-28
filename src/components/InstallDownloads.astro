@@ -2,7 +2,7 @@
 // The install guide's per-app downloads, from the release data. An app with no release, or a
 // release without this kind of file, gets a sentence instead of a link.
 import { Code, TabItem, Tabs } from "@astrojs/starlight/components";
-import { allReleasesUrl, apps, ownRepoApps, programFor, releaseApps } from "../data/apps";
+import { allReleasesUrl, ownRepoApps, pageApps, programFor, releaseApps } from "../data/apps";
 import { assetByKind, archiveFolder } from "../data/release-model";
 import { releaseFor } from "../data/releases";
 import { url } from "../paths";
@@ -26,7 +26,7 @@ const rows = chosen.map((app) => {
       : asset
         ? `chmod +x ${asset.name}\n./${asset.name}`
         : "";
-  const page = apps.some((entry) => entry.slug === app.slug) ? url(`${app.slug}/`) : undefined;
+  const page = pageApps.some((entry) => entry.slug === app.slug) ? url(`${app.slug}/`) : undefined;
   const tab = app.name.replace(/^Rivet /, "");
   return { app, release, asset, commands, page, tab, program: programFor(app) };
 });

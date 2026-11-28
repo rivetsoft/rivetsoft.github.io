@@ -1,4 +1,4 @@
-export type AppStatus = "released" | "alpha" | "unreleased" | "someday";
+export type AppStatus = "released" | "alpha" | "unreleased" | "someday" | "soon";
 
 /**
  * The home page's Apps section, one group per kind of app, in this order. The filter there has a
@@ -68,6 +68,12 @@ export interface AppEntry {
    * install guide line. Only allApps has it.
    */
   held?: boolean;
+  /**
+   * Shown with a Coming soon badge in its group, the menus and the docs' Apps overview, but with
+   * no page, download, install line or version until its first release. Delete this line to
+   * release it.
+   */
+  comingSoon?: boolean;
   /** schema.org applicationCategory. */
   applicationCategory: string;
 }
@@ -468,9 +474,18 @@ export const allApps: AppEntry[] = [
   {
     slug: "longshot",
     category: "media",
-    held: true,
+    comingSoon: true,
     name: "Rivet Long Shot",
-    line: "A picture viewer.",
+    line: "A picture viewer that steps through the folder in Rivet Files' order.",
+    icon: "rivet-longshot.svg",
+    homePoints: [
+      { icon: "eye", text: "Zoom with the wheel, a pinch or a double-click" },
+      { icon: "cd", text: "Turn a JPEG and keep every pixel" },
+      { icon: "cassette", text: "Slideshows, camera details and animations" },
+    ],
+    homeShots: [
+      { file: "screenshots/rivet-longshot-wide.png", alt: "Rivet Long Shot with a photo of a lake and its camera details" },
+    ],
     tagPrefixes: ["rivet-longshot-v"],
     nav: false,
     applicationCategory: "MultimediaApplication",
@@ -481,9 +496,20 @@ export const allApps: AppEntry[] = [
   {
     slug: "reader",
     category: "files",
-    held: true,
+    comingSoon: true,
     name: "Rivet Reader",
     line: "A reader for PDFs, comic books and pictures.",
+    icon: "rivet-reader.svg",
+    homePoints: [
+      { icon: "floppy", text: "One long scroll or a page at a time" },
+      { icon: "eye", text: "Thumbnails, the outline and search" },
+      { icon: "yinyang", text: "Dark pages in the desktop's colors" },
+    ],
+    homeShots: [
+      { file: "screenshots/rivet-reader-wide.png", alt: "Rivet Reader reading a field guide, with the page thumbnails beside it" },
+      { file: "screenshots/rivet-reader-comic-wide.png", alt: "Rivet Reader showing a comic a page at a time, with its pages down the side" },
+      { file: "screenshots/rivet-reader-dark-wide.png", alt: "Rivet Reader with dark pages: a field guide's page on colors and wallpaper" },
+    ],
     tagPrefixes: ["rivet-reader-v"],
     nav: false,
     applicationCategory: "UtilitiesApplication",
@@ -494,9 +520,20 @@ export const allApps: AppEntry[] = [
   {
     slug: "cinema",
     category: "media",
-    held: true,
+    comingSoon: true,
     name: "Rivet Cinema",
     line: "A video and music player.",
+    icon: "rivet-cinema.svg",
+    homePoints: [
+      { icon: "cd", text: "Files, folders and playlists in one queue" },
+      { icon: "eye", text: "A frame from anywhere on the seek bar" },
+      { icon: "hourglass", text: "Each file starts where you left it" },
+    ],
+    homeShots: [
+      { file: "screenshots/rivet-cinema-wide.png", alt: "Rivet Cinema showing a video with its controls and the seek bar" },
+      { file: "screenshots/rivet-cinema-queue-wide.png", alt: "Rivet Cinema with its queue open beside the video" },
+      { file: "screenshots/rivet-cinema-music-wide.png", alt: "Rivet Cinema playing music, with the cover beside the queue" },
+    ],
     tagPrefixes: ["rivet-cinema-v"],
     nav: false,
     applicationCategory: "MultimediaApplication",
@@ -504,16 +541,66 @@ export const allApps: AppEntry[] = [
     summary:
       "A video and music player: a queue of files, folders and playlists, previews as you seek, tracks and subtitles, and it picks up where you left off.",
   },
+  {
+    slug: "greeter",
+    spotlight: "desktop",
+    comingSoon: true,
+    name: "Rivet Greeter",
+    line: "The login screen: Rivet Shell's lock screen, for greetd.",
+    tagPrefixes: ["rivet-greeter-v"],
+    nav: false,
+    applicationCategory: "DesktopApplication",
+    icon: "rivet-greeter.svg",
+    readme: "apps/rivet-greeter/README.md",
+    homePoints: [
+      { icon: "lavalamp", text: "Your wallpaper and colors before you sign in" },
+      { icon: "smiley", text: "Opens on whoever changed their wallpaper last" },
+      { icon: "globe", text: "Runs in cage, Sway or Softcore" },
+    ],
+    homeShots: [
+      { file: "screenshots/rivet-greeter-wide.png", alt: "Rivet Greeter: the time, who's signing in and the password field over a wallpaper" },
+      { file: "screenshots/rivet-greeter-error-wide.png", alt: "Rivet Greeter after a wrong password, saying Caps Lock is on" },
+    ],
+    summary:
+      "A login screen for greetd that looks like Rivet Shell's lock screen, over the wallpaper and in the colors each person chose last.",
+  },
+  {
+    slug: "rivetctl",
+    spotlight: "welcome",
+    comingSoon: true,
+    name: "rivetctl",
+    line: "Installs and updates the apps from the terminal.",
+    tagPrefixes: ["rivetctl-v"],
+    program: "rivetctl",
+    nav: false,
+    applicationCategory: "UtilitiesApplication",
+    icon: "rivetctl.svg",
+    readme: "apps/rivetctl/README.md",
+    homePoints: [
+      { icon: "pager", text: "A full-screen list of every app, or one command at a time" },
+      { icon: "bolt", text: "The same installs as Rivet Welcome, so they never disagree" },
+      { icon: "tamagotchi", text: "Build an app from any branch, tag or commit" },
+    ],
+    homeShots: [
+      { file: "screenshots/rivetctl-wide.png", alt: "rivetctl's list of the Rivet apps in Rivet Terminal" },
+      { file: "screenshots/rivetctl-progress-wide.png", alt: "rivetctl updating Rivet Notes, with the download's progress" },
+    ],
+    summary:
+      "Installs, updates and removes the Rivet apps from the terminal, on the same engine as Rivet Welcome.",
+  },
 ];
 
-/** The apps the site shows: every app but the held ones. */
+/** The apps the site shows: every app but the held ones. Coming soon ones are listed too. */
 export const apps: AppEntry[] = allApps.filter((app) => !app.held);
 
+/** The apps with a page of their own: every listed app but the coming soon ones. */
+export const pageApps = apps.filter((app) => !app.comingSoon);
+
 /** Every app released from rivetsoft/apps, in the order the install guide lists them. */
-export const releaseApps = apps.filter((app) => app.tagPrefixes.length > 0 && !app.repo);
+export const releaseApps = pageApps.filter((app) => app.tagPrefixes.length > 0 && !app.repo);
 
 /** Apps released from a repository of their own (Softcore), each read from its own releases. */
-export const ownRepoApps = apps.filter((app) => app.tagPrefixes.length > 0 && app.repo);
+export const ownRepoApps = pageApps.filter((app) => app.tagPrefixes.length > 0 && app.repo);
 
 /** "owner/name" of a github.com repository URL. */
 export function repoPath(url: string): string {
@@ -524,13 +611,14 @@ export function programFor(app: { slug: string; program?: string }): string {
   return app.program ?? `rivet-${app.slug}`;
 }
 
-export const navApps = apps.filter((app) => app.nav);
+export const navApps = pageApps.filter((app) => app.nav);
 
 export const statusLabel: Record<AppStatus, string> = {
   released: "Released",
   alpha: "Alpha",
   unreleased: "No release yet",
   someday: "Maybe later",
+  soon: "Coming soon",
 };
 
 export function appBySlug(slug: string): AppEntry {
@@ -539,8 +627,9 @@ export function appBySlug(slug: string): AppEntry {
   return app;
 }
 
-/** A published release wins. A pre-release is alpha. An idea with no release stays "someday". */
+/** Coming soon wins. Then a published release; a pre-release is alpha. An idea with no release stays "someday". */
 export function statusFor(app: AppEntry, release: { prerelease: boolean } | undefined): AppStatus {
+  if (app.comingSoon) return "soon";
   if (release) return release.prerelease ? "alpha" : "released";
   if (app.laterPhrase) return "someday";
   return "unreleased";
@@ -552,6 +641,7 @@ const statusRank: Record<AppStatus, number> = {
   alpha: 1,
   unreleased: 2,
   someday: 3,
+  soon: 4,
 };
 
 export function byReleaseStatus<T extends { status: AppStatus }>(items: readonly T[]): T[] {
