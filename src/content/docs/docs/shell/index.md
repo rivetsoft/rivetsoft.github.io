@@ -35,6 +35,10 @@ If a tool is missing, that control simply does not show. The list includes `wpct
 
 A plugin adds an item to a panel and entries to the launcher. Notes, FTP, Edit and Disk Space come with the shell, and other people can share theirs. [Plugins and hooks](/docs/shell/plugins/) covers installing one, writing one, and running your own commands on the shell's events.
 
+## Login screen
+
+The lock screen can be your login screen too: [Rivet Greeter](/docs/greeter/) shows it for greetd, over the wallpaper you chose last. Rivet Shell leaves your wallpaper and look for it whenever they change.
+
 The shell paints with `rivet_kit::soft` into shared memory. There is no GPU path. It redraws when something on screen changed.
 
 There is no GitHub release yet. Build it from the [Shell README](https://github.com/rivetsoft/apps/blob/main/apps/rivet-shell/README.md). Startup snippets for niri, Hyprland, and Sway are there too.
