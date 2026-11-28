@@ -1993,20 +1993,57 @@ body:has(.band) .site-footer-inner {
   margin-top: clamp(3rem, 7vw, 5.5rem);
 }
 
+/* Each group's heading is a sticker, like the badges and buttons: a flat color, an ink outline and
+   a hard shadow, set a little crooked, with the group's throwback picture. The colors take turns. */
 .app-group-title {
   display: flex;
   flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.3rem 0.9rem;
+  align-items: center;
+  gap: 0.6rem 1.1rem;
   margin: 0;
-  padding-bottom: 0.6rem;
-  border-bottom: 2px solid var(--fg);
-  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-size: clamp(1.45rem, 3vw, 2.1rem);
+  line-height: 1.15;
+}
+
+.app-group-label {
+  --sticker: #fff270;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.4rem 1.1rem 0.45rem 0.7rem;
+  border: 2px solid #24121b;
+  background: var(--sticker);
+  color: #24121b;
+  box-shadow: 5px 5px 0 var(--shadow-hard);
+  transform: rotate(-1.5deg);
+}
+
+.app-group:nth-of-type(4n + 2) .app-group-label {
+  --sticker: #3ecf9a;
+  transform: rotate(1deg);
+}
+
+.app-group:nth-of-type(4n + 3) .app-group-label {
+  --sticker: #e07aab;
+  transform: rotate(-1deg);
+}
+
+.app-group:nth-of-type(4n + 4) .app-group-label {
+  --sticker: #c5e6f4;
+  transform: rotate(1.5deg);
+}
+
+.app-group-label .throwback {
+  flex: none;
+  width: 2.1rem;
+  height: 2.1rem;
 }
 
 .app-group-count {
+  padding: 0.15rem 0.5rem;
+  border: 1px solid currentColor;
   font-family: "Space Mono", ui-monospace, monospace;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 700;
   color: var(--muted);
 }

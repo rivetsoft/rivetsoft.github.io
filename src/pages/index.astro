@@ -283,7 +283,8 @@ import islandArt from "../assets/mascot/island.svg?raw";
       appGroups.map((group) => (
         <section class="app-group" id={`apps-${group.id}`} data-category={group.id} aria-labelledby={`apps-${group.id}-title`}>
           <h3 class="app-group-title" id={`apps-${group.id}-title`}>
-            {group.label} <span class="app-group-count">{group.rows.length === 1 ? "1 app" : `${group.rows.length} apps`}</span>
+            <span class="app-group-label"><Throwback name={group.icon} />{group.label}</span>
+            <span class="app-group-count">{group.rows.length === 1 ? "1 app" : `${group.rows.length} apps`}</span>
           </h3>
           <ul class="app-cards">
             {group.rows.map(({ app, release }) => (

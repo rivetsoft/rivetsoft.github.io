@@ -1,11 +1,14 @@
 export type AppStatus = "released" | "alpha" | "unreleased" | "someday";
 
-/** The home page's Apps section, one group per kind of app, in this order. The filter there has a chip for each. */
+/**
+ * The home page's Apps section, one group per kind of app, in this order. The filter there has a
+ * chip for each, and the group's heading wears its throwback picture.
+ */
 export const appCategories = [
-  { id: "files", label: "Files and documents" },
-  { id: "development", label: "Development" },
-  { id: "media", label: "Graphics and media" },
-  { id: "organize", label: "Organize" },
+  { id: "files", label: "Files and documents", icon: "floppy" },
+  { id: "development", label: "Development", icon: "pager" },
+  { id: "media", label: "Graphics and media", icon: "lavalamp" },
+  { id: "organize", label: "Organize", icon: "checkbox" },
 ] as const;
 
 export type AppCategory = (typeof appCategories)[number]["id"];
