@@ -1,3 +1,5 @@
+/* Hard offset shadows are black in both themes: on the dark plum, black still reads as a shadow,
+   where white read as a glow. */
 :root {
   --radius-card: 3px;
   --radius-shot: 6px;
@@ -9,11 +11,11 @@
 }
 
 :root[data-theme="dark"] {
-  --shadow-hard: #fff;
+  --shadow-hard: #000;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --shadow-hard: #fff;
+    --shadow-hard: #000;
   }
 }
