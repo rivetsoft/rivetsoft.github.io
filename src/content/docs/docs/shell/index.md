@@ -18,13 +18,14 @@ rivet-shell
 rivet-shell settings
 rivet-shell msg launcher
 rivet-shell msg control-center
+rivet-shell msg clipboard
 rivet-shell msg volume up
 rivet-shell msg wallpaper next
 rivet-shell msg quit
 rivet-shell --install-desktop-entry
 ```
 
-`volume` also takes `down` and `mute`. `wallpaper` also takes `random`, `previous`, and a path.
+`volume` also takes `down` and `mute`. `wallpaper` also takes `random`, `previous`, and a path. `clipboard` opens the [clipboard history](/docs/shell/clipboard/).
 
 Settings live in `~/.config/rivet-shell/settings`. Open the window with `rivet-shell settings`.
 
