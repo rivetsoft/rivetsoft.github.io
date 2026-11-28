@@ -8,7 +8,7 @@ Versions and downloads are read from the [GitHub Releases](https://github.com/ri
 
 `npm run releases:snapshot` replaces `releases.fallback.json` with the published releases on GitHub (it uses `GITHUB_TOKEN`, `GH_TOKEN` or `gh auth token` when there is one). `RIVET_RELEASES_API` points the build and the script at another address, for example an unreachable one to try the saved copy.
 
-Rivet Files, Rivet FTP, Rivet Notes, Rivet Edit, Rivet Terminal, Rivet Color, Rivet Shell, Rivet Welcome, Rivet Snip, Rivet Vice, Rivet Calendar, and Rivet Fetch are on the site. The home page leads with the shell, then Welcome as the installer. Facts come from the public repository. Screenshots are copied from `docs/screenshots`. The Notes, FTP, Edit, and Terminal pictures are recompressed RGB copies of those files.
+Rivet Files, Rivet FTP, Rivet Notes, Rivet Edit, Rivet Terminal, Rivet Color, Rivet Shell, Rivet Welcome, Rivet Snip, Rivet Vice, Rivet Calendar, and Rivet Fetch are on the site. The home page leads with the desktop (Rivet Shell and Softcore), then the apps in groups with a filter, then Welcome as the installer. Facts come from the public repository. Screenshots are copied from `docs/screenshots`. The Notes, FTP, Edit, and Terminal pictures are recompressed RGB copies of those files.
 
 The Plugins page lists Rivet Shell's plugins. The official ones are the folders of `apps/rivet-shell/data/plugins` in `rivetsoft/apps`, read when the site is built; `src/data/plugins.ts` keeps a saved copy for when GitHub is unreachable. The shared ones are read from [`plugins/registry.json`](https://github.com/rivetsoft/apps/blob/main/plugins/registry.json) in `rivetsoft/apps` when the site is built, so a listing merged there shows on the next build. Each shared plugin's version comes from its author's release file, read at the same time. If the list is unreachable, the build uses `src/data/plugins.fallback.json`.
 
@@ -41,6 +41,8 @@ The build writes `dist/`. `npm run preview` serves that folder, also on port 431
 
 App entries live in `src/data/apps.ts`. A new app needs a `tagPrefixes` entry, for example `rivet-notes-v` for tags `rivet-notes-v0.1.0`. Rivet Files also accepts bare tags such as `v0.6.0`. The badge follows the newest matching release: a final release is Released, a pre-release is Alpha, and no release is "No release yet". Set `laterPhrase` for an idea that should stay "Maybe later" until a tag exists.
 
+- Set `category` to one of `appCategories` to place it in a group of the home page's Apps section; its filter gets a chip for each group with an app in it.
+- Set `held: true` to keep an app off the site (no page, card, menu entry or install guide line) until its first release with real screenshots.
 - Set `nav` and an optional `navLabel` to show it in the header.
 - A short page needs no template: `/your-slug/` shows the name, summary, and release.
 - A long page is a component under `src/bodies/`, registered in `src/pages/[slug].astro`, with `template` set to that key.

@@ -1,5 +1,15 @@
 export type AppStatus = "released" | "alpha" | "unreleased" | "someday";
 
+/** The home page's Apps section, one group per kind of app, in this order. The filter there has a chip for each. */
+export const appCategories = [
+  { id: "files", label: "Files and documents" },
+  { id: "development", label: "Development" },
+  { id: "media", label: "Graphics and media" },
+  { id: "organize", label: "Organize" },
+] as const;
+
+export type AppCategory = (typeof appCategories)[number]["id"];
+
 export interface AppEntry {
   /** Route slug. The page is /{slug}/ */
   slug: string;
@@ -39,8 +49,15 @@ export interface AppEntry {
   points?: readonly string[];
   /** Shell lines shown on the short page. */
   source?: string;
-  /** Home page placement. Other apps stay in the grid. */
-  spotlight?: "shell" | "welcome";
+  /** Home page placement: the Desktop section (shell and compositor) or the Welcome band. Other apps go in the Apps section. */
+  spotlight?: "desktop" | "welcome";
+  /** The Apps section group. Every app without a spotlight needs one. */
+  category?: AppCategory;
+  /**
+   * Kept off the site until its first release with real screenshots: no page, card, menu entry or
+   * install guide line. Only allApps has it.
+   */
+  held?: boolean;
   /** schema.org applicationCategory. */
   applicationCategory: string;
 }
@@ -50,7 +67,8 @@ export const allReleasesUrl = `${repoUrl}/releases`;
 /** Softcore's repository, where its releases are too. */
 export const softcoreRepoUrl = "https://github.com/rivetsoft/softcore";
 
-export const apps: AppEntry[] = [
+/** Every app, held ones included. The site reads apps. */
+export const allApps: AppEntry[] = [
   {
     slug: "shell",
     name: "Rivet Shell",
@@ -58,7 +76,7 @@ export const apps: AppEntry[] = [
     tagPrefixes: ["rivet-shell-v"],
     nav: true,
     navLabel: "Shell",
-    spotlight: "shell",
+    spotlight: "desktop",
     template: "shell",
     applicationCategory: "DesktopApplication",
     cardShot: "shell-wide.jpg",
@@ -66,6 +84,11 @@ export const apps: AppEntry[] = [
     cardCaption: "Rivet Shell: the panel, widgets and dock over the wallpaper.",
     icon: "rivet-shell.svg",
     readme: "apps/rivet-shell/README.md",
+    homePoints: [
+      { icon: "lavalamp", text: "Colors the desktop from your wallpaper" },
+      { icon: "globe", text: "Runs on niri, Hyprland and Sway too" },
+      { icon: "cassette", text: "Plugins put apps on the panel and in the launcher" },
+    ],
     summary:
       "A Wayland desktop shell: panel, dock, launcher, quick settings, notifications, widgets and wallpaper. It colors the desktop from the wallpaper with matugen. Needs a layer-shell compositor (niri, Hyprland, Sway and others, not GNOME).",
     points: [
@@ -88,6 +111,7 @@ export const apps: AppEntry[] = [
     tagPrefixes: ["softcore-v"],
     program: "softcore",
     nav: true,
+    spotlight: "desktop",
     applicationCategory: "DesktopApplication",
     cardShot: "softcore-wide.jpg",
     cardAlt: "Softcore with three columns of windows on a strip that runs off both sides of the screen, under Rivet Shell's panel",
@@ -131,6 +155,7 @@ export const apps: AppEntry[] = [
   },
   {
     slug: "files",
+    category: "files",
     homePoints: [
       { icon: "floppy", text: "Icons, list, compact and Miller columns" },
       { icon: "eye", text: "Peek: previews for images, video and code" },
@@ -152,6 +177,7 @@ export const apps: AppEntry[] = [
   },
   {
     slug: "ftp",
+    category: "development",
     homePoints: [
       { icon: "cd", text: "A classic two-pane experience" },
       { icon: "eightball", text: "Bring your GUI connections into the terminal" },
@@ -171,6 +197,7 @@ export const apps: AppEntry[] = [
   },
   {
     slug: "notes",
+    category: "organize",
     homePoints: [
       { icon: "cassette", text: "Live Markdown in plain folders" },
       { icon: "yinyang", text: "Bi-directional links between notes" },
@@ -192,6 +219,7 @@ export const apps: AppEntry[] = [
   },
   {
     slug: "edit",
+    category: "development",
     homePoints: [
       { icon: "bolt", text: "Tree-sitter and LSP" },
       { icon: "lavalamp", text: "Built-in color schemes" },
@@ -219,6 +247,7 @@ export const apps: AppEntry[] = [
   },
   {
     slug: "terminal",
+    category: "development",
     template: "terminal",
     homePoints: [
       { icon: "hourglass", text: "Alacritty, wrapped cutely in rivets" },
@@ -244,6 +273,7 @@ export const apps: AppEntry[] = [
   },
   {
     slug: "color",
+    category: "media",
     template: "color",
     homePoints: [
       { icon: "eye", text: "A loupe over the held-still screen" },
@@ -270,6 +300,7 @@ export const apps: AppEntry[] = [
   },
   {
     slug: "snip",
+    category: "media",
     name: "Rivet Snip",
     line: "Clip and mark up a screenshot.",
     tagPrefixes: ["rivet-snip-v"],
@@ -291,6 +322,7 @@ export const apps: AppEntry[] = [
   },
   {
     slug: "vice",
+    category: "files",
     name: "Rivet Vice",
     line: "An archive manager.",
     tagPrefixes: ["rivet-vice-v"],
@@ -312,6 +344,7 @@ export const apps: AppEntry[] = [
   },
   {
     slug: "calendar",
+    category: "organize",
     name: "Rivet Calendar",
     line: "A calendar in plain .ics folders.",
     tagPrefixes: ["rivet-calendar-v"],
@@ -334,6 +367,7 @@ export const apps: AppEntry[] = [
   },
   {
     slug: "fetch",
+    category: "development",
     name: "Rivet Fetch",
     line: "rivetfetch: this computer at a glance in the terminal, beside the mascot.",
     tagPrefixes: ["rivet-fetch-v"],
@@ -352,8 +386,49 @@ export const apps: AppEntry[] = [
       "Every module runs at once, in about 30 ms.",
     ],
   },
+  {
+    slug: "longshot",
+    category: "media",
+    held: true,
+    name: "Rivet Long Shot",
+    line: "A picture viewer.",
+    tagPrefixes: ["rivet-longshot-v"],
+    nav: false,
+    applicationCategory: "MultimediaApplication",
+    readme: "apps/rivet-longshot/README.md",
+    summary:
+      "A picture viewer: open a picture and step through its folder in Rivet Files' order, with zoom, turning, slideshows, camera details and animations.",
+  },
+  {
+    slug: "reader",
+    category: "files",
+    held: true,
+    name: "Rivet Reader",
+    line: "A reader for PDFs, comic books and pictures.",
+    tagPrefixes: ["rivet-reader-v"],
+    nav: false,
+    applicationCategory: "UtilitiesApplication",
+    readme: "apps/rivet-reader/README.md",
+    summary:
+      "A document reader for PDFs, comic books and pictures, continuous or a page at a time, with thumbnails, the outline, search, links, dark pages and the last page you read in each file.",
+  },
+  {
+    slug: "cinema",
+    category: "media",
+    held: true,
+    name: "Rivet Cinema",
+    line: "A video and music player.",
+    tagPrefixes: ["rivet-cinema-v"],
+    nav: false,
+    applicationCategory: "MultimediaApplication",
+    readme: "apps/rivet-cinema/README.md",
+    summary:
+      "A video and music player: a queue of files, folders and playlists, previews as you seek, tracks and subtitles, and it picks up where you left off.",
+  },
 ];
 
+/** The apps the site shows: every app but the held ones. */
+export const apps: AppEntry[] = allApps.filter((app) => !app.held);
 
 /** Every app released from rivetsoft/apps, in the order the install guide lists them. */
 export const releaseApps = apps.filter((app) => app.tagPrefixes.length > 0 && !app.repo);

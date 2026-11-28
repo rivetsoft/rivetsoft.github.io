@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "astro dev --host 0.0.0.0 --port 43123",
     "build": "astro build",
-    "test": "node --experimental-strip-types --test test/release-model.test.ts test/plugin-model.test.ts",
+    "test": "node --experimental-strip-types --test test/release-model.test.ts test/plugin-model.test.ts test/app-model.test.ts",
     "preview": "astro preview --host 0.0.0.0 --port 43123",
     "releases:snapshot": "node scripts/releases-snapshot.mjs"
   },

@@ -1624,6 +1624,271 @@ body:has(.band) .site-footer-inner {
   }
 }
 
+/* The desktop: Rivet Shell and Softcore as a pair of stickers. The band is the flat colour the
+   wave above ends in, and the Apps band's texture fades in below it, so the two read as one sheet. */
+.band-desktop {
+  background: color-mix(in srgb, var(--accent) 7%, var(--bg));
+  padding-top: 3.5rem;
+  padding-bottom: 1rem;
+}
+
+.desktop-head {
+  max-width: 46rem;
+}
+
+.desktop-head h2 {
+  font-size: clamp(2.15rem, 4.4vw, 3.2rem);
+  margin: 0 0 0.85rem;
+}
+
+.desktop-head p {
+  margin: 0;
+}
+
+.desktop-pair {
+  list-style: none;
+  display: grid;
+  gap: 2rem;
+  margin: 2rem 0 0;
+  padding: 0;
+}
+
+.desktop-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  max-width: none;
+  margin: 0;
+  border: 2px solid #24121b;
+  background: var(--bg-raised);
+  box-shadow: 6px 6px 0 var(--shadow-hard);
+}
+
+.desktop-shot-link {
+  display: block;
+  border-bottom: 2px solid #24121b;
+  background: var(--code);
+}
+
+.desktop-shot {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.desktop-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.55rem;
+  padding: 1.25rem 1.25rem 1.4rem;
+}
+
+.desktop-copy p {
+  margin: 0;
+  max-width: none;
+}
+
+.desktop-role {
+  font-family: "Space Mono", ui-monospace, monospace;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+.desktop-name {
+  margin: 0;
+  font-size: clamp(1.55rem, 2.5vw, 2.15rem);
+}
+
+.desktop-name .card-name {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.desktop-name .card-icon {
+  width: 3rem;
+  height: 3rem;
+}
+
+.desktop-status {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.75rem;
+}
+
+.desktop-note {
+  padding: 0.6rem 0.75rem;
+  border-left: 4px solid #fff270;
+  background: var(--code);
+  font-size: 0.92rem;
+}
+
+.desktop-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.6rem 1.4rem;
+  margin-top: 0.35rem;
+}
+
+.desktop-links a:not(.show-more) {
+  font-family: "Space Mono", ui-monospace, monospace;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.desktop-links .show-more {
+  margin-top: 0;
+}
+
+.desktop-ways {
+  list-style: none;
+  display: grid;
+  gap: 1.25rem;
+  margin: 2.5rem 0 0;
+  padding: 0;
+}
+
+.desktop-ways li {
+  margin: 0;
+  max-width: none;
+  padding-top: 0.85rem;
+  border-top: 2px solid var(--fg);
+}
+
+.desktop-ways h3 {
+  margin: 0 0 0.35rem;
+  font-size: 1.1rem;
+}
+
+.desktop-ways p {
+  margin: 0;
+  color: var(--muted);
+}
+
+@media (min-width: 800px) {
+  .band-desktop {
+    padding-top: 4.5rem;
+  }
+
+  .desktop-pair {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 2.6rem;
+  }
+
+  .desktop-ways {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2.2rem;
+  }
+}
+
+/* The Apps filter: a chip per group. It appears only when the page's script can run it. */
+.app-filter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem;
+  margin: 1.6rem 0 0;
+}
+
+.app-filter[hidden],
+.app-group[hidden] {
+  display: none;
+}
+
+.app-filter-label {
+  margin-right: 0.2rem;
+  font-family: "Space Mono", ui-monospace, monospace;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0.4rem 0.85rem;
+  border: 2px solid #24121b;
+  border-radius: 0;
+  background: var(--bg);
+  box-shadow: 3px 3px 0 var(--shadow-hard);
+  color: var(--fg);
+  font: 700 0.85rem/1.1 "Space Mono", ui-monospace, monospace;
+  cursor: pointer;
+}
+
+.chip:hover {
+  background: color-mix(in srgb, #fff270 45%, var(--bg));
+}
+
+.chip[aria-pressed="true"] {
+  background: #fff270;
+  color: #24121b;
+  box-shadow: 1px 1px 0 var(--shadow-hard);
+  transform: translate(2px, 2px);
+}
+
+.chip-count {
+  min-width: 1.5rem;
+  padding: 0.1rem 0.3rem;
+  border: 1px solid currentColor;
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+@media (max-width: 479px) {
+  .app-filter {
+    gap: 0.55rem;
+  }
+
+  .chip {
+    padding: 0.35rem 0.6rem;
+    font-size: 0.78rem;
+  }
+}
+
+.app-group {
+  margin-top: clamp(3rem, 7vw, 5.5rem);
+}
+
+.app-group-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.3rem 0.9rem;
+  margin: 0;
+  padding-bottom: 0.6rem;
+  border-bottom: 2px solid var(--fg);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+}
+
+.app-group-count {
+  font-family: "Space Mono", ui-monospace, monospace;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+@media (forced-colors: active) {
+  .chip[aria-pressed="true"] {
+    outline: 3px solid Highlight;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .chip {
+    transition: transform 120ms ease, box-shadow 120ms ease, background-color 120ms ease;
+  }
+}
+
 .band-colors {
   padding: 2.5rem var(--frame) 2.75rem;
   background-color: #d53f8c;

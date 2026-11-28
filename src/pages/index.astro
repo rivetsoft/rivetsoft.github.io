@@ -3,7 +3,7 @@ import { Image } from "astro:assets";
 import Base from "../layouts/Base.astro";
 import ReleaseBlock from "../components/ReleaseBlock.astro";
 import StatusBadge from "../components/StatusBadge.astro";
-import { apps, byReleaseStatus, repoUrl, statusFor, statusLabel } from "../data/apps";
+import { appCategories, apps, byReleaseStatus, repoUrl, statusFor, statusLabel } from "../data/apps";
 import { catalog, releaseFor } from "../data/releases";
 import { screenshot, shotSizes } from "../data/shots";
 import Screenshot from "../components/Screenshot.astro";
@@ -18,7 +18,20 @@ const rows = apps.map((app) => {
 });
 
 const welcome = rows.find((row) => row.app.spotlight === "welcome");
-const appRows = byReleaseStatus(rows.filter((row) => !row.app.spotlight));
+const desktopRows = rows.filter((row) => row.app.spotlight === "desktop");
+const desktopRow = (slug: string) => desktopRows.find((row) => row.app.slug === slug);
+const shellRow = desktopRow("shell");
+const softcoreRow = desktopRow("softcore");
+// The Apps section's groups, in the order appCategories gives them. A group with nothing listed yet is left out.
+const appGroups = appCategories
+  .map((category) => ({
+    ...category,
+    rows: byReleaseStatus(rows.filter((row) => !row.app.spotlight && row.app.category === category.id)),
+  }))
+  .filter((group) => group.rows.length > 0);
+const appCount = appGroups.reduce((sum, group) => sum + group.rows.length, 0);
+const versionLine = (release: { version: string; prerelease: boolean; dateLabel: string }) =>
+  release.prerelease ? `${release.version} pre-release, ${release.dateLabel}` : `${release.version}, ${release.dateLabel}`;
 const heroAlt = "Rivet Shell over a wallpaper of Rivet at dusk, with a Rivet Files window in front";
 
 const description =
@@ -179,11 +192,96 @@ import islandArt from "../assets/mascot/island.svg?raw";
   </svg>
   </div>
 
+  {/* The desktop: Rivet Shell and Softcore, side by side, ahead of the apps. */}
+  <section class="band band-desktop reveal" aria-labelledby="desktop-title">
+    <div class="desktop-head">
+      <h2 id="desktop-title">Desktop</h2>
+      <p>
+        Rivet Shell draws the panel, dock, launcher and wallpaper. Softcore places your windows on a
+        strip you scroll through. They're made for each other, and each one works without the other.
+      </p>
+    </div>
+    <ul class="desktop-pair">
+      {
+        [
+          { row: shellRow, role: "The shell", docs: "docs/shell/" },
+          { row: softcoreRow, role: "The compositor", docs: "docs/softcore/" },
+        ].map(
+          ({ row, role, docs }) =>
+            row && (
+              <li class="desktop-card">
+                {row.shot && (
+                  <a class="desktop-shot-link" href={url(`${row.app.slug}/`)}>
+                    <Screenshot class="desktop-shot" img={row.shot} alt={row.app.cardAlt ?? `${row.app.name} screenshot`} sizes={shotSizes.pair} />
+                  </a>
+                )}
+                <div class="desktop-copy">
+                  <p class="desktop-role">{role}</p>
+                  <h3 class="desktop-name">
+                    <a class="card-name" href={url(`${row.app.slug}/`)}>
+                      {row.app.icon && <img class="card-icon" src={url(row.app.icon)} width="32" height="32" alt="" />}
+                      {row.app.name}
+                    </a>
+                  </h3>
+                  <p class="desktop-status">
+                    <span class={`badge badge-${row.status}`}>{statusLabel[row.status]}</span>
+                    {row.release && <span class="card-version">{versionLine(row.release)}</span>}
+                  </p>
+                  <p class="card-summary">{row.app.line}</p>
+                  {row.app.homePoints && (
+                    <ul class="show-points">
+                      {row.app.homePoints.map((point) => (
+                        <li>
+                          <Throwback name={point.icon} />
+                          <span>{point.text}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                  {row.app.slug === "softcore" && (
+                    <p class="desktop-note">An early pre-release that has run on one computer so far, so keep another session to log in to.</p>
+                  )}
+                  <p class="desktop-links">
+                    <a class="show-more" href={url(`${row.app.slug}/`)}>
+                      Go Deeper<span class="vh"> into {row.app.name}</span> <svg class="show-arrow" viewBox="0 0 24 16" aria-hidden="true">
+                        <path d="M1 8h20M14 1.5 21.5 8 14 14.5" />
+                      </svg>
+                    </a>
+                    <a href={url(docs)}>Docs<span class="vh"> for {row.app.name}</span></a>
+                    {row.release && (
+                      <a href={url(`${row.app.slug}/#download`)}>
+                        {row.release.prerelease ? `Download the ${row.release.version} pre-release` : `Download ${row.release.version}`}
+                        <span class="vh"> of {row.app.name}</span>
+                      </a>
+                    )}
+                  </p>
+                </div>
+              </li>
+            )
+        )
+      }
+    </ul>
+    <ul class="desktop-ways">
+      <li>
+        <h3>Together</h3>
+        <p>Rivet Shell shows Softcore's workspaces and windows, and both take their colors from your wallpaper.</p>
+      </li>
+      <li>
+        <h3>Rivet Shell on its own</h3>
+        <p>It runs on niri, Hyprland, Sway and other compositors with layer-shell. Not on GNOME.</p>
+      </li>
+      <li>
+        <h3>Softcore on its own</h3>
+        <p>Any panel or dock made for layer-shell compositors works on it.</p>
+      </li>
+    </ul>
+  </section>
+
   <section class="band band-apps reveal" aria-labelledby="apps-title">
     <div class="apps-head">
       <div class="apps-head-copy">
         <h2 id="apps-title">Apps</h2>
-        <p>Apps for files, notes, editing, terminals and FTP. You don't need Rivet Shell to run them.</p>
+        <p>Each app runs on its own, with or without Rivet Shell and Softcore.</p>
       </div>
       <div
         class="apps-rivet"
@@ -192,56 +290,157 @@ import islandArt from "../assets/mascot/island.svg?raw";
         set:html={namedArt}
       />
     </div>
-    <ul class="showcase">
+    {/* The filter shows one group at a time. Without the script it stays hidden and every group shows. */}
+    <div class="app-filter" role="group" aria-labelledby="app-filter-label" data-app-filter hidden>
+      <span class="app-filter-label" id="app-filter-label">Show</span>
+      <button type="button" class="chip" data-category="all" aria-pressed="true">
+        All <span class="chip-count">{appCount}</span>
+      </button>
       {
-        appRows.map(({ app, release, status, shot }) => (
-          <li class="show-row">
-            {shot && (
-              <a class="show-shot-link" href={url(`${app.slug}/`)}>
-                <Screenshot class="show-shot" img={shot} alt={app.cardAlt ?? `${app.name} screenshot`} sizes={shotSizes.row} />
-              </a>
-            )}
-            <div class="show-copy">
-              <span class={`badge badge-${status}`}>{statusLabel[status]}</span>
-              <a class="card-name" href={url(`${app.slug}/`)}>
-                {app.icon && (
-                  <img class="card-icon" src={url(app.icon)} width="32" height="32" alt="" />
-                )}
-                {app.name}
-              </a>
-              {release && (
-                <span class="card-version">
-                  {release.prerelease
-                    ? `${release.version} pre-release, ${release.dateLabel}`
-                    : `${release.version}, ${release.dateLabel}`}
-                </span>
-              )}
-              {app.homePoints ? (
-                <>
-                  <span class="card-summary">{app.line}</span>
-                  <ul class="show-points">
-                    {app.homePoints.map((point) => (
-                      <li>
-                        <Throwback name={point.icon} />
-                        <span>{point.text}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </>
-              ) : (
-                <span class="card-summary">{app.summary}</span>
-              )}
-              <a class="show-more" href={url(`${app.slug}/`)} aria-label={`Go deeper into ${app.name}`}>
-                Go Deeper <svg class="show-arrow" viewBox="0 0 24 16" aria-hidden="true">
-                  <path d="M1 8h20M14 1.5 21.5 8 14 14.5" />
-                </svg>
-              </a>
-            </div>
-          </li>
+        appGroups.map((group) => (
+          <button type="button" class="chip" data-category={group.id} data-label={group.label} aria-pressed="false">
+            {group.label} <span class="chip-count">{group.rows.length}</span>
+          </button>
         ))
       }
-    </ul>
+    </div>
+    <p class="vh" aria-live="polite" data-app-filter-status></p>
+    {
+      appGroups.map((group) => (
+        <section class="app-group" id={`apps-${group.id}`} data-category={group.id} aria-labelledby={`apps-${group.id}-title`}>
+          <h3 class="app-group-title" id={`apps-${group.id}-title`}>
+            {group.label} <span class="app-group-count">{group.rows.length === 1 ? "1 app" : `${group.rows.length} apps`}</span>
+          </h3>
+          <ul class="showcase">
+            {
+            group.rows.map(({ app, release, status, shot }) => (
+              <li class="show-row">
+                {shot && (
+                  <a class="show-shot-link" href={url(`${app.slug}/`)}>
+                    <Screenshot class="show-shot" img={shot} alt={app.cardAlt ?? `${app.name} screenshot`} sizes={shotSizes.row} />
+                  </a>
+                )}
+                <div class="show-copy">
+                  <span class={`badge badge-${status}`}>{statusLabel[status]}</span>
+                  <a class="card-name" href={url(`${app.slug}/`)}>
+                    {app.icon && (
+                      <img class="card-icon" src={url(app.icon)} width="32" height="32" alt="" />
+                    )}
+                    {app.name}
+                  </a>
+                  {release && (
+                    <span class="card-version">
+                      {versionLine(release)}
+                    </span>
+                  )}
+                  {app.homePoints ? (
+                    <>
+                      <span class="card-summary">{app.line}</span>
+                      <ul class="show-points">
+                        {app.homePoints.map((point) => (
+                          <li>
+                            <Throwback name={point.icon} />
+                            <span>{point.text}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </>
+                  ) : (
+                    <span class="card-summary">{app.summary}</span>
+                  )}
+                  <a class="show-more" href={url(`${app.slug}/`)} aria-label={`Go deeper into ${app.name}`}>
+                    Go Deeper <svg class="show-arrow" viewBox="0 0 24 16" aria-hidden="true">
+                      <path d="M1 8h20M14 1.5 21.5 8 14 14.5" />
+                    </svg>
+                  </a>
+                </div>
+              </li>
+            ))
+            }
+          </ul>
+        </section>
+      ))
+    }
   </section>
+
+  <script is:inline>
+    (function () {
+      var bar = document.querySelector("[data-app-filter]");
+      if (!bar) return;
+      var chips = bar.querySelectorAll("button[data-category]");
+      var groups = document.querySelectorAll(".app-group");
+      var status = document.querySelector("[data-app-filter-status]");
+      var ids = [];
+      for (var g = 0; g < groups.length; g++) ids.push(groups[g].getAttribute("data-category"));
+      function show(id, announce) {
+        if (ids.indexOf(id) < 0) id = "all";
+        var label = "";
+        var count = 0;
+        for (var c = 0; c < chips.length; c++) {
+          var on = chips[c].getAttribute("data-category") === id;
+          chips[c].setAttribute("aria-pressed", on ? "true" : "false");
+          if (on) label = chips[c].getAttribute("data-label") || "";
+        }
+        for (var n = 0; n < groups.length; n++) {
+          var hide = id !== "all" && groups[n].getAttribute("data-category") !== id;
+          groups[n].hidden = hide;
+          if (!hide) count += groups[n].querySelectorAll(".show-row").length;
+        }
+        if (announce && status) {
+          var apps = count === 1 ? "1 app" : count + " apps";
+          status.textContent = id === "all" ? "Showing all " + apps + "." : "Showing " + apps + " in " + label + ".";
+        }
+      }
+      // ?type=development opens the page with that group chosen, so a filtered list can be shared.
+      bar.addEventListener("click", function (e) {
+        var chip = e.target.closest("button[data-category]");
+        if (!chip) return;
+        var id = chip.getAttribute("data-category");
+        show(id, true);
+        var link = new URL(window.location.href);
+        if (id === "all") link.searchParams.delete("type");
+        else link.searchParams.set("type", id);
+        history.replaceState(null, "", link);
+      });
+      show(new URLSearchParams(window.location.search).get("type") || "all", false);
+      bar.hidden = false;
+    })();
+  </script>
+
+  {
+    welcome && (
+      <section class="band band-welcome reveal" aria-labelledby="welcome-title">
+        <div class="welcome-layout">
+          <div class="welcome-copy">
+            <p class="welcome-kicker">Get the apps</p>
+            <h2 id="welcome-title" class="spot-title">
+              {welcome.app.icon && (
+                <img src={url(welcome.app.icon)} width="40" height="40" alt="" />
+              )}
+              {welcome.app.name}
+            </h2>
+            <StatusBadge app={welcome.app} release={welcome.release} />
+            <p>
+              The way to install the set. It downloads each release, checks the sha256, and runs
+              install.sh, so the programs land in <code>~/.local/bin</code> and in your launcher. A
+              tray icon looks for newer versions after you sign in. Skip it if you would rather
+              install one app from its own release. Apps installed by a package are shown and left
+              alone.
+            </p>
+            <ReleaseBlock slug="welcome" heading="h3" />
+          </div>
+          {/* Rivet on his island stands where the screenshot was: the home page has plenty of
+              those, and the app's own page still shows it. */}
+          <div
+            class="welcome-rivet"
+            role="img"
+            aria-label="Rivet, the mascot, lies on a lounge chair on a tiny island in sunglasses, under a palm tree, sipping from a coconut. Shark fins circle in the water."
+            set:html={islandArt}
+          />
+        </div>
+      </section>
+    )
+  }
 
   <section class="band band-colors scheme reveal" aria-labelledby="scheme-title">
     <div class="colors-layout">
@@ -326,40 +525,6 @@ import islandArt from "../assets/mascot/island.svg?raw";
     </div>
     </div>
   </section>
-
-  {
-    welcome && (
-      <section class="band band-welcome reveal" aria-labelledby="welcome-title">
-        <div class="welcome-layout">
-          <div class="welcome-copy">
-            <h2 id="welcome-title" class="spot-title">
-              {welcome.app.icon && (
-                <img src={url(welcome.app.icon)} width="40" height="40" alt="" />
-              )}
-              {welcome.app.name}
-            </h2>
-            <StatusBadge app={welcome.app} release={welcome.release} />
-            <p>
-              The way to install the set. It downloads each release, checks the sha256, and runs
-              install.sh, so the programs land in <code>~/.local/bin</code> and in your launcher. A
-              tray icon looks for newer versions after you sign in. Skip it if you would rather
-              install one app from its own release. Apps installed by a package are shown and left
-              alone.
-            </p>
-            <ReleaseBlock slug="welcome" heading="h3" />
-          </div>
-          {/* Rivet on his island stands where the screenshot was: the home page has plenty of
-              those, and the app's own page still shows it. */}
-          <div
-            class="welcome-rivet"
-            role="img"
-            aria-label="Rivet, the mascot, lies on a lounge chair on a tiny island in sunglasses, under a palm tree, sipping from a coconut. Shark fins circle in the water."
-            set:html={islandArt}
-          />
-        </div>
-      </section>
-    )
-  }
 
   <section class="band band-cta reveal" aria-labelledby="cta-title">
     <svg class="cta-wave cta-wave-top" viewBox="-20 -28 1240 268" preserveAspectRatio="none" aria-hidden="true">
