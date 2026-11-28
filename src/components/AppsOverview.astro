@@ -1,0 +1,92 @@
+---
+// The docs' Apps overview: every app the site lists, in the home page's groups, each with its
+// icon, what it is, and links to its docs and its page. The desktop and Welcome have their own docs.
+import { appCategories, apps } from "../data/apps";
+import { url } from "../paths";
+
+const groups = appCategories
+  .map((category) => ({ ...category, apps: apps.filter((app) => app.category === category.id) }))
+  .filter((group) => group.apps.length > 0);
+---
+
+{
+  groups.map((group) => (
+    <>
+      <h2 id={`apps-${group.id}`}>{group.label}</h2>
+      <ul class="apps-overview">
+        {group.apps.map((app) => {
+          const icon = app.icon ?? app.homeIcon;
+          return (
+            <li>
+              {icon ? <img src={url(icon)} width="48" height="48" alt="" loading="lazy" /> : <span class="apps-overview-blank" />}
+              <div>
+                <h3>{app.name}</h3>
+                <p>{app.line}</p>
+                <p class="apps-overview-links">
+                  <a href={url(`docs/${app.slug}/`)}>Docs<span class="sr-only"> for {app.name}</span></a>
+                  <a href={url(`${app.slug}/`)}>App page<span class="sr-only"> for {app.name}</span></a>
+                </p>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+    </>
+  ))
+}
+
+<style>
+  .apps-overview {
+    display: grid;
+    gap: 1rem;
+    margin: 1rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  @media (min-width: 50rem) {
+    .apps-overview {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .apps-overview > li {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    margin: 0;
+    padding: 1rem;
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: var(--radius-card);
+    background: color-mix(in srgb, var(--sl-color-accent) 6%, transparent);
+  }
+
+  .apps-overview img,
+  .apps-overview-blank {
+    flex: none;
+    width: 3rem;
+    height: 3rem;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .apps-overview h3 {
+    margin: 0;
+    font-size: 1.15rem;
+  }
+
+  .apps-overview p {
+    margin: 0.25rem 0 0;
+    line-height: 1.5;
+  }
+
+  .apps-overview-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem 1.1rem;
+    font-family: var(--sl-font-mono);
+    font-size: 0.85rem;
+  }
+</style>
